@@ -13,11 +13,11 @@ export default {
       spacing: {
         "field-height": "46px",
         "field-width": "300px",
-        "button-padding-x": "20px",
-        "button-padding-y": "12px",
+        "button-padding-x": "22px",
+        "button-padding-y": "10px",
       },
       fontFamily: {
-        sans: ["Karla", "sans-serif"],
+        sans: ["Poppins", "sans-serif"],
         poppins: "Poppins",
       },
     },

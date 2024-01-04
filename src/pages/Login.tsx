@@ -1,14 +1,14 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { SignInField } from "./list/types";
-import { validationSchemaSignIn } from "../validation/validationSchema";
+import { LoginField } from "./list/types";
+import { validationSchemaLogin } from "../validation/validationSchema";
 import { Link } from "react-router-dom";
-const SignIn = () => {
+const Login = () => {
   const initialValues = {
     email: "",
     password: "",
   };
-  const onSubmit = (values: SignInField) => {
-    console.log(values);
+  const onSubmit = (values: LoginField) => {
+    //--------submit handler goes here--------
   };
 
   return (
@@ -16,16 +16,16 @@ const SignIn = () => {
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}
-        validationSchema={validationSchemaSignIn}
+        validationSchema={validationSchemaLogin}
       >
         <Form className="flex flex-col items-center h-max">
           <p className="font-bold text-[32px] text-dark leading-[32px]">
-            Sign In
+            Login
           </p>
           <div className="flex flex-col h-[130px] mt-[22px] mb-[-30px] w-full">
             <label
               htmlFor="email__field"
-              className="font-normal text-[20px] ml-[13px] "
+              className="font-normal text-[20px] text-dark"
             >
               Email
             </label>
@@ -38,20 +38,20 @@ const SignIn = () => {
               name="email"
             />
             <ErrorMessage
-              className="text-[14px] text-error"
+              className="text-[13px] text-error"
               component="div"
               name="email"
             />
           </div>
-          <div className="flex flex-col h-[130px] w-full">
+          <div className="flex flex-col h-[110px] w-full">
             <label
               htmlFor="password__field"
-              className="font-normal text-[20px] ml-[13px]"
+              className="font-normal text-[20px] text-dark"
             >
               Password
             </label>
             <Field
-              className="h-field-height w-full border-[2px] outline-none border-primary-light rounded-[10px] px-3 hover:border-accent focus:border-3 focus:border-blue-600"
+              className="h-field-height w-full border-[2px] outline-none border-primary-light rounded-[10px] px-3 hover:border-accent focus:border-3 focus:border-primary"
               type="password"
               placeholder="Password"
               id="password__field"
@@ -59,29 +59,29 @@ const SignIn = () => {
               name="password"
             />
             <ErrorMessage
-              className="text-[14px] text-error"
+              className="text-[13px] text-error leading-[12px] mt-[3px]"
               component="div"
               name="password"
             />
           </div>
           <button
             type="submit"
-            className="px-button-padding-x py-button-padding-y rounded-[3px]  mb-[18px] bg-accent font-semibold font-poppins"
+            className="px-button-padding-x py-button-padding-y rounded-[10px]  mb-[18px] bg-accent text-dark font-semibold font-poppins hover:outline hover:outline-2 hover:outline-primary"
           >
-            Sign in
+            login
           </button>
           <div className="flex gap-1 mt-[9px] text-text-dark">
-            <p className="text-[14px] font-normal">Don't have and account?</p>
+            <p className="text-[14px] font-normal">Don't have an account?</p>
             <Link
               to="/register"
-              className="text-[14px] font-semibold font-poppins"
+              className="text-[14px] font-semibold font-poppins hover:underline"
             >
-              Sign Up
+              Register
             </Link>
           </div>
           <Link
             to="/forgotpassword"
-            className="text-[14px] font-normal mt-[8px] text-primary"
+            className="text-[14px] font-normal mt-[8px] text-primary hover:underline"
           >
             Forgot Password?
           </Link>
@@ -91,4 +91,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default Login;

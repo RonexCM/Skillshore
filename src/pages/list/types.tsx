@@ -1,4 +1,4 @@
-export type SignInField = {
+export type LoginField = {
   email: string;
   password: string;
 };
