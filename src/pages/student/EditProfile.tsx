@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import userProfileValidationSchema from "../../validation/userProfileValidationSchema";
-import { editUserDetails, TUserDetails } from "../list/types";
+import { editedData, TUserDetails } from "../list/types";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { fetchData } from "../../services/mockApi";
 import { useNavigate } from "react-router-dom";
@@ -44,7 +44,7 @@ const EditProfile = () => {
           mail: "",
           phone: "",
         };
-  const handleSubmit = (values: editUserDetails) => {
+  const handleSubmit = (values: editedData) => {
     const apiUrl = `https://657ad086394ca9e4af12b9e0.mockapi.io/student/${userDetails[0].id}`;
 
     fetch(apiUrl)

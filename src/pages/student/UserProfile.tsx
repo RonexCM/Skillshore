@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchData } from "../../services/mockApi";
 import profile from "../../assets/images/profile.svg";
-
 import emailIcon from "../../assets/images/email.svg";
 import githubIcon from "../../assets/images/github.svg";
 import phoneIcon from "../../assets/images/phone.svg";

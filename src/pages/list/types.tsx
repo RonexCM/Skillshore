@@ -30,6 +30,12 @@ export type editUserDetails = {
   expected: string;
 };
 
+export type editedData = {
+  name: string;
+  description: string;
+  mail: string;
+  phone: string;
+};
 export type registrationFormType = {
   name: string;
   email: string;
