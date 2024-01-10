@@ -35,6 +35,12 @@ export type editedData = {
   description: string;
   mail: string;
   phone: string;
+  experience: string;
+  language: string;
+  available: string;
+  role: string;
+  salary: string;
+  expected: string;
 };
 export type registrationFormType = {
   name: string;

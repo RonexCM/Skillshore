@@ -24,7 +24,6 @@ const UserProfile = () => {
     getInfo();
   }, []);
 
-  //modal open function
   return (
     <div className="h-full px-[120px] py-8  ">
       <div className="flex justify-between mt-[50px]">
@@ -61,7 +60,7 @@ const UserProfile = () => {
                 <div className="flex flex-col w-[75%]">
                   <p>{user.name}</p>
                   <p>{user.description}</p>
-                  <div className="handles w-[200px]">
+                  <div className="handles w-[200px] ">
                     <div className="flex justify-start gap-4">
                       <img src={emailIcon} />
                       <p className="text-primary">{user.mail}</p>
@@ -106,10 +105,12 @@ const UserProfile = () => {
                 <div className="flex flex-col text-[14px]">
                   <p>{user.role}</p>
                   <p className="opacity-70">
+                    <span>Current :</span>
                     {user.salary}
                     <span>/year</span>
                   </p>
                   <p className="opacity-70">
+                    <span>Expected : &nbsp;</span>
                     {user.expected}
                     <span>/year</span>
                   </p>

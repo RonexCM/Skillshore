@@ -3,8 +3,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import UserLayout from "./layout/UserLayout";
 import HomePage from "./pages/student/HomePage";
 import UserProfile from "./pages/student/UserProfile";
-import RegistrationForm from "./pages/student/Registration";
 import EditProfile from "./pages/student/EditProfile";
+import RegistrationForm from "./pages/student/RegistrationForm";
 
 function App() {
   return (

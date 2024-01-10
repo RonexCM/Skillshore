@@ -7,7 +7,6 @@ const userProfileValidationSchema = Yup.object().shape({
     .email("Invalid email address")
     .required("Email is required"),
   phone: Yup.string().required("Phone number is required"),
-  // Add validation for other fields as needed
 });
 
 export default userProfileValidationSchema;

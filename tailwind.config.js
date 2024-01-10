@@ -16,7 +16,7 @@ export default {
         foot2: "#2F5CFE",
       },
       fontFamily: {
-        sans: ["Poppins", "sans-serif"],
+        poppins: ["Poppins", "sans-serif"],
       },
     },
   },
