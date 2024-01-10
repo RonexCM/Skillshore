@@ -24,9 +24,7 @@ const EditProfile = () => {
   const initialValues =
     userDetails.length > 0
       ? {
-          // resume: details.resume,
           name: userDetails[0].name,
-          // profile: details.profile,
           description: userDetails[0].description,
           mail: userDetails[0].mail,
           phone: userDetails[0].phone,
@@ -34,8 +32,9 @@ const EditProfile = () => {
           language: userDetails[0].language,
           available: userDetails[0].available,
           role: userDetails[0].role,
-          salary: userDetails[0].salary,
+          education: userDetails[0].education,
           expected: userDetails[0].expected,
+          skills: userDetails[0].skills,
         }
       : {
           name: "",
@@ -46,8 +45,9 @@ const EditProfile = () => {
           language: "",
           available: "",
           role: "",
-          salary: "",
           expected: "",
+          skills: [],
+          education: "",
         };
   const handleSubmit = (values: editedData) => {
     const apiUrl = `https://657ad086394ca9e4af12b9e0.mockapi.io/student/${userDetails[0].id}`;
@@ -88,15 +88,16 @@ const EditProfile = () => {
               : currentData.available,
           role:
             values.role !== currentData.role ? values.role : currentData.role,
-          salary:
-            values.salary !== currentData.salary
-              ? values.salary
-              : currentData.salary,
-          expected:
-            values.expected !== currentData.expected
-              ? values.expected
-              : currentData.expected,
+          skills:
+            values.skills !== currentData.skills
+              ? values.skills
+              : currentData.skills,
+          education:
+            values.education !== currentData.skieducationlls
+              ? values.education
+              : currentData.education,
         };
+        console.log(userDetails);
         return fetch(apiUrl, {
           method: "PUT",
           headers: {
@@ -166,8 +167,8 @@ const EditProfile = () => {
                 </div>
               </div>
 
-              <div className="flex flex-col text-[18px] w-[800px] mb-6 ">
-                <label htmlFor="description" className="mb-2">
+              <div className="flex flex-col text-[18px] w-[800px]  mb-6 ">
+                <label htmlFor="description" className="mb-2 ">
                   Description
                 </label>
                 <Field
@@ -238,6 +239,25 @@ const EditProfile = () => {
                 </div>
 
                 <div className="flex flex-col text-[18px] mb-4 w-full">
+                  <label htmlFor="education" className="mb-2">
+                    Education
+                  </label>
+                  <Field
+                    type="text"
+                    id="education"
+                    name="education"
+                    className="w-full text-[16px] h-12 bg-white rounded-lg border-2 border-indigo-100 px-3"
+                  />
+                  <ErrorMessage
+                    className="text-[13px] text-error mt-1"
+                    name="experience"
+                    component="div"
+                  />
+                </div>
+              </div>
+
+              <div className="flex flex-row gap-[20px] w-[800px]">
+                <div className="flex flex-col text-[18px] mb-4 w-full">
                   <label htmlFor="available" className="mb-2">
                     Availability
                   </label>
@@ -253,9 +273,7 @@ const EditProfile = () => {
                     component="div"
                   />
                 </div>
-              </div>
 
-              <div className="flex flex-row gap-[20px] w-[800px]">
                 <div className="flex flex-col text-[18px] mb-4 w-full">
                   <label htmlFor="role" className="mb-2">
                     Role
@@ -274,30 +292,13 @@ const EditProfile = () => {
                 </div>
 
                 <div className="flex flex-col text-[18px] mb-4 w-full">
-                  <label htmlFor="salary" className="mb-2">
-                    Salary
+                  <label htmlFor="skills" className="mb-2">
+                    Skills
                   </label>
                   <Field
                     type="text"
-                    id="salary"
-                    name="salary"
-                    className="w-full text-[16px] h-12 bg-white rounded-lg border-2 border-indigo-100 px-3"
-                  />
-                  <ErrorMessage
-                    className="text-[13px] text-error mt-1"
-                    name="experience"
-                    component="div"
-                  />
-                </div>
-
-                <div className="flex flex-col text-[18px] mb-4 w-full">
-                  <label htmlFor="expected" className="mb-2">
-                    Expected
-                  </label>
-                  <Field
-                    type="text"
-                    id="expected"
-                    name="expected"
+                    id="skills"
+                    name="skills"
                     className="w-full text-[16px] h-12 bg-white rounded-lg border-2 border-indigo-100 px-3"
                   />
                   <ErrorMessage

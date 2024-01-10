@@ -25,7 +25,7 @@ const UserProfile = () => {
   }, []);
 
   return (
-    <div className="h-full px-[120px] py-8  ">
+    <div className="h-full px-[120px] py-8 font-poppins ">
       <div className="flex justify-between mt-[50px]">
         <h1 className="text-primary leading-7 text-[20px] font-medium pb-[60px] ">
           Profile
@@ -91,6 +91,15 @@ const UserProfile = () => {
               </div>
             </div>
             <hr />
+
+            <div className="Profile grid grid-cols-2">
+              <p>Education</p>
+              <div className="flex justify-between">
+                <p>{user.education}</p>
+              </div>
+            </div>
+            <hr />
+
             <div className="Profile grid grid-cols-2">
               <p>Availablity</p>
               <div className="flex justify-between">
@@ -100,20 +109,14 @@ const UserProfile = () => {
             <hr />
 
             <div className="Profile grid grid-cols-2 text-[16px]">
-              <p>Roles and current earning</p>
-              <div className="flex justify-between">
-                <div className="flex flex-col text-[14px]">
-                  <p>{user.role}</p>
-                  <p className="opacity-70">
-                    <span>Current :</span>
-                    {user.salary}
-                    <span>/year</span>
-                  </p>
-                  <p className="opacity-70">
-                    <span>Expected : &nbsp;</span>
-                    {user.expected}
-                    <span>/year</span>
-                  </p>
+              <p>Skills</p>
+              <div className="flex justify-between ">
+                <div className="skills flex flex-col text-[14px]">
+                  <ul>
+                    {user.skills.map((skill, index) => (
+                      <li key={index}>{`${index + 1}.${skill}`}</li>
+                    ))}
+                  </ul>
                 </div>
               </div>
             </div>

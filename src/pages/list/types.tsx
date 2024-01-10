@@ -9,9 +9,10 @@ export type TUserDetails = {
   language: string;
   available: string;
   role: string;
-  salary: string;
   id: string;
   expected: string;
+  skills: string[];
+  education: string;
 };
 
 export type editUserDetails = {
@@ -39,8 +40,9 @@ export type editedData = {
   language: string;
   available: string;
   role: string;
-  salary: string;
+  education: string;
   expected: string;
+  skills: string[];
 };
 export type registrationFormType = {
   name: string;
