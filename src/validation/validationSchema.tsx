@@ -2,14 +2,12 @@ import * as Yup from "yup";
 
 export const validationSchemaLogin = Yup.object({
   email: Yup.string()
-    .required("email is required")
-    .max(255, "cannot have more than 255 characters")
-    .strict()
-    .lowercase("must be lowercase"),
+    .required("Email is required")
+    .max(255, "Cannot have more than 255 characters"),
   password: Yup.string()
     .matches(
       /^.*(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*]).*$/,
-      "must use atleast each of uppercase, lowercase, special character and number"
+      "Must use atleast each of uppercase, lowercase, special character and number"
     )
-    .required("password is required"),
+    .required("Password is required"),
 });
