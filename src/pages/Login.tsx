@@ -17,17 +17,22 @@ const Login = () => {
     password: "",
   };
   /**
-   *check if error is of type FetchBaseQueryError
+   *function to check if error is of type FetchBaseQueryError
    * @param error
    * @returns
    */
   const isFetchBaseQueryError = (error: any): error is FetchBaseQueryError => {
-    return "data" in error;
+    return error;
   };
+  /**
+   * function to check if response data is of type LoginResponseSuccess or LoginResponseError
+   * @param response
+   * @returns
+   */
   const isLoginResponseSuccess = (
     response: any
   ): response is LoginResponseSuccess => {
-    return "data" in response;
+    return response;
   };
   const [loginUser] = useGetUserCredentialsMutation();
   const [loginErrorMessage, setLoginErrorMessage] =
@@ -50,11 +55,13 @@ const Login = () => {
         // check if data key exists in responseFromLogin
         else if ("data" in responseFromLogin) {
           const responseData = responseFromLogin.data;
-
+          console.log(responseData);
           // check if responseFromLogin is of type LoginResponseSuccess
           if (isLoginResponseSuccess(responseData)) {
             const message = responseData.message;
             const token = responseData.token;
+            console.log(message);
+            console.log(token);
             if (token && message === "Successfully logged in") {
               document.cookie = `token=${token}`;
               //dispatch isLoggedIn as true to redux store then navigate to protected route /user
