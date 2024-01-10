@@ -5,3 +5,8 @@ export type LoginField = {
 export type LoginResponse = {
   accessToken: string;
 };
+
+export type AddQuizCategoryType = {
+  title: string;
+  slug: string;
+};

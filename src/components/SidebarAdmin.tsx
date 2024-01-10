@@ -6,7 +6,7 @@ const navElementsStyles =
 const SidebarAdmin = () => {
   return (
     <div className="basis-[100px] text-sm shrink-0 border-r-2 border-primary-light flex flex-col gap-1 py-6 px-4">
-      <NavLink to="." className={navElementsStyles}>
+      <NavLink to="." end className={navElementsStyles}>
         Quiz Category
       </NavLink>
       <NavLink to="quiz" className={navElementsStyles}>
@@ -19,7 +19,7 @@ const SidebarAdmin = () => {
         Question
       </NavLink>
       <NavLink to="report" className={navElementsStyles}>
-        report
+        Report
       </NavLink>
     </div>
   );
