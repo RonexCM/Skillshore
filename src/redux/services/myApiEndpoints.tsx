@@ -6,7 +6,7 @@ import {
 } from "../../pages/list/types";
 const myApiEndpoints = myApi.injectEndpoints({
   endpoints: (builder) => ({
-    getUserCredentials: builder.mutation<
+    loginUser: builder.mutation<
       LoginResponseSuccess | LoginResponseError,
       LoginField
     >({
@@ -19,4 +19,4 @@ const myApiEndpoints = myApi.injectEndpoints({
   }),
 });
 
-export const { useGetUserCredentialsMutation } = myApiEndpoints;
+export const { useLoginUserMutation } = myApiEndpoints;

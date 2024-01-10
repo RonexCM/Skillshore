@@ -13,4 +13,4 @@ export type LoginResponseError = {
   errors: { email: string[] };
 };
 
-export type LoginErrorMessageType = string[];
+export type LoginErrorMessageType = string;
