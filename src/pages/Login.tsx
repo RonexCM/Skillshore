@@ -1,6 +1,6 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { LoginErrorMessageType, LoginField } from "./list/types";
-import { validationSchemaLogin } from "../validation/validationSchema";
+import { LoginErrorMessageType, LoginField } from "./list/types/types";
+import { validationSchema } from "../validation/loginValidationSchema";
 import { Link } from "react-router-dom";
 import { useLoginUserMutation } from "../redux/services/myApiEndpoints";
 import { useNavigate } from "react-router-dom";
@@ -58,7 +58,7 @@ const Login = () => {
         <Formik
           initialValues={initialValues}
           onSubmit={onSubmit}
-          validationSchema={validationSchemaLogin}
+          validationSchema={validationSchema}
         >
           {({ setFieldValue }) => (
             <Form className="flex flex-col items-center h-max">

@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-export const validationSchemaLogin = Yup.object({
+export const validationSchema = Yup.object({
   email: Yup.string()
     .required("Email is required")
     .max(255, "Cannot have more than 255 characters"),
