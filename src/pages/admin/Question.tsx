@@ -1,6 +1,14 @@
 import { Link } from "react-router-dom";
 
+import { useState } from "react";
+import AdminAddQuestionModal from "./modals/AdminAddQuestionModal";
+
 const Question = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const handleModal = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <div className="basis-full flex flex-col  gap-20 p-5">
       <div className="flex justify-between p-5  ">
@@ -189,6 +197,7 @@ const Question = () => {
           </ul>
         </nav>
       </div>
+      <AdminAddQuestionModal handleModal={handleModal} isOpen={isOpen} />
     </div>
     // </div>
   );

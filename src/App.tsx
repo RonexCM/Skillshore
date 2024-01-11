@@ -19,7 +19,7 @@ const App = () => {
             {/* ----------register form goes here---------- */}
           </Route>
           <Route path="/admin" element={<AdminLayout />}>
-            <Route path="/admin" element={<AdminDashboardLayout />}>
+            <Route element={<AdminDashboardLayout />}>
               <Route index element={<QuizCategory />} />
               <Route path="addquizcategory" element={<AddQuizCategory />} />
               <Route path="quiz" element={<Quiz />} />
