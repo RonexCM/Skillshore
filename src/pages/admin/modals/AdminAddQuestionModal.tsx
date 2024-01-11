@@ -43,7 +43,7 @@ const AdminAddQuestionModal = ({ handleModal, isOpen }: Props) => {
     }
   };
 
-  const [totalOptions, setTotalOptions] = useState(4);
+  const [totalOptions, _] = useState(4);
   const [optionsArray, setOptionsArray] = useState(
     Array.from({ length: totalOptions }, (_) => "")
   );

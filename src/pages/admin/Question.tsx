@@ -1,20 +1,12 @@
 import { Link } from "react-router-dom";
 
-import { useState } from "react";
-import AdminAddQuestionModal from "./modals/AdminAddQuestionModal";
-
 const Question = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const handleModal = () => {
-    setIsOpen(!isOpen);
-  };
-
   return (
     <div className="basis-full flex flex-col  gap-20 p-5">
       <div className="flex justify-between p-5  ">
         <h1 className="text-primary font-medium text-2xl">Question</h1>
         <Link
-          to="addquizcategory"
+          to="addquestion"
           className="bg-dark text-primary-light rounded-lg text-xs font-medium py-button-padding-y px-button-padding-x outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"
         >
           +Add Question
@@ -197,9 +189,7 @@ const Question = () => {
           </ul>
         </nav>
       </div>
-      <AdminAddQuestionModal handleModal={handleModal} isOpen={isOpen} />
     </div>
-    // </div>
   );
 };
 

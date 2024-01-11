@@ -8,6 +8,7 @@ import Report from "./pages/admin/Report";
 import AdminDashboardLayout from "./layouts/AdminDashboardLayout";
 import InitialLayout from "./layouts/InitialLayout";
 import AddQuizCategory from "./pages/admin/modals/AddQuizCategory";
+import AddQuestion from "./pages/admin/modals/AddQuestion";
 
 const App = () => {
   return (
@@ -24,7 +25,10 @@ const App = () => {
               <Route path="addquizcategory" element={<AddQuizCategory />} />
               <Route path="quiz" element={<Quiz />} />
               <Route path="question-category" element={<QuestionCategory />} />
-              <Route path="question" element={<Question />} />
+              <Route path="question">
+                <Route index element={<Question />} />
+                <Route path="addquestion" element={<AddQuestion />} />
+              </Route>
               <Route path="report" element={<Report />} />
             </Route>
             {/* <Route path="profile" element={<} /> */}

@@ -6,7 +6,7 @@ const NavbarAdmin = () => {
     // make logout request
   };
   return (
-    <div className="h-[56px] w-full bg-[#03103F] text-white flex justify-between items-center px-5">
+    <div className="h-[56px] shrink-0 w-full bg-[#03103F] text-white flex justify-between items-center px-5">
       <NavLink to="/admin" className="flex gap-2">
         <img src={homeIcon} alt="home-icon" />
         <img src={skillshoreLogo} alt="skillshore-logo" />
