@@ -1,41 +1,39 @@
 import { Formik, Field, Form, ErrorMessage, FormikHelpers } from "formik";
 import registrationSchema from "../../validation/registrationValidationSchema";
 import penguinImage from "../../assets/images/penguin.svg";
-import { Link } from "react-router-dom";
-import { registrationFormType } from "../list/types";
-import { baseUrl } from "../../configs";
+import { Link, useNavigate } from "react-router-dom";
+import { registrationFormType } from "../list/types/types";
+import { useRegisterUserMutation } from "../../redux/services/myApiEndpoints";
+
 const RegistrationForm: React.FC = () => {
+  const [registerUser] = useRegisterUserMutation();
+
   const initialValues = {
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
   };
+
+  const navigate = useNavigate();
   const handleSubmit = (
     values: registrationFormType,
     { resetForm }: FormikHelpers<registrationFormType>
   ) => {
-    fetch(`${baseUrl}/register`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(values),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((responseData) => {
-        console.log("POST request successful:", responseData);
-        resetForm();
-      })
-      .catch((error) => {
-        console.error("Error during POST request:", error);
-      });
+    try {
+      const handleRegister = async () => {
+        const payload = await registerUser(values).unwrap();
+        console.log(`This is payload: ${payload}`);
+        console.log(payload);
+      };
+      handleRegister();
+      resetForm();
+      navigate("/");
+    } catch (error) {
+      console.log(`Error registering the user: ${error}`);
+    }
   };
+
   return (
     <div className="registrationPage flex justify-between  h-full p-5">
       {/* registration form goes here */}

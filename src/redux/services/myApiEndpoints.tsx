@@ -4,6 +4,7 @@ import {
   LoginResponseError,
   LoginField,
 } from "../../pages/list/types/types";
+import { registrationFormType } from "../../pages/list/types/types";
 const myApiEndpoints = myApi.injectEndpoints({
   endpoints: (builder) => ({
     loginUser: builder.mutation<
@@ -16,7 +17,14 @@ const myApiEndpoints = myApi.injectEndpoints({
         body,
       }),
     }),
+    registerUser: builder.mutation({
+      query: (body: registrationFormType) => ({
+        url: "/Registration",
+        method: "post",
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useLoginUserMutation } = myApiEndpoints;
+export const { useRegisterUserMutation, useLoginUserMutation } = myApiEndpoints;
