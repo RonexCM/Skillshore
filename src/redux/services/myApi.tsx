@@ -3,15 +3,16 @@ import { baseUrl } from "../../configs";
 import Cookies from "universal-cookie";
 
 const cookies = new Cookies();
-const token = cookies.get("token");
-
 const baseQuery = fetchBaseQuery({
   baseUrl,
   prepareHeaders: (headers) => {
+    const token = cookies.get("token");
     if (token) {
       headers.set("Authorization", `Bearer ${token}`);
     }
-    headers.set("content-type", "application/json");
+    headers.set("Content-type", "application/json");
+    headers.set("Accept", "application/json");
+    return headers;
   },
 });
 const baseQueryWithRetry = retry(baseQuery, { maxRetries: 0 });
