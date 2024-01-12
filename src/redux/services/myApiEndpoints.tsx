@@ -19,7 +19,7 @@ const myApiEndpoints = myApi.injectEndpoints({
     }),
     registerUser: builder.mutation({
       query: (body: registrationFormType) => ({
-        url: "/Registration",
+        url: "/register",
         method: "post",
         body,
       }),
