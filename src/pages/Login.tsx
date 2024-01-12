@@ -33,10 +33,9 @@ const Login = () => {
               cookies.set("token", token, { secure: true, httpOnly: true });
               //dispatch isLoggedIn as true to redux store then navigate to protected route /user
               navigate("/user");
+            } else {
+              setInvalidCredentialsMessage("Problem Loging in!");
             }
-          } else if ("errors" in responseData && "message" in responseData) {
-            const errorMessage = responseData.message;
-            setInvalidCredentialsMessage(errorMessage);
           }
         }
       } catch (error: any) {
@@ -44,8 +43,9 @@ const Login = () => {
           setInvalidCredentialsMessage(
             `${error.status}: ${error.originalStatus}!`
           );
-        } else {
-          console.log(error);
+        } else if ("status" in error && "data" in error) {
+          const errorMessage = error.data.message;
+          setInvalidCredentialsMessage(errorMessage);
         }
       }
     };
