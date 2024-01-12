@@ -42,7 +42,7 @@ export type editedData = {
   role: string;
   education: string;
   expected: string;
-  skills: string[];
+  skills: string;
 };
 export type registrationFormType = {
   name: string;

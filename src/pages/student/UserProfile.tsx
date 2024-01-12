@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 const UserProfile = () => {
   const navigate = useNavigate();
+  const profileStyle = " text-dark font-medium";
 
   const [detail, setDetail] = useState<TUserDetails[]>([]);
   useEffect(() => {
@@ -40,88 +41,92 @@ const UserProfile = () => {
         </button>
       </div>
       <div className="userDetails ">
-        {detail.map((user) => (
-          <div className="studentInfo flex flex-col gap-11">
-            <div className="Profile grid grid-cols-2">
-              <p>Upload your resume</p>
-              <div className="flex justify-between">
-                <p>{user.resume}</p>
+        {detail.length === 0 ? (
+          <h2>Loading...</h2>
+        ) : (
+          detail.map((user, id) => (
+            <div key={id} className="studentInfo flex flex-col gap-11">
+              <div className="Profile grid grid-cols-2">
+                <p className={profileStyle}>Upload your resume</p>
+                <div className="flex justify-between">
+                  <p className={profileStyle}>{user.resume}</p>
+                </div>
               </div>
-            </div>
 
-            <hr />
-            <div className="Profile grid grid-cols-2">
-              <p>Career Profile</p>
-              <div className="flex relative justify-between">
-                <img
-                  src={profile}
-                  className="h-[45px] translate-x-[-65px] absolute"
-                />
-                <div className="flex flex-col w-[75%]">
-                  <p>{user.name}</p>
-                  <p>{user.description}</p>
-                  <div className="handles w-[200px] ">
-                    <div className="flex justify-start gap-4">
-                      <img src={emailIcon} />
-                      <p className="text-primary">{user.mail}</p>
-                    </div>
-                    <div className="flex justify-start gap-4">
-                      <img src={phoneIcon} />
-                      <p className="text-primary">{user.phone}</p>
-                    </div>
-                    <div>
-                      <img src={linkedInIcon} />
-                    </div>
-                    <div>
-                      <img src={githubIcon} />
+              <hr />
+              <div className="Profile grid grid-cols-2">
+                <p className={profileStyle}>Career Profile</p>
+                <div className="flex relative justify-between">
+                  <img
+                    src={profile}
+                    className="h-[45px] translate-x-[-65px] absolute"
+                  />
+                  <div className="flex flex-col w-[75%]">
+                    <p className={profileStyle}>{user.name}</p>
+                    <p className="opacity-70">{user.description}</p>
+                    <div className="handles w-[200px] ">
+                      <div className="flex justify-start gap-4">
+                        <img src={emailIcon} />
+                        <p className="text-primary">{user.mail}</p>
+                      </div>
+                      <div className="flex justify-start gap-4">
+                        <img src={phoneIcon} />
+                        <p className="text-primary">{user.phone}</p>
+                      </div>
+                      <div>
+                        <img src={linkedInIcon} />
+                      </div>
+                      <div>
+                        <img src={githubIcon} />
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <hr />
+              <hr />
 
-            <div className="Profile grid grid-cols-2 text-[16px]">
-              <p>Overall Experience</p>
-              <div className="flex justify-between">
-                <div className="flex flex-col text-[14px]">
-                  <p>{user.experience}</p>
-                  <p className="opacity-70">{user.language}</p>
+              <div className="Profile grid grid-cols-2 text-[16px]">
+                <p className={profileStyle}>Overall Experience</p>
+                <div className="flex justify-between">
+                  <div className="flex flex-col text-[14px]">
+                    <p className={profileStyle}>{user.experience}</p>
+                    <p className="opacity-70">{user.language}</p>
+                  </div>
+                </div>
+              </div>
+              <hr />
+
+              <div className="Profile grid grid-cols-2">
+                <p className={profileStyle}>Education</p>
+                <div className="flex justify-between">
+                  <p className={profileStyle}>{user.education}</p>
+                </div>
+              </div>
+              <hr />
+
+              <div className="Profile grid grid-cols-2">
+                <p className={profileStyle}>Availablity</p>
+                <div className="flex justify-between">
+                  <p className={profileStyle}>{user.available}</p>
+                </div>
+              </div>
+              <hr />
+
+              <div className="Profile grid grid-cols-2 text-[16px]">
+                <p className={profileStyle}>Skills</p>
+                <div className="flex justify-between ">
+                  <div className="skills flex flex-col text-[14px]">
+                    <ul className={profileStyle}>
+                      {user.skills.map((skill, index) => (
+                        <li key={index}>{`${index + 1}.${skill}`}</li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
-            <hr />
-
-            <div className="Profile grid grid-cols-2">
-              <p>Education</p>
-              <div className="flex justify-between">
-                <p>{user.education}</p>
-              </div>
-            </div>
-            <hr />
-
-            <div className="Profile grid grid-cols-2">
-              <p>Availablity</p>
-              <div className="flex justify-between">
-                <p>{user.available}</p>
-              </div>
-            </div>
-            <hr />
-
-            <div className="Profile grid grid-cols-2 text-[16px]">
-              <p>Skills</p>
-              <div className="flex justify-between ">
-                <div className="skills flex flex-col text-[14px]">
-                  <ul>
-                    {user.skills.map((skill, index) => (
-                      <li key={index}>{`${index + 1}.${skill}`}</li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </div>
   );

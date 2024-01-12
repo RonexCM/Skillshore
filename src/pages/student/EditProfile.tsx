@@ -46,7 +46,7 @@ const EditProfile = () => {
           available: "",
           role: "",
           expected: "",
-          skills: [],
+          skills: "",
           education: "",
         };
   const handleSubmit = (values: editedData) => {
@@ -90,14 +90,13 @@ const EditProfile = () => {
             values.role !== currentData.role ? values.role : currentData.role,
           skills:
             values.skills !== currentData.skills
-              ? values.skills
+              ? values.skills.split(",")
               : currentData.skills,
           education:
             values.education !== currentData.skieducationlls
               ? values.education
               : currentData.education,
         };
-        console.log(userDetails);
         return fetch(apiUrl, {
           method: "PUT",
           headers: {
@@ -119,7 +118,9 @@ const EditProfile = () => {
   };
   return (
     <>
-      {userDetails.length > 0 && (
+      {userDetails.length === 0 ? (
+        <h2>Loading...</h2>
+      ) : (
         <div className=" bg-white p-9  w-full ">
           <Formik
             initialValues={initialValues}
@@ -175,7 +176,7 @@ const EditProfile = () => {
                   as="textarea"
                   id="description"
                   name="description"
-                  className="w-full h-12 bg-white text-[16px] rounded-lg border-2 border-indigo-100 px-3"
+                  className="w-full h-36 bg-white text-[16px] rounded-lg border-2 border-indigo-100 px-3"
                 />
                 <ErrorMessage
                   className="text-[13px] text-error mt-1"
@@ -290,7 +291,9 @@ const EditProfile = () => {
                     component="div"
                   />
                 </div>
+              </div>
 
+              <div className="flex flex-row gap-[20px] w-[800px]">
                 <div className="flex flex-col text-[18px] mb-4 w-full">
                   <label htmlFor="skills" className="mb-2">
                     Skills
@@ -308,6 +311,7 @@ const EditProfile = () => {
                   />
                 </div>
               </div>
+
               <div>
                 <button
                   type="submit"
