@@ -1,4 +1,47 @@
-# React + TypeScript + Vite
+# SkillShore
+
+Welcome to SkillShore. This is a web application that provides a platform to assess user's programming skills.
+
+## Installation
+
+To get started with the SkillShore Web App, follow these steps:
+
+# Clone the repository
+
+git clone https://github.com/kundankarna1994/skillshore-frontend.git
+
+# Navigate to the project folder
+
+cd skillshore-frontend
+
+# Install dependencies
+
+npm install
+
+# Start the development server
+
+npm run dev
+
+## Folder Structure
+
+The project follows the following folder structure:
+
+- **/src:** Contains the source code for the React app.
+  - **/assets:** Static assets used in the project, such as images.
+  - **/components:** Reusable React components.
+  - **/Configs:** Base url file.
+  - **/layouts:** Contains layouts components.
+  - **/pages:** React components representing individual pages of the application.
+    - **/list:** Folder that contains the types declarations used.
+      - **/interface:** Contains the interfaces used.
+      - **/types:** Contains the types used.
+    - **/student:** React components representing student pages.
+  - **/redux:** Folder contains redux components like store and api.
+    - **/services:** Contains api and endpoint.
+  - **/validation:** Contains form validation schemas implemented using Yup.
+  - **App.tsx:** Main component serving as the entry point for the React application.
+  - **index.css:** Styles specific to the main application component.
+  - **main.tsx:** Entry point for the React application where the `ReactDOM.render` function is used.
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
@@ -17,12 +60,12 @@ If you are developing a production application, we recommend updating the config
 export default {
   // other rules...
   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
+    ecmaVersion: "latest",
+    sourceType: "module",
+    project: ["./tsconfig.json", "./tsconfig.node.json"],
     tsconfigRootDir: __dirname,
   },
-}
+};
 ```
 
 - Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`

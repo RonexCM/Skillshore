@@ -134,7 +134,7 @@ const Login = () => {
           )}
         </Formik>
         <ToastContainer
-          toastClassName="top-16"
+          className="top-16"
           autoClose={10000}
           hideProgressBar
           newestOnTop
