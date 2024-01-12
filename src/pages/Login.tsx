@@ -17,6 +17,7 @@ const Login = () => {
   };
   const [loginUser] = useLoginUserMutation();
   const onSubmit = (values: LoginField) => {
+    toast.dismiss();
     // user clicks login, form is submitted, we get accessToken in response body and token is saved in cookie
     const handleLogin = async () => {
       try {
@@ -137,7 +138,7 @@ const Login = () => {
           autoClose={10000}
           hideProgressBar
           newestOnTop
-          limit={3}
+          limit={1}
         />
       </div>
     </>
