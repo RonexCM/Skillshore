@@ -35,7 +35,7 @@ const DeleteQuestionModal = ({ setShowModal }: Props) => {
             onClick={closeModal}
           />
 
-          <h1 className=" text-center">This action cannot be reverted!</h1>
+          <h1 className=" text-center">Delete action cannot be reverted!</h1>
           <button
             className=" bg-red-500 hover:bg-error text-red-100 p-2 rounded-md"
             onClick={handleDelete}
