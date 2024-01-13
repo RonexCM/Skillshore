@@ -1,6 +1,6 @@
 import { useState } from "react";
-import DeleteQuestionModal from "./modals/DeleteQuestionModal";
-import EditQuestionModal from "./modals/EditQuestionModal";
+import DeleteQuestionModal from "../modals/questionModals/DeleteQuestionModal";
+import EditQuestionModal from "../modals/questionModals/EditQuestionModal";
 
 type Props = {
   question: any;

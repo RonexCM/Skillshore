@@ -1,14 +1,14 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AdminLayout from "./layouts/AdminLayout";
-import QuestionCategory from "./pages/admin/QuestionCategory";
-import QuizCategory from "./pages/admin/QuizCategory";
-import Quiz from "./pages/admin/Quiz";
-import Question from "./pages/admin/Question";
+import QuestionCategory from "./pages/admin/questionCategory/QuestionCategory";
+import QuizCategory from "./pages/admin/quizCategory/QuizCategory";
+import Quiz from "./pages/admin/quiz/Quiz";
+import Question from "./pages/admin/question/Question";
 import Report from "./pages/admin/Report";
 import AdminDashboardLayout from "./layouts/AdminDashboardLayout";
 import InitialLayout from "./layouts/InitialLayout";
-import AddQuizCategory from "./pages/admin/modals/AddQuizCategory";
-import AddQuestion from "./pages/admin/modals/AddQuestion";
+import AddQuizCategory from "./pages/admin/quizCategory/AddQuizCategory";
+import AddQuestion from "./pages/admin/question/AddQuestion";
 
 const App = () => {
   return (
