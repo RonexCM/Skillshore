@@ -3,7 +3,7 @@ import SidebarAdmin from "../components/SidebarAdmin";
 
 const AdminDashboardLayout = () => {
   return (
-    <div className="flex h-full w-screen">
+    <div className="flex h-full">
       <SidebarAdmin />
       <Outlet />
     </div>
