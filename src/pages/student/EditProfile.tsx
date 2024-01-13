@@ -26,7 +26,6 @@ const EditProfile = () => {
       ? {
           name: userDetails[0].name,
           description: userDetails[0].description,
-          mail: userDetails[0].mail,
           phone: userDetails[0].phone,
           experience: userDetails[0].experience,
           language: userDetails[0].language,
@@ -39,7 +38,6 @@ const EditProfile = () => {
       : {
           name: "",
           description: "",
-          mail: "",
           phone: "",
           experience: "",
           language: "",
@@ -68,8 +66,7 @@ const EditProfile = () => {
             values.description !== currentData.description
               ? values.description
               : currentData.description,
-          mail:
-            values.mail !== currentData.mail ? values.mail : currentData.mail,
+
           phone:
             values.phone !== currentData.phone
               ? values.phone
@@ -145,24 +142,6 @@ const EditProfile = () => {
                   <ErrorMessage
                     className="text-[13px] text-error mt-1"
                     name="name"
-                    component="div"
-                  />
-                </div>
-
-                <div className="flex flex-col text-[18px] mb-4 w-full">
-                  <label htmlFor="mail" className="mb-2">
-                    Mail
-                  </label>
-                  <Field
-                    type="email"
-                    readOnly
-                    id="mail"
-                    name="mail"
-                    className="w-full h-12 text-[16px] bg-white rounded-lg border-2 border-indigo-100 px-3"
-                  />
-                  <ErrorMessage
-                    className="text-[13px] text-error mt-1"
-                    name="mail"
                     component="div"
                   />
                 </div>

@@ -1,36 +1,31 @@
 import homeIcon from "../assets/images/home.svg";
 import { NavLink } from "react-router-dom";
+import logoIcon from "../assets/images/SKILLSHORE.svg";
 
 const UserNavbar = () => {
   return (
-    <nav className="w-auto h-14 dark:bg-dark">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-2 p-4">
-        <nav className="flex items-center space-x-3 rtl:space-x-reverse">
-          <img src={homeIcon} className="h-6 w-6" alt="Flowbite Logo" />
-          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-nav1">
-            Skill<span className="dark:text-nav2 cursor-pointer">Shore</span>
-          </span>
-        </nav>
-
-        <div className="hidden w-full md:block md:w-auto">
-          <ul className="font-medium flex items-center justify-end space-x-2">
-            <li>
-              <NavLink
-                to="userProfile"
-                className=" py-2 px-3 mx-4 cursor-pointer rounded md:bg-transparent md:p-0 dark:text-white"
-              >
-                Profile
-              </NavLink>
-              <NavLink
-                to="/"
-                className=" py-2 px-3 rounded cursor-pointer md:bg-transparent md:p-0 dark:text-white"
-              >
-                Logout
-              </NavLink>
-            </li>
-          </ul>
-        </div>
+    <nav className="w-auto h-15 dark:bg-dark flex justify-between">
+      <div className="flex items-center gap-3 cursor-pointer">
+        <img src={homeIcon} className="h-6 w-6 ml-5" />
+        <img src={logoIcon} className="h-6 w-32" />
       </div>
+
+      <ul className="font-medium px-10 py-4 flex space-x-5 cursor-pointer justify-end">
+        <li>
+          <NavLink
+            to="userProfile"
+            className="cursor-pointer mr-5 dark:text-white font-bold"
+          >
+            Profile
+          </NavLink>
+          <NavLink
+            to="/"
+            className="cursor-pointer font-normal dark:text-white"
+          >
+            Logout
+          </NavLink>
+        </li>
+      </ul>
     </nav>
   );
 };
