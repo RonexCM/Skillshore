@@ -32,6 +32,7 @@ The project follows the following folder structure:
   - **/Configs:** Base url file.
   - **/layouts:** Contains layouts components.
   - **/pages:** React components representing individual pages of the application.
+    - **/admin:** React components representing admin pages.
     - **/list:** Folder that contains the types declarations used.
       - **/interface:** Contains the interfaces used.
       - **/types:** Contains the types used.
