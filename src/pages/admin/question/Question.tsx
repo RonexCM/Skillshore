@@ -1,21 +1,29 @@
 import { Link } from "react-router-dom";
 import Pagination from "../../../components/Pagination";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import ListOfQuestions from "./ListOfQuestions";
 import { IoSearch } from "react-icons/io5";
+import { useGetQuestionsQuery } from "../../../redux/services/myApiEndpoints";
+import { QuestionType } from "../../list/types";
+
 const Question = () => {
-  const [questions, setQuestions] = useState([]);
+  const { data } = useGetQuestionsQuery();
+  const [searchTerm, setSearchTerm] = useState("");
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [questionsPerPage, _] = useState(5);
+  const [questions, setQuestions] = useState<QuestionType[]>([]);
+  useEffect(() => {
+    if (data) {
+      setQuestions(data);
+    }
+  }, [data]);
   const indexOfLastQuestion = currentPageNumber * questionsPerPage;
   const indexOfFirstuestin = indexOfLastQuestion - questionsPerPage;
-  const [searchTerm, setSearchTerm] = useState("");
   const filterQuestionList = () => {
     if (!searchTerm) {
       return questions;
     }
-    return questions.filter((question: any) =>
+    return questions.filter((question: QuestionType) =>
       question.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
   };
@@ -28,25 +36,10 @@ const Question = () => {
     filteredQuestionList.length / questionsPerPage
   );
 
-  useEffect(() => {
-    const fetchQuestions = async () => {
-      try {
-        let res = await axios.get(
-          "https://6583382a4d1ee97c6bcdac4b.mockapi.io/questions"
-        );
-
-        setQuestions(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchQuestions();
-  }, []);
-
   return (
-    <div className="flex flex-col basis-full  gap-5 p-5 ">
+    <div className="flex flex-col basis-full  gap-5 p-5 px-8 ">
       <div className="flex justify-between pt-5 ">
-        <h1 className="text-primary font-medium text-2xl">Question</h1>
+        <h1 className="text-primary font-medium text-2xl pl-5">Question</h1>
         <Link
           to="addquestion"
           className="bg-dark text-primary-light rounded-lg text-xs font-medium py-button-padding-y px-button-padding-x outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"
@@ -72,14 +65,14 @@ const Question = () => {
           <table className="w-full text-sm text-left  text-dark">
             <thead className=" border-b-2 border-primary-light">
               <tr>
-                <th scope="col" className="p-2 w-[10%] ">
+                <th scope="col" className="p-2 w-[4%] ">
                   <div className="flex items-center pl-2 w-[20px] text-sm font-semibold">
                     S.N
                   </div>
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 w-[20%] text-sm font-semibold"
+                  className="px-6 py-3 w-[26%] text-sm font-semibold"
                 >
                   Title
                 </th>
@@ -111,7 +104,11 @@ const Question = () => {
 
             <tbody>
               {currentQuestions?.map((question: any, index) => (
-                <ListOfQuestions question={question} index={index} />
+                <ListOfQuestions
+                  key={index}
+                  question={question}
+                  index={index}
+                />
               ))}
             </tbody>
           </table>

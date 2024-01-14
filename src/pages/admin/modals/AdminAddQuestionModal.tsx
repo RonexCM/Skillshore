@@ -1,7 +1,7 @@
 import ReactDom from "react-dom";
 import { Field, Formik, Form, ErrorMessage } from "formik";
 
-import { ValidationSchemaAddQuestion } from "../../../validation/validationSchema";
+import { ValidationSchemaAddQuestion } from "../../../validation/validationSchemaAddQuestion";
 import { AddQuestionFieldType } from "../../list/types";
 import closeBtn from "../../../assets/close.svg";
 import { ChangeEvent, useState } from "react";

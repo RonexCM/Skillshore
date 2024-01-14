@@ -20,3 +20,10 @@ export type AddQuestionFieldType = {
   weightage: string;
   status: boolean;
 };
+
+export type QuestionType = {
+  title: string;
+  slug: string;
+  description: string;
+  weightage: string;
+};
