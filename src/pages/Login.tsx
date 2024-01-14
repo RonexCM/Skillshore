@@ -7,14 +7,15 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../redux/store";
+import { addUser } from "../redux/slice/loginSlice";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const cookies = new Cookies();
   const navigate = useNavigate();
-  const initialValues = {
-    email: "",
-    password: "",
-  };
+  const initialValues = useSelector((state: RootState) => state.loginReducer);
   const [loginUser] = useLoginUserMutation();
   const onSubmit = (values: LoginField) => {
     toast.dismiss();
@@ -29,6 +30,7 @@ const Login = () => {
             const token = responseData.token;
             if (token && successMessage === "Successfully logged in") {
               cookies.set("token", token, { secure: true, httpOnly: true });
+              dispatch(addUser(values));
               //dispatch isLoggedIn as true to redux store then navigate to protected route /user
               navigate("/user");
             } else {
