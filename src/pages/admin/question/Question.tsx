@@ -10,11 +10,23 @@ const Question = () => {
   const [questionsPerPage, _] = useState(5);
   const indexOfLastQuestion = currentPageNumber * questionsPerPage;
   const indexOfFirstuestin = indexOfLastQuestion - questionsPerPage;
-  const currentQuestions = questions.slice(
+  const [searchTerm, setSearchTerm] = useState("");
+  const filterQuestionList = () => {
+    if (!searchTerm) {
+      return questions;
+    }
+    return questions.filter((question: any) =>
+      question.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  };
+  const filteredQuestionList = filterQuestionList();
+  const currentQuestions = filteredQuestionList.slice(
     indexOfFirstuestin,
     indexOfLastQuestion
   );
-  const totalNumberOfPages = Math.ceil(questions.length / questionsPerPage);
+  const totalNumberOfPages = Math.ceil(
+    filteredQuestionList.length / questionsPerPage
+  );
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -30,16 +42,7 @@ const Question = () => {
     };
     fetchQuestions();
   }, []);
-  const [searchTerm, setSearchTerm] = useState("");
-  const filterQuestionList = () => {
-    if (!searchTerm) {
-      return currentQuestions;
-    }
-    return currentQuestions.filter((question: any) =>
-      question.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  };
-  const filteredQuestionList = filterQuestionList();
+
   return (
     <div className="flex flex-col basis-full  gap-5 p-5 ">
       <div className="flex justify-between pt-5 ">
@@ -107,7 +110,7 @@ const Question = () => {
             </thead>
 
             <tbody>
-              {filteredQuestionList?.map((question: any, index) => (
+              {currentQuestions?.map((question: any, index) => (
                 <ListOfQuestions question={question} index={index} />
               ))}
             </tbody>
