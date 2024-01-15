@@ -18,23 +18,27 @@ const Question = () => {
     }
   }, [data]);
   const indexOfLastQuestion = currentPageNumber * questionsPerPage;
-  const indexOfFirstuestin = indexOfLastQuestion - questionsPerPage;
+  const indexOfFirstQuestion = indexOfLastQuestion - questionsPerPage;
   const filterQuestionList = () => {
-    if (!searchTerm) {
-      return questions;
+    try {
+      if (!searchTerm) {
+        return questions;
+      }
+      return questions.filter((question: QuestionType) =>
+        question.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    } catch (error) {
+      console.log(error);
     }
-    return questions.filter((question: QuestionType) =>
-      question.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
   };
   const filteredQuestionList = filterQuestionList();
-  const currentQuestions = filteredQuestionList.slice(
-    indexOfFirstuestin,
+  const currentQuestions = filteredQuestionList?.slice(
+    indexOfFirstQuestion,
     indexOfLastQuestion
   );
-  const totalNumberOfPages = Math.ceil(
-    filteredQuestionList.length / questionsPerPage
-  );
+  const totalNumberOfPages = filteredQuestionList
+    ? Math.ceil(filteredQuestionList.length / questionsPerPage)
+    : 1;
 
   return (
     <div className="flex flex-col basis-full  gap-5 p-5 px-8 ">
@@ -55,7 +59,10 @@ const Question = () => {
               type="text"
               id="table-search"
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => {
+                setSearchTerm(e.target.value);
+                setCurrentPageNumber(1);
+              }}
               className="block p-2 my-3 ps-10  text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:outline focus:outline-2 focus:outline-blue-500"
               placeholder="Search Question"
             ></input>
