@@ -1,6 +1,6 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 
-import { ValidationSchemaAddQuestion } from "../../../validations/validationSchema";
+import { ValidationSchemaAddQuestion } from "../../../validation/validationSchema";
 import { AddQuizCategoryType } from "../../list/types";
 import { Link } from "react-router-dom";
 
