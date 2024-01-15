@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const QuizCategory = () => {
   return (
-    <div className="basis-full flex flex-col  gap-20 p-5">
+    <div className="basis-full flex flex-col  gap-5 p-5">
       <div className="flex justify-between p-5  ">
         <h1 className="text-primary font-medium text-2xl">Quiz Category</h1>
         <Link
@@ -13,7 +13,7 @@ const QuizCategory = () => {
         </Link>
       </div>
       <div className="  outline outline-2 outline-primary-light w-full rounded-xl text-center">
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg text-primary-light">
+        <div className="relative overflow-x-auto shadow-md sm:rounded-lg text-primary-light p-4">
           <label htmlFor="table-search" className="sr-only items-end">
             Search
           </label>
@@ -107,6 +107,74 @@ const QuizCategory = () => {
               </th>
               <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-primary-light">
                 backend
+              </td>
+              {/* <td className="px-6 py-4"></td>
+              <td className="px-6 py-4"></td> */}
+              <td className="px-6 py-4">
+                <a
+                  href="#"
+                  className="font-medium  text-blue-600 dark:text-blue-500 hover:underline"
+                >
+                  <span className="material-symbols-outlined  text-blue-600 dark:text-blue-500 hover:underline ">
+                    Edit
+                  </span>
+                </a>
+                <a
+                  href="#"
+                  className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                >
+                  <span className="material-symbols-outlined text-red-600 dark:text-red-500 hover:underline ps-2 ">
+                    Delete
+                  </span>
+                </a>
+              </td>
+            </tr>
+            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+              <td className="p-4 ps-6">
+                <div className="flex items-end">3</div>
+              </td>
+              <th
+                scope="row"
+                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-primary-light"
+              >
+                QA
+              </th>
+              <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-primary-light">
+                qa
+              </td>
+              {/* <td className="px-6 py-4"></td>
+              <td className="px-6 py-4"></td> */}
+              <td className="px-6 py-4">
+                <a
+                  href="#"
+                  className="font-medium  text-blue-600 dark:text-blue-500 hover:underline"
+                >
+                  <span className="material-symbols-outlined  text-blue-600 dark:text-blue-500 hover:underline ">
+                    Edit
+                  </span>
+                </a>
+                <a
+                  href="#"
+                  className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                >
+                  <span className="material-symbols-outlined text-red-600 dark:text-red-500 hover:underline ps-2 ">
+                    Delete
+                  </span>
+                </a>
+              </td>
+            </tr>
+            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+              <td className="p-4 ps-6">
+                <div className="flex items-end">4</div>
+              </td>
+              <th
+                scope="row"
+                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-primary-light"
+              >
+                SoftSkill
+              </th>
+              <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-primary-light">
+                softskill
               </td>
               {/* <td className="px-6 py-4"></td>
               <td className="px-6 py-4"></td> */}

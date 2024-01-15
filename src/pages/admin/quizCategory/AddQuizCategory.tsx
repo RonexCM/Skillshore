@@ -27,8 +27,8 @@ const AddQuizCategory = () => {
         onSubmit={onSubmit}
         validationSchema={ValidationSchemaAddQuestion}
       >
-        <div className=" items-end justify-center ms-[470px]">
-          <Form className="flex flex-col gap-1 justify-center items-center w-[400px] h-[300px] rounded-lg outline outline-2 outline-primary-light ">
+        <div className=" items-end justify-center p-4">
+          <Form className="flex flex-col gap-1 justify-center items-center w-full h-[300px] rounded-lg outline outline-2 outline-primary-light ">
             {/* title input field and error message */}
             <div className="flex flex-col gap-1 w-[300px] ">
               <div className=" flex flex-col  h-[80px]">

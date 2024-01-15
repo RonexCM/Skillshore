@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const QuestionCategory = () => {
   return (
-    <div className="basis-full flex flex-col  gap-20 p-5">
+    <div className="basis-full flex flex-col  gap-5 p-5">
       <div className="flex justify-between p-5  ">
         <h1 className="text-primary font-medium text-2xl">Question Category</h1>
         <Link
@@ -13,7 +13,7 @@ const QuestionCategory = () => {
         </Link>
       </div>
       <div className="  outline outline-2 outline-primary-light w-full rounded-xl text-center">
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg text-primary-light">
+        <div className="p-4 relative overflow-x-auto shadow-md sm:rounded-lg text-primary-light">
           <label htmlFor="table-search" className="sr-only items-end">
             Search
           </label>
