@@ -72,9 +72,9 @@ const AddQuestion = () => {
     </div>
   ));
 
-  //   ----------mapping options to option tag for dropdown----------
+  //   ----------mapping options to option tag for answer dropdown----------
   const answerDropdown = optionsArray.map((one, index) => (
-    <option key={index} value={`option-${index + 1}`}>
+    <option className="" key={index} value={`option-${index + 1}`}>
       {one}
     </option>
   ));
