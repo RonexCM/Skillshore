@@ -20,7 +20,9 @@ const ListOfQuestions = ({ question, index }: Props) => {
     <>
       <tr key={question.id} className="bg-white border-b hover:bg-gray-50">
         <td className="p-4 pl-6">
-          <div className="flex items-center">{index + 1}</div>
+          <div className="flex items-center whitespace-nowrap">
+            {question.id}
+          </div>
         </td>
         <th
           scope="row"
@@ -28,10 +30,16 @@ const ListOfQuestions = ({ question, index }: Props) => {
         >
           {question.title}
         </th>
-        <td className="px-6 py-3 font-normal text-gray-900 whitespace-nowrap ">
+        <th
+          scope="row"
+          className=" px-6 py-3 font-normal  text-gray-900 whitespace-normal break-all"
+        >
+          {question.answer}
+        </th>
+        <td className="px-6 py-3 font-normal text-gray-900 whitespace-normal break-all">
           {question.slug}
         </td>
-        <td className="px-6 my-3 font-normal text-gray-900 break-all  line-clamp-2 ">
+        <td className="px-6 my-3 font-normal text-gray-900 break-all  line-clamp-1 ">
           {question.description}
         </td>
 

@@ -10,7 +10,7 @@ const Question = () => {
   const { data } = useGetQuestionsQuery();
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
-  const [questionsPerPage, _] = useState(5);
+  const [questionsPerPage, _] = useState(10);
   const [questions, setQuestions] = useState<QuestionType[]>([]);
   useEffect(() => {
     if (data) {
@@ -72,16 +72,22 @@ const Question = () => {
           <table className="w-full text-sm text-left  text-dark">
             <thead className=" border-b-2 border-primary-light">
               <tr>
-                <th scope="col" className="p-2 w-[4%] ">
+                <th scope="col" className="p-2 w-[2%] ">
                   <div className="flex items-center pl-2 w-[20px] text-sm font-semibold">
                     S.N
                   </div>
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 w-[26%] text-sm font-semibold"
+                  className="px-6 py-3 w-[23%] text-sm font-semibold"
                 >
                   Title
+                </th>
+                <th
+                  scope="col"
+                  className="px-6 py-3 w-[18%] text-sm font-semibold"
+                >
+                  Answer
                 </th>
                 <th
                   scope="col"
@@ -91,7 +97,7 @@ const Question = () => {
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 w-[35%] text-sm font-semibold"
+                  className="px-6 py-3 w-[22%] text-sm font-semibold"
                 >
                   Description
                 </th>
