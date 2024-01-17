@@ -67,7 +67,7 @@ const AddQuestion = () => {
 
   return (
     <div className="w-full p-5 px-8 ">
-      <div className="flex flex-col justify-start items-left p-2 ">
+      <div className="flex flex-col justify-start items-left p-2 mb-2">
         <div className="text-primary p-1 pl-0  pr-3 rounded-lg text-opacity-80 text-sm mb-5 flex items-center gap-1 self-start ">
           <div
             className="flex gap-2  cursor-pointer"
@@ -77,11 +77,9 @@ const AddQuestion = () => {
             <span className="hover:underline">Questions</span>
           </div>
           <MdOutlineKeyboardArrowRight className="text-xl" />
-          <span className="text-[#82a6ef]"> New Questions</span>
+          <span className="text-[#82a6ef]"> New Question</span>
         </div>
-        <h1 className="text-primary font-medium text-2xl  ">
-          Add New Question
-        </h1>
+        <h1 className="text-primary font-medium text-2xl">Add New Question</h1>
       </div>
 
       <div className="border-2 p-7  border-primary-light rounded-xl w-full  ">
@@ -151,8 +149,8 @@ const AddQuestion = () => {
                   >
                     <option value="">select weightage...</option>
                     <option value="5">5</option>
-                    <option value="15">15</option>
-                    <option value="20">20</option>
+                    <option value="15">10</option>
+                    <option value="20">15</option>
                   </Field>
                 </div>
                 <ErrorMessage

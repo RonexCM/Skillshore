@@ -4,12 +4,12 @@ import EditQuestionCategoryModal from "../../../pages/admin/modals/questionCateg
 
 type Props = {
   questionCategory: any;
-  index: number;
 };
 
-const ListOfQuestionCategorys = ({ questionCategory, index }: Props) => {
+const ListOfQuestionCategorys = ({ questionCategory }: Props) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+
   const handleEdit = () => {
     setShowEditModal(true);
   };
@@ -23,7 +23,7 @@ const ListOfQuestionCategorys = ({ questionCategory, index }: Props) => {
         className="bg-white border-b hover:bg-gray-50"
       >
         <td className="p-4 pl-6">
-          <div className="flex items-center">{index + 1}</div>
+          <div className="flex items-center">{questionCategory.id + 1}</div>
         </td>
         <th
           scope="row"
@@ -64,7 +64,10 @@ const ListOfQuestionCategorys = ({ questionCategory, index }: Props) => {
         </td>
       </tr>
       {showDeleteModal && (
-        <DeleteQuestionCategoryModal setShowModal={setShowDeleteModal} />
+        <DeleteQuestionCategoryModal
+          setShowModal={setShowDeleteModal}
+          id={questionCategory.id}
+        />
       )}
       {showEditModal && (
         <EditQuestionCategoryModal setShowModal={setShowEditModal} />

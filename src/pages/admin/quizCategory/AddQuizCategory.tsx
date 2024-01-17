@@ -3,8 +3,8 @@ import { Field, Formik, Form, ErrorMessage } from "formik";
 import { ValidationSchemaAddQuizCategory } from "../../../validation/validationSchemaAddQuizCategory";
 import { AddQuizCategoryFieldType } from "../../list/types/types";
 import { useNavigate } from "react-router-dom";
-import { FaHome } from "react-icons/fa";
-import { SlArrowRight } from "react-icons/sl";
+import { AiFillHome } from "react-icons/ai";
+import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 
 const AddQuizCategory = () => {
   //   ----------formik objects----------
@@ -25,30 +25,31 @@ const AddQuizCategory = () => {
   const navigate = useNavigate();
   return (
     <div className="w-full p-5 px-8 ">
-      <div className="flex flex-col justify-start items-start  pb-0 ">
-        <div
-          className="text-primary text-opacity-80 text-sm mb-5 cursor-pointer flex items-center gap-2"
-          onClick={() => navigate(-1)}
-        >
-          <FaHome />
-          <span>Admin </span>
-          <SlArrowRight />
-          <span> Quiz Category </span>
+      <div className="flex flex-col justify-start items-left p-2 mb-2">
+        <div className="text-primary p-1 pl-0  pr-3 rounded-lg text-opacity-80 text-sm mb-5 flex items-center gap-1 self-start ">
+          <div
+            className="flex gap-2  cursor-pointer"
+            onClick={() => navigate(-1)}
+          >
+            <AiFillHome className="text-lg" />
+            <span className="hover:underline">Quiz Category</span>
+          </div>
+          <MdOutlineKeyboardArrowRight className="text-xl" />
+          <span className="text-[#82a6ef]"> New Quiz Category</span>
         </div>
+        <h1 className="text-primary font-medium text-2xl">New Quiz Category</h1>
       </div>
-      <h1 className="text-primary font-medium p-3 text-2xl">Add New Quiz</h1>
-
-      <div className="border-2 p-5 border-primary-light rounded-xl w-[600px] form-container relative">
+      <div className="border-2 p-5 border-primary-light rounded-xl form-container relative">
         <Formik
           initialValues={initialValues}
           onSubmit={onSubmit}
           validationSchema={ValidationSchemaAddQuizCategory}
         >
           <Form className="flex flex-col gap-6">
-            <div className="flex flex-col gap-6">
+            <div className="grid grid-cols-2 gap-6">
               {/* title input field and error message */}
-              <div className="flex basis-[60%] flex-col gap-6">
-                <div className="">
+              <div className="flex flex-col gap-6">
+                <div>
                   <div className="flex flex-col gap-1 ">
                     <label htmlFor="title" className="text-md text-dark ps-1">
                       Title
@@ -58,18 +59,18 @@ const AddQuizCategory = () => {
                       id="title"
                       autoComplete="current-title"
                       name="title"
-                      className="p-1 ps-3 rounded-lg outline outline-2 outline-primary-light focus:outline-primary w-full"
+                      className="p-1 px-2 rounded-lg w-full  border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary"
                     />
                   </div>
                   <ErrorMessage
-                    className=" text-red-500 text-xs ml-[52px] absolute pt-2 ps-8"
+                    className=" text-red-500 text-xs  absolute mt-1"
                     component="div"
                     name="title"
                   />
                 </div>
               </div>
               {/* slug input field and error message */}
-              <div className="flex basis-[40%] flex-col gap-3">
+              <div className="flex  flex-col gap-3">
                 <div>
                   <div className="flex flex-col gap-1">
                     <label htmlFor="slug" className="text-md text-dark ps-1">
@@ -80,11 +81,11 @@ const AddQuizCategory = () => {
                       id="slug"
                       autoComplete="current-slug"
                       name="slug"
-                      className="p-1 ps-3 rounded-lg outline outline-2 outline-primary-light focus:outline-primary w-full"
+                      className="p-1 px-2 rounded-lg w-full  border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary"
                     />
                   </div>
                   <ErrorMessage
-                    className="text-red-500 text-xs ml-[54px] absolute pt-2 ps-8"
+                    className="text-red-500 text-xs absolute mt-1"
                     component="div"
                     name="slug"
                   />
@@ -96,7 +97,7 @@ const AddQuizCategory = () => {
             {/* submit button */}
             <button
               type="submit"
-              className="bg-dark text-primary-light rounded-lg text-md font-medium py-button-padding-y px-button-padding-x outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark mt-9 w-[150px]"
+              className="bg-dark text-primary-light rounded-lg text-md font-medium py-button-padding-y px-button-padding-x outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark mt-3 w-[150px]"
             >
               Add
             </button>

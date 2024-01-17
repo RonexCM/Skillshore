@@ -104,7 +104,6 @@ const QuestionCategory = () => {
                 <ListOfQuestionCategorys
                   key={index}
                   questionCategory={questionCategory}
-                  index={index}
                 />
               ))}
             </tbody>

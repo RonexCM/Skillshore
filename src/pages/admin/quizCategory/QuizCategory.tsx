@@ -74,19 +74,19 @@ const QuizCategory = () => {
           <table className="w-full text-sm text-left  text-dark">
             <thead className="border-b-2 border-primary-light h-16">
               <tr>
-                <th scope="col" className="p-2 w-[20%] ">
+                <th scope="col" className="p-2 w-[25%] ">
                   <div className="flex items-center pl-2 w-[20px] text-sm font-semibold">
                     S.N
                   </div>
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 w-[60%] text-sm font-semibold"
+                  className="px-6 py-3 w-[65%] text-sm font-semibold"
                 >
                   Title
                 </th>
 
-                <th scope="col" className="px-6 py-3 w-[20%] font-semibold">
+                <th scope="col" className="px-6 py-3 w-[10%] font-semibold">
                   Action
                 </th>
               </tr>

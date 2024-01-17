@@ -21,5 +21,10 @@ export const myApi = createApi({
   reducerPath: "myApi",
   baseQuery: baseQueryWithRetry,
   endpoints: () => ({}),
-  tagTypes: ["FetchQuestions", "FetchQuizCategories"],
+  tagTypes: [
+    "FetchQuestions",
+    "FetchQuestionCategories",
+    "FetchQuizzes",
+    "FetchQuizCategories",
+  ],
 });

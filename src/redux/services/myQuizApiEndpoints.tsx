@@ -4,22 +4,26 @@ import { myApi } from "./myApi";
 const myQuizApiEndpoints = myApi.injectEndpoints({
   endpoints: (builder) => ({
     getQuiz: builder.query<QuizType[], void>({
-      query: () => "/Quiz",
+      query: () => "/quizzes",
+      providesTags: ["FetchQuizzes"],
     }),
     addQuiz: builder.mutation<QuizType, QuizType>({
       query: (body: QuizType) => ({
-        url: "/Quiz",
+        url: "/quizzes",
         method: "POST",
         body,
       }),
+      invalidatesTags: ["FetchQuizzes"],
     }),
-    deleteQuiz: builder.mutation<void, any>({
-      query: ({ id }) => ({
-        url: `/Quiz/${id}`,
-        method: "POST",
+    deleteQuiz: builder.mutation<void, string>({
+      query: (id) => ({
+        url: `/quizzes/${id}`,
+        method: "DELETE",
       }),
+      invalidatesTags: ["FetchQuizzes"],
     }),
   }),
 });
 
-export const { useGetQuizQuery, useAddQuizMutation } = myQuizApiEndpoints;
+export const { useGetQuizQuery, useAddQuizMutation, useDeleteQuizMutation } =
+  myQuizApiEndpoints;

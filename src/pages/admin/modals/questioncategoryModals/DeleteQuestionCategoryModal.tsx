@@ -1,11 +1,17 @@
 import { useEffect } from "react";
 import ReactDom from "react-dom";
 import { IoClose } from "react-icons/io5";
+import { useDeleteQuestionCategoryMutation } from "../../../../redux/services/myQuestionCategoryApiEndpoints";
+import { BiMessageError } from "react-icons/bi";
+
 type Props = {
   setShowModal: (a: boolean) => void;
+  id: string;
 };
 
-const DeleteQuestionModal = ({ setShowModal }: Props) => {
+const DeleteQuestionModal = ({ setShowModal, id }: Props) => {
+  const [deleteQuestionCategory] = useDeleteQuestionCategoryMutation();
+
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
@@ -13,12 +19,15 @@ const DeleteQuestionModal = ({ setShowModal }: Props) => {
     };
   }, []);
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     //hit delete api
+    await deleteQuestionCategory(id);
     setShowModal(false);
   };
 
-  const closeModal = (e: React.MouseEvent<HTMLDivElement | SVGElement>) => {
+  const closeModal = (
+    e: React.MouseEvent<HTMLDivElement | SVGElement | HTMLButtonElement>
+  ) => {
     if (e.target === e.currentTarget) {
       setShowModal(false);
     }
@@ -29,19 +38,32 @@ const DeleteQuestionModal = ({ setShowModal }: Props) => {
         onClick={closeModal}
         className="modal-background z-40 fixed inset-0 bg-dark bg-opacity-[40%] flex justify-center items-center"
       >
-        <div className="modal-wrapper relative z-50 w-[400px] bg-[#ffffff] rounded-xl p-4 flex flex-col gap-4">
-          <IoClose
-            className="absolute cursor-pointer m-2 right-1 top-1 text-2xl"
-            onClick={closeModal}
-          />
-
-          <h1 className=" text-center">Delete action cannot be reverted!</h1>
-          <button
-            className=" bg-red-500 hover:bg-error text-red-100 p-2 rounded-md"
-            onClick={handleDelete}
+        <div className="modal-wrapper relative z-50 w-[400px] bg-[#ffffff] rounded-xl p-6 px-10 flex flex-col items-center gap-4">
+          <div
+            className="absolute cursor-pointer m-2 p-[3px] right-1 top-1 text-2xl "
+            onClick={() => setShowModal(false)}
           >
-            delete
-          </button>
+            <IoClose />
+          </div>
+          <BiMessageError className="text-6xl text-[#868686]" />
+
+          <h1 className=" text-center my-2 mb-3 font-medium text-base">
+            Are you sure you want to delete this question?
+          </h1>
+          <div className="flex gap-4">
+            <button
+              className=" bg-[#ff2d2d]  text-sm text-white py-2 px-6 rounded-lg hover:bg-error"
+              onClick={handleDelete}
+            >
+              Yes, I'm sure
+            </button>
+            <button
+              className="text-sm py-2 px-6 rounded-lg border-2 border-primary-light hover:bg-[#f4f4f4]"
+              onClick={closeModal}
+            >
+              No, cancel
+            </button>
+          </div>
         </div>
       </div>
     </>,

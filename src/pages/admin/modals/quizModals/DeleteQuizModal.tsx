@@ -1,14 +1,16 @@
 import { useEffect } from "react";
 import ReactDom from "react-dom";
 import { IoClose } from "react-icons/io5";
+import { useDeleteQuizMutation } from "../../../../redux/services/myQuizApiEndpoints";
 import { BiMessageError } from "react-icons/bi";
-import { useDeleteQuestionMutation } from "../../../../redux/services/myQuestionApiEndpoints";
 type Props = {
   setShowModal: (a: boolean) => void;
   id: string;
 };
 
-const DeleteQuizCategoryModal = ({ setShowModal, id }: Props) => {
+const DeleteQuizModal = ({ setShowModal, id }: Props) => {
+  const [deleteQuiz] = useDeleteQuizMutation();
+
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
@@ -17,8 +19,8 @@ const DeleteQuizCategoryModal = ({ setShowModal, id }: Props) => {
   }, []);
 
   const handleDelete = async () => {
-    //hit delete api
-    await deleteQuestion(id);
+    //hit delete api using id
+    await deleteQuiz(id);
     setShowModal(false);
   };
 
@@ -29,7 +31,6 @@ const DeleteQuizCategoryModal = ({ setShowModal, id }: Props) => {
       setShowModal(false);
     }
   };
-  const [deleteQuestion] = useDeleteQuestionMutation();
   return ReactDom.createPortal(
     <>
       <div
@@ -69,4 +70,4 @@ const DeleteQuizCategoryModal = ({ setShowModal, id }: Props) => {
   );
 };
 
-export default DeleteQuizCategoryModal;
+export default DeleteQuizModal;

@@ -26,6 +26,7 @@ export type AddQuestionCategoryFieldType = {
   status: boolean;
 };
 export type QuestionCategoryType = {
+  id: string;
   title: string;
   slug: string;
 };

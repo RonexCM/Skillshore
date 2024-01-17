@@ -1,13 +1,12 @@
 import { useState } from "react";
-import DeleteQuizModal from "../../../pages/admin/modals/quizModals/DeleteQuiz";
-import EditQuizModal from "../../../pages/admin/modals/quizModals/EditQuiz";
+import DeleteQuizModal from "../../../pages/admin/modals/quizModals/DeleteQuizModal";
+import EditQuizModal from "../../../pages/admin/modals/quizModals/EditQuizModal";
 
 type Props = {
   quiz: any;
-  index: number;
 };
 
-const ListOfQuiz = ({ quiz, index }: Props) => {
+const ListOfQuiz = ({ quiz }: Props) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const handleEdit = () => {
@@ -68,7 +67,9 @@ const ListOfQuiz = ({ quiz, index }: Props) => {
           </div>
         </td>
       </tr>
-      {showDeleteModal && <DeleteQuizModal setShowModal={setShowDeleteModal} />}
+      {showDeleteModal && (
+        <DeleteQuizModal setShowModal={setShowDeleteModal} id={quiz.id} />
+      )}
       {showEditModal && <EditQuizModal setShowModal={setShowEditModal} />}
     </>
   );
