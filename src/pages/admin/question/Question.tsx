@@ -5,9 +5,10 @@ import ListOfQuestions from "../../../components/admin/question/ListOfQuestions"
 import { IoSearch } from "react-icons/io5";
 import { useGetQuestionsQuery } from "../../../redux/services/myQuestionApiEndpoints";
 import { QuestionType } from "../../list/types/types";
+import { Spinner } from "flowbite-react";
 
 const Question = () => {
-  const { data } = useGetQuestionsQuery();
+  const { data, isLoading } = useGetQuestionsQuery();
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [questionsPerPage, _] = useState(10);
@@ -66,11 +67,15 @@ const Question = () => {
           +Add Question
         </Link>
       </div>
-      <div className=" main-container flex flex-col h-full  outline outline-2  outline-primary-light w-full rounded-xl text-center ">
-        <div className="shadow-md text-primary-light "></div>
-        <div className="title-and-table-div basis-full overflow-y-hidden">
+      <div className=" main-container  flex flex-col h-full  outline outline-2  outline-primary-light w-full rounded-xl text-center ">
+        <div className="title-and-table-div basis-full relative overflow-y-hidden">
+          {isLoading && (
+            <div className="w-full absolute top-[50%] left-[50%] translate-x-[-50%]">
+              <Spinner aria-label="Extra large spinner example" size="xl" />
+            </div>
+          )}
           <table className="w-full text-sm text-left  text-dark">
-            <thead className="border-b-2 border-primary-light h-16">
+            <thead className="border-b-2 border-primary-light shadow-inner h-16">
               <tr>
                 <th scope="col" className="p-2 w-[8%] ">
                   <div className="flex items-center pl-2 w-[20px] text-sm font-semibold">

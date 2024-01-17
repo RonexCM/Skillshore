@@ -5,9 +5,10 @@ import ListOfQuizCategorys from "../../../components/admin/quizCategory/ListOfQu
 import { IoSearch } from "react-icons/io5";
 import { useGetQuizCategorysQuery } from "../../../redux/services/myQuizCategoryApiEndpoints";
 import { QuizCategoryType } from "../../list/types/types";
+import { Spinner } from "flowbite-react";
 
 const QuizCategory = () => {
-  const { data } = useGetQuizCategorysQuery();
+  const { data, isLoading } = useGetQuizCategorysQuery();
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [quizCategorysPerPage, _] = useState(10);
@@ -70,7 +71,12 @@ const QuizCategory = () => {
       </div>
       <div className=" main-container flex flex-col h-full  outline outline-2  outline-primary-light w-full rounded-xl text-center ">
         <div className="shadow-md text-primary-light "></div>
-        <div className="title-and-table-div basis-full overflow-y-hidden">
+        <div className="title-and-table-div basis-full relative overflow-y-hidden">
+          {isLoading && (
+            <div className="w-full absolute top-[50%] left-[50%] translate-x-[-50%]">
+              <Spinner aria-label="Extra large spinner example" size="xl" />
+            </div>
+          )}
           <table className="w-full text-sm text-left  text-dark">
             <thead className="border-b-2 border-primary-light h-16">
               <tr>
