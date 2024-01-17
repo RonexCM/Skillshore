@@ -7,9 +7,10 @@ import { useDispatch } from "react-redux";
 import { saveQuestionDetails } from "../../../redux/slice/editQuestionSlice";
 type Props = {
   question: any;
+  index: string;
 };
 
-const ListOfQuestions = ({ question }: Props) => {
+const ListOfQuestions = ({ question, index }: Props) => {
   const dispatch = useDispatch();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -42,7 +43,7 @@ const ListOfQuestions = ({ question }: Props) => {
       <tr key={question.id} className="bg-white border-b hover:bg-gray-50">
         <td className="pl-6 ">
           <div className="flex my-4 items-center whitespace-nowrap">
-            {question.id}
+            {index + 1}
           </div>
         </td>
         <td className="px-6 font-normal text-gray-900 ">

@@ -103,7 +103,11 @@ const Question = () => {
 
             <tbody>
               {currentQuestions?.map((question: any, index) => (
-                <ListOfQuestions key={index} question={question} />
+                <ListOfQuestions
+                  key={index}
+                  question={question}
+                  index={index}
+                />
               ))}
             </tbody>
           </table>
