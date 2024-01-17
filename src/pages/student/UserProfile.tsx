@@ -1,29 +1,15 @@
-import { useEffect, useState } from "react";
-import { fetchData } from "../../services/mockApi";
-import profile from "../../assets/images/profile.svg";
-import emailIcon from "../../assets/images/email.svg";
-import githubIcon from "../../assets/images/github.svg";
-import phoneIcon from "../../assets/images/phone.svg";
-import linkedInIcon from "../../assets/images/linkedIn.svg";
-import { TUserDetails } from "../list/types";
-
+import { Loader } from "lucide-react";
+import { FaLinkedin, FaPhoneAlt } from "react-icons/fa";
+import { MdOutlineEmail } from "react-icons/md";
+import { SiGithub } from "react-icons/si";
 import { useNavigate } from "react-router-dom";
+import profile from "../../assets/images/profile.svg";
+import { useGetUserQuery } from "../../redux/services/myUserProfileEndpoints";
 
 const UserProfile = () => {
   const navigate = useNavigate();
   const profileStyle = " text-dark font-medium";
-
-  const [detail, setDetail] = useState<TUserDetails[]>([]);
-  useEffect(() => {
-    const getInfo = async () => {
-      const data = await fetchData();
-      if (data) {
-        setDetail(data);
-      }
-      console.log("🚀 ~ file: UserProfile.tsx:12 ~ getInfo ~ data:", data);
-    };
-    getInfo();
-  }, []);
+  const { data, isLoading } = useGetUserQuery("");
 
   return (
     <div className="h-full px-[120px] py-8 font-poppins ">
@@ -41,15 +27,18 @@ const UserProfile = () => {
         </button>
       </div>
       <div className="userDetails ">
-        {detail.length === 0 ? (
-          <h2>Loading...</h2>
+        {isLoading ? (
+          <div className="h-[100vh] w-[100vh] m-auto">
+            <Loader className="animate-spin m-auto h-8 w-8" />
+          </div>
         ) : (
-          detail.map((user, id) => (
+          data &&
+          data.map((user, id) => (
             <div key={id} className="studentInfo flex flex-col gap-11">
               <div className="Profile grid grid-cols-2">
                 <p className={profileStyle}>Upload your resume</p>
                 <div className="flex justify-between">
-                  <p className={profileStyle}>{user.resume}</p>
+                  <p className={profileStyle}>{user?.resume}</p>
                 </div>
               </div>
 
@@ -66,18 +55,39 @@ const UserProfile = () => {
                     <p className="opacity-70">{user.description}</p>
                     <div className="handles w-[200px] ">
                       <div className="flex justify-start gap-4">
-                        <img src={emailIcon} />
+                        <MdOutlineEmail className="text-gray-400" />
                         <p className="text-primary">{user.mail}</p>
                       </div>
                       <div className="flex justify-start gap-4">
-                        <img src={phoneIcon} />
+                        <FaPhoneAlt className="text-gray-400" />
                         <p className="text-primary">{user.phone}</p>
                       </div>
+
                       <div>
-                        <img src={linkedInIcon} />
+                        {user?.linkedIn ? (
+                          <div>
+                            <FaLinkedin className="text-gray-400" />
+                            <span>{user.linkedIn}</span>
+                          </div>
+                        ) : (
+                          <div className="flex gap-4">
+                            <FaLinkedin className="text-gray-400" />
+                            <span className="text-primary">-</span>
+                          </div>
+                        )}
                       </div>
                       <div>
-                        <img src={githubIcon} />
+                        {user?.github ? (
+                          <div>
+                            <SiGithub className="text-gray-400" />
+                            <span>{user.github}</span>
+                          </div>
+                        ) : (
+                          <div className="flex gap-4">
+                            <SiGithub className="text-gray-400" />
+                            <span className="text-primary">-</span>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>

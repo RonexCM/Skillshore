@@ -13,6 +13,8 @@ export type TUserDetails = {
   expected: string;
   skills: string[];
   education: string;
+  linkedIn?: string;
+  github?: string;
 };
 
 export type editUserDetails = {
@@ -41,8 +43,8 @@ export type editedData = {
   available: string;
   role: string;
   education: string;
-  expected: string;
   skills: string;
+  id: string;
 };
 export type registrationFormType = {
   name: string;

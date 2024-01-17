@@ -1,5 +1,5 @@
-import homeIcon from "../assets/images/home.svg";
 import { NavLink } from "react-router-dom";
+import homeIcon from "../assets/images/home.svg";
 import logoIcon from "../assets/images/SKILLSHORE.svg";
 
 const UserNavbar = () => {

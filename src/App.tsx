@@ -4,7 +4,6 @@ import UserLayout from "./layout/UserLayout";
 import HomePage from "./pages/student/HomePage";
 import UserProfile from "./pages/student/UserProfile";
 import EditProfile from "./pages/student/EditProfile";
-import RegistrationForm from "./pages/student/RegistrationForm";
 
 function App() {
   return (
@@ -17,7 +16,6 @@ function App() {
             <Route path="editProfile" element={<EditProfile />} />
           </Route>
         </Route>
-        <Route path="/register" element={<RegistrationForm />} />
       </Routes>
     </BrowserRouter>
   );

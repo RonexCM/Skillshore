@@ -1,123 +1,62 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import userProfileValidationSchema from "../../validation/userProfileValidationSchema";
-import { editedData, TUserDetails } from "../list/types";
+import { editedData } from "../list/types/types";
 import { Formik, Field, Form, ErrorMessage } from "formik";
-import { fetchData } from "../../services/mockApi";
 import { useNavigate } from "react-router-dom";
+import {
+  useGetUserQuery,
+  useUpdateUserProfileMutation,
+} from "../../redux/services/myUserProfileEndpoints";
+import { useDispatch } from "react-redux";
+import { setUserData } from "../../redux/slice/userSlice";
+import { Loader } from "lucide-react";
 
 const EditProfile = () => {
-  const [userDetails, setUserDetails] = useState<TUserDetails[]>([]);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { data: userDetails } = useGetUserQuery("");
+  const [updateUserProfile] = useUpdateUserProfileMutation();
   useEffect(() => {
-    const getInfo = async () => {
-      const data = await fetchData();
-      if (data) {
-        setUserDetails(data);
-      }
-      console.log(
-        ":rocket: ~ file: UserProfile.tsx:12 ~ getInfo ~ data:",
-        data
-      );
-    };
-    getInfo();
-  }, []);
-  const initialValues =
-    userDetails.length > 0
-      ? {
-          name: userDetails[0].name,
-          description: userDetails[0].description,
-          phone: userDetails[0].phone,
-          experience: userDetails[0].experience,
-          language: userDetails[0].language,
-          available: userDetails[0].available,
-          role: userDetails[0].role,
-          education: userDetails[0].education,
-          expected: userDetails[0].expected,
-          skills: userDetails[0].skills,
-        }
-      : {
-          name: "",
-          description: "",
-          phone: "",
-          experience: "",
-          language: "",
-          available: "",
-          role: "",
-          expected: "",
-          skills: "",
-          education: "",
-        };
-  const handleSubmit = (values: editedData) => {
-    const apiUrl = `https://657ad086394ca9e4af12b9e0.mockapi.io/student/${userDetails[0].id}`;
-
-    fetch(apiUrl)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((currentData) => {
-        const updatedData = {
-          ...currentData,
-          name:
-            values.name !== currentData.name ? values.name : currentData.name,
-          description:
-            values.description !== currentData.description
-              ? values.description
-              : currentData.description,
-
-          phone:
-            values.phone !== currentData.phone
-              ? values.phone
-              : currentData.phone,
-          experience:
-            values.experience !== currentData.experience
-              ? values.experience
-              : currentData.experience,
-          language:
-            values.language !== currentData.language
-              ? values.language
-              : currentData.language,
-          available:
-            values.available !== currentData.available
-              ? values.available
-              : currentData.available,
-          role:
-            values.role !== currentData.role ? values.role : currentData.role,
-          skills:
-            values.skills !== currentData.skills
-              ? values.skills.split(",")
-              : currentData.skills,
-          education:
-            values.education !== currentData.skieducationlls
-              ? values.education
-              : currentData.education,
-        };
-        return fetch(apiUrl, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(updatedData),
-        });
-      })
-      .then((putResponse) => {
-        if (!putResponse.ok) {
-          throw new Error("Network response was not ok during PUT request");
-        }
-
-        navigate(-1);
-      })
-      .catch((error) => {
-        console.error("Error updating data:", error);
-      });
+    if (userDetails) {
+      console.log(userDetails, "data edittt");
+    }
+  }, [userDetails]);
+  const initialValues: editedData = {
+    id: userDetails?.[0]?.id,
+    name: userDetails?.[0]?.name || "",
+    description: userDetails?.[0]?.description || "",
+    mail: userDetails?.[0]?.mail || "",
+    phone: userDetails?.[0]?.phone || "",
+    experience: userDetails?.[0]?.experience || "",
+    language: userDetails?.[0]?.language || "",
+    available: userDetails?.[0]?.available || "",
+    role: userDetails?.[0]?.role || "",
+    education: userDetails?.[0]?.education || "",
+    skills: userDetails?.[0]?.skills || "",
   };
+
+  const handleSubmit = async (values: editedData) => {
+    try {
+      console.log(values, "values");
+      const { skills, ...other } = values;
+      let skill;
+      if (!Array.isArray(skills)) {
+        skill = skills?.split(",");
+      } else {
+        skill = skills;
+      }
+      const reqData = { skills: skill, ...other };
+      const res = await updateUserProfile(reqData);
+      dispatch(setUserData(res));
+      navigate(-1);
+    } catch (error) {
+      console.error("Error updating data :", error);
+    }
+  };
+
   return (
     <>
-      {userDetails.length === 0 ? (
-        <h2>Loading...</h2>
-      ) : (
+      {userDetails !== null && userDetails !== undefined ? (
         <div className=" bg-white p-9  w-full ">
           <Formik
             initialValues={initialValues}
@@ -147,15 +86,15 @@ const EditProfile = () => {
                 </div>
               </div>
 
-              <div className="flex flex-col text-[18px] w-[800px]  mb-6 ">
-                <label htmlFor="description" className="mb-2 ">
+              <div className="flex flex-col text-[18px] w-[800px] mb-6 ">
+                <label htmlFor="description" className="mb-2">
                   Description
                 </label>
                 <Field
                   as="textarea"
                   id="description"
                   name="description"
-                  className="w-full h-36 bg-white text-[16px] rounded-lg border-2 border-indigo-100 px-3"
+                  className="w-full h-32 bg-white text-[16px] rounded-lg border-2 border-indigo-100 px-3"
                 />
                 <ErrorMessage
                   className="text-[13px] text-error mt-1"
@@ -219,25 +158,6 @@ const EditProfile = () => {
                 </div>
 
                 <div className="flex flex-col text-[18px] mb-4 w-full">
-                  <label htmlFor="education" className="mb-2">
-                    Education
-                  </label>
-                  <Field
-                    type="text"
-                    id="education"
-                    name="education"
-                    className="w-full text-[16px] h-12 bg-white rounded-lg border-2 border-indigo-100 px-3"
-                  />
-                  <ErrorMessage
-                    className="text-[13px] text-error mt-1"
-                    name="experience"
-                    component="div"
-                  />
-                </div>
-              </div>
-
-              <div className="flex flex-row gap-[20px] w-[800px]">
-                <div className="flex flex-col text-[18px] mb-4 w-full">
                   <label htmlFor="available" className="mb-2">
                     Availability
                   </label>
@@ -253,7 +173,9 @@ const EditProfile = () => {
                     component="div"
                   />
                 </div>
+              </div>
 
+              <div className="flex flex-row gap-[20px] w-[800px]">
                 <div className="flex flex-col text-[18px] mb-4 w-full">
                   <label htmlFor="role" className="mb-2">
                     Role
@@ -270,8 +192,24 @@ const EditProfile = () => {
                     component="div"
                   />
                 </div>
-              </div>
 
+                <div className="flex flex-col text-[18px] mb-4 w-full">
+                  <label htmlFor="education" className="mb-2">
+                    Education
+                  </label>
+                  <Field
+                    type="text"
+                    id="education"
+                    name="education"
+                    className="w-full text-[16px] h-12 bg-white rounded-lg border-2 border-indigo-100 px-3"
+                  />
+                  <ErrorMessage
+                    className="text-[13px] text-error mt-1"
+                    name="experience"
+                    component="div"
+                  />
+                </div>
+              </div>
               <div className="flex flex-row gap-[20px] w-[800px]">
                 <div className="flex flex-col text-[18px] mb-4 w-full">
                   <label htmlFor="skills" className="mb-2">
@@ -290,7 +228,6 @@ const EditProfile = () => {
                   />
                 </div>
               </div>
-
               <div>
                 <button
                   type="submit"
@@ -301,6 +238,10 @@ const EditProfile = () => {
               </div>
             </Form>
           </Formik>
+        </div>
+      ) : (
+        <div className="h-[100vh] w-[100vh] m-auto">
+          <Loader className="animate-spin m-auto h-8 w-8" />
         </div>
       )}
     </>
