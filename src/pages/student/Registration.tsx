@@ -37,79 +37,75 @@ const RegistrationForm: React.FC = () => {
   return (
     <div className="registrationPage flex justify-between p-5">
       {/* registration form goes here */}
-      <div className=" registration border-solid border-2 border-gray-500 w-[500px]  rounded-[32px] shadow-md  ml-28 p-5">
+      <div className=" registration w-[500px]  rounded-[32px] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.2)]  ml-28 py-5 px-7">
         <Formik
           initialValues={initialValues}
           validationSchema={registrationSchema}
           onSubmit={handleSubmit}
         >
           <Form className="flex flex-col items-center h-max ">
-            <h2 className=" items-center text-center text-3xl leading-[46px] font-bold">
-              Create An Account
+            <h2 className=" items-center text-center text-3xl mt-[15px] leading-[46px] font-bold">
+              Create an account
             </h2>
-            <p className="text-center text-[15px] leading-[19.5px] font-normal ">
-              Create an account to get yourself certified <br /> through
-              Skillshore
-            </p>
-            <div className="flex flex-col h-[80px] mt-[22px]  w-full mb-3">
+            <div className="flex flex-col mt-[15px] min-h-[84px] w-full mb-1">
               <label htmlFor="name">Name</label>
-              <div className="flex flex-col h-20">
+              <div className="flex flex-col">
                 <Field
                   type="text"
                   id="name"
                   name="name"
-                  className="w-full h-12 bg-white rounded-lg border-2 border-indigo-100 px-3"
+                  className="w-full h-12 bg-white rounded-lg border-2 border-indigo-100 px-3 hover:border-accent"
                 />
                 <ErrorMessage
-                  className="text-[12px] text-error"
+                  className="text-[13px] font-light text-error py-1"
                   name="name"
                   component="div"
                 />
               </div>
             </div>
-            <div className="flex flex-col h-[80px] mb-3  w-full">
+            <div className="flex flex-col min-h-[84px] w-full mb-1">
               <label htmlFor="email">Email</label>
-              <div className="flex flex-col h-20">
+              <div className="flex flex-col">
                 <Field
                   type="text"
                   id="email"
                   name="email"
-                  className="w-full h-12 bg-white rounded-lg border-2 border-indigo-100 px-3"
+                  className="w-full h-12 bg-white rounded-lg border-2 border-indigo-100 px-3 hover:border-accent"
                 />
                 <ErrorMessage
-                  className="text-[12px] text-error"
+                  className="text-[13px] font-light text-error py-1"
                   name="email"
                   component="div"
                 />
               </div>
             </div>
-            <div className="flex flex-col h-[80px] w-full mb-6">
+            <div className="flex flex-col min-h-[84px] w-full mb-1">
               <label htmlFor="password">Password</label>
-              <div className="flex flex-col h-[100px]">
+              <div className="flex flex-col">
                 <Field
                   type="password"
                   id="password"
                   name="password"
-                  className="w-full h-12 bg-white rounded-lg border-2 border-indigo-100 px-3"
+                  className="w-full h-12 bg-white rounded-lg border-2 border-indigo-100 px-3 hover:border-accent"
                 />
                 <ErrorMessage
-                  className="text-[12px] text-error leading-[14px]"
+                  className="text-[13px] font-light text-error py-1"
                   name="password"
                   component="div"
                 />
               </div>
             </div>
-            <div className="flex flex-col h-[80px] mb-3  w-full">
+            <div className="flex flex-col min-h-[84px] w-full mb-1">
               <label htmlFor="confirmPassword">Confirm Password</label>
               <div>
                 <Field
                   type="password"
                   id="confirmPassword"
                   name="confirmPassword"
-                  className="w-full h-12 bg-white rounded-lg border-2 border-indigo-100 px-3"
+                  className="w-full h-12 bg-white rounded-lg border-2 border-indigo-100 px-3 hover:border-accent"
                 />
                 <ErrorMessage
-                  className="text-[12px] text-error"
+                  className="text-[13px] font-light text-error py-1"
                   name="confirmPassword"
                   component="div"
                 />
