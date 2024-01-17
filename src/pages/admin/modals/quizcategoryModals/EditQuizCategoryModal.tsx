@@ -40,7 +40,10 @@ const EditQuizCategoryModal = ({ setShowModal }: Props) => {
   };
   return ReactDom.createPortal(
     <>
-      <div className="modal-background z-40 fixed inset-0 bg-dark bg-opacity-[40%] flex justify-center items-center">
+      <div
+        onClick={closeModal}
+        className="modal-background z-40 fixed inset-0 bg-dark bg-opacity-[40%] flex justify-center items-center"
+      >
         <div className="modal-wrapper relative z-50  bg-[#ffffff] rounded-xl p-6 flex flex-col gap-4 w-[900px] ">
           <div
             className="absolute cursor-pointer m-2 p-[3px] right-1 top-1 text-2xl "
