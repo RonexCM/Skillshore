@@ -1,22 +1,24 @@
 import { useState } from "react";
 import DeleteQuizCategoryModal from "../../../pages/admin/modals/quizCategoryModals/DeleteQuizCategoryModal";
 import EditQuizCategoryModal from "../../../pages/admin/modals/quizCategoryModals/EditQuizCategoryModal";
-import { useDeleteQuizCategoryMutation } from "../../../redux/services/myQuizCategoryApiEndpoints";
 import { Tooltip } from "flowbite-react";
+import { useDispatch } from "react-redux";
+import { saveQuizCategoryDetails } from "../../../redux/slice/editQuizCategorySlice";
+import { QuizCategoryType } from "../../../pages/list/types/types";
 type Props = {
-  quizCategory: any;
+  quizCategory: QuizCategoryType;
   index: number;
 };
 
 const ListOfQuizCategorys = ({ quizCategory, index }: Props) => {
-  const [deleteQuizCategory] = useDeleteQuizCategoryMutation();
+  const dispatch = useDispatch();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const handleEdit = () => {
+    dispatch(saveQuizCategoryDetails(quizCategory));
     setShowEditModal(true);
   };
   const handleDelete = () => {
-    deleteQuizCategory(quizCategory.id);
     setShowDeleteModal(true);
   };
   return (

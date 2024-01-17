@@ -93,13 +93,15 @@ const QuizCategory = () => {
             </thead>
 
             <tbody>
-              {currentQuizCategorys?.map((quizCategory: any, index) => (
-                <ListOfQuizCategorys
-                  key={index}
-                  quizCategory={quizCategory}
-                  index={index}
-                />
-              ))}
+              {currentQuizCategorys?.map(
+                (quizCategory: QuizCategoryType, index) => (
+                  <ListOfQuizCategorys
+                    key={index}
+                    quizCategory={quizCategory}
+                    index={index}
+                  />
+                )
+              )}
             </tbody>
           </table>
         </div>

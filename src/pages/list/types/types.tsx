@@ -7,6 +7,7 @@ export type LoginResponse = {
 };
 
 export type AddQuizCategoryFieldType = {
+  id: string;
   title: string;
   slug: string;
 };

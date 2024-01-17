@@ -22,6 +22,14 @@ const myQuizCategoryApiEndpoints = myApi.injectEndpoints({
       }),
       invalidatesTags: ["FetchQuizCategories"],
     }),
+    editQuizCategory: builder.mutation<QuizCategoryType, QuizCategoryType>({
+      query: ({ id, ...rest }) => ({
+        url: `/quiz-categories/${id}`,
+        method: "PUT",
+        body: { ...rest },
+      }),
+      invalidatesTags: ["FetchQuizCategories"],
+    }),
   }),
 });
 
@@ -29,4 +37,5 @@ export const {
   useGetQuizCategorysQuery,
   useAddQuizCategoryMutation,
   useDeleteQuizCategoryMutation,
+  useEditQuizCategoryMutation,
 } = myQuizCategoryApiEndpoints;

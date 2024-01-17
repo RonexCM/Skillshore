@@ -3,12 +3,14 @@ import ReactDom from "react-dom";
 import { IoClose } from "react-icons/io5";
 import { BiMessageError } from "react-icons/bi";
 import { useDeleteQuestionMutation } from "../../../../redux/services/myQuestionApiEndpoints";
+import { useDeleteQuizCategoryMutation } from "../../../../redux/services/myQuizCategoryApiEndpoints";
 type Props = {
   setShowModal: (a: boolean) => void;
   id: string;
 };
 
 const DeleteQuizCategoryModal = ({ setShowModal, id }: Props) => {
+  const [deleteQuizCategory] = useDeleteQuizCategoryMutation();
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
@@ -18,7 +20,7 @@ const DeleteQuizCategoryModal = ({ setShowModal, id }: Props) => {
 
   const handleDelete = async () => {
     //hit delete api
-    await deleteQuestion(id);
+    await deleteQuizCategory(id);
     setShowModal(false);
   };
 
@@ -29,7 +31,7 @@ const DeleteQuizCategoryModal = ({ setShowModal, id }: Props) => {
       setShowModal(false);
     }
   };
-  const [deleteQuestion] = useDeleteQuestionMutation();
+
   return ReactDom.createPortal(
     <>
       <div
@@ -46,7 +48,7 @@ const DeleteQuizCategoryModal = ({ setShowModal, id }: Props) => {
           <BiMessageError className="text-6xl text-[#868686]" />
 
           <h1 className=" text-center my-2 mb-3 font-medium text-base">
-            Are you sure you want to delete this question?
+            Are you sure you want to delete this quiz category?
           </h1>
           <div className="flex gap-4">
             <button

@@ -20,6 +20,7 @@ import "react-toastify/dist/ReactToastify.css";
 const AddQuestion = () => {
   const [addQuestion] = useAddQuestionMutation();
   //   ----------formik objects----------
+  // we dont need to save this from . Do we need to create slice for this? !!!!!!
   const initialValues: AddQuestionFieldType = {
     title: "",
     slug: "",
@@ -149,8 +150,8 @@ const AddQuestion = () => {
                   >
                     <option value="">select weightage...</option>
                     <option value="5">5</option>
-                    <option value="15">10</option>
-                    <option value="20">15</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
                   </Field>
                 </div>
                 <ErrorMessage

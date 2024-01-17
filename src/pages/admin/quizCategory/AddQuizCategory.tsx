@@ -1,25 +1,38 @@
-import { Field, Formik, Form, ErrorMessage } from "formik";
+import { Field, Formik, Form, ErrorMessage, FormikHelpers } from "formik";
 
 import { ValidationSchemaAddQuizCategory } from "../../../validation/validationSchemaAddQuizCategory";
 import { AddQuizCategoryFieldType } from "../../list/types/types";
 import { useNavigate } from "react-router-dom";
 import { AiFillHome } from "react-icons/ai";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+import { useAddQuizCategoryMutation } from "../../../redux/services/myQuizCategoryApiEndpoints";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddQuizCategory = () => {
+  const [addQuizCategory] = useAddQuizCategoryMutation();
   //   ----------formik objects----------
   const initialValues: AddQuizCategoryFieldType = {
+    id: "",
     title: "",
     slug: "",
   };
-
   /**
    * when add button is clicked form is submitted with
    * @param values
    */
-  const onSubmit = (values: AddQuizCategoryFieldType) => {
-    console.log(values);
-    console.log("submitted");
+  const onSubmit = async (
+    values: AddQuizCategoryFieldType,
+    actions: FormikHelpers<AddQuizCategoryFieldType>
+  ) => {
+    try {
+      const { resetForm } = actions;
+      await addQuizCategory(values);
+      toast.success("QuizCategory Added!");
+      resetForm();
+    } catch (error) {
+      toast.error("Error adding quiz category!");
+    }
   };
 
   const navigate = useNavigate();
@@ -104,6 +117,7 @@ const AddQuizCategory = () => {
           </Form>
         </Formik>
       </div>
+      <ToastContainer />
     </div>
   );
 };
