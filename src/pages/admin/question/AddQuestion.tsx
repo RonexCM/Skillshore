@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 // import { FaArrowLeft } from "react-icons/fa";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { AiFillHome } from "react-icons/ai";
-import { useAddQuestionMutation } from "../../../redux/services/myApiEndpoints";
+import { useAddQuestionMutation } from "../../../redux/services/myQuestionApiEndpoints";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

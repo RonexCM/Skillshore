@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import DeleteQuestionModal from "../../../pages/admin/modals/questionModals/DeleteQuestionModal";
 import EditQuestionModal from "../../../pages/admin/modals/questionModals/EditQuestionModal";
 import { Tooltip, ToggleSwitch } from "flowbite-react";
-import { useChangeStatusMutation } from "../../../redux/services/myApiEndpoints";
+import { useChangeStatusMutation } from "../../../redux/services/myQuestionApiEndpoints";
 import { useDispatch } from "react-redux";
 import { saveQuestionDetails } from "../../../redux/slice/editQuestionSlice";
 type Props = {

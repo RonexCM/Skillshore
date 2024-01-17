@@ -3,7 +3,7 @@ import Pagination from "../../../components/admin/Pagination";
 import { useEffect, useState } from "react";
 import ListOfQuestions from "../../../components/admin/question/ListOfQuestions";
 import { IoSearch } from "react-icons/io5";
-import { useGetQuestionsQuery } from "../../../redux/services/myApiEndpoints";
+import { useGetQuestionsQuery } from "../../../redux/services/myQuestionApiEndpoints";
 import { QuestionType } from "../../list/types/types";
 
 const Question = () => {

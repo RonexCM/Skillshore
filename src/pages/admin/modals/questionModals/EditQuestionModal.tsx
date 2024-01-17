@@ -12,7 +12,7 @@ import {
 import { ValidationSchemaAddQuestion } from "../../../../validation/validationSchemaAddQuestion";
 import { QuestionType } from "../../../list/types/types";
 import { ChangeEvent, useState } from "react";
-import { useEditQuestionMutation } from "../../../../redux/services/myApiEndpoints";
+import { useEditQuestionMutation } from "../../../../redux/services/myQuestionApiEndpoints";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../redux/store";
 

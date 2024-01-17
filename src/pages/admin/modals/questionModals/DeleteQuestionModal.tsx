@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import ReactDom from "react-dom";
 import { IoClose } from "react-icons/io5";
 import { BiMessageError } from "react-icons/bi";
-import { useDeleteQuestionMutation } from "../../../../redux/services/myApiEndpoints";
+import { useDeleteQuestionMutation } from "../../../../redux/services/myQuestionApiEndpoints";
 type Props = {
   setShowModal: (a: boolean) => void;
   id: string;
