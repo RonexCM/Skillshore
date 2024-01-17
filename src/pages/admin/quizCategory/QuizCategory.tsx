@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import Pagination from "../../../components/Pagination";
+import Pagination from "../../../components/admin/Pagination";
 import { useEffect, useState } from "react";
 import ListOfQuizCategorys from "./ListOfQuizCategory";
 import { IoSearch } from "react-icons/io5";
 import { useGetQuizCategorysQuery } from "../../../redux/services/myQuizCategoryApiEndpoints";
-import { QuizCategoryType } from "../../list/types";
+import { QuizCategoryType } from "../../list/types/types";
 
 const QuizCategory = () => {
   const { data } = useGetQuizCategorysQuery();

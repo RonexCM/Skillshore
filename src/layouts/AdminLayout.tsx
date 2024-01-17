@@ -1,4 +1,4 @@
-import NavbarAdmin from "../components/NavbarAdmin";
+import NavbarAdmin from "../components/admin/NavbarAdmin";
 import Footer from "../components/Footer";
 import { Outlet } from "react-router-dom";
 

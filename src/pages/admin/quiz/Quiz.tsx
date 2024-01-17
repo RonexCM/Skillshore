@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import Pagination from "../../../components/Pagination";
+import Pagination from "../../../components/admin/Pagination";
 import { useEffect, useState } from "react";
 import ListOfQuiz from "./ListOfQuiz";
 import { IoSearch } from "react-icons/io5";
 import { useGetQuizQuery } from "../../../redux/services/myQuizApiEndpoints";
-import { QuizType } from "../../list/types";
+import { QuizType } from "../../list/types/types";
 
 const Quiz = () => {
   const { data } = useGetQuizQuery();

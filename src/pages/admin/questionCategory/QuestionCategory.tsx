@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import Pagination from "../../../components/Pagination";
+import Pagination from "../../../components/admin/Pagination";
 import { useEffect, useState } from "react";
 import ListOfQuestionCategorys from "./ListOfQuestionCategory";
 import { IoSearch } from "react-icons/io5";
 import { useGetQuestionCategorysQuery } from "../../../redux/services/myQuestionCategoryApiEndpoints";
-import { QuestionCategoryType } from "../../list/types";
+import { QuestionCategoryType } from "../../list/types/types";
 
 const QuestionCategory = () => {
   const { data } = useGetQuestionCategorysQuery();
