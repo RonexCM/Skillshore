@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { saveQuestionDetails } from "../../../redux/slice/editQuestionSlice";
 type Props = {
   question: any;
-  index: string;
+  index: number;
 };
 
 const ListOfQuestions = ({ question, index }: Props) => {
