@@ -75,12 +75,12 @@ const AddQuestion = () => {
             onClick={() => navigate(-1)}
           >
             <AiFillHome className="text-lg" />
-            <span className="hover:underline">Questions</span>
+            <span className="hover:underline">Question</span>
           </div>
           <MdOutlineKeyboardArrowRight className="text-xl" />
           <span className="text-[#82a6ef]"> New Question</span>
         </div>
-        <h1 className="text-primary font-medium text-2xl">Add New Question</h1>
+        <h1 className="text-primary font-medium text-2xl">New Question</h1>
       </div>
 
       <div className="border-2 p-7  border-primary-light rounded-xl w-full  ">

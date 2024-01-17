@@ -56,7 +56,7 @@ const Quiz = () => {
               setCurrentPageNumber(1);
             }}
             className="block p-2 ps-10  text-sm text-gray-900 border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary rounded-lg w-80 bg-gray-50  "
-            placeholder="Search Question"
+            placeholder="Search Quiz"
           ></input>
         </div>
         <Link
@@ -93,7 +93,7 @@ const Quiz = () => {
                   scope="col"
                   className="px-6 py-3 w-[20%] text-sm font-semibold"
                 >
-                  status
+                  Status
                 </th>
                 <th scope="col" className="px-6 py-3 w-[15%] font-semibold">
                   Action

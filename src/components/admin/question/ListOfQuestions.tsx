@@ -65,7 +65,7 @@ const ListOfQuestions = ({ question, index }: Props) => {
 
         <td className="px-6">
           <div className="flex items-center gap-2">
-            <Tooltip content="edit" className="text-blue-600" style="light">
+            <Tooltip content="Edit" className="text-blue-600" style="light">
               <button
                 onClick={handleEdit}
                 className="font-medium  text-blue-600 dark:text-blue-500 hover:underline"
@@ -75,7 +75,7 @@ const ListOfQuestions = ({ question, index }: Props) => {
                 </span>
               </button>
             </Tooltip>
-            <Tooltip content="delete" className="text-error" style="light">
+            <Tooltip content="Delete" className="text-error" style="light">
               <button
                 onClick={handleDelete}
                 className="font-medium text-blue-600 dark:text-blue-500 hover:underline"

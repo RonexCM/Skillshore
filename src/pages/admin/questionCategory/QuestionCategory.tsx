@@ -65,14 +65,14 @@ const QuestionCategory = () => {
               setCurrentPageNumber(1);
             }}
             className="block p-2 ps-10  text-sm text-gray-900 border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary rounded-lg w-80 bg-gray-50  "
-            placeholder="Search Question"
+            placeholder="Search Question Category"
           ></input>
         </div>
         <Link
           to="add-question-category"
           className="bg-dark text-primary-light rounded-lg text-xs font-medium py-button-padding-y px-button-padding-x outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"
         >
-          +Add Question Category
+          +Add Category
         </Link>
       </div>
       <div className=" main-container flex flex-col h-full  outline outline-2  outline-primary-light w-full rounded-xl text-center ">

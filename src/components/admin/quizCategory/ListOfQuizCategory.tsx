@@ -36,7 +36,7 @@ const ListOfQuizCategorys = ({ quizCategory, index }: Props) => {
 
         <td className="px-6 py-3">
           <div className="flex gap-2">
-            <Tooltip content="edit" className="text-blue-600" style="light">
+            <Tooltip content="Edit" className="text-blue-600" style="light">
               <button
                 onClick={handleEdit}
                 className="font-medium  text-blue-600 dark:text-blue-500 hover:underline"
@@ -49,7 +49,7 @@ const ListOfQuizCategorys = ({ quizCategory, index }: Props) => {
                 </span>
               </button>
             </Tooltip>
-            <Tooltip content="delete" className="text-error" style="light">
+            <Tooltip content="Delete" className="text-error" style="light">
               <button
                 onClick={handleDelete}
                 className="font-medium text-blue-600 dark:text-blue-500 hover:underline"

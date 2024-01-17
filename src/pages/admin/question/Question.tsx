@@ -93,7 +93,7 @@ const Question = () => {
                   scope="col"
                   className="px-6 py-3 w-[20%] text-sm font-semibold"
                 >
-                  status
+                  Status
                 </th>
                 <th scope="col" className="px-6 py-3 w-[15%] font-semibold">
                   Action

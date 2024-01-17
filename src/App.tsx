@@ -10,6 +10,7 @@ import InitialLayout from "./layouts/InitialLayout";
 import AddQuizCategory from "./pages/admin/quizCategory/AddQuizCategory";
 import AddQuestion from "./pages/admin/question/AddQuestion";
 import AddQuestionCategory from "./pages/admin/questionCategory/AddQuestionCategory";
+import AddQuiz from "./pages/admin/quiz/AddQuiz";
 
 const App = () => {
   return (
@@ -26,7 +27,7 @@ const App = () => {
               <Route path="add-quiz-category" element={<AddQuizCategory />} />
               <Route path="quiz">
                 <Route index element={<Quiz />} />
-                <Route path="add-quiz" element={<AddQuestionCategory />} />
+                <Route path="add-quiz" element={<AddQuiz />} />
               </Route>
               <Route path="question-category">
                 <Route index element={<QuestionCategory />} />
