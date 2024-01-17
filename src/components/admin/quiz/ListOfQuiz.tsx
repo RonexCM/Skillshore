@@ -7,7 +7,7 @@ type Props = {
   index: number;
 };
 
-const ListOfQuizs = ({ quiz, index }: Props) => {
+const ListOfQuiz = ({ quiz, index }: Props) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const handleEdit = () => {
@@ -20,7 +20,7 @@ const ListOfQuizs = ({ quiz, index }: Props) => {
     <>
       <tr key={quiz.id} className="bg-white border-b hover:bg-gray-50">
         <td className="p-4 pl-6">
-          <div className="flex items-center">{index + 1}</div>
+          <div className="flex items-center whitespace-nowrap">{quiz.id}</div>
         </td>
         <th
           scope="row"
@@ -74,4 +74,4 @@ const ListOfQuizs = ({ quiz, index }: Props) => {
   );
 };
 
-export default ListOfQuizs;
+export default ListOfQuiz;

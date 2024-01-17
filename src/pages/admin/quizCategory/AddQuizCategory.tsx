@@ -1,13 +1,10 @@
 import { Field, Formik, Form, ErrorMessage } from "formik";
 
 import { ValidationSchemaAddQuizCategory } from "../../../validation/validationSchemaAddQuizCategory";
-import { AddQuizCategoryFieldType } from "../../../pages/list/types/types";
-
-import { ChangeEvent, useState } from "react";
+import { AddQuizCategoryFieldType } from "../../list/types/types";
 import { useNavigate } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
 import { SlArrowRight } from "react-icons/sl";
-// import OptionField from "../../../components/OptionField";
 
 const AddQuizCategory = () => {
   //   ----------formik objects----------
@@ -25,53 +22,6 @@ const AddQuizCategory = () => {
     console.log("submitted");
   };
 
-  const [totalOptions, _] = useState(4);
-  const [optionsArray, setOptionsArray] = useState(
-    Array.from({ length: totalOptions }, (_) => "")
-  );
-
-  //   ----------for each input field value take index, value and store it to options state----------
-  const handleInputChange = (index: number, value: string) => {
-    const tempArray = [...optionsArray];
-    tempArray[index] = value;
-    setOptionsArray(tempArray);
-  };
-
-  //   ----------create array from totalOptions state and render input field to input option respectively----------
-  const optionFields = Array.from({ length: totalOptions }, (_, index) => (
-    <div key={index}>
-      <div className="flex gap-3 items-center">
-        <label htmlFor="slug" className="text-sm">
-          {`${index + 1})`}
-        </label>
-        <Field
-          as="textarea"
-          id={`option-${index + 1}`}
-          autoComplete="current-slug"
-          name={`option-${index + 1}`}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            handleInputChange(index, e.target.value)
-          }
-          required
-          placeholder={`option ${index + 1}`}
-          value={`${optionsArray[index]}`}
-          className="p-1 rounded-lg outline outline-2 outline-primary-light focus:outline-primary w-full h-20"
-        />
-      </div>
-      <ErrorMessage
-        className="text-red-500 text-xs ml-6 my-1"
-        component="div"
-        name={`option-${index + 1}`}
-      />
-    </div>
-  ));
-
-  //   ----------mapping options to option tag for answer dropdown----------
-  const answerDropdown = optionsArray.map((one, index) => (
-    <option className="" key={index} value={`option-${index + 1}`}>
-      {one}
-    </option>
-  ));
   const navigate = useNavigate();
   return (
     <div className="w-full p-5 px-8 ">
@@ -88,7 +38,7 @@ const AddQuizCategory = () => {
       </div>
       <h1 className="text-primary font-medium p-3 text-2xl">Add New Quiz</h1>
 
-      <div className="border-2 p-5 border-primary-light rounded-xl w-full ">
+      <div className="border-2 p-5 border-primary-light rounded-xl w-[600px] form-container relative">
         <Formik
           initialValues={initialValues}
           onSubmit={onSubmit}
@@ -97,44 +47,48 @@ const AddQuizCategory = () => {
           <Form className="flex flex-col gap-6">
             <div className="flex flex-col gap-6">
               {/* title input field and error message */}
-              <div className="flex basis-[60%] flex-col gap-1">
-                <div className="flex gap-3">
-                  <label htmlFor="title" className="text-md text-dark">
-                    Title
-                  </label>
-                  <Field
-                    type="text"
-                    id="title"
-                    autoComplete="current-title"
+              <div className="flex basis-[60%] flex-col gap-6">
+                <div className="">
+                  <div className="flex flex-col gap-1 ">
+                    <label htmlFor="title" className="text-md text-dark ps-1">
+                      Title
+                    </label>
+                    <Field
+                      type="text"
+                      id="title"
+                      autoComplete="current-title"
+                      name="title"
+                      className="p-1 ps-3 rounded-lg outline outline-2 outline-primary-light focus:outline-primary w-full"
+                    />
+                  </div>
+                  <ErrorMessage
+                    className=" text-red-500 text-xs ml-[52px] absolute pt-2 ps-8"
+                    component="div"
                     name="title"
-                    className="p-1 rounded-lg outline outline-2 outline-primary-light focus:outline-primary w-full"
                   />
                 </div>
-                <ErrorMessage
-                  className="text-red-500 text-xs ml-[52px]"
-                  component="div"
-                  name="title"
-                />
               </div>
               {/* slug input field and error message */}
-              <div className="flex basis-[40%] flex-col gap-1">
-                <div className="flex gap-3">
-                  <label htmlFor="slug" className="text-md text-dark">
-                    Slug
-                  </label>
-                  <Field
-                    type="text"
-                    id="slug"
-                    autoComplete="current-slug"
+              <div className="flex basis-[40%] flex-col gap-3">
+                <div>
+                  <div className="flex flex-col gap-1">
+                    <label htmlFor="slug" className="text-md text-dark ps-1">
+                      Slug
+                    </label>
+                    <Field
+                      type="text"
+                      id="slug"
+                      autoComplete="current-slug"
+                      name="slug"
+                      className="p-1 ps-3 rounded-lg outline outline-2 outline-primary-light focus:outline-primary w-full"
+                    />
+                  </div>
+                  <ErrorMessage
+                    className="text-red-500 text-xs ml-[54px] absolute pt-2 ps-8"
+                    component="div"
                     name="slug"
-                    className="p-1 rounded-lg outline outline-2 outline-primary-light focus:outline-primary w-full"
                   />
                 </div>
-                <ErrorMessage
-                  className="text-red-500 text-xs ml-[54px]"
-                  component="div"
-                  name="slug"
-                />
               </div>
             </div>
             {/* description textarea field and error message */}
@@ -142,7 +96,7 @@ const AddQuizCategory = () => {
             {/* submit button */}
             <button
               type="submit"
-              className="bg-dark text-primary-light rounded-lg text-md font-medium py-button-padding-y px-button-padding-x outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"
+              className="bg-dark text-primary-light rounded-lg text-md font-medium py-button-padding-y px-button-padding-x outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark mt-9 w-[150px]"
             >
               Add
             </button>
