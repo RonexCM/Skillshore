@@ -35,7 +35,7 @@ const RegistrationForm: React.FC = () => {
   };
 
   return (
-    <div className="registrationPage flex justify-between  h-full p-5">
+    <div className="registrationPage flex justify-between p-5">
       {/* registration form goes here */}
       <div className=" registration border-solid border-2 border-gray-500 w-[500px]  rounded-[32px] shadow-md  ml-28 p-5">
         <Formik
@@ -51,65 +51,65 @@ const RegistrationForm: React.FC = () => {
               Create an account to get yourself certified <br /> through
               Skillshore
             </p>
-            <div className="flex flex-col h-[90px] mt-[22px]  w-full mb-3">
+            <div className="flex flex-col h-[80px] mt-[22px]  w-full mb-3">
               <label htmlFor="name">Name</label>
               <div className="flex flex-col h-20">
                 <Field
                   type="text"
                   id="name"
                   name="name"
-                  className="w-full h-14 bg-white rounded-lg border-2 border-indigo-100 px-3"
+                  className="w-full h-12 bg-white rounded-lg border-2 border-indigo-100 px-3"
                 />
                 <ErrorMessage
-                  className="text-[13px] text-error"
+                  className="text-[12px] text-error"
                   name="name"
                   component="div"
                 />
               </div>
             </div>
-            <div className="flex flex-col h-[90px] mb-3  w-full">
+            <div className="flex flex-col h-[80px] mb-3  w-full">
               <label htmlFor="email">Email</label>
               <div className="flex flex-col h-20">
                 <Field
                   type="text"
                   id="email"
                   name="email"
-                  className="w-full h-14 bg-white rounded-lg border-2 border-indigo-100 px-3"
+                  className="w-full h-12 bg-white rounded-lg border-2 border-indigo-100 px-3"
                 />
                 <ErrorMessage
-                  className="text-[13px] text-error"
+                  className="text-[12px] text-error"
                   name="email"
                   component="div"
                 />
               </div>
             </div>
-            <div className="flex flex-col h-[90px] w-full mb-6">
+            <div className="flex flex-col h-[80px] w-full mb-6">
               <label htmlFor="password">Password</label>
               <div className="flex flex-col h-[100px]">
                 <Field
                   type="password"
                   id="password"
                   name="password"
-                  className="w-full h-14 bg-white rounded-lg border-2 border-indigo-100 px-3"
+                  className="w-full h-12 bg-white rounded-lg border-2 border-indigo-100 px-3"
                 />
                 <ErrorMessage
-                  className="text-[13px] text-error"
+                  className="text-[12px] text-error leading-[14px]"
                   name="password"
                   component="div"
                 />
               </div>
             </div>
-            <div className="flex flex-col h-[90px] mb-3  w-full">
+            <div className="flex flex-col h-[80px] mb-3  w-full">
               <label htmlFor="confirmPassword">Confirm Password</label>
               <div>
                 <Field
                   type="password"
                   id="confirmPassword"
                   name="confirmPassword"
-                  className="w-full h-14 bg-white rounded-lg border-2 border-indigo-100 px-3"
+                  className="w-full h-12 bg-white rounded-lg border-2 border-indigo-100 px-3"
                 />
                 <ErrorMessage
-                  className="text-[13px] text-error"
+                  className="text-[12px] text-error"
                   name="confirmPassword"
                   component="div"
                 />
@@ -125,8 +125,8 @@ const RegistrationForm: React.FC = () => {
               <span className="flex gap-1 mt-[9px] text-text-dark">
                 Already Have An Account?{" "}
                 <Link
-                  to="/login"
-                  className="text-primary font-karla text-14 font-bold leading-18.2 hover:underline"
+                  to="/"
+                  className="text-primary font-['Poppins'] text-14 leading-18.2 hover:underline"
                 >
                   Login
                 </Link>
