@@ -9,6 +9,7 @@ import AdminDashboardLayout from "./layouts/AdminDashboardLayout";
 import InitialLayout from "./layouts/InitialLayout";
 import AddQuizCategory from "./pages/admin/quizCategory/AddQuizCategory";
 import AddQuestion from "./pages/admin/question/AddQuestion";
+import AddQuestionCategory from "./pages/admin/questionCategory/AddQuestionCategory";
 
 const App = () => {
   return (
@@ -22,9 +23,18 @@ const App = () => {
           <Route path="/admin" element={<AdminLayout />}>
             <Route element={<AdminDashboardLayout />}>
               <Route index element={<QuizCategory />} />
-              <Route path="add-quizcategory" element={<AddQuizCategory />} />
-              <Route path="quiz" element={<Quiz />} />
-              <Route path="question-category" element={<QuestionCategory />} />
+              <Route path="add-quiz-category" element={<AddQuizCategory />} />
+              <Route path="quiz">
+                <Route index element={<Quiz />} />
+                <Route path="add-quiz" element={<AddQuestionCategory />} />
+              </Route>
+              <Route path="question-category">
+                <Route index element={<QuestionCategory />} />
+                <Route
+                  path="add-question-category"
+                  element={<AddQuestionCategory />}
+                />
+              </Route>
               <Route path="question">
                 <Route index element={<Question />} />
                 <Route path="add-question" element={<AddQuestion />} />

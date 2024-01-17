@@ -1,7 +1,7 @@
 import { Field, Formik, Form, ErrorMessage } from "formik";
 
 import { ValidationSchemaAddQuestionCategory } from "../../../validation/validationSchemaAddQuestionCategory";
-import { AddQuestionCategoryFieldType } from "../../list/types";
+import { AddQuestionCategoryFieldType } from "../../list/types/types";
 
 import { ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
