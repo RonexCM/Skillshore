@@ -1,6 +1,6 @@
 import { useState } from "react";
-import DeleteQuizCategoryModal from "../modals/quizCategoryModals/DeleteQuizCategoryModal";
-import EditQuizCategoryModal from "../modals/quizCategoryModals/EditQuizCategoryModal";
+import DeleteQuizCategoryModal from "../modals/quizcategoryModals/DeleteQuizCategoryModal";
+import EditQuizCategoryModal from "../modals/quizcategoryModals/EditQuizCategoryModal";
 
 type Props = {
   quizCategory: any;

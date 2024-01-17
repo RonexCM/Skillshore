@@ -1,7 +1,7 @@
 import { Field, Formik, Form, ErrorMessage } from "formik";
 
 import { ValidationSchemaAddQuizCategory } from "../../../validation/validationSchemaAddQuizCategory";
-import { AddQuizCategoryFieldType } from "../../list/types";
+import { AddQuizCategoryFieldType } from "../../list/types/types";
 import { useNavigate } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
 import { SlArrowRight } from "react-icons/sl";
