@@ -5,11 +5,6 @@ export const ValidationSchemaAddQuestion = Yup.object({
   slug: Yup.string().required("Slug is required"),
   description: Yup.string().max(255).required("Description is required"),
   options: Yup.array().of(Yup.string().required("Option is required")),
-  // "option[0]": Yup.string().required("Option is required"),
-  // "option[1]": Yup.string().required("Option is required"),
-  // "option[2]": Yup.string().required("Option is required"),
-  // "option[3]": Yup.string().required("Option is required"),
   answer: Yup.string().required("Answer is required"),
   weightage: Yup.string().required("Weightage is required"),
-  // status: Yup.boolean().required(),
 });

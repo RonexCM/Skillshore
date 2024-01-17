@@ -22,12 +22,12 @@ const App = () => {
           <Route path="/admin" element={<AdminLayout />}>
             <Route element={<AdminDashboardLayout />}>
               <Route index element={<QuizCategory />} />
-              <Route path="addquizcategory" element={<AddQuizCategory />} />
+              <Route path="add-quizcategory" element={<AddQuizCategory />} />
               <Route path="quiz" element={<Quiz />} />
               <Route path="question-category" element={<QuestionCategory />} />
               <Route path="question">
                 <Route index element={<Question />} />
-                <Route path="addquestion" element={<AddQuestion />} />
+                <Route path="add-question" element={<AddQuestion />} />
               </Route>
               <Route path="report" element={<Report />} />
             </Route>

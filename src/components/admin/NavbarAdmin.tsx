@@ -1,14 +1,15 @@
 import { NavLink } from "react-router-dom";
-import homeIcon from "../assets/home.png";
-import skillshoreLogo from "../assets/skillshoresvg.svg";
+import { MdHome } from "react-icons/md";
+import skillshoreLogo from "../../assets/skillshoresvg.svg";
+
 const NavbarAdmin = () => {
   const handleLogout = () => {
-    // make logout request
+    // show a modal saying confirm logout?
   };
   return (
     <div className="h-[56px] shrink-0 w-full bg-[#03103F] text-white flex justify-between items-center px-5">
-      <NavLink to="/admin" className="flex gap-2">
-        <img src={homeIcon} alt="home-icon" />
+      <NavLink to="/admin" className="flex gap-1">
+        <MdHome className="text-xl" />
         <img src={skillshoreLogo} alt="skillshore-logo" />
       </NavLink>
       <div className="flex gap-4 text-sm">

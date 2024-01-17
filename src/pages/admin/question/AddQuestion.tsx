@@ -5,21 +5,20 @@ import {
   Form,
   ErrorMessage,
   FormikHelpers,
-  FormikValues,
 } from "formik";
 import { ValidationSchemaAddQuestion } from "../../../validation/validationSchemaAddQuestion";
-import { AddQuestionFieldType } from "../../list/types";
+import { AddQuestionFieldType } from "../../list/types/types";
 import { ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // import { FaArrowLeft } from "react-icons/fa";
-import { IoIosArrowBack } from "react-icons/io";
+import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+import { AiFillHome } from "react-icons/ai";
 import { useAddQuestionMutation } from "../../../redux/services/myApiEndpoints";
-
-// import OptionField from "../../../components/OptionField";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddQuestion = () => {
   const [addQuestion] = useAddQuestionMutation();
-
   //   ----------formik objects----------
   const initialValues: AddQuestionFieldType = {
     title: "",
@@ -38,18 +37,20 @@ const AddQuestion = () => {
     values: AddQuestionFieldType,
     actions: FormikHelpers<AddQuestionFieldType>
   ) => {
-    const { resetForm } = actions;
-    await addQuestion(values);
-    console.log(values);
-    console.log("submitted");
-    resetForm();
-    setOptionsArray(["", "", "", ""]);
+    try {
+      const { resetForm } = actions;
+      await addQuestion(values);
+      toast.success("Question Added!");
+      resetForm();
+      setOptionsArray(["", "", "", ""]);
+    } catch (error) {
+      toast.error("Error adding question!");
+    }
   };
   const [totalOptions, _] = useState(4);
   const [optionsArray, setOptionsArray] = useState(
     Array.from({ length: totalOptions }, (_) => "")
   );
-
   //   ----------for each input field value take index, value and store it to options state----------
   const handleInputChange = (index: number, value: string) => {
     const tempArray = [...optionsArray];
@@ -57,90 +58,122 @@ const AddQuestion = () => {
     setOptionsArray(tempArray);
   };
   //   ----------mapping options to option tag for answer dropdown----------
-  const answerDropdown = optionsArray.map((one, index) => (
-    <option className="" key={index} value={one}>
-      {one}
+  const answerDropdown = optionsArray.map((option, index) => (
+    <option key={index} value={option}>
+      {option?.length > 50 ? option.slice(0, 50) + "..." : option}
     </option>
   ));
   const navigate = useNavigate();
 
   return (
     <div className="w-full p-5 px-8 ">
-      <div className="flex flex-col justify-start items-center p-5 pb-0 px-0 ">
+      <div className="flex flex-col justify-start items-left p-2 ">
+        <div className="text-primary p-1 pl-0  pr-3 rounded-lg text-opacity-80 text-sm mb-5 flex items-center gap-1 self-start ">
+          <div
+            className="flex gap-2  cursor-pointer"
+            onClick={() => navigate(-1)}
+          >
+            <AiFillHome className="text-lg" />
+            <span className="hover:underline">Questions</span>
+          </div>
+          <MdOutlineKeyboardArrowRight className="text-xl" />
+          <span className="text-[#82a6ef]"> New Questions</span>
+        </div>
         <h1 className="text-primary font-medium text-2xl  ">
           Add New Question
         </h1>
-        <div
-          className="text-primary bg-primary-light p-1 pl-2 pr-3 rounded-lg text-opacity-80 text-sm mb-5 cursor-pointer flex items-center gap-1 self-start "
-          onClick={() => navigate(-1)}
-        >
-          <IoIosArrowBack className="text-lg" />
-          <span>Questions</span>
-        </div>
       </div>
 
-      <div className="border-2 p-5 border-primary-light rounded-xl w-full ">
+      <div className="border-2 p-7  border-primary-light rounded-xl w-full  ">
         <Formik
           initialValues={initialValues}
           onSubmit={onSubmit}
           validationSchema={ValidationSchemaAddQuestion}
         >
           {({ handleChange }) => (
-            <Form className="flex flex-col gap-6">
-              <div className="flex gap-6">
-                {/* title input field and error message */}
-                <div className="flex basis-[60%] flex-col gap-1">
-                  <div className="flex gap-3">
-                    <label htmlFor="title" className="text-md text-dark">
-                      Title:
-                    </label>
-                    <Field
-                      type="text"
-                      id="title"
-                      autoComplete="current-title"
-                      name="title"
-                      className="p-1 rounded-lg outline outline-2 outline-primary-light focus:outline-primary w-full"
-                    />
-                  </div>
-                  <ErrorMessage
-                    className="text-red-500 text-xs ml-[52px]"
-                    component="div"
+            // form field in 2 grid columns
+            <Form className="grid gap-2 grid-cols-2">
+              {/* title input field and error message */}
+              <div className="flex flex-col col-span-2 gap-1 h-[76px]">
+                <div className="flex flex-col gap-1">
+                  <label htmlFor="title" className="text-md text-dark">
+                    Title
+                  </label>
+                  <Field
+                    type="text"
+                    id="title"
+                    autoComplete="current-title"
                     name="title"
+                    className="p-1 px-2 rounded-lg w-full  border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary"
                   />
                 </div>
-                {/* slug input field and error message */}
-                <div className="flex basis-[40%] flex-col gap-1">
-                  <div className="flex gap-3">
-                    <label htmlFor="slug" className="text-md text-dark">
-                      Slug:
-                    </label>
-                    <Field
-                      type="text"
-                      id="slug"
-                      autoComplete="current-slug"
-                      name="slug"
-                      className="p-1 rounded-lg outline outline-2 outline-primary-light focus:outline-primary w-full"
-                    />
-                  </div>
-                  <ErrorMessage
-                    className="text-red-500 text-xs ml-[54px]"
-                    component="div"
-                    name="slug"
-                  />
-                </div>
+                <ErrorMessage
+                  className="text-red-500 text-xs "
+                  component="div"
+                  name="title"
+                />
               </div>
+
+              {/* slug input field and error message */}
+              <div className="parent-field h-[76px]">
+                <div className="label-and-field flex flex-col gap-1  ">
+                  <label htmlFor="slug" className="text-md text-dark">
+                    Slug
+                  </label>
+                  <Field
+                    type="text"
+                    id="slug"
+                    autoComplete="current-slug"
+                    name="slug"
+                    className="p-1 px-2 rounded-lg border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full"
+                  />
+                </div>
+                <ErrorMessage
+                  className="text-red-500 text-xs "
+                  component="div"
+                  name="slug"
+                />
+              </div>
+
+              {/* weightage input field and error message */}
+              <div className="flex  flex-col gap-1 h-[76px]">
+                <div className="flex flex-col gap-1 w-full">
+                  <label htmlFor="weightage" className="text-md text-dark">
+                    Weightage
+                  </label>
+                  <Field
+                    as="select"
+                    type="text"
+                    id="weightage"
+                    autoComplete="current-weightage"
+                    name="weightage"
+                    className="p-1 px-2 rounded-lg border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full"
+                  >
+                    <option value="">select weightage...</option>
+                    <option value="5">5</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                  </Field>
+                </div>
+                <ErrorMessage
+                  className="text-red-500 text-xs "
+                  component="div"
+                  name="weightage"
+                />
+              </div>
+
               {/* description textarea field and error message */}
-              <div className="flex flex-col gap-1">
+              <div className="flex flex-col gap-1 col-span-2 h-[228px]">
                 <div className="flex  flex-col gap-3">
                   <label htmlFor="description" className="text-md text-dark">
-                    Description:
+                    Description
                   </label>
                   <Field
                     as="textarea"
                     id="description"
                     autoComplete="current-description"
                     name="description"
-                    className="p-1 h-44 rounded-lg outline outline-2 outline-primary-light focus:outline-primary w-full"
+                    className="p-1 px-2 h-44 rounded-lg border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full"
                   />
                 </div>
                 <ErrorMessage
@@ -150,16 +183,17 @@ const AddQuestion = () => {
                 />
               </div>
               {/* options input fields and error message */}
-              <p className="text-md text-dark">Options:</p>
-              <div>
+              <div className="flex flex-col col-span-2 gap-2 ">
+                <p className="text-md text-dark">Options</p>
+
                 <FieldArray name="options">
                   {({ form }) => {
                     const { values } = form;
                     const { options } = values;
                     return (
-                      <div className=" grid grid-cols-2 gap-6">
+                      <div className=" grid grid-cols-2 gap-x-3 gap-y-2">
                         {options.map((_: any, index: number) => (
-                          <div key={index}>
+                          <div key={index} className="h-[112px]">
                             <div className="flex gap-3 items-center">
                               <label
                                 htmlFor={`option-${index + 1}`}
@@ -167,7 +201,7 @@ const AddQuestion = () => {
                               >{`${index + 1})`}</label>
                               <Field
                                 as="textarea"
-                                className="p-1 rounded-lg outline outline-2 outline-primary-light focus:outline-primary w-full h-28 resize-none"
+                                className="p-1 px-2 rounded-lg border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full h-24 resize-none"
                                 id={`option-${index + 1}`}
                                 placeholder={`option ${index + 1}`}
                                 name={`options[${index}]`}
@@ -191,58 +225,37 @@ const AddQuestion = () => {
                   }}
                 </FieldArray>
               </div>
-              <div className="flex gap-6">
-                {/* answer input field and error message */}
-                <div className="flex basis-[70%] flex-col gap-1">
-                  <div className="flex gap-3">
-                    <label htmlFor="answer" className="text-md text-dark">
-                      Answer:
-                    </label>
-                    <Field
-                      as="select"
-                      id="answer"
-                      autoComplete="current-answer"
-                      name="answer"
-                      className="p-1 rounded-lg outline outline-2 outline-primary-light focus:outline-primary w-full"
-                    >
-                      <option value="" className="text-[#a0a0a0]">
-                        select answer...
-                      </option>
-                      {answerDropdown}
-                    </Field>
-                  </div>
-                  <ErrorMessage
-                    className="text-red-500 text-xs ml-[82px]"
-                    component="div"
+
+              {/* answer input field and error message */}
+              <div className="flex flex-col gap-1 h-[90px]">
+                <div className="flex flex-col gap-3">
+                  <label htmlFor="answer" className="text-md text-dark">
+                    Answer
+                  </label>
+                  <Field
+                    as="select"
+                    id="answer"
+                    autoComplete="current-answer"
                     name="answer"
-                  />
+                    className="p-1 px-2 rounded-lg border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full"
+                  >
+                    <option value="" className="text-[#a0a0a0]">
+                      select answer...
+                    </option>
+                    {answerDropdown}
+                  </Field>
                 </div>
-                {/* weightage input field and error message */}
-                <div className="flex basis-[30%] flex-col gap-1">
-                  <div className="flex gap-3">
-                    <label htmlFor="weightage" className="text-md text-dark">
-                      Weightage:
-                    </label>
-                    <Field
-                      type="text"
-                      id="weightage"
-                      autoComplete="current-weightage"
-                      name="weightage"
-                      className="p-1 rounded-lg outline outline-2 outline-primary-light focus:outline-primary w-full"
-                    />
-                  </div>
-                  <ErrorMessage
-                    className="text-red-500 text-xs ml-[116px]"
-                    component="div"
-                    name="weightage"
-                  />
-                </div>
+                <ErrorMessage
+                  className="text-red-500 text-xs"
+                  component="div"
+                  name="answer"
+                />
               </div>
 
               {/* submit button */}
               <button
                 type="submit"
-                className="bg-dark w-max self-center text-primary-light rounded-lg text-md font-medium py-button-padding-y px-28 outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"
+                className="bg-dark w-max row-start-6 text-primary-light rounded-lg text-md font-medium py-button-padding-y px-28 outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"
               >
                 Add
               </button>
@@ -250,6 +263,7 @@ const AddQuestion = () => {
           )}
         </Formik>
       </div>
+      <ToastContainer />
     </div>
   );
 };

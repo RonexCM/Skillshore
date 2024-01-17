@@ -21,8 +21,12 @@ export type AddQuestionFieldType = {
 };
 
 export type QuestionType = {
+  id: string;
+  options: string[];
+  answer: string;
   title: string;
   slug: string;
   description: string;
   weightage: string;
+  status: string;
 };

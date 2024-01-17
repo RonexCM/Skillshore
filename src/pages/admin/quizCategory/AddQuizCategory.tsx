@@ -1,7 +1,7 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 
 import { ValidationSchemaAddQuestion } from "../../../validation/validationSchema";
-import { AddQuizCategoryType } from "../../list/types";
+import { AddQuizCategoryType } from "../../list/types/types";
 import { Link } from "react-router-dom";
 
 const AddQuizCategory = () => {
