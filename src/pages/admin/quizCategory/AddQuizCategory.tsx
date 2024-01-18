@@ -1,13 +1,13 @@
 import { Field, Formik, Form, ErrorMessage, FormikHelpers } from "formik";
 
 import { ValidationSchemaAddQuizCategory } from "../../../validation/validationSchemaAddQuizCategory";
-import { AddQuizCategoryFieldType } from "../adminTypes/types";
 import { useNavigate } from "react-router-dom";
 import { AiFillHome } from "react-icons/ai";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { useAddQuizCategoryMutation } from "../../../redux/services/myQuizCategoryApiEndpoints";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { AddQuizCategoryFieldType } from "../types/TQuizCategoryTypes";
 
 const AddQuizCategory = () => {
   const [addQuizCategory] = useAddQuizCategoryMutation();

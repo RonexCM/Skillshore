@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import ListOfQuiz from "../../../components/admin/quiz/ListOfQuiz";
 import { IoSearch } from "react-icons/io5";
 import { useGetQuizQuery } from "../../../redux/services/myQuizApiEndpoints";
-import { QuizType } from "../adminTypes/types";
+import { QuizType } from "../types/TQuizTypes";
 
 const Quiz = () => {
   const { data } = useGetQuizQuery();

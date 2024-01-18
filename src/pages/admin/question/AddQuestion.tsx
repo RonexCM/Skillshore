@@ -7,7 +7,6 @@ import {
   FormikHelpers,
 } from "formik";
 import { ValidationSchemaAddQuestion } from "../../../validation/validationSchemaAddQuestion";
-import { AddQuestionFieldType } from "../adminTypes/types";
 import { ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // import { FaArrowLeft } from "react-icons/fa";
@@ -17,15 +16,17 @@ import { useAddQuestionMutation } from "../../../redux/services/myQuestionApiEnd
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
+import { AddQuestionFieldType } from "../types/TQuestionTypes";
+
 const AddQuestion = () => {
-  const [addQuestion] = useAddQuestionMutation();
+  const [addQuestion, { isSuccess, error }] = useAddQuestionMutation();
   //   ----------formik objects----------
   // we dont need to save this from . Do we need to create slice for this? !!!!!!
   const initialValues: AddQuestionFieldType = {
     title: "",
     slug: "",
     description: "",
-    options: ["", "", "", ""],
+    options: ["", "", ""],
     answer: "",
     weightage: "",
     status: "Active",
@@ -38,17 +39,20 @@ const AddQuestion = () => {
     values: AddQuestionFieldType,
     actions: FormikHelpers<AddQuestionFieldType>
   ) => {
-    try {
+    if (isSuccess) {
       const { resetForm } = actions;
       await addQuestion(values);
       toast.success("Question Added!");
       resetForm();
-      setOptionsArray(["", "", "", ""]);
-    } catch (error) {
+      setOptionsArray(["", "", ""]);
+    }
+
+    if (error) {
       toast.error("Error adding question!");
+      console.log(error);
     }
   };
-  const [totalOptions, _] = useState(4);
+  const [totalOptions, _] = useState(3);
   const [optionsArray, setOptionsArray] = useState(
     Array.from({ length: totalOptions }, (_) => "")
   );
@@ -73,7 +77,7 @@ const AddQuestion = () => {
       className="w-full pt-5 pb-10 px-8 "
     >
       <div className="flex flex-col justify-start items-left p-2 mb-2">
-        <div className="text-primary p-1 pl-0  pr-3 rounded-lg text-opacity-80 text-sm mb-5 flex items-center gap-1 self-start ">
+        <div className="text-primary p-1 pl-0  pr-3 rounded-md text-opacity-80 text-sm mb-5 flex items-center gap-1 self-start ">
           <div
             className="flex gap-2  cursor-pointer"
             onClick={() => navigate(-1)}
@@ -95,9 +99,9 @@ const AddQuestion = () => {
         {({ handleChange }) => (
           // form field in 2 grid columns
           <Form>
-            <div className="border-2  p-7 rounded-md grid gap-2 grid-cols-2 border-primary-light ">
+            <div className="border-2  p-7 rounded-md grid gap-2 gap-x-6 grid-cols-2 border-primary-light ">
               {/* title input field and error message */}
-              <div className="flex flex-col col-span-2 gap-1 h-[76px]">
+              <div className="h-[76px]">
                 <div className="flex flex-col gap-1">
                   <label htmlFor="title" className="text-md text-dark">
                     Title
@@ -107,7 +111,7 @@ const AddQuestion = () => {
                     id="title"
                     autoComplete="current-title"
                     name="title"
-                    className="p-1 px-2 rounded-lg w-full  border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary"
+                    className="p-1 px-2 rounded-md w-full  border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary"
                   />
                 </div>
                 <ErrorMessage
@@ -116,7 +120,26 @@ const AddQuestion = () => {
                   name="title"
                 />
               </div>
-
+              {/* category input field and error message */}
+              <div className="h-[76px]">
+                <div className="flex flex-col gap-1">
+                  <label htmlFor="category-id" className="text-md text-dark">
+                    Category ID
+                  </label>
+                  <Field
+                    type="text"
+                    id="category-id"
+                    autoComplete="current-title"
+                    name="category-id"
+                    className="p-1 px-2 rounded-md w-full  border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary"
+                  />
+                </div>
+                <ErrorMessage
+                  className="text-red-500 text-xs "
+                  component="div"
+                  name="category-id"
+                />
+              </div>
               {/* slug input field and error message */}
               <div className=" h-[76px]">
                 <div className=" flex flex-col gap-1  ">
@@ -128,7 +151,7 @@ const AddQuestion = () => {
                     id="slug"
                     autoComplete="current-slug"
                     name="slug"
-                    className="p-1 px-2 rounded-lg border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full"
+                    className="p-1 px-2 rounded-md border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full"
                   />
                 </div>
                 <ErrorMessage
@@ -150,7 +173,7 @@ const AddQuestion = () => {
                     id="weightage"
                     autoComplete="current-weightage"
                     name="weightage"
-                    className="p-1 px-2 rounded-lg border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full"
+                    className="p-1 px-2 rounded-md border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full"
                   >
                     <option value="">select weightage...</option>
                     <option value="5">5</option>
@@ -176,7 +199,7 @@ const AddQuestion = () => {
                     id="description"
                     autoComplete="current-description"
                     name="description"
-                    className="p-1 px-2 h-44 rounded-lg border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full"
+                    className="p-1 px-2 h-44 rounded-md border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full"
                   />
                 </div>
                 <ErrorMessage
@@ -204,7 +227,7 @@ const AddQuestion = () => {
                               >{`${index + 1})`}</label>
                               <Field
                                 as="textarea"
-                                className="p-1 px-2 rounded-lg border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full h-24 resize-none"
+                                className="p-1 px-2 rounded-md border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full h-24 resize-none"
                                 id={`option-${index + 1}`}
                                 placeholder={`option ${index + 1}`}
                                 name={`options[${index}]`}
@@ -240,7 +263,7 @@ const AddQuestion = () => {
                     id="answer"
                     autoComplete="current-answer"
                     name="answer"
-                    className="p-1 px-2 rounded-lg border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full"
+                    className="p-1 px-2 rounded-md border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full"
                   >
                     <option value="" className="text-[#a0a0a0]">
                       select answer...
@@ -258,7 +281,7 @@ const AddQuestion = () => {
             {/* submit button */}
             <button
               type="submit"
-              className="bg-dark w-max row-start-6 text-primary-light rounded-lg text-md font-medium py-button-padding-y px-28 mt-5 outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"
+              className="bg-dark w-max row-start-6 text-primary-light rounded-md text-md font-medium py-button-padding-y px-28 mt-5 outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"
             >
               Add
             </button>

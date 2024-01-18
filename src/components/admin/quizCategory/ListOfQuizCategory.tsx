@@ -3,8 +3,8 @@ import DeleteQuizCategoryModal from "../../../pages/admin/modals/quizCategoryMod
 import EditQuizCategoryModal from "../../../pages/admin/modals/quizCategoryModals/EditQuizCategoryModal";
 import { Tooltip } from "flowbite-react";
 import { useDispatch } from "react-redux";
-import { saveQuizCategoryDetails } from "../../../redux/slice/editQuizCategorySlice";
-import { QuizCategoryType } from "../../../pages/admin/adminTypes/types";
+import { saveQuizCategoryDetails } from "../../../redux/slice/quizCategorySlice/editQuizCategorySlice";
+import { QuizCategoryType } from "../../../pages/admin/types/types";
 type Props = {
   quizCategory: QuizCategoryType;
   index: number;

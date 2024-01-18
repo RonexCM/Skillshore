@@ -4,46 +4,35 @@ import { useEffect, useState } from "react";
 import ListOfQuestions from "../../../components/admin/question/ListOfQuestions";
 import { IoSearch } from "react-icons/io5";
 import { useGetQuestionsQuery } from "../../../redux/services/myQuestionApiEndpoints";
-import { QuestionType } from "../adminTypes/types";
 import { Spinner } from "flowbite-react";
 import { motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  saveQuestions,
+  saveQuestionsMetaData,
+} from "../../../redux/slice/questionSlice/questionListSlice";
+import { RootState } from "../../../redux/store";
 
 const Question = () => {
-  const { data, isLoading } = useGetQuestionsQuery();
-  const [searchTerm, setSearchTerm] = useState("");
+  const dispatch = useDispatch();
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
-  const [questionsPerPage, _] = useState(10);
-  const [questions, setQuestions] = useState<QuestionType[]>([]);
-  useEffect(() => {
-    if (data) {
-      setQuestions(data);
-    }
-  }, [data]);
-  const indexOfLastQuestion = currentPageNumber * questionsPerPage;
-  const indexOfFirstQuestion = indexOfLastQuestion - questionsPerPage;
-  const filterQuestionList = () => {
-    try {
-      if (!searchTerm) {
-        return questions;
-      }
-      return questions.filter((question: QuestionType) =>
-        question.title.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const filteredQuestionList = filterQuestionList();
-  const currentQuestions = filteredQuestionList?.slice(
-    indexOfFirstQuestion,
-    indexOfLastQuestion
+  const { data: questionsData, isLoading } =
+    useGetQuestionsQuery(currentPageNumber);
+
+  const { data: questionsList, meta } = useSelector(
+    (state: RootState) => state.questionList
   );
-  const totalNumberOfPages = filteredQuestionList
-    ? Math.ceil(filteredQuestionList.length / questionsPerPage)
-    : 1;
+
+  useEffect(() => {
+    if (questionsData) {
+      dispatch(saveQuestions(questionsData.data));
+      dispatch(saveQuestionsMetaData(questionsData.meta));
+    }
+  }, [questionsData]);
+
   if (isLoading) {
     return (
-      <div className="basis-full flex justify-center items-center">
+      <div className="basis-full bg-slate-100 flex justify-center items-center">
         <div>
           <Spinner aria-label="Extra large spinner example" size="xl" />
         </div>
@@ -64,26 +53,23 @@ const Question = () => {
           <input
             type="text"
             id="table-search"
-            value={searchTerm}
-            onChange={(e) => {
-              setSearchTerm(e.target.value);
-              setCurrentPageNumber(1);
-            }}
-            className="block p-2 ps-10  text-sm text-gray-900 border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary rounded-lg w-80 bg-gray-50  "
+            value=""
+            onChange={() => {}}
+            className="block p-2 ps-10  text-sm text-gray-900 border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary rounded-md w-80 bg-gray-50  "
             placeholder="Search Question"
           ></input>
         </div>
         <Link
           to="add-question"
-          className="bg-dark transition-colors text-primary-light rounded-lg text-xs font-medium py-button-padding-y px-button-padding-x outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"
+          className="bg-dark transition-colors flex items-center text-primary-light rounded-lg text-xs font-medium py-button-padding-y px-button-padding-x outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"
         >
-          +Add Question
+          <span>+Add Question</span>
         </Link>
       </div>
-      <div className=" main-container  flex flex-col h-full  outline outline-2  outline-primary-light w-full rounded-xl text-center ">
+      <div className=" main-container  flex flex-col h-full  outline outline-2  outline-primary-light w-full rounded-md text-center ">
         <div className="title-and-table-div basis-full relative overflow-y-hidden">
           <table className="w-full text-sm text-left  text-dark">
-            <thead className="border-b-2 border-primary-light shadow-inner h-16">
+            <thead className="border-b-2 border-primary-light bg-[#fcfcfc] shadow-inner h-14">
               <tr>
                 <th scope="col" className="p-2 w-[8%] ">
                   <div className="flex items-center pl-2 w-[20px] text-sm font-semibold">
@@ -115,7 +101,7 @@ const Question = () => {
             </thead>
 
             <tbody>
-              {currentQuestions?.map((question: any, index) => (
+              {questionsList?.map((question: any, index: number) => (
                 <ListOfQuestions
                   key={index}
                   question={question}
@@ -126,13 +112,13 @@ const Question = () => {
           </table>
         </div>
         <nav
-          className="flex items-center flex-column  border-t-2 flex-wrap md:flex-row justify-between pt-4 p-3"
+          className="flex items-center bg-[#fcfcfc] flex-column  border-t-2 flex-wrap md:flex-row justify-between pt-4 p-3"
           aria-label="Table navigation"
         >
           <Pagination
             setCurrentPageNumber={setCurrentPageNumber}
-            currentPageNumber={currentPageNumber}
-            totalNumberOfPages={totalNumberOfPages}
+            currentPageNumber={meta.current_page}
+            totalNumberOfPages={meta.last_page}
           />
         </nav>
       </div>

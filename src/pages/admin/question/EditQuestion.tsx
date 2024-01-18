@@ -9,7 +9,6 @@ import {
   FormikHelpers,
 } from "formik";
 
-import { QuestionType } from "../adminTypes/types";
 import { ChangeEvent, useState } from "react";
 import { useSelector } from "react-redux";
 import { useEditQuestionMutation } from "../../../redux/services/myQuestionApiEndpoints";
@@ -20,6 +19,7 @@ import { AiFillHome } from "react-icons/ai";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { ToastContainer } from "react-toastify";
 import { motion } from "framer-motion";
+import { QuestionType } from "../types/TQuestionTypes";
 const EditQuestion = () => {
   useEffect(() => {
     setOptionsArray(initialValues.options);
@@ -68,7 +68,7 @@ const EditQuestion = () => {
         className="w-full p-5 pb-10 px-8 "
       >
         <div className="flex flex-col justify-start items-left p-2 mb-2">
-          <div className="text-primary p-1 pl-0 pr-3 rounded-lg text-opacity-80 text-sm mb-5 flex items-center gap-1 self-start ">
+          <div className="text-primary p-1 pl-0 pr-3 rounded-md text-opacity-80 text-sm mb-5 flex items-center gap-1 self-start ">
             <div
               className="flex gap-2  cursor-pointer"
               onClick={() => navigate(-1)}
@@ -92,7 +92,7 @@ const EditQuestion = () => {
             <Form>
               <div className="border-2  p-7 rounded-md grid gap-2 grid-cols-2 border-primary-light ">
                 {/* title input field and error message */}
-                <div className="flex flex-col col-span-2 gap-1  h-[76px]">
+                <div className="h-[76px]">
                   <div className="flex flex-col gap-1">
                     <label htmlFor="title" className="text-md text-dark">
                       Title
@@ -102,13 +102,33 @@ const EditQuestion = () => {
                       id="title"
                       autoComplete="current-title"
                       name="title"
-                      className="p-1 px-2 rounded-lg w-full  border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary"
+                      className="p-1 px-2 rounded-md w-full  border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary"
                     />
                   </div>
                   <ErrorMessage
                     className="text-red-500 text-xs "
                     component="div"
                     name="title"
+                  />
+                </div>
+                {/* category input field and error message */}
+                <div className="h-[76px]">
+                  <div className="flex flex-col gap-1">
+                    <label htmlFor="category-id" className="text-md text-dark">
+                      Category ID
+                    </label>
+                    <Field
+                      type="text"
+                      id="category-id"
+                      autoComplete="current-title"
+                      name="category-id"
+                      className="p-1 px-2 rounded-md w-full  border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary"
+                    />
+                  </div>
+                  <ErrorMessage
+                    className="text-red-500 text-xs "
+                    component="div"
+                    name="category-id"
                   />
                 </div>
                 {/* slug input field and error message */}
@@ -122,7 +142,7 @@ const EditQuestion = () => {
                       id="slug"
                       autoComplete="current-slug"
                       name="slug"
-                      className="p-1 px-2  rounded-lg border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full"
+                      className="p-1 px-2  rounded-md border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full"
                     />
                   </div>
                   <ErrorMessage
@@ -143,7 +163,7 @@ const EditQuestion = () => {
                       id="weightage"
                       autoComplete="current-weightage"
                       name="weightage"
-                      className="p-1 px-2  rounded-lg border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full"
+                      className="p-1 px-2  rounded-md border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full"
                     >
                       <option value="">select weightage...</option>
                       <option value="5">5</option>
@@ -168,7 +188,7 @@ const EditQuestion = () => {
                       id="description"
                       autoComplete="current-description"
                       name="description"
-                      className="p-1 px-2 h-44 rounded-lg border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full"
+                      className="p-1 px-2 h-44 rounded-md border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full"
                     />
                   </div>
                   <ErrorMessage
@@ -196,7 +216,7 @@ const EditQuestion = () => {
                                 >{`${index + 1})`}</label>
                                 <Field
                                   as="textarea"
-                                  className="p-1 px-2 rounded-lg border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full h-24 resize-none"
+                                  className="p-1 px-2 rounded-md border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full h-24 resize-none"
                                   id={`option-${index + 1}`}
                                   placeholder={`option ${index + 1}`}
                                   name={`options[${index}]`}
@@ -232,7 +252,7 @@ const EditQuestion = () => {
                       id="answer"
                       autoComplete="current-answer"
                       name="answer"
-                      className="p-1 px-2 rounded-lg border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full"
+                      className="p-1 px-2 rounded-md border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full"
                     >
                       <option value="" className="text-[#a0a0a0]">
                         select answer...
@@ -250,7 +270,7 @@ const EditQuestion = () => {
               {/* submit button */}
               <button
                 type="submit"
-                className="bg-dark w-max row-start-6 text-primary-light rounded-lg text-md font-medium py-button-padding-y px-16 mt-5 outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"
+                className="bg-dark w-max row-start-6 text-primary-light rounded-md text-md font-medium py-button-padding-y px-16 mt-5 outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"
               >
                 Confirm Edit
               </button>

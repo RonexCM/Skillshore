@@ -4,8 +4,8 @@ import DeleteQuestionModal from "../../../pages/admin/modals/questionModals/Dele
 import { Tooltip, ToggleSwitch } from "flowbite-react";
 import { useChangeStatusMutation } from "../../../redux/services/myQuestionApiEndpoints";
 import { useDispatch } from "react-redux";
-import { saveQuestionDetails } from "../../../redux/slice/editQuestionSlice";
-import { QuestionType } from "../../../pages/admin/adminTypes/types";
+import { saveQuestionDetails } from "../../../redux/slice/questionSlice/editQuestionSlice";
+import { QuestionType } from "../../../pages/admin/types/types";
 import { useNavigate } from "react-router-dom";
 type Props = {
   question: QuestionType;

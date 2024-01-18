@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { QuestionType } from "../../pages/admin/adminTypes/types";
+import { QuestionType } from "../../../pages/admin/types/types";
 
 const initialState = {
   data: {

@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AdminLayout from "./layouts/AdminLayout";
-import QuestionCategory from "./pages/admin/questionCategory/QuestionCategory";
-import QuizCategory from "./pages/admin/quizCategory/QuizCategory";
-import Quiz from "./pages/admin/quiz/Quiz";
-import Question from "./pages/admin/question/Question";
+import QuestionCategory from "./pages/admin/questionCategory";
+import QuizCategory from "./pages/admin/quizCategory";
+import Quiz from "./pages/admin/quiz";
+import Question from "./pages/admin/question";
 import Report from "./pages/admin/Report";
 import AdminDashboardLayout from "./layouts/AdminDashboardLayout";
 import InitialLayout from "./layouts/InitialLayout";

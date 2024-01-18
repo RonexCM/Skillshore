@@ -3,11 +3,13 @@ export type AddQuizCategoryFieldType = {
   title: string;
   slug: string;
 };
+
 export type QuizCategoryType = {
   id: string;
   title: string;
   slug: string;
 };
+
 export type AddQuestionCategoryFieldType = {
   category_id: bigint;
   title: string;
@@ -18,11 +20,13 @@ export type AddQuestionCategoryFieldType = {
   weightage: string;
   status: boolean;
 };
+
 export type QuestionCategoryType = {
   id: string;
   title: string;
   slug: string;
 };
+
 export type AddQuestionFieldType = {
   title: string;
   slug: string;
@@ -61,11 +65,23 @@ export type AddQuizFieldType = {
   timer: number;
   retry_after: number;
 };
+
 export type FetchQuestionType = {
   title: string;
   options: string[];
   weightage: string;
   status: string;
+};
+
+export type FetchQuestionsMetaType = {
+  current_page: number;
+  from: number;
+  last_page: number;
+  links: { url: string; label: string; active: boolean }[];
+  path: string;
+  per_page: number;
+  to: number;
+  total: number;
 };
 
 export type FetchQuestionsType = {
@@ -76,14 +92,29 @@ export type FetchQuestionsType = {
     prev: string;
     next: string;
   };
-  meta: {
-    current_page: number;
-    from: number;
-    last_page: number;
-    links: { url: string; label: string; active: boolean }[];
-    path: string;
-    per_page: number;
-    to: number;
-    total: number;
-  };
+  meta: FetchQuestionsMetaType;
+};
+
+export type FetchQuestionsQueryReturnType = {
+  data: FetchQuestionType[];
+  meta: FetchQuestionsMetaType;
+};
+
+export type QuestionsMetaLinkChildType = {
+  active: boolean;
+  label: string;
+  url: string;
+};
+
+export type QuestionsMetaLinksType = QuestionsMetaLinkChildType[];
+
+export type QuestionMetaType = {
+  current_page: number;
+  from: number;
+  last_page: number;
+  links: QuestionsMetaLinksType;
+  path: string;
+  per_page: number;
+  to: number;
+  total: number;
 };
