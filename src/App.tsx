@@ -11,6 +11,7 @@ import AddQuizCategory from "./pages/admin/quizCategory/AddQuizCategory";
 import AddQuestion from "./pages/admin/question/AddQuestion";
 import AddQuestionCategory from "./pages/admin/questionCategory/AddQuestionCategory";
 import AddQuiz from "./pages/admin/quiz/AddQuiz";
+import EditQuestion from "./pages/admin/question/EditQuestion";
 
 const App = () => {
   return (
@@ -39,6 +40,7 @@ const App = () => {
               <Route path="question">
                 <Route index element={<Question />} />
                 <Route path="add-question" element={<AddQuestion />} />
+                <Route path="edit-question" element={<EditQuestion />} />
               </Route>
               <Route path="report" element={<Report />} />
             </Route>

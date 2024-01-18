@@ -6,7 +6,7 @@ const cookies = new Cookies();
 const baseQuery = fetchBaseQuery({
   baseUrl,
   prepareHeaders: (headers) => {
-    const token = cookies.get("token");
+    const token = "116|0j5oXnJV5ZPxEf4StFgCO8PA1dtKYUnfHsUuOO2Aefcebf85";
     if (token) {
       headers.set("Authorization", `Bearer ${token}`);
     }

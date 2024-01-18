@@ -1,7 +1,7 @@
 import {
   AddQuestionFieldType,
   QuestionType,
-} from "../../pages/list/types/types";
+} from "../../pages/admin/adminTypes/types";
 import { myApi } from "./myApi";
 
 const myApiEndpoints = myApi.injectEndpoints({

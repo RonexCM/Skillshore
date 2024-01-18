@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import ListOfQuestionCategorys from "../../../components/admin/questionCategory/ListOfQuestionCategory";
 import { IoSearch } from "react-icons/io5";
 import { useGetQuestionCategorysQuery } from "../../../redux/services/myQuestionCategoryApiEndpoints";
-import { QuestionCategoryType } from "../../list/types/types";
+import { QuestionCategoryType } from "../adminTypes/types";
 
 const QuestionCategory = () => {
   const { data } = useGetQuestionCategorysQuery();

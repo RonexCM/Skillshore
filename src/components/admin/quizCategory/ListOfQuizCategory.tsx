@@ -4,7 +4,7 @@ import EditQuizCategoryModal from "../../../pages/admin/modals/quizCategoryModal
 import { Tooltip } from "flowbite-react";
 import { useDispatch } from "react-redux";
 import { saveQuizCategoryDetails } from "../../../redux/slice/editQuizCategorySlice";
-import { QuizCategoryType } from "../../../pages/list/types/types";
+import { QuizCategoryType } from "../../../pages/admin/adminTypes/types";
 type Props = {
   quizCategory: QuizCategoryType;
   index: number;

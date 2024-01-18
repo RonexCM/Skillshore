@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 import ListOfQuestions from "../../../components/admin/question/ListOfQuestions";
 import { IoSearch } from "react-icons/io5";
 import { useGetQuestionsQuery } from "../../../redux/services/myQuestionApiEndpoints";
-import { QuestionType } from "../../list/types/types";
+import { QuestionType } from "../adminTypes/types";
 import { Spinner } from "flowbite-react";
+import { motion } from "framer-motion";
 
 const Question = () => {
   const { data, isLoading } = useGetQuestionsQuery();
@@ -40,10 +41,22 @@ const Question = () => {
   const totalNumberOfPages = filteredQuestionList
     ? Math.ceil(filteredQuestionList.length / questionsPerPage)
     : 1;
-
+  if (isLoading) {
+    return (
+      <div className="basis-full flex justify-center items-center">
+        <div>
+          <Spinner aria-label="Extra large spinner example" size="xl" />
+        </div>
+      </div>
+    );
+  }
   return (
-    <div className="flex flex-col basis-full  gap-5 p-5 px-8 ">
-      <h1 className="text-primary font-medium text-2xl py-5">Question</h1>
+    <motion.div
+      initial={{ opacity: 0.2 }}
+      animate={{ opacity: 1 }}
+      className="flex flex-col basis-full  gap-5 py-10 px-8 "
+    >
+      <h1 className="text-primary font-medium text-2xl leading-4">Question</h1>
 
       <div className="flex justify-between">
         <div className="relative">
@@ -62,18 +75,13 @@ const Question = () => {
         </div>
         <Link
           to="add-question"
-          className="bg-dark text-primary-light rounded-lg text-xs font-medium py-button-padding-y px-button-padding-x outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"
+          className="bg-dark transition-colors text-primary-light rounded-lg text-xs font-medium py-button-padding-y px-button-padding-x outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"
         >
           +Add Question
         </Link>
       </div>
       <div className=" main-container  flex flex-col h-full  outline outline-2  outline-primary-light w-full rounded-xl text-center ">
         <div className="title-and-table-div basis-full relative overflow-y-hidden">
-          {isLoading && (
-            <div className="w-full absolute top-[50%] left-[50%] translate-x-[-50%]">
-              <Spinner aria-label="Extra large spinner example" size="xl" />
-            </div>
-          )}
           <table className="w-full text-sm text-left  text-dark">
             <thead className="border-b-2 border-primary-light shadow-inner h-16">
               <tr>
@@ -128,7 +136,7 @@ const Question = () => {
           />
         </nav>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

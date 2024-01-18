@@ -3,7 +3,7 @@ import ReactDom from "react-dom";
 import { IoClose } from "react-icons/io5";
 import { Field, Formik, Form, ErrorMessage } from "formik";
 import { ValidationSchemaAddQuizCategory } from "../../../../validation/validationSchemaAddQuizCategory";
-import { AddQuizCategoryFieldType } from "../../../list/types/types";
+import { AddQuizCategoryFieldType } from "../../adminTypes/types";
 import { useEditQuizCategoryMutation } from "../../../../redux/services/myQuizCategoryApiEndpoints";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../redux/store";

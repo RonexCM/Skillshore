@@ -7,7 +7,7 @@ import {
   FormikHelpers,
 } from "formik";
 import { ValidationSchemaAddQuestion } from "../../../validation/validationSchemaAddQuestion";
-import { AddQuestionFieldType } from "../../list/types/types";
+import { AddQuestionFieldType } from "../adminTypes/types";
 import { ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // import { FaArrowLeft } from "react-icons/fa";
@@ -16,7 +16,7 @@ import { AiFillHome } from "react-icons/ai";
 import { useAddQuestionMutation } from "../../../redux/services/myQuestionApiEndpoints";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { motion } from "framer-motion";
 const AddQuestion = () => {
   const [addQuestion] = useAddQuestionMutation();
   //   ----------formik objects----------
@@ -67,7 +67,11 @@ const AddQuestion = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="w-full p-5 px-8 ">
+    <motion.div
+      initial={{ opacity: 0.2 }}
+      animate={{ opacity: 1 }}
+      className="w-full pt-5 pb-10 px-8 "
+    >
       <div className="flex flex-col justify-start items-left p-2 mb-2">
         <div className="text-primary p-1 pl-0  pr-3 rounded-lg text-opacity-80 text-sm mb-5 flex items-center gap-1 self-start ">
           <div
@@ -83,15 +87,15 @@ const AddQuestion = () => {
         <h1 className="text-primary font-medium text-2xl">New Question</h1>
       </div>
 
-      <div className="border-2 p-7  border-primary-light rounded-xl w-full  ">
-        <Formik
-          initialValues={initialValues}
-          onSubmit={onSubmit}
-          validationSchema={ValidationSchemaAddQuestion}
-        >
-          {({ handleChange }) => (
-            // form field in 2 grid columns
-            <Form className="grid gap-2 grid-cols-2">
+      <Formik
+        initialValues={initialValues}
+        onSubmit={onSubmit}
+        validationSchema={ValidationSchemaAddQuestion}
+      >
+        {({ handleChange }) => (
+          // form field in 2 grid columns
+          <Form>
+            <div className="border-2  p-7 rounded-md grid gap-2 grid-cols-2 border-primary-light ">
               {/* title input field and error message */}
               <div className="flex flex-col col-span-2 gap-1 h-[76px]">
                 <div className="flex flex-col gap-1">
@@ -114,8 +118,8 @@ const AddQuestion = () => {
               </div>
 
               {/* slug input field and error message */}
-              <div className="parent-field h-[76px]">
-                <div className="label-and-field flex flex-col gap-1  ">
+              <div className=" h-[76px]">
+                <div className=" flex flex-col gap-1  ">
                   <label htmlFor="slug" className="text-md text-dark">
                     Slug
                   </label>
@@ -226,7 +230,7 @@ const AddQuestion = () => {
               </div>
 
               {/* answer input field and error message */}
-              <div className="flex flex-col gap-1 h-[90px]">
+              <div className="flex flex-col gap-1">
                 <div className="flex flex-col gap-3">
                   <label htmlFor="answer" className="text-md text-dark">
                     Answer
@@ -250,20 +254,20 @@ const AddQuestion = () => {
                   name="answer"
                 />
               </div>
+            </div>
+            {/* submit button */}
+            <button
+              type="submit"
+              className="bg-dark w-max row-start-6 text-primary-light rounded-lg text-md font-medium py-button-padding-y px-28 mt-5 outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"
+            >
+              Add
+            </button>
+          </Form>
+        )}
+      </Formik>
 
-              {/* submit button */}
-              <button
-                type="submit"
-                className="bg-dark w-max row-start-6 text-primary-light rounded-lg text-md font-medium py-button-padding-y px-28 outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"
-              >
-                Add
-              </button>
-            </Form>
-          )}
-        </Formik>
-      </div>
       <ToastContainer />
-    </div>
+    </motion.div>
   );
 };
 
