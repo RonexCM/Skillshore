@@ -107,7 +107,7 @@ const Login = () => {
               type="submit"
               className="px-button-padding-x py-button-padding-y rounded-[10px]  mb-[18px] bg-accent text-dark font-semibold font-poppins hover:outline hover:outline-2 hover:outline-primary focus:outline focus:outline-2 focus:outline-primary"
             >
-              login
+              Login
             </button>
             <div className="flex gap-1 mt-[9px] text-text-dark">
               <p className="text-[14px] font-normal">Don't have an account?</p>
