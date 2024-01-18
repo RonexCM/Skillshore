@@ -35,25 +35,26 @@ const RegistrationForm: React.FC = () => {
   };
 
   return (
-    <div className="registrationPage flex justify-between p-5">
+    <div className="registrationPage flex justify-around gap-[220px] p-5">
       {/* registration form goes here */}
-      <div className=" registration w-[500px]  rounded-[32px] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.2)]  ml-28 py-5 px-7">
+      <div className=" registration w-[500px]  rounded-[32px] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.2)] py-7 px-7">
         <Formik
           initialValues={initialValues}
           validationSchema={registrationSchema}
           onSubmit={handleSubmit}
         >
           <Form className="flex flex-col items-center h-max ">
-            <h2 className=" items-center text-center text-3xl mt-[15px] leading-[46px] font-bold">
+            <h2 className=" items-center text-center text-3xl leading-[46px] font-bold">
               Create an account
             </h2>
-            <div className="flex flex-col mt-[15px] min-h-[84px] w-full mb-1">
+            <div className="flex flex-col min-h-[84px] py-3 w-full mb-1">
               <label htmlFor="name">Name</label>
               <div className="flex flex-col">
                 <Field
                   type="text"
                   id="name"
                   name="name"
+                  placeholder="Name"
                   className="w-full h-12 bg-white rounded-lg border-2 border-indigo-100 px-3 hover:border-accent"
                 />
                 <ErrorMessage
@@ -70,6 +71,7 @@ const RegistrationForm: React.FC = () => {
                   type="text"
                   id="email"
                   name="email"
+                  placeholder="Email"
                   className="w-full h-12 bg-white rounded-lg border-2 border-indigo-100 px-3 hover:border-accent"
                 />
                 <ErrorMessage
@@ -86,6 +88,7 @@ const RegistrationForm: React.FC = () => {
                   type="password"
                   id="password"
                   name="password"
+                  placeholder="Password"
                   className="w-full h-12 bg-white rounded-lg border-2 border-indigo-100 px-3 hover:border-accent"
                 />
                 <ErrorMessage
@@ -102,6 +105,7 @@ const RegistrationForm: React.FC = () => {
                   type="password"
                   id="confirmPassword"
                   name="confirmPassword"
+                  placeholder="Confirm Password"
                   className="w-full h-12 bg-white rounded-lg border-2 border-indigo-100 px-3 hover:border-accent"
                 />
                 <ErrorMessage
@@ -118,8 +122,8 @@ const RegistrationForm: React.FC = () => {
               Create Account
             </button>
             <div className="AlreadyHaveAnAccountLogin text-center">
-              <span className="flex gap-1 mt-[9px] text-text-dark">
-                Already Have An Account?{" "}
+              <span className="flex gap-1 mt-[8px] font-light text-text-dark">
+                Already have an ccount?{" "}
                 <Link
                   to="/"
                   className="text-primary font-['Poppins'] text-14 leading-18.2 hover:underline"
@@ -131,8 +135,8 @@ const RegistrationForm: React.FC = () => {
           </Form>
         </Formik>
       </div>
-      <div className=" w-[800px] ">
-        <img src={penguinImage} className="mt-[120px] ml-[150px]" />
+      <div className=" w-1/2 flex justify-center items-center">
+        <img src={penguinImage} className="" />
       </div>
     </div>
   );
