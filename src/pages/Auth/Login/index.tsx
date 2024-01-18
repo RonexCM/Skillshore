@@ -112,14 +112,14 @@ const Login = () => {
             <div className="flex gap-1 mt-[9px] text-text-dark">
               <p className="text-[14px] font-normal">Don't have an account?</p>
               <Link
-                to="/register"
+                to="register"
                 className="text-[14px] font-normal text-primary font-poppins rounded-sm hover:underline focus:outline focus:outline-2 focus:outline-primary"
               >
                 Register
               </Link>
             </div>
             <Link
-              to="/forgotpassword"
+              to="forgot-password"
               className="text-[14px] font-normal mt-[8px] rounded-sm text-primary hover:underline focus:outline focus:outline-2 focus:outline-primary"
             >
               Forgot Password?

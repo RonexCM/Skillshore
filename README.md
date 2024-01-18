@@ -33,12 +33,15 @@ The project follows the following folder structure:
   - **/layouts:** Contains layouts components.
   - **/pages:** React components representing individual pages of the application.
     - **/admin:** React components representing admin pages.
-    - **/list:** Folder that contains the types declarations used.
-      - **/interface:** Contains the interfaces used.
+      - **/types:** Contains the types used.
+    - **/auth:** React components representing auth pages.
       - **/types:** Contains the types used.
     - **/student:** React components representing student pages.
+      - **/types:** Contains the types used.
   - **/redux:** Folder contains redux components like store and api.
     - **/services:** Contains api and endpoint.
+    - **/slice:** Contains slices.
+    - **/store:** Contains redux store.
   - **/validation:** Contains form validation schemas implemented using Yup.
   - **App.tsx:** Main component serving as the entry point for the React application.
   - **index.css:** Styles specific to the main application component.

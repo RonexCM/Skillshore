@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { LoginField } from "../../pages/list/types/types";
+import { LoginField } from "../../pages/auth/types";
 const initialState = {
   email: "",
   password: "",
