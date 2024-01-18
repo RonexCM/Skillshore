@@ -1,8 +1,8 @@
 import "./index.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import UserLayout from "./layout/UserLayout";
-import UserProfile from "./pages/student/UserProfile";
-import EditProfile from "./pages/student/EditProfile";
+import UserLayout from "./layouts/UserLayout";
+import UserProfile from "./pages/student/profile/UserProfile";
+import EditProfile from "./pages/student/profile/EditProfile";
 
 function App() {
   return (

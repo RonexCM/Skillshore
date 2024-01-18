@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import UserNavbar from "../components/UserNavbar";
-import Footer from "../components/Footer";
+import UserNavbar from "./UserNavbar";
+import Footer from "./Footer";
 
 const UserLayout = () => {
   return (
