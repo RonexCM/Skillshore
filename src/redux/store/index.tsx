@@ -1,25 +1,26 @@
-// import { configureStore } from "@reduxjs/toolkit";
-// import { myApi } from "../services/myApi";
-// import userReducer from "../slice/userSlice";
-
-// const store = configureStore({
-//   reducer: {
-//     user: userReducer,
-//   },
-// });
-
-// export default store;
-
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { apiSlice } from "../services/myUserProfileEndpoints";
-import userSlice from "../slice/userSlice";
+import { persistReducer, persistStore } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
-export const store = configureStore({
-  reducer: {
-    [apiSlice.reducerPath]: apiSlice.reducer,
-    user: userSlice,
-  },
+const rootReducer = combineReducers({
+  api: apiSlice.reducer,
+});
+
+const persistConfig = {
+  key: "root",
+  storage,
+};
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+const store = configureStore({
+  reducer: persistedReducer,
+
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),
   devTools: true,
 });
+
+const persistor = persistStore(store);
+
+export { store, persistor };

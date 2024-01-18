@@ -1,43 +1,36 @@
-import { useEffect } from "react";
-import userProfileValidationSchema from "../../validation/userProfileValidationSchema";
-import { editedData } from "../list/types/types";
-import { Formik, Field, Form, ErrorMessage } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import { LineWave } from "react-loader-spinner";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  useGetUserQuery,
-  useUpdateUserProfileMutation,
-} from "../../redux/services/myUserProfileEndpoints";
-import { useDispatch } from "react-redux";
+import { useUpdateUserProfileMutation } from "../../redux/services/myUserProfileEndpoints";
 import { setUserData } from "../../redux/slice/userSlice";
-import { Loader } from "lucide-react";
+import userProfileValidationSchema from "../../validation/userProfileValidationSchema";
+import { editedData } from "../list/types/TEditProfile";
 
 const EditProfile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { data: userDetails } = useGetUserQuery("");
   const [updateUserProfile] = useUpdateUserProfileMutation();
-  useEffect(() => {
-    if (userDetails) {
-      console.log(userDetails, "data edittt");
-    }
-  }, [userDetails]);
-  const initialValues: editedData = {
-    id: userDetails?.[0]?.id,
-    name: userDetails?.[0]?.name || "",
-    description: userDetails?.[0]?.description || "",
-    mail: userDetails?.[0]?.mail || "",
-    phone: userDetails?.[0]?.phone || "",
-    experience: userDetails?.[0]?.experience || "",
-    language: userDetails?.[0]?.language || "",
-    available: userDetails?.[0]?.available || "",
-    role: userDetails?.[0]?.role || "",
-    education: userDetails?.[0]?.education || "",
-    skills: userDetails?.[0]?.skills || "",
-  };
+
+  const data = useSelector((state) => state.api.queries['getUser("")']);
+
+  if (data?.status == "pending") {
+    return (
+      <div className="flex justify-center h-[80vh] w-[100vh] m-auto">
+        <LineWave
+          visible={true}
+          height="100"
+          width="100"
+          color="rgba(79, 169, 77)"
+          ariaLabel="line-wave-loading"
+          wrapperStyle={{}}
+        />
+      </div>
+    );
+  }
 
   const handleSubmit = async (values: editedData) => {
     try {
-      console.log(values, "values");
       const { skills, ...other } = values;
       let skill;
       if (!Array.isArray(skills)) {
@@ -56,10 +49,10 @@ const EditProfile = () => {
 
   return (
     <>
-      {userDetails !== null && userDetails !== undefined ? (
+      {data?.data && data?.status == "fulfilled" ? (
         <div className=" bg-white p-9  w-full ">
           <Formik
-            initialValues={initialValues}
+            initialValues={data?.data?.[0]}
             onSubmit={handleSubmit}
             validationSchema={userProfileValidationSchema}
           >
@@ -240,9 +233,7 @@ const EditProfile = () => {
           </Formik>
         </div>
       ) : (
-        <div className="h-[100vh] w-[100vh] m-auto">
-          <Loader className="animate-spin m-auto h-8 w-8" />
-        </div>
+        <div>No data availabel</div>
       )}
     </>
   );

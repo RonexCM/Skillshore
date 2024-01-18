@@ -1,15 +1,34 @@
-import { Loader } from "lucide-react";
 import { FaLinkedin, FaPhoneAlt } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import { SiGithub } from "react-icons/si";
 import { useNavigate } from "react-router-dom";
 import profile from "../../assets/images/profile.svg";
 import { useGetUserQuery } from "../../redux/services/myUserProfileEndpoints";
+import { LineWave } from "react-loader-spinner";
+
+interface IUserProfile {
+  resume: string;
+  name: string;
+  profile: string;
+  description: string;
+  mail: string;
+  phone: string;
+  experience: string;
+  language: string;
+  available: string;
+  role: string;
+  education: string;
+  skills: string[];
+  id: string;
+  linkedIn: string;
+  github: string;
+}
 
 const UserProfile = () => {
   const navigate = useNavigate();
-  const profileStyle = " text-dark font-medium";
   const { data, isLoading } = useGetUserQuery("");
+
+  const profileStyle = " text-dark font-medium";
 
   return (
     <div className="h-full px-[120px] py-8 font-poppins ">
@@ -28,12 +47,19 @@ const UserProfile = () => {
       </div>
       <div className="userDetails ">
         {isLoading ? (
-          <div className="h-[100vh] w-[100vh] m-auto">
-            <Loader className="animate-spin m-auto h-8 w-8" />
+          <div className="flex justify-center h-[80vh] w-[100vh] m-auto">
+            <LineWave
+              visible={true}
+              height="100"
+              width="100"
+              color="rgba(79, 169, 77)"
+              ariaLabel="line-wave-loading"
+              wrapperStyle={{}}
+            />
           </div>
         ) : (
           data &&
-          data.map((user, id) => (
+          data.map((user: IUserProfile, id: number) => (
             <div key={id} className="studentInfo flex flex-col gap-11">
               <div className="Profile grid grid-cols-2">
                 <p className={profileStyle}>Upload your resume</p>
