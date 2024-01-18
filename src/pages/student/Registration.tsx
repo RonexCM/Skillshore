@@ -123,7 +123,7 @@ const RegistrationForm: React.FC = () => {
             </button>
             <div className="AlreadyHaveAnAccountLogin text-center">
               <span className="flex gap-1 mt-[8px] font-light text-text-dark">
-                Already have an ccount?{" "}
+                Already have an account?{" "}
                 <Link
                   to="/"
                   className="text-primary font-['Poppins'] text-14 leading-18.2 hover:underline"
