@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import NavbarInitial from "../components/NavbarInitial";
-import Footer from "../components/Footer";
+import NavbarInitial from "./NavbarInitial";
+import Footer from "../Footer";
 
 /**
  * Layout for login, register and forgot password page

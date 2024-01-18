@@ -3,7 +3,7 @@ import {
   LoginResponseSuccess,
   LoginResponseError,
   LoginField,
-} from "../../pages/list/types/types";
+} from "../../pages/Auth/types";
 const myApiEndpoints = myApi.injectEndpoints({
   endpoints: (builder) => ({
     loginUser: builder.mutation<
