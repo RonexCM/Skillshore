@@ -9,7 +9,5 @@ export const validationSchema = Yup.object({
       /^[a-zA-Z0-9]+([._-]*[a-zA-Z0-9]+)*@[a-zA-Z0-9]+([a-zA-Z0-9]*[a-zA-Z0-9]+)*\.[a-zA-Z]{2,}$/,
       "Email must be a valid email"
     ),
-  password: Yup.string()
-    .required("Password is required")
-    .min(8, "Password must be atleast 8 characters"),
+  password: Yup.string().required("Password is required"),
 });

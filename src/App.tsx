@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./pages/auth/login";
-import InitialLayout from "./layouts/Auth/InitialLayout";
+import InitialLayout from "./layouts/auth/InitialLayout";
 import Register from "./pages/auth/register";
 import User from "./pages/student/User";
 import ForgotPassword from "./pages/auth/forgotPassword";
