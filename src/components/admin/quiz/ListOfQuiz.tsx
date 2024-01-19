@@ -1,7 +1,7 @@
 import { useState } from "react";
 import DeleteQuizModal from "../../../pages/admin/modals/quizModals/DeleteQuizModal";
 import EditQuizModal from "../../../pages/admin/modals/quizModals/EditQuizModal";
-import { useChangeStatusMutation } from "../../../redux/services/myQuizApiEndpoints";
+import { Tooltip } from "flowbite-react";
 
 type Props = {
   quiz: any;
@@ -63,22 +63,26 @@ const ListOfQuiz = ({ quiz }: Props) => {
 
         <td className="px-6 py-3">
           <div className="flex gap-2">
-            <button
-              onClick={handleEdit}
-              className="font-medium  text-blue-600 dark:text-blue-500 hover:underline"
-            >
-              <span className="material-symbols-outlined  text-blue-600 dark:text-blue-500 hover:underline ">
-                Edit
-              </span>
-            </button>
-            <button
-              onClick={handleDelete}
-              className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-            >
-              <span className="material-symbols-outlined text-red-600 dark:text-red-500 hover:underline ">
-                Delete
-              </span>
-            </button>
+            <Tooltip content="Edit" className="text-blue-600" style="light">
+              <button
+                onClick={handleEdit}
+                className="font-medium  text-blue-600 dark:text-blue-500 hover:underline"
+              >
+                <span className="material-symbols-outlined  text-blue-600 dark:text-blue-500 hover:underline ">
+                  Edit
+                </span>
+              </button>
+            </Tooltip>
+            <Tooltip content="Delete" className="text-error" style="light">
+              <button
+                onClick={handleDelete}
+                className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+              >
+                <span className="material-symbols-outlined text-red-600 dark:text-red-500 hover:underline ">
+                  Delete
+                </span>
+              </button>
+            </Tooltip>
           </div>
         </td>
       </tr>

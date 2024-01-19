@@ -1,24 +1,32 @@
 import { useState } from "react";
 import DeleteQuestionModal from "../../../pages/admin/modals/questionModals/DeleteQuestionModal";
+<<<<<<< HEAD
 import EditQuestionModal from "../../../pages/admin/modals/questionModals/EditQuestionModal";
 import { Tooltip } from "flowbite-react";
+=======
+
+import { Tooltip, ToggleSwitch } from "flowbite-react";
+>>>>>>> 3cf0cf7797fcfdc7b74036988bf011c430c9104d
 import { useChangeStatusMutation } from "../../../redux/services/myQuestionApiEndpoints";
 import { useDispatch } from "react-redux";
-import { saveQuestionDetails } from "../../../redux/slice/editQuestionSlice";
+import { saveQuestionDetails } from "../../../redux/slice/questionSlice/editQuestionSlice";
+import { QuestionType } from "../../../pages/admin/types/types";
+import { useNavigate } from "react-router-dom";
 type Props = {
-  question: any;
+  question: QuestionType;
   index: number;
 };
 
 const ListOfQuestions = ({ question, index }: Props) => {
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [showEditModal, setShowEditModal] = useState(false);
   const [active, setActive] = useState(false);
   const [changeStatus] = useChangeStatusMutation();
   const handleEdit = () => {
     dispatch(saveQuestionDetails(question));
-    setShowEditModal(true);
+    navigate("edit-question");
   };
   const handleDelete = () => {
     setShowDeleteModal(true);
@@ -112,9 +120,6 @@ const ListOfQuestions = ({ question, index }: Props) => {
           setShowModal={setShowDeleteModal}
           id={question.id}
         />
-      )}
-      {showEditModal && (
-        <EditQuestionModal setShowModal={setShowEditModal} id={question.id} />
       )}
     </>
   );

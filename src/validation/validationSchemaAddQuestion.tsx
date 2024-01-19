@@ -7,4 +7,5 @@ export const ValidationSchemaAddQuestion = Yup.object({
   options: Yup.array().of(Yup.string().required("Option is required")),
   answer: Yup.string().required("Answer is required"),
   weightage: Yup.string().required("Weightage is required"),
+  "category-id": Yup.number().required("Category ID is required"),
 });

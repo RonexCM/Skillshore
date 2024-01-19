@@ -1,10 +1,10 @@
-import { QuestionCategoryType } from "../../pages/list/types/types";
+import { QuestionCategoryType } from "../../pages/admin/types/types";
 import { myApi } from "./myApi";
 
 const myQuestionCategoryApiEndpoints = myApi.injectEndpoints({
   endpoints: (builder) => ({
-    getQuestionCategorys: builder.query<QuestionCategoryType[], void>({
-      query: () => "/question-categories",
+    getQuestionCategorys: builder.query<QuestionCategoryType[], number>({
+      query: (page) => `/admin/question-categories?page=${page}`,
       providesTags: ["FetchQuestionCategories"],
     }),
     addQuestionCategory: builder.mutation<

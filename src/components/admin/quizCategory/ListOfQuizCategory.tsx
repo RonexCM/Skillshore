@@ -3,8 +3,8 @@ import DeleteQuizCategoryModal from "../../../pages/admin/modals/quizcategoryMod
 import EditQuizCategoryModal from "../../../pages/admin/modals/quizcategoryModals/EditQuizCategoryModal";
 import { Tooltip } from "flowbite-react";
 import { useDispatch } from "react-redux";
-import { saveQuizCategoryDetails } from "../../../redux/slice/editQuizCategorySlice";
-import { QuizCategoryType } from "../../../pages/list/types/types";
+import { saveQuizCategoryDetails } from "../../../redux/slice/quizCategorySlice/editQuizCategorySlice";
+import { QuizCategoryType } from "../../../pages/admin/types/types";
 type Props = {
   quizCategory: QuizCategoryType;
   index: number;
@@ -38,8 +38,13 @@ const ListOfQuizCategorys = ({ quizCategory, index }: Props) => {
           {quizCategory.title}
         </th>
 
+<<<<<<< HEAD
         <td className="px-4 pe-[150px] py-3">
           <div className="flex gap-4">
+=======
+        <td className="px-6 py-3">
+          <div className="flex gap-2">
+>>>>>>> 3cf0cf7797fcfdc7b74036988bf011c430c9104d
             <Tooltip content="Edit" className="text-blue-600" style="light">
               <button
                 onClick={handleEdit}

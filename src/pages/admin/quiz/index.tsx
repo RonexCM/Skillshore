@@ -1,51 +1,49 @@
 import { Link } from "react-router-dom";
 import Pagination from "../../../components/admin/Pagination";
 import { useEffect, useState } from "react";
-import ListOfQuizCategorys from "../../../components/admin/quizCategory/ListOfQuizCategory";
+import ListOfQuiz from "../../../components/admin/quiz/ListOfQuiz";
 import { IoSearch } from "react-icons/io5";
-import { useGetQuizCategorysQuery } from "../../../redux/services/myQuizCategoryApiEndpoints";
-import { QuizCategoryType } from "../../list/types/types";
+import { useGetQuizQuery } from "../../../redux/services/myQuizApiEndpoints";
+import { QuizType } from "../types/TQuizTypes";
 
-const QuizCategory = () => {
-  const { data, isLoading } = useGetQuizCategorysQuery();
-  // const { data } = useGetQuizCategorysQuery();
+const Quiz = () => {
+  // const { data, isLoading } = useGetQuizCategorysQuery();
+  const { data, isLoading } = useGetQuizQuery();
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
-  const [quizCategorysPerPage, _] = useState(10);
-  const [quizCategorys, setQuizCategorys] = useState<QuizCategoryType[]>([]);
-
+  const [quizPerPage, _] = useState(10);
+  const [quiz, setQuiz] = useState<QuizType[]>([]);
   useEffect(() => {
     if (data) {
-      setQuizCategorys(data);
+      setQuiz(data);
     }
   }, [data]);
-  const indexOfLastQuizCategory = currentPageNumber * quizCategorysPerPage;
-  const indexOfFirstQuizCategory =
-    indexOfLastQuizCategory - quizCategorysPerPage;
-  const filterQuizCategoryList = () => {
+  const indexOfLastQuiz = currentPageNumber * quizPerPage;
+  const indexOfFirstQuiz = indexOfLastQuiz - quizPerPage;
+  const filterQuizList = () => {
     try {
       if (!searchTerm) {
-        return quizCategorys;
+        return quiz;
       }
-      return quizCategorys.filter((quizCategory: QuizCategoryType) =>
-        quizCategory.title.toLowerCase().includes(searchTerm.toLowerCase())
+      return quiz.filter((quiz: QuizType) =>
+        quiz.title.toLowerCase().includes(searchTerm.toLowerCase())
       );
     } catch (error) {
       console.log(error);
     }
   };
-  const filteredQuizCategoryList = filterQuizCategoryList();
-  const currentQuizCategorys = filteredQuizCategoryList?.slice(
-    indexOfFirstQuizCategory,
-    indexOfLastQuizCategory
+  const filteredQuizList = filterQuizList();
+  const currentQuizs = filteredQuizList?.slice(
+    indexOfFirstQuiz,
+    indexOfLastQuiz
   );
-  const totalNumberOfPages = filteredQuizCategoryList
-    ? Math.ceil(filteredQuizCategoryList.length / quizCategorysPerPage)
+  const totalNumberOfPages = filteredQuizList
+    ? Math.ceil(filteredQuizList.length / quizPerPage)
     : 1;
 
   return (
     <div className="flex flex-col basis-full  gap-2 p-5 px-8 ">
-      <h1 className="text-primary font-medium text-2xl py-5">Quiz Category</h1>
+      <h1 className="text-primary font-medium text-2xl py-5">Quiz</h1>
 
       <div className="flex justify-between">
         <div className="relative">
@@ -59,17 +57,17 @@ const QuizCategory = () => {
               setCurrentPageNumber(1);
             }}
             className="block p-2 ps-10  text-sm text-gray-900 border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary rounded-lg w-80 bg-gray-50  "
-            placeholder="Search Quiz Category"
+            placeholder="Search Quiz"
           ></input>
         </div>
         <Link
-          to="add-quiz-category"
+          to="add-quiz"
           className="bg-dark text-primary-light rounded-lg text-xs font-medium py-button-padding-y px-button-padding-x outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"
         >
-          +Add Category
+          +Add Quiz
         </Link>
       </div>
-      <div className="pt-0">{isLoading && <p className=""></p>}</div>
+      <div className="">{isLoading && <p className=""></p>}</div>
       {isLoading ? (
         <div className="pb-2 ps-5">
           <div role="status">
@@ -97,42 +95,50 @@ const QuizCategory = () => {
         <div></div>
       )}
       <div className=" main-container flex flex-col h-full  outline outline-2  outline-primary-light w-full rounded-xl text-center ">
+        <div className="shadow-md text-primary-light "></div>
         <div className="title-and-table-div basis-full overflow-y-hidden">
-          <table className="w-full leading-[0px] text-sm text-left  text-dark">
+          <table className="w-full leading-[0px]  text-sm text-left  text-dark">
             <thead className="border-b-2 border-primary-light h-10">
-              <tr className="">
-                <th scope="col" className="p-2   ">
-                  <div className="flex items-center pl-2 w-[10px]  text-sm font-semibold">
+              <tr>
+                <th scope="col" className="p-2 w-[8%] ">
+                  <div className="flex items-center pl-2 w-[20px] text-sm font-semibold">
                     S.N
                   </div>
                 </th>
                 <th
                   scope="col"
-                  className="px-1 py-3 w-[78%] text-sm font-semibold "
+                  className="px-6 py-3 w-[40%] text-sm font-semibold"
                 >
                   Title
                 </th>
-
-                <th scope="col" className="px-6 py-3 w-[10%] font-semibold ">
+                <th
+                  scope="col"
+                  className="px-4  py-3 w-[17%] text-sm font-semibold "
+                >
+                  Time
+                </th>
+                <th
+                  scope="col"
+                  className="px-6 py-3 w-[20%] ps-9 text-sm font-semibold"
+                >
+                  Status
+                </th>
+                <th
+                  scope="col"
+                  className="px-6 ps-[30px] py-3 w-[15%] font-semibold"
+                >
                   Action
                 </th>
               </tr>
             </thead>
 
-            <tbody className="">
-              {currentQuizCategorys?.map(
-                (quizCategory: QuizCategoryType, index) => (
-                  <ListOfQuizCategorys
-                    key={index}
-                    quizCategory={quizCategory}
-                    index={index}
-                  />
-                )
-              )}
+            <tbody>
+              {currentQuizs?.map((quiz: any, index) => (
+                <ListOfQuiz key={index} quiz={quiz} />
+              ))}
             </tbody>
           </table>
         </div>
-
         <nav
           className="flex items-center flex-column  border-t-2 flex-wrap md:flex-row justify-between pt-4 p-3"
           aria-label="Table navigation"
@@ -148,4 +154,4 @@ const QuizCategory = () => {
   );
 };
 
-export default QuizCategory;
+export default Quiz;

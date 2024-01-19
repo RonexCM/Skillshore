@@ -1,49 +1,62 @@
 import { Link } from "react-router-dom";
 import Pagination from "../../../components/admin/Pagination";
 import { useEffect, useState } from "react";
-import ListOfQuiz from "../../../components/admin/quiz/ListOfQuiz";
+import ListOfQuestionCategorys from "../../../components/admin/questionCategory/ListOfQuestionCategory";
 import { IoSearch } from "react-icons/io5";
-import { useGetQuizQuery } from "../../../redux/services/myQuizApiEndpoints";
-import { QuizType } from "../../list/types/types";
+import { useGetQuestionCategorysQuery } from "../../../redux/services/myQuestionCategoryApiEndpoints";
+import { QuestionCategoryType } from "../types/TQuestionCategoryTypes";
 
-const Quiz = () => {
-  // const { data, isLoading } = useGetQuizCategorysQuery();
-  const { data, isLoading } = useGetQuizQuery();
+const QuestionCategory = () => {
+<<<<<<< HEAD:src/pages/admin/questionCategory/QuestionCategory.tsx
+  const { data, isLoading } = useGetQuestionCategorysQuery();
+=======
+  // need to change argument of useGetQuestionCategoryQuery accorfing to page required
+  const { data } = useGetQuestionCategorysQuery(1);
+>>>>>>> 3cf0cf7797fcfdc7b74036988bf011c430c9104d:src/pages/admin/questionCategory/index.tsx
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
-  const [quizPerPage, _] = useState(10);
-  const [quiz, setQuiz] = useState<QuizType[]>([]);
+  const [questionCategorysPerPage, _] = useState(10);
+  const [questionCategorys, setQuestionCategorys] = useState<
+    QuestionCategoryType[]
+  >([]);
   useEffect(() => {
     if (data) {
-      setQuiz(data);
+      setQuestionCategorys(data);
     }
   }, [data]);
-  const indexOfLastQuiz = currentPageNumber * quizPerPage;
-  const indexOfFirstQuiz = indexOfLastQuiz - quizPerPage;
-  const filterQuizList = () => {
+  const indexOfLastQuestionCategory =
+    currentPageNumber * questionCategorysPerPage;
+  const indexOfFirstQuestionCategory =
+    indexOfLastQuestionCategory - questionCategorysPerPage;
+  const filterQuestionCategoryList = () => {
     try {
       if (!searchTerm) {
-        return quiz;
+        return questionCategorys;
       }
-      return quiz.filter((quiz: QuizType) =>
-        quiz.title.toLowerCase().includes(searchTerm.toLowerCase())
+      return questionCategorys.filter(
+        (questionCategory: QuestionCategoryType) =>
+          questionCategory.title
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase())
       );
     } catch (error) {
       console.log(error);
     }
   };
-  const filteredQuizList = filterQuizList();
-  const currentQuizs = filteredQuizList?.slice(
-    indexOfFirstQuiz,
-    indexOfLastQuiz
+  const filteredQuestionCategoryList = filterQuestionCategoryList();
+  const currentQuestionCategorys = filteredQuestionCategoryList?.slice(
+    indexOfFirstQuestionCategory,
+    indexOfLastQuestionCategory
   );
-  const totalNumberOfPages = filteredQuizList
-    ? Math.ceil(filteredQuizList.length / quizPerPage)
+  const totalNumberOfPages = filteredQuestionCategoryList
+    ? Math.ceil(filteredQuestionCategoryList.length / questionCategorysPerPage)
     : 1;
 
   return (
-    <div className="flex flex-col basis-full  gap-2 p-5 px-8 ">
-      <h1 className="text-primary font-medium text-2xl py-5">Quiz</h1>
+    <div className="flex flex-col basis-full  gap-2 p-5 px-8 w-[] ">
+      <h1 className="text-primary font-medium text-2xl py-5">
+        Question Category
+      </h1>
 
       <div className="flex justify-between">
         <div className="relative">
@@ -57,17 +70,17 @@ const Quiz = () => {
               setCurrentPageNumber(1);
             }}
             className="block p-2 ps-10  text-sm text-gray-900 border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary rounded-lg w-80 bg-gray-50  "
-            placeholder="Search Quiz"
+            placeholder="Search Question Category"
           ></input>
         </div>
         <Link
-          to="add-quiz"
+          to="add-question-category"
           className="bg-dark text-primary-light rounded-lg text-xs font-medium py-button-padding-y px-button-padding-x outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"
         >
-          +Add Quiz
+          +Add Category
         </Link>
       </div>
-      <div className="">{isLoading && <p className=""></p>}</div>
+      <div className="pt-0">{isLoading && <p className=""></p>}</div>
       {isLoading ? (
         <div className="pb-2 ps-5">
           <div role="status">
@@ -111,30 +124,19 @@ const Quiz = () => {
                 >
                   Title
                 </th>
-                <th
-                  scope="col"
-                  className="px-4  py-3 w-[17%] text-sm font-semibold "
-                >
-                  Time
-                </th>
-                <th
-                  scope="col"
-                  className="px-6 py-3 w-[20%] ps-9 text-sm font-semibold"
-                >
-                  Status
-                </th>
-                <th
-                  scope="col"
-                  className="px-6 ps-[30px] py-3 w-[15%] font-semibold"
-                >
+
+                <th scope="col" className="px-6 py-3 w-[15%] font-semibold">
                   Action
                 </th>
               </tr>
             </thead>
 
             <tbody>
-              {currentQuizs?.map((quiz: any, index) => (
-                <ListOfQuiz key={index} quiz={quiz} />
+              {currentQuestionCategorys?.map((questionCategory: any, index) => (
+                <ListOfQuestionCategorys
+                  key={index}
+                  questionCategory={questionCategory}
+                />
               ))}
             </tbody>
           </table>
@@ -154,4 +156,4 @@ const Quiz = () => {
   );
 };
 
-export default Quiz;
+export default QuestionCategory;

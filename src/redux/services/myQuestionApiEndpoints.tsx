@@ -1,21 +1,26 @@
 import {
   AddQuestionFieldType,
+  FetchQuestionsQueryReturnType,
+  FetchQuestionsType,
   QuestionType,
-} from "../../pages/list/types/types";
+} from "../../pages/admin/types/TQuestionTypes";
 import { myApi } from "./myApi";
 
 const myApiEndpoints = myApi.injectEndpoints({
   endpoints: (builder) => ({
-    getQuestions: builder.query<QuestionType[], void>({
-      query: () => `/questions`,
+    getQuestions: builder.query<FetchQuestionsQueryReturnType, number>({
+      query: (page) => `/admin/questions?page=${page}`,
       providesTags: ["FetchQuestions"],
+      transformResponse: (response: FetchQuestionsType) => {
+        return { data: response.data, meta: response.meta };
+      },
     }),
     getSingleQuestion: builder.query<QuestionType, string>({
       query: (id) => `/questions/${id}`,
     }),
     addQuestion: builder.mutation<AddQuestionFieldType, AddQuestionFieldType>({
       query: (body: AddQuestionFieldType) => ({
-        url: "/questions",
+        url: "/admin/questions",
         method: "POST",
         body,
       }),

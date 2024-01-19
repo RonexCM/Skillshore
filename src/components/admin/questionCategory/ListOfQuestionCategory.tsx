@@ -1,6 +1,12 @@
 import { useState } from "react";
+<<<<<<< HEAD
 import DeleteQuestionCategoryModal from "../../../pages/admin/modals/questioncategoryModals/DeleteQuestionCategoryModal";
 import EditQuestionCategoryModal from "../../../pages/admin/modals/questioncategoryModals/EditQuestionCategoryModal";
+=======
+import DeleteQuestionCategoryModal from "../../../pages/admin/modals/questionCategoryModals/DeleteQuestionCategoryModal";
+import EditQuestionCategoryModal from "../../../pages/admin/modals/questionCategoryModals/EditQuestionCategoryModal";
+import { Tooltip } from "flowbite-react";
+>>>>>>> 3cf0cf7797fcfdc7b74036988bf011c430c9104d
 
 type Props = {
   questionCategory: any;
@@ -44,22 +50,26 @@ const ListOfQuestionCategorys = ({ questionCategory }: Props) => {
 
         <td className="px-6 py-3">
           <div className="flex gap-2">
-            <button
-              onClick={handleEdit}
-              className="font-medium  text-blue-600 dark:text-blue-500 hover:underline"
-            >
-              <span className="material-symbols-outlined  text-blue-600 dark:text-blue-500 hover:underline ">
-                Edit
-              </span>
-            </button>
-            <button
-              onClick={handleDelete}
-              className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-            >
-              <span className="material-symbols-outlined text-red-600 dark:text-red-500 hover:underline ">
-                Delete
-              </span>
-            </button>
+            <Tooltip content="Edit" className="text-blue-600" style="light">
+              <button
+                onClick={handleEdit}
+                className="font-medium  text-blue-600 dark:text-blue-500 hover:underline"
+              >
+                <span className="material-symbols-outlined  text-blue-600 dark:text-blue-500 hover:underline ">
+                  Edit
+                </span>
+              </button>
+            </Tooltip>
+            <Tooltip content="Delete" className="text-error" style="light">
+              <button
+                onClick={handleDelete}
+                className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+              >
+                <span className="material-symbols-outlined text-red-600 dark:text-red-500 hover:underline ">
+                  Delete
+                </span>
+              </button>
+            </Tooltip>
           </div>
         </td>
       </tr>
