@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./pages/auth/login";
-import InitialLayout from "./layouts/auth/InitialLayout";
+import { AuthLayout } from "./layouts";
 import Register from "./pages/auth/register";
 import User from "./pages/student/User";
 import ForgotPassword from "./pages/auth/forgotPassword";
@@ -9,7 +9,7 @@ const App = () => {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<InitialLayout />}>
+          <Route path="/" element={<AuthLayout />}>
             <Route index element={<Login />} />
             {/* ----------register form goes here---------- */}
             <Route path="register" element={<Register />} />
