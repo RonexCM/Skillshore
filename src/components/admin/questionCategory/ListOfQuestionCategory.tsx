@@ -1,6 +1,6 @@
 import { useState } from "react";
-import DeleteQuestionCategoryModal from "../../../pages/admin/modals/questionCategoryModals/DeleteQuestionCategoryModal";
-import EditQuestionCategoryModal from "../../../pages/admin/modals/questionCategoryModals/EditQuestionCategoryModal";
+import DeleteQuestionCategoryModal from "../../../pages/admin/modals/questioncategoryModals/DeleteQuestionCategoryModal";
+import EditQuestionCategoryModal from "../../../pages/admin/modals/questioncategoryModals/EditQuestionCategoryModal";
 
 type Props = {
   questionCategory: any;
@@ -23,7 +23,7 @@ const ListOfQuestionCategorys = ({ questionCategory }: Props) => {
         className="bg-white border-b hover:bg-gray-50"
       >
         <td className="p-4 pl-6">
-          <div className="flex items-center">{questionCategory.id + 1}</div>
+          <div className="flex items-center">{questionCategory.id}</div>
         </td>
         <th
           scope="row"
@@ -31,16 +31,16 @@ const ListOfQuestionCategorys = ({ questionCategory }: Props) => {
         >
           {questionCategory.title}
         </th>
-        <td className="px-6 py-3 font-normal text-gray-900 whitespace-nowrap ">
+        {/* <td className="px-6 py-3 font-normal text-gray-900 whitespace-nowrap ">
           {questionCategory.slug}
-        </td>
-        <td className="px-6 my-3 font-normal text-gray-900 break-all  line-clamp-2 ">
+        </td> */}
+        {/* <td className="px-6 my-3 font-normal text-gray-900 break-all  line-clamp-2 ">
           {questionCategory.description}
-        </td>
+        </td> */}
 
-        <td className="px-6 py-3 font-normal text-gray-900 whitespace-nowrap  text-center">
+        {/* <td className="px-6 py-3 font-normal text-gray-900 whitespace-nowrap  text-center">
           {questionCategory.weightage}
-        </td>
+        </td> */}
 
         <td className="px-6 py-3">
           <div className="flex gap-2">

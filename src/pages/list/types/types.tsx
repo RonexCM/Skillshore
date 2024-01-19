@@ -53,12 +53,14 @@ export type QuestionType = {
 };
 
 export type QuizType = {
+  id: string;
   title: string;
   slug: string;
   description: string;
   thumbnail: string;
   timer: number;
   retry_after: number;
+  status: string;
 };
 
 export type AddQuizFieldType = {
@@ -68,4 +70,5 @@ export type AddQuizFieldType = {
   thumbnail: string;
   timer: number;
   retry_after: number;
+  status: string;
 };

@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import DeleteQuestionModal from "../../../pages/admin/modals/questionModals/DeleteQuestionModal";
 import EditQuestionModal from "../../../pages/admin/modals/questionModals/EditQuestionModal";
-import { Tooltip, ToggleSwitch } from "flowbite-react";
+import { Tooltip } from "flowbite-react";
 import { useChangeStatusMutation } from "../../../redux/services/myQuestionApiEndpoints";
 import { useDispatch } from "react-redux";
 import { saveQuestionDetails } from "../../../redux/slice/editQuestionSlice";
@@ -24,25 +24,45 @@ const ListOfQuestions = ({ question, index }: Props) => {
     setShowDeleteModal(true);
   };
 
-  useEffect(() => {
-    if (question.status === "Active") {
-      setActive(true);
-    } else {
-      setActive(false);
-    }
-  }, [question.status, setActive]);
+  // useEffect(() => {
+  //   if (question.status === "Active") {
+  //     setActive(true);
+  //   } else {
+  //     setActive(false);
+  //   }
+  // }, [question.status, setActive]);
+  // const handleActiveChange = async () => {
+  //   await changeStatus({
+  //     id: question.id,
+  //     status: active ? "Active" : "Inactive",
+  //   });
+  //   setActive(!active);
+  // };
+  // const handleActiveChange = async () => {
+  //   try {
+  //     const newStatus = active ? "Inactive" : "Active";
+  //     await changeStatus({ id: question.id, status: newStatus });
+  //     setActive(!active);
+  //   } catch (error) {
+  //     console.error("Error changing status:", error);
+  //   }
+  // };
   const handleActiveChange = async () => {
-    await changeStatus({
-      id: question.id,
-      status: active ? "Inactive" : "Active",
-    });
-    setActive(!active);
+    try {
+      console.log("Before status change:", active);
+      const newStatus = active ? "Inactive" : "Active";
+      await changeStatus({ id: question.id, status: newStatus });
+      console.log("After status change:", !active);
+      setActive(!active);
+    } catch (error) {
+      console.error("Error changing status:", error);
+    }
   };
   return (
     <>
-      <tr key={question.id} className="bg-white border-b hover:bg-gray-50">
+      <tr key={question.id} className="bg-white border-b hover:bg-gray-50 ">
         <td className="pl-6 ">
-          <div className="flex my-4 items-center whitespace-nowrap">
+          <div className="flex my-4 items-start whitespace-nowrap">
             {index + 1}
           </div>
         </td>
@@ -52,20 +72,19 @@ const ListOfQuestions = ({ question, index }: Props) => {
         <td className="px-6 font-normal text-gray-900  whitespace-nowrap">
           {question.weightage}
         </td>
-        <td className=" px-6 font-normal text-gray-900 whitespace-nowrap">
-          <div>
-            <ToggleSwitch
-              checked={active}
-              label={active ? "Active" : "Inactive"}
-              onChange={handleActiveChange}
-              color="green"
-            />
+        <td className="px-6 py-3 w-[20%] ps-9">
+          <div
+            className={`status-button ${
+              question.status === "active" ? "active" : "inactive"
+            }`}
+          >
+            {question.status === "active" ? "Active" : "Inactive"}
           </div>
         </td>
 
         <td className="px-6">
           <div className="flex items-center gap-2">
-            <Tooltip content="edit" className="text-blue-600" style="light">
+            <Tooltip content="Edit" className="text-blue-600" style="light">
               <button
                 onClick={handleEdit}
                 className="font-medium  text-blue-600 dark:text-blue-500 hover:underline"
@@ -75,7 +94,7 @@ const ListOfQuestions = ({ question, index }: Props) => {
                 </span>
               </button>
             </Tooltip>
-            <Tooltip content="delete" className="text-error" style="light">
+            <Tooltip content="Delete" className="text-error" style="light">
               <button
                 onClick={handleDelete}
                 className="font-medium text-blue-600 dark:text-blue-500 hover:underline"

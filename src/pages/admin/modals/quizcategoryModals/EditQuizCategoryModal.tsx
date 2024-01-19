@@ -54,7 +54,7 @@ const EditQuizCategoryModal = ({ setShowModal }: Props) => {
           <div className="w-full">
             <div className="flex flex-col justify-start items-center pb-[20px]">
               <h1 className="text-primary font-medium text-[24px] leading-[18px] ">
-                Edit Question
+                Edit Quiz Category
               </h1>
             </div>
             <div className="border-2 p-5 border-primary-light rounded-xl form-container relative">
