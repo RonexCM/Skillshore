@@ -33,7 +33,7 @@ const Login = () => {
           if (token && successMessage === "Successfully logged in") {
             cookies.set("token", token, { secure: true, httpOnly: true });
             dispatch(addUser(userCredentials));
-            navigate("/user");
+            navigate("/home");
           } else {
             toast.error("Problem logging in!");
           }
@@ -119,7 +119,7 @@ const Login = () => {
               </Link>
             </div>
             <Link
-              to="forgot-password"
+              to="forgotPassword"
               className="text-[14px] font-normal mt-[8px] rounded-sm text-primary hover:underline focus:outline focus:outline-2 focus:outline-primary"
             >
               Forgot Password?

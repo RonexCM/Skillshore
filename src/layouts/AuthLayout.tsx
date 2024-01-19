@@ -8,7 +8,7 @@ import Footer from "./Footer";
  */
 export const AuthLayout = () => {
   return (
-    <div className="flex flex-col justify-between h-screen items-center">
+    <div className="flex flex-col justify-between min-h-screen items-center">
       <AuthNavbar />
       <Outlet />
       <Footer />
