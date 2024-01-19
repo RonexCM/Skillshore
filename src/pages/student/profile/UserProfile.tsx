@@ -37,7 +37,6 @@ const UserProfile = () => {
       dispatch(setUserData(data[0]));
       setUser(data[0]);
     }
-    console.log("🚀 ~ useEffect ~ data:", data);
   }, [data, dispatch]);
 
   if (isLoading) {
