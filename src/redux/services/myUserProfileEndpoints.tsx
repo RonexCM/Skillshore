@@ -3,7 +3,7 @@ import { IUserProfile } from "../../pages/student/types";
 import { baseUrl } from "../../configs";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https://657ad086394ca9e4af12b9e0.mockapi.io/",
+  baseUrl: baseUrl,
 });
 
 export const apiSlice = createApi({
@@ -12,7 +12,7 @@ export const apiSlice = createApi({
   endpoints: (builder) => ({
     getUser: builder.query<IUserProfile[], void>({
       query: () => ({
-        url: `/student`,
+        url: `/user`,
       }),
       providesTags: ["User"],
     }),
