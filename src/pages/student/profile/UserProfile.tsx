@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import profile from "../../../assets/images/profile.svg";
 import { useGetUserQuery } from "../../../redux/services/myUserProfileEndpoints";
 import { LineWave } from "react-loader-spinner";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserData } from "../../../redux/slice/userSlice";
 
@@ -14,14 +14,13 @@ const UserProfile = () => {
   const dispatch = useDispatch();
   const profileStyle = " text-dark font-medium";
   const userDetails = useSelector((state) => state.user.data);
-  console.log("🚀 ~ UserProfile ~ userDetails:", userDetails);
   const { data, isLoading } = useGetUserQuery();
 
   useEffect(() => {
     if (data) {
       dispatch(setUserData(data[0]));
     }
-  }, [data, dispatch]);
+  }, [data]);
 
   if (isLoading) {
     <div className="flex justify-center">
