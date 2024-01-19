@@ -3,8 +3,8 @@ export type IUserProfile = {
   name: string;
   profile: string;
   description: string;
-  mail: string;
-  phone: string;
+  email: string;
+  phoneNo: string;
   experience: string;
   language: string;
   available: string;
@@ -19,8 +19,8 @@ export type IUserProfile = {
 export type editedData = {
   name: string;
   description: string;
-  mail: string;
-  phone: string;
+  email: string;
+  phoneNo: string;
   experience: string;
   language: string;
   available: string;

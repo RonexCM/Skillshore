@@ -13,21 +13,6 @@ const EditProfile = () => {
 
   const data = useSelector((state) => state.user.data);
 
-  // if (data?.status == "pending") {
-  //   return (
-  //     <div className="flex justify-center h-[80vh] w-[100vh] m-auto">
-  //       <LineWave
-  //         visible={true}
-  //         height="100"
-  //         width="100"
-  //         color="rgba(79, 169, 77)"
-  //         ariaLabel="line-wave-loading"
-  //         wrapperStyle={{}}
-  //       />
-  //     </div>
-  //   );
-  // }
-
   const handleSubmit = async (values: editedData) => {
     try {
       const { skills, ...other } = values;
@@ -100,13 +85,13 @@ const EditProfile = () => {
 
             <div className="flex flex-row gap-[20px] w-[800px] mb-2">
               <div className="flex flex-col text-[18px] mb-4 w-full">
-                <label htmlFor="phone" className="mb-2">
+                <label htmlFor="phoneNo" className="mb-2">
                   Phone
                 </label>
                 <Field
                   type="text"
-                  id="phone"
-                  name="phone"
+                  id="phoneNo"
+                  name="phoneNo"
                   className="w-full text-[16px] h-12 bg-white rounded-lg border-2 border-indigo-100 px-3"
                 />
                 <ErrorMessage

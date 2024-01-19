@@ -28,6 +28,8 @@ const UserProfile = () => {
     role: "",
     available: "",
     skills: [""],
+    email: "",
+    phoneNo: "",
   });
 
   useEffect(() => {
@@ -35,6 +37,7 @@ const UserProfile = () => {
       dispatch(setUserData(data[0]));
       setUser(data[0]);
     }
+    console.log("🚀 ~ useEffect ~ data:", data);
   }, [data, dispatch]);
 
   if (isLoading) {
@@ -80,11 +83,11 @@ const UserProfile = () => {
                 <div className="handles w-[200px] ">
                   <div className="flex justify-start gap-4">
                     <MdOutlineEmail className="text-gray-400" />
-                    <p className="text-primary">{user.mail}</p>
+                    <p className="text-primary">{user.email}</p>
                   </div>
                   <div className="flex justify-start gap-4">
                     <FaPhoneAlt className="text-gray-400" />
-                    <p className="text-primary">{user.phone}</p>
+                    <p className="text-primary">{user.phoneNo}</p>
                   </div>
 
                   <div>
