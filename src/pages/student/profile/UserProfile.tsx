@@ -27,7 +27,6 @@ const UserProfile = () => {
       return <LineWave color="#1a2b48" height={100} />;
     </div>;
   }
-  console.log(userDetails.skills);
   return (
     <div className="h-full px-[120px] py-8 font-poppins ">
       <div className="flex justify-between mt-[50px]">
@@ -38,7 +37,7 @@ const UserProfile = () => {
         <button
           type="button"
           className=" text-white bg-green-700 font-medium rounded-lg text-sm h-[50px] w-[150px]"
-          onClick={() => navigate("editProfile")}
+          onClick={() => navigate("/editProfile")}
         >
           Edit Profile
         </button>
@@ -146,7 +145,7 @@ const UserProfile = () => {
               <div className="skills flex flex-col text-[14px]">
                 <ul className={profileStyle}>
                   {userDetails &&
-                    userDetails.skills.map((skill, index) => (
+                    userDetails.skills.map((skill: string, index: number) => (
                       <li key={index}>{`${index + 1}.${skill}`}</li>
                     ))}
                 </ul>

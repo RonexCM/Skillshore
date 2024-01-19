@@ -1,20 +1,12 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { IUserProfile } from "../../pages/student/types";
-import { baseUrl } from "../../configs";
+import { myApi } from "./myApi";
 
-const baseQuery = fetchBaseQuery({
-  baseUrl: baseUrl,
-});
-
-export const apiSlice = createApi({
-  baseQuery: baseQuery,
-  tagTypes: ["User"],
+export const apiSlice = myApi.injectEndpoints({
   endpoints: (builder) => ({
     getUser: builder.query<IUserProfile[], void>({
       query: () => ({
         url: `/user`,
       }),
-      providesTags: ["User"],
     }),
     updateUserProfile: builder.mutation({
       query: ({ id, ...updatedUserData }) => ({
@@ -25,7 +17,6 @@ export const apiSlice = createApi({
           "Content-Type": "application/json",
         },
       }),
-      invalidatesTags: ["User"],
     }),
   }),
 });

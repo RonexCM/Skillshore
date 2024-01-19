@@ -13,7 +13,7 @@ const UserNavbar = () => {
       <ul className="font-medium px-10 py-4 flex space-x-5 cursor-pointer justify-end">
         <li>
           <NavLink
-            to="Profile"
+            to="/profile"
             className="cursor-pointer mr-5 dark:text-white font-bold"
           >
             Profile
