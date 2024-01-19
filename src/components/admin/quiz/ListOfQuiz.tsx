@@ -2,6 +2,7 @@ import { useState } from "react";
 import DeleteQuizModal from "../../../pages/admin/modals/quizModals/DeleteQuizModal";
 import EditQuizModal from "../../../pages/admin/modals/quizModals/EditQuizModal";
 import { Tooltip } from "flowbite-react";
+import { useChangeStatusMutation } from "../../../redux/services/myQuizApiEndpoints";
 
 type Props = {
   quiz: any;

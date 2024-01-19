@@ -1,4 +1,4 @@
-import { QuestionCategoryType } from "../../pages/admin/types/types";
+import { QuestionCategoryType } from "../../../src/pages/admin/types/TQuestionCategoryTypes";
 import { myApi } from "./myApi";
 
 const myQuestionCategoryApiEndpoints = myApi.injectEndpoints({

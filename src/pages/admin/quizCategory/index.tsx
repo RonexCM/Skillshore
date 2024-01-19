@@ -9,10 +9,6 @@ import { QuizCategoryType } from "../types/TQuizCategoryTypes";
 
 const QuizCategory = () => {
   const { data, isLoading } = useGetQuizCategorysQuery();
-<<<<<<< HEAD:src/pages/admin/quizCategory/QuizCategory.tsx
-  // const { data } = useGetQuizCategorysQuery();
-=======
->>>>>>> 3cf0cf7797fcfdc7b74036988bf011c430c9104d:src/pages/admin/quizCategory/index.tsx
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [quizCategorysPerPage, _] = useState(10);
@@ -109,14 +105,6 @@ const QuizCategory = () => {
         <div></div>
       )}
       <div className=" main-container flex flex-col h-full  outline outline-2  outline-primary-light w-full rounded-xl text-center ">
-<<<<<<< HEAD:src/pages/admin/quizCategory/QuizCategory.tsx
-        <div className="title-and-table-div basis-full overflow-y-hidden">
-          <table className="w-full leading-[0px] text-sm text-left  text-dark">
-            <thead className="border-b-2 border-primary-light h-10">
-              <tr className="">
-                <th scope="col" className="p-2   ">
-                  <div className="flex items-center pl-2 w-[10px]  text-sm font-semibold">
-=======
         <div className="shadow-md text-primary-light "></div>
         <div className="title-and-table-div basis-full relative overflow-y-hidden">
           <table className="w-full text-sm text-left  text-dark">
@@ -124,7 +112,6 @@ const QuizCategory = () => {
               <tr>
                 <th scope="col" className="p-2 w-[25%] ">
                   <div className="flex items-center pl-2 w-[20px] text-sm font-semibold">
->>>>>>> 3cf0cf7797fcfdc7b74036988bf011c430c9104d:src/pages/admin/quizCategory/index.tsx
                     S.N
                   </div>
                 </th>

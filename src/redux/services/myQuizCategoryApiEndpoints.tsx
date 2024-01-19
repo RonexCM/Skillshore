@@ -1,4 +1,4 @@
-import { QuizCategoryType } from "../../pages/admin/types/types";
+import { QuizCategoryType } from "../../../src/pages/admin/types/TQuizCategoryTypes";
 import { myApi } from "./myApi";
 
 const myQuizCategoryApiEndpoints = myApi.injectEndpoints({

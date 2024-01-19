@@ -1,12 +1,7 @@
 import { useState } from "react";
-<<<<<<< HEAD
 import DeleteQuestionCategoryModal from "../../../pages/admin/modals/questioncategoryModals/DeleteQuestionCategoryModal";
 import EditQuestionCategoryModal from "../../../pages/admin/modals/questioncategoryModals/EditQuestionCategoryModal";
-=======
-import DeleteQuestionCategoryModal from "../../../pages/admin/modals/questionCategoryModals/DeleteQuestionCategoryModal";
-import EditQuestionCategoryModal from "../../../pages/admin/modals/questionCategoryModals/EditQuestionCategoryModal";
 import { Tooltip } from "flowbite-react";
->>>>>>> 3cf0cf7797fcfdc7b74036988bf011c430c9104d
 
 type Props = {
   questionCategory: any;
