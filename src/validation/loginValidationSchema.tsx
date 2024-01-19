@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-export const validationSchema = Yup.object({
+const loginValidationSchema = Yup.object({
   email: Yup.string()
     .email("Email must be a valid email")
     .required("Email is required")
@@ -11,3 +11,5 @@ export const validationSchema = Yup.object({
     ),
   password: Yup.string().required("Password is required"),
 });
+
+export default loginValidationSchema;
