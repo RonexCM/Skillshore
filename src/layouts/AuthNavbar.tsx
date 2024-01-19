@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import skillshoreLogo from "../assets/images/SKILLSHORE.svg";
+import skillshoreLogo from "../assets/skillshoresvg.svg";
 const AuthNavbar = () => {
   const navElementStyles = "login-nav font-bold hover:underline";
 

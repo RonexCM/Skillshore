@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useUpdateUserProfileMutation } from "../../../redux/services/myUserProfileEndpoints";
 import { setUserData } from "../../../redux/slice/userSlice";
 import { userProfileValidationSchema } from "../../../validation";
-import { editedData } from "../types/index";
+import { editedData } from "../types";
 
 const EditProfile = () => {
   const navigate = useNavigate();

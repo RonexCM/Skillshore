@@ -4,7 +4,7 @@ import {
   LoginResponseError,
   LoginField,
 } from "../../pages/auth/types";
-const myApiEndpoints = myApi.injectEndpoints({
+const myLoginApiEndpoints = myApi.injectEndpoints({
   endpoints: (builder) => ({
     loginUser: builder.mutation<
       LoginResponseSuccess | LoginResponseError,
@@ -19,4 +19,4 @@ const myApiEndpoints = myApi.injectEndpoints({
   }),
 });
 
-export const { useLoginUserMutation } = myApiEndpoints;
+export const { useLoginUserMutation } = myLoginApiEndpoints;

@@ -2,7 +2,6 @@ import { FaLinkedin, FaPhoneAlt } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import { SiGithub } from "react-icons/si";
 import { useNavigate } from "react-router-dom";
-import profile from "../../../assets/images/profile.svg";
 import { useGetUserQuery } from "../../../redux/services/myUserProfileEndpoints";
 import { LineWave } from "react-loader-spinner";
 import { useEffect } from "react";
@@ -56,7 +55,8 @@ const UserProfile = () => {
             <p className={profileStyle}>Career Profile</p>
             <div className="flex relative justify-between">
               <img
-                src={profile}
+                src=""
+                alt="user-profile-picture"
                 className="h-[45px] translate-x-[-65px] absolute"
               />
               <div className="flex flex-col w-[75%]">

@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import skillshoreLogo from "../assets/images/SKILLSHORE.svg";
+import skillshoreLogo from "../assets/skillshoresvg.svg";
 import { FaHouse } from "react-icons/fa6";
 
 const UserNavbar = () => {
