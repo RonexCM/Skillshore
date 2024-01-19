@@ -16,7 +16,7 @@ const userSlice = createSlice({
       role: "",
       education: "",
       id: "",
-      skills: [""],
+      skills: [],
       email: "",
       phoneNo: "",
     },

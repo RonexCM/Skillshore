@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { IUserProfile } from "../../pages/student/types";
+import { baseUrl } from "../../configs";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "https://657ad086394ca9e4af12b9e0.mockapi.io/",
@@ -10,7 +11,9 @@ export const apiSlice = createApi({
   tagTypes: ["User"],
   endpoints: (builder) => ({
     getUser: builder.query<IUserProfile[], void>({
-      query: () => "student",
+      query: () => ({
+        url: `/student`,
+      }),
       providesTags: ["User"],
     }),
     updateUserProfile: builder.mutation({
