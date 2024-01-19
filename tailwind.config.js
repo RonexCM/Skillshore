@@ -1,3 +1,4 @@
+/** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
@@ -9,16 +10,13 @@ export default {
         accent: "#FFB72A",
         error: "#dc2626",
         "text-dark": "#32403B",
-      },
-      spacing: {
-        "field-height": "46px",
-        "field-width": "300px",
-        "button-padding-x": "22px",
-        "button-padding-y": "10px",
+        nav1: "#CFDAFE",
+        nav2: "#FFB72A",
+        foot1: "#E1E7FF",
+        foot2: "#2F5CFE",
       },
       fontFamily: {
-        sans: ["Poppins", "sans-serif"],
-        poppins: "Poppins",
+        poppins: ["Poppins", "sans-serif"],
       },
     },
   },
