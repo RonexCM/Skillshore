@@ -1,13 +1,12 @@
 import { Field, Formik, Form, ErrorMessage, FormikHelpers } from "formik";
-
-import { ValidationSchemaAddQuizCategory } from "../../../validation/validationSchemaAddQuizCategory";
+import { validationSchemaAddQuizCategory } from "../../../validation";
 import { useNavigate } from "react-router-dom";
 import { AiFillHome } from "react-icons/ai";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { useAddQuizCategoryMutation } from "../../../redux/services/myQuizCategoryApiEndpoints";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { AddQuizCategoryFieldType } from "../types/TQuizCategoryTypes";
+import { AddQuizCategoryFieldType } from "../types";
 
 const AddQuizCategory = () => {
   const [addQuizCategory] = useAddQuizCategoryMutation();
@@ -56,7 +55,7 @@ const AddQuizCategory = () => {
         <Formik
           initialValues={initialValues}
           onSubmit={onSubmit}
-          validationSchema={ValidationSchemaAddQuizCategory}
+          validationSchema={validationSchemaAddQuizCategory}
         >
           <Form className="flex flex-col gap-6">
             <div className="grid grid-cols-2 gap-6">

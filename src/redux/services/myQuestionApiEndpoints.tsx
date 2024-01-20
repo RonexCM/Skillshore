@@ -1,21 +1,23 @@
 import {
   AddQuestionFieldType,
-  FetchQuestionsQueryReturnType,
+  FetchQuestionsQueryTransformReturnType,
   FetchQuestionsType,
   QuestionType,
-} from "../../pages/admin/types/TQuestionTypes";
+} from "../../pages/admin/types";
 import { myApi } from "./myApi";
 
 const myApiEndpoints = myApi.injectEndpoints({
   endpoints: (builder) => ({
-    getQuestions: builder.query<FetchQuestionsQueryReturnType, number>({
-      query: (page) => `/admin/questions?page=${page}`,
-      providesTags: ["FetchQuestions"],
-      transformResponse: (response: FetchQuestionsType) => {
-        return { data: response.data, meta: response.meta };
-      },
-    }),
-    getSingleQuestion: builder.query<QuestionType, string>({
+    getQuestions: builder.query<FetchQuestionsQueryTransformReturnType, number>(
+      {
+        query: (page) => `/admin/questions?page=${page}`,
+        providesTags: ["FetchQuestions"],
+        transformResponse: (response: FetchQuestionsType) => {
+          return { data: response.data, meta: response.meta };
+        },
+      }
+    ),
+    getSingleQuestion: builder.query<QuestionType, number>({
       query: (id) => `/questions/${id}`,
     }),
     addQuestion: builder.mutation<AddQuestionFieldType, AddQuestionFieldType>({
@@ -28,16 +30,16 @@ const myApiEndpoints = myApi.injectEndpoints({
     }),
     editQuestion: builder.mutation<QuestionType, QuestionType>({
       query: ({ id, ...rest }) => ({
-        url: `/questions/${id}`,
+        url: `/admin/questions/${id}`,
         method: "PUT",
         body: { ...rest },
       }),
       invalidatesTags: ["FetchQuestions"],
     }),
 
-    deleteQuestion: builder.mutation<void, string>({
+    deleteQuestion: builder.mutation<void, number>({
       query: (id) => ({
-        url: `/questions/${id}`,
+        url: `/admin/questions/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["FetchQuestions"],

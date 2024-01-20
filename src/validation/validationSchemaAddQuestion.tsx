@@ -1,11 +1,13 @@
 import * as Yup from "yup";
-export const ValidationSchemaAddQuestion = Yup.object({
-  // category_id: Yup.number().required(),
+
+const validationSchemaAddQuestion = Yup.object({
   title: Yup.string().required("Title is required"),
   slug: Yup.string().required("Slug is required"),
   description: Yup.string().max(255).required("Description is required"),
   options: Yup.array().of(Yup.string().required("Option is required")),
   answer: Yup.string().required("Answer is required"),
   weightage: Yup.string().required("Weightage is required"),
-  "category-id": Yup.number().required("Category ID is required"),
+  "category-id": Yup.string().required("Category ID is required"),
+  status: Yup.string().required("Status is required"),
 });
+export default validationSchemaAddQuestion;

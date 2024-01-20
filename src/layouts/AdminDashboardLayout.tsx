@@ -1,11 +1,12 @@
 import { Outlet } from "react-router-dom";
-import SidebarAdmin from "../components/admin/SidebarAdmin";
-
+import AdminSidebar from "./AdminSidebar";
+import { useLoadingState } from "./AdminLayout";
 const AdminDashboardLayout = () => {
+  const { showLoader, setShowLoader } = useLoadingState();
   return (
     <div className="flex grow">
-      <SidebarAdmin />
-      <Outlet />
+      <AdminSidebar />
+      <Outlet context={{ showLoader, setShowLoader }} />
     </div>
   );
 };

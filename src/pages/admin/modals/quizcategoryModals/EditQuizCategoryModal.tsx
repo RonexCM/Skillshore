@@ -2,11 +2,11 @@ import { useEffect } from "react";
 import ReactDom from "react-dom";
 import { IoClose } from "react-icons/io5";
 import { Field, Formik, Form, ErrorMessage } from "formik";
-import { ValidationSchemaAddQuizCategory } from "../../../../validation/validationSchemaAddQuizCategory";
-import { AddQuizCategoryFieldType } from "../../types/types";
+import { validationSchemaAddQuizCategory } from "../../../../validation";
 import { useEditQuizCategoryMutation } from "../../../../redux/services/myQuizCategoryApiEndpoints";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../redux/store";
+import { AddQuizCategoryFieldType } from "../../types";
 
 type Props = {
   setShowModal: (a: boolean) => void;
@@ -61,7 +61,7 @@ const EditQuizCategoryModal = ({ setShowModal }: Props) => {
               <Formik
                 initialValues={initialValues}
                 onSubmit={onSubmit}
-                validationSchema={ValidationSchemaAddQuizCategory}
+                validationSchema={validationSchemaAddQuizCategory}
               >
                 <Form className="flex flex-col gap-6">
                   <div className="grid grid-cols-2 gap-6">

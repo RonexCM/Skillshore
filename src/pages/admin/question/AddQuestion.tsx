@@ -6,20 +6,40 @@ import {
   ErrorMessage,
   FormikHelpers,
 } from "formik";
-import { ValidationSchemaAddQuestion } from "../../../validation/validationSchemaAddQuestion";
-import { ChangeEvent, useState } from "react";
+import { validationSchemaAddQuestion } from "../../../validation";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import { FaArrowLeft } from "react-icons/fa";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { AiFillHome } from "react-icons/ai";
 import { useAddQuestionMutation } from "../../../redux/services/myQuestionApiEndpoints";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
-import { AddQuestionFieldType } from "../types/TQuestionTypes";
+import { AddQuestionFieldType } from "../types";
+import { useGetQuestionCategorysQuery } from "../../../redux/services/myQuestionCategoryApiEndpoints";
+import { MdAdd, MdOutlineRemove } from "react-icons/md";
+import { Tooltip } from "flowbite-react";
 
 const AddQuestion = () => {
-  const [addQuestion, { isSuccess, error }] = useAddQuestionMutation();
+  const { data: questionCategoriesData } = useGetQuestionCategorysQuery(1);
+  const [questionCategoryIds, setQuestionCategoryIds] = useState<string[]>([]);
+
+  const [addQuestion, { data, error, isLoading, isError, isSuccess }] =
+    useAddQuestionMutation();
+
+  useEffect(() => {
+    if (questionCategoriesData && "data" in questionCategoriesData) {
+      console.log(questionCategoriesData["data"]);
+      const questionCategoryIdArray = questionCategoriesData["data"].map(
+        (questionCategory) => questionCategory.title
+      );
+      setQuestionCategoryIds(questionCategoryIdArray);
+      console.log(questionCategoryIdArray);
+    }
+  }, [questionCategoriesData]);
+
+  const [totalOptions, _] = useState(3);
+
   //   ----------formik objects----------
   // we dont need to save this from . Do we need to create slice for this? !!!!!!
   const initialValues: AddQuestionFieldType = {
@@ -29,6 +49,7 @@ const AddQuestion = () => {
     options: ["", "", ""],
     answer: "",
     weightage: "",
+    "category-id": "",
     status: "Active",
   };
   /**
@@ -39,25 +60,24 @@ const AddQuestion = () => {
     values: AddQuestionFieldType,
     actions: FormikHelpers<AddQuestionFieldType>
   ) => {
-    if (isSuccess) {
-      const { resetForm } = actions;
-      await addQuestion(values);
-      toast.success("Question Added!");
-      resetForm();
-      setOptionsArray(["", "", ""]);
-    }
-
+    console.log(data, error, isLoading, isError, isSuccess);
     if (error) {
       toast.error("Error adding question!");
       console.log(error);
+      return;
     }
+    const { resetForm } = actions;
+    await addQuestion(values);
+    console.log(values);
+    toast.success("Question Added!");
+    resetForm();
+    setOptionsArray(Array.from({ length: totalOptions }, (_) => ""));
   };
-  const [totalOptions, _] = useState(3);
   const [optionsArray, setOptionsArray] = useState(
     Array.from({ length: totalOptions }, (_) => "")
   );
   //   ----------for each input field value take index, value and store it to options state----------
-  const handleInputChange = (index: number, value: string) => {
+  const handleOptionsInputChange = (index: number, value: string) => {
     const tempArray = [...optionsArray];
     tempArray[index] = value;
     setOptionsArray(tempArray);
@@ -94,7 +114,7 @@ const AddQuestion = () => {
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}
-        validationSchema={ValidationSchemaAddQuestion}
+        validationSchema={validationSchemaAddQuestion}
       >
         {({ handleChange }) => (
           // form field in 2 grid columns
@@ -102,8 +122,8 @@ const AddQuestion = () => {
             <div className="border-2  p-7 rounded-md grid gap-2 gap-x-6 grid-cols-2 border-primary-light ">
               {/* title input field and error message */}
               <div className="h-[76px]">
-                <div className="flex flex-col gap-1">
-                  <label htmlFor="title" className="text-md text-dark">
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="title" className="text-base text-dark">
                     Title
                   </label>
                   <Field
@@ -111,7 +131,7 @@ const AddQuestion = () => {
                     id="title"
                     autoComplete="current-title"
                     name="title"
-                    className="p-1 px-2 rounded-md w-full  border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary"
+                    className="p-1 px-2 text-sm rounded-md w-full  border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary"
                   />
                 </div>
                 <ErrorMessage
@@ -122,17 +142,25 @@ const AddQuestion = () => {
               </div>
               {/* category input field and error message */}
               <div className="h-[76px]">
-                <div className="flex flex-col gap-1">
-                  <label htmlFor="category-id" className="text-md text-dark">
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="category-id" className="text-base text-dark">
                     Category ID
                   </label>
                   <Field
+                    as="select"
                     type="text"
                     id="category-id"
-                    autoComplete="current-title"
+                    autoComplete="current-category-id"
                     name="category-id"
-                    className="p-1 px-2 rounded-md w-full  border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary"
-                  />
+                    className="p-1 px-2 text-sm rounded-md w-full  border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary"
+                  >
+                    <option value="">select category id...</option>
+                    {questionCategoryIds.map((oneId, index) => (
+                      <option key={index} value={oneId}>
+                        {oneId}
+                      </option>
+                    ))}
+                  </Field>
                 </div>
                 <ErrorMessage
                   className="text-red-500 text-xs "
@@ -142,8 +170,8 @@ const AddQuestion = () => {
               </div>
               {/* slug input field and error message */}
               <div className=" h-[76px]">
-                <div className=" flex flex-col gap-1  ">
-                  <label htmlFor="slug" className="text-md text-dark">
+                <div className=" flex flex-col gap-2  ">
+                  <label htmlFor="slug" className="text-base text-dark">
                     Slug
                   </label>
                   <Field
@@ -151,7 +179,7 @@ const AddQuestion = () => {
                     id="slug"
                     autoComplete="current-slug"
                     name="slug"
-                    className="p-1 px-2 rounded-md border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full"
+                    className="p-1 px-2 text-sm rounded-md border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full"
                   />
                 </div>
                 <ErrorMessage
@@ -163,8 +191,8 @@ const AddQuestion = () => {
 
               {/* weightage input field and error message */}
               <div className="flex  flex-col gap-1 h-[76px]">
-                <div className="flex flex-col gap-1 w-full">
-                  <label htmlFor="weightage" className="text-md text-dark">
+                <div className="flex flex-col gap-2 w-full">
+                  <label htmlFor="weightage" className="text-base text-dark">
                     Weightage
                   </label>
                   <Field
@@ -173,7 +201,7 @@ const AddQuestion = () => {
                     id="weightage"
                     autoComplete="current-weightage"
                     name="weightage"
-                    className="p-1 px-2 rounded-md border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full"
+                    className="p-1 px-2 text-sm rounded-md border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full"
                   >
                     <option value="">select weightage...</option>
                     <option value="5">5</option>
@@ -190,8 +218,8 @@ const AddQuestion = () => {
 
               {/* description textarea field and error message */}
               <div className="flex flex-col gap-1 col-span-2 h-[228px]">
-                <div className="flex  flex-col gap-3">
-                  <label htmlFor="description" className="text-md text-dark">
+                <div className="flex  flex-col gap-2">
+                  <label htmlFor="description" className="text-base text-dark">
                     Description
                   </label>
                   <Field
@@ -199,7 +227,7 @@ const AddQuestion = () => {
                     id="description"
                     autoComplete="current-description"
                     name="description"
-                    className="p-1 px-2 h-44 rounded-md border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full"
+                    className="p-1 px-2 text-sm h-44 rounded-md border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full"
                   />
                 </div>
                 <ErrorMessage
@@ -210,43 +238,85 @@ const AddQuestion = () => {
               </div>
               {/* options input fields and error message */}
               <div className="flex flex-col col-span-2 gap-2 ">
-                <p className="text-md text-dark">Options</p>
-
                 <FieldArray name="options">
-                  {({ form }) => {
+                  {({ form, push, pop }) => {
                     const { values } = form;
                     const { options } = values;
+
                     return (
-                      <div className=" grid grid-cols-2 gap-x-3 gap-y-2">
-                        {options.map((_: any, index: number) => (
-                          <div key={index} className="h-[112px]">
-                            <div className="flex gap-3 items-center">
-                              <label
-                                htmlFor={`option-${index + 1}`}
-                                className="text-sm self-start pt-1"
-                              >{`${index + 1})`}</label>
-                              <Field
-                                as="textarea"
-                                className="p-1 px-2 rounded-md border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full h-24 resize-none"
-                                id={`option-${index + 1}`}
-                                placeholder={`option ${index + 1}`}
-                                name={`options[${index}]`}
-                                onChange={(
-                                  e: ChangeEvent<HTMLInputElement>
-                                ) => {
-                                  handleInputChange(index, e.target.value);
-                                  handleChange(e);
-                                }}
-                              />
-                            </div>
-                            <ErrorMessage
-                              className="text-red-500 text-xs ml-6 my-1"
-                              component="div"
-                              name={`options[${index}]`}
-                            />
-                          </div>
-                        ))}
-                      </div>
+                      <>
+                        <div className="flex gap-2 items-center">
+                          <p className="text-base text-dark mr-3">Options</p>
+                          <Tooltip
+                            content="Add Option"
+                            className="text-primary"
+                            style="light"
+                          >
+                            <button
+                              className="flex items-center bg-primary-light p-[4px] rounded-md"
+                              type="button"
+                              onClick={() => push("")}
+                            >
+                              <MdAdd className="text-primary text-xl" />
+                              {/* <span className="text-sm text-[#705a5a]">add</span> */}
+                            </button>
+                          </Tooltip>
+                          <Tooltip
+                            content="Remove Option"
+                            className="text-error"
+                            style="light"
+                          >
+                            <button
+                              className="flex items-center bg-primary-light p-[4px] rounded-md"
+                              type="button"
+                              onClick={() => pop()}
+                            >
+                              <MdOutlineRemove className="text-primary text-xl" />
+                              {/* <span className="text-sm text-[#705a5a]">add</span> */}
+                            </button>
+                          </Tooltip>
+                        </div>
+                        <div className=" grid grid-cols-2 gap-x-3 gap-y-2">
+                          {options.map((_: any, index: number) => {
+                            return (
+                              <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                key={index}
+                                className="h-[112px]"
+                              >
+                                <div className="flex gap-2 items-center">
+                                  <label
+                                    htmlFor={`option-${index + 1}`}
+                                    className="text-sm self-start pt-1"
+                                  >{`${index + 1})`}</label>
+                                  <Field
+                                    as="textarea"
+                                    className="p-1 px-2 text-sm rounded-md border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full h-24 resize-none"
+                                    id={`option-${index + 1}`}
+                                    placeholder={`option ${index + 1}`}
+                                    name={`options[${index}]`}
+                                    onChange={(
+                                      e: ChangeEvent<HTMLInputElement>
+                                    ) => {
+                                      handleOptionsInputChange(
+                                        index,
+                                        e.target.value
+                                      );
+                                      handleChange(e);
+                                    }}
+                                  />
+                                </div>
+                                <ErrorMessage
+                                  className="text-red-500 text-xs ml-6 my-1"
+                                  component="div"
+                                  name={`options[${index}]`}
+                                />
+                              </motion.div>
+                            );
+                          })}
+                        </div>
+                      </>
                     );
                   }}
                 </FieldArray>
@@ -254,8 +324,8 @@ const AddQuestion = () => {
 
               {/* answer input field and error message */}
               <div className="flex flex-col gap-1">
-                <div className="flex flex-col gap-3">
-                  <label htmlFor="answer" className="text-md text-dark">
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="answer" className="text-base text-dark">
                     Answer
                   </label>
                   <Field
@@ -263,7 +333,7 @@ const AddQuestion = () => {
                     id="answer"
                     autoComplete="current-answer"
                     name="answer"
-                    className="p-1 px-2 rounded-md border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full"
+                    className="p-1 px-2 text-sm rounded-md border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full"
                   >
                     <option value="" className="text-[#a0a0a0]">
                       select answer...
@@ -281,7 +351,7 @@ const AddQuestion = () => {
             {/* submit button */}
             <button
               type="submit"
-              className="bg-dark w-max row-start-6 text-primary-light rounded-md text-md font-medium py-button-padding-y px-28 mt-5 outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"
+              className="bg-dark w-max row-start-6 text-primary-light rounded-md text-base font-medium py-button-padding-y px-28 mt-5 outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"
             >
               Add
             </button>

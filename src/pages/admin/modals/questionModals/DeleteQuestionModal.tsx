@@ -5,7 +5,7 @@ import { BiMessageError } from "react-icons/bi";
 import { useDeleteQuestionMutation } from "../../../../redux/services/myQuestionApiEndpoints";
 type Props = {
   setShowModal: (a: boolean) => void;
-  id: string;
+  id: number;
 };
 
 const DeleteQuestionModal = ({ setShowModal, id }: Props) => {

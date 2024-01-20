@@ -4,7 +4,7 @@ import { MdOutlineCategory, MdQuestionAnswer } from "react-icons/md";
 import { SiCodefactor } from "react-icons/si";
 import { NavLink } from "react-router-dom";
 
-const SidebarAdmin = () => {
+const AdminSidebar = () => {
   const navElementsStyles =
     " w-[180px] py-[8px] px-[12px] rounded-lg text-dark outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary";
   return (
@@ -53,4 +53,4 @@ const SidebarAdmin = () => {
   );
 };
 
-export default SidebarAdmin;
+export default AdminSidebar;

@@ -1,11 +1,17 @@
-export type FetchQuestionType = {
+import { QuestionCategoryType } from ".";
+
+export type QuestionType = {
+  id: number;
   title: string;
   options: string[];
   weightage: string;
   status: string;
+  answer: string;
+  slug: string;
+  description: string;
 };
 
-export type FetchQuestionsMetaType = {
+export type CommonMetaType = {
   current_page: number;
   from: number;
   last_page: number;
@@ -17,19 +23,34 @@ export type FetchQuestionsMetaType = {
 };
 
 export type FetchQuestionsType = {
-  data: FetchQuestionType[];
+  data: QuestionType[];
   links: {
     first: string;
     last: string;
     prev: string;
     next: string;
   };
-  meta: FetchQuestionsMetaType;
+  meta: CommonMetaType;
 };
 
-export type FetchQuestionsQueryReturnType = {
-  data: FetchQuestionType[];
-  meta: FetchQuestionsMetaType;
+// export type CommonFetchType = {
+//   data: QuestionType[];
+//   links: {
+//     first: string;
+//     last: string;
+//     prev: string;
+//     next: string;
+//   };
+//   meta: CommonMetaType;
+// };
+
+export type FetchQuestionsQueryTransformReturnType = {
+  data: QuestionType[];
+  meta: CommonMetaType;
+};
+export type CommonQueryTransformReturnType = {
+  data: QuestionType[];
+  meta: CommonMetaType;
 };
 
 export type QuestionsMetaLinkChildType = {
@@ -58,15 +79,5 @@ export type AddQuestionFieldType = {
   answer: string;
   weightage: string;
   status: string;
-};
-
-export type QuestionType = {
-  id: string;
-  options: string[];
-  answer: string;
-  title: string;
-  slug: string;
-  description: string;
-  weightage: string;
-  status: string;
+  "category-id": string;
 };

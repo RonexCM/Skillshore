@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-export const ValidationSchemaAddQuestionCategory = Yup.object({
+const validationSchemaAddQuestionCategory = Yup.object({
   // category_id: Yup.number().required(),
   title: Yup.string().required("Title is required"),
   slug: Yup.string().required("Slug is required"),
@@ -12,3 +12,4 @@ export const ValidationSchemaAddQuestionCategory = Yup.object({
   weightage: Yup.string().required("Weightage is required"),
   // status: Yup.boolean().required(),
 });
+export default validationSchemaAddQuestionCategory;

@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { myApi } from "../services/myApi";
-import editQuestionSlice from "../slice/questionSlice/editQuestionSlice";
+import questionSlice from "../slice/questionSlice/questionSlice";
 import editQuizCategorySlice from "../slice/quizCategorySlice/editQuizCategorySlice";
 import questionListSlice from "../slice/questionSlice/questionListSlice";
 export const store = configureStore({
   reducer: {
     [myApi.reducerPath]: myApi.reducer,
-    editQuestionReducer: editQuestionSlice,
+    editQuestionReducer: questionSlice,
     editQuizCategoryReducer: editQuizCategorySlice,
     questionList: questionListSlice,
   },

@@ -1,16 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import {
-  FetchQuestionType,
-  QuestionMetaType,
-} from "../../../pages/admin/types/TQuestionTypes";
+import { QuestionType, QuestionMetaType } from "../../../pages/admin/types";
 
 const initialState = {
   data: [
     {
+      id: 0,
       title: "",
       options: [""],
       weightage: "",
       status: "",
+      description: "",
+      slug: "",
+      answer: "",
     },
   ],
   meta: {
@@ -28,7 +29,7 @@ const questionListSlice = createSlice({
   name: "questionListSlice",
   initialState,
   reducers: {
-    saveQuestions: (state, action: PayloadAction<FetchQuestionType[]>) => {
+    saveQuestions: (state, action: PayloadAction<QuestionType[]>) => {
       state.data = action.payload;
     },
     saveQuestionsMetaData: (state, action: PayloadAction<QuestionMetaType>) => {

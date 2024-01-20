@@ -1,10 +1,10 @@
 import { useState } from "react";
-import DeleteQuizCategoryModal from "../../../pages/admin/modals/quizCategoryModals/DeleteQuizCategoryModal";
-import EditQuizCategoryModal from "../../../pages/admin/modals/quizCategoryModals/EditQuizCategoryModal";
+import DeleteQuizCategoryModal from "../pages/admin/modals/quizCategoryModals/DeleteQuizCategoryModal";
+import EditQuizCategoryModal from "../pages/admin/modals/quizCategoryModals/EditQuizCategoryModal";
 import { Tooltip } from "flowbite-react";
 import { useDispatch } from "react-redux";
-import { saveQuizCategoryDetails } from "../../../redux/slice/quizCategorySlice/editQuizCategorySlice";
-import { QuizCategoryType } from "../../../pages/admin/types/types";
+import { saveQuizCategoryDetails } from "../redux/slice/quizCategorySlice/editQuizCategorySlice";
+import { QuizCategoryType } from "../pages/admin/types";
 type Props = {
   quizCategory: QuizCategoryType;
   index: number;

@@ -1,24 +1,21 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import AdminLayout from "./layouts/AdminLayout";
-import QuestionCategory from "./pages/admin/questionCategory";
-import QuizCategory from "./pages/admin/quizCategory";
-import Quiz from "./pages/admin/quiz";
-import Question from "./pages/admin/question";
-import Report from "./pages/admin/Report";
-import AdminDashboardLayout from "./layouts/AdminDashboardLayout";
-import InitialLayout from "./layouts/InitialLayout";
-import AddQuizCategory from "./pages/admin/quizCategory/AddQuizCategory";
-import AddQuestion from "./pages/admin/question/AddQuestion";
-import AddQuestionCategory from "./pages/admin/questionCategory/AddQuestionCategory";
-import AddQuiz from "./pages/admin/quiz/AddQuiz";
-import EditQuestion from "./pages/admin/question/EditQuestion";
+import { AdminLayout } from "./layouts";
+import {
+  QuestionCategory,
+  AddQuestionCategory,
+} from "./pages/admin/questionCategory";
+import { QuizCategory, AddQuizCategory } from "./pages/admin/quizCategory";
+import { Quiz, AddQuiz } from "./pages/admin/quiz";
+import { Question, AddQuestion, EditQuestion } from "./pages/admin/question";
+import { Report } from "./pages/admin/report";
+import { AdminDashboardLayout, AuthLayout } from "./layouts";
 
 const App = () => {
   return (
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<InitialLayout />}>
+          <Route path="/" element={<AuthLayout />}>
             {/* ------------login form goes here----------- */}
             {/* ----------register form goes here---------- */}
           </Route>

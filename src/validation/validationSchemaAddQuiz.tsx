@@ -1,5 +1,6 @@
 import * as Yup from "yup";
-export const ValidationSchemaAddQuestion = Yup.object({
+const validationSchemaAddQuiz = Yup.object({
   title: Yup.string().required("Title is required"),
   slug: Yup.string().required("Slug is required"),
 });
+export default validationSchemaAddQuiz;

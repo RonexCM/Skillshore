@@ -1,3 +1,11 @@
+import { CommonMetaType } from ".";
+
+export type QuestionCategoryType = {
+  id: string;
+  title: string;
+  slug: string;
+};
+
 export type AddQuestionCategoryFieldType = {
   category_id: bigint;
   title: string;
@@ -9,8 +17,17 @@ export type AddQuestionCategoryFieldType = {
   status: boolean;
 };
 
-export type QuestionCategoryType = {
-  id: string;
-  title: string;
-  slug: string;
+export type FetchQuestionCategoryType = {
+  data: QuestionCategoryType[];
+  links: {
+    first: string;
+    last: string;
+    prev: string;
+    next: string;
+  };
+  meta: CommonMetaType;
+};
+export type FetchQuestionCategoryQueryTransformReturnType = {
+  data: QuestionCategoryType[];
+  meta: CommonMetaType;
 };

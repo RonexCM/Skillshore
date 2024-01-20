@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom";
 import { MdHome } from "react-icons/md";
-import skillshoreLogo from "../../assets/skillshoresvg.svg";
+import skillshoreLogo from "../assets/skillshoresvg.svg";
 
-const NavbarAdmin = () => {
+const AdminNavbar = () => {
   const handleLogout = () => {
     // show a modal saying confirm logout?
   };
@@ -24,4 +24,4 @@ const NavbarAdmin = () => {
   );
 };
 
-export default NavbarAdmin;
+export default AdminNavbar;

@@ -1,15 +1,16 @@
 import { useState } from "react";
-import DeleteQuizModal from "../../../pages/admin/modals/quizModals/DeleteQuizModal";
-import EditQuizModal from "../../../pages/admin/modals/quizModals/EditQuizModal";
+import DeleteQuestionCategoryModal from "../pages/admin/modals/questionCategoryModals/DeleteQuestionCategoryModal";
+import EditQuestionCategoryModal from "../pages/admin/modals/questionCategoryModals/EditQuestionCategoryModal";
 import { Tooltip } from "flowbite-react";
 
 type Props = {
-  quiz: any;
+  questionCategory: any;
 };
 
-const ListOfQuiz = ({ quiz }: Props) => {
+const ListOfQuestionCategorys = ({ questionCategory }: Props) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+
   const handleEdit = () => {
     setShowEditModal(true);
   };
@@ -18,33 +19,28 @@ const ListOfQuiz = ({ quiz }: Props) => {
   };
   return (
     <>
-      <tr key={quiz.id} className="bg-white border-b hover:bg-gray-50">
+      <tr
+        key={questionCategory.id}
+        className="bg-white border-b hover:bg-gray-50"
+      >
         <td className="p-4 pl-6">
-          <div className="flex items-center whitespace-nowrap">{quiz.id}</div>
+          <div className="flex items-center">{questionCategory.id + 1}</div>
         </td>
         <th
           scope="row"
           className=" px-6 py-3 font-normal  text-gray-900 whitespace-normal break-all"
         >
-          {quiz.title}
+          {questionCategory.title}
         </th>
         <td className="px-6 py-3 font-normal text-gray-900 whitespace-nowrap ">
-          {quiz.slug}
+          {questionCategory.slug}
         </td>
         <td className="px-6 my-3 font-normal text-gray-900 break-all  line-clamp-2 ">
-          {quiz.description}
+          {questionCategory.description}
         </td>
 
         <td className="px-6 py-3 font-normal text-gray-900 whitespace-nowrap  text-center">
-          {quiz.thumbnail}
-        </td>
-
-        <td className="px-6 py-3 font-normal text-gray-900 whitespace-nowrap  text-center">
-          {quiz.timer}
-        </td>
-
-        <td className="px-6 py-3 font-normal text-gray-900 whitespace-nowrap  text-center">
-          {quiz.retry_after}
+          {questionCategory.weightage}
         </td>
 
         <td className="px-6 py-3">
@@ -73,11 +69,16 @@ const ListOfQuiz = ({ quiz }: Props) => {
         </td>
       </tr>
       {showDeleteModal && (
-        <DeleteQuizModal setShowModal={setShowDeleteModal} id={quiz.id} />
+        <DeleteQuestionCategoryModal
+          setShowModal={setShowDeleteModal}
+          id={questionCategory.id}
+        />
       )}
-      {showEditModal && <EditQuizModal setShowModal={setShowEditModal} />}
+      {showEditModal && (
+        <EditQuestionCategoryModal setShowModal={setShowEditModal} />
+      )}
     </>
   );
 };
 
-export default ListOfQuiz;
+export default ListOfQuestionCategorys;

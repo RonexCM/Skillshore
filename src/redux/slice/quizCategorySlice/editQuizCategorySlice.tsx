@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { QuizCategoryType } from "../../../pages/admin/types/types";
+import { QuizCategoryType } from "../../../pages/admin/types";
 
 const initialState = {
   id: "",
