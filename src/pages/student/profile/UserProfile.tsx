@@ -12,14 +12,15 @@ const UserProfile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const profileStyle = " text-dark font-medium";
-  const userDetails = useSelector((state) => state.user.data);
+  const userDetails = useSelector((state) => state.user.data.data);
   const { data, isLoading } = useGetUserQuery();
+  console.log("🚀 ~ UserProfile ~ data:", data);
 
   useEffect(() => {
     if (data) {
-      dispatch(setUserData(data[0]));
+      dispatch(setUserData(data));
     }
-  }, [data]);
+  }, [data, dispatch]);
 
   if (isLoading) {
     <div className="flex justify-center">
@@ -32,7 +33,7 @@ const UserProfile = () => {
         <h1 className="text-primary leading-7 text-[20px] font-medium pb-[60px] ">
           Profile
         </h1>
-
+    
         <button
           type="button"
           className=" text-white bg-green-700 font-medium rounded-lg text-sm h-[50px] w-[150px]"
@@ -46,7 +47,7 @@ const UserProfile = () => {
           <div className="Profile grid grid-cols-2">
             <p className={profileStyle}>Upload your resume</p>
             <div className="flex justify-between">
-              <p className={profileStyle}>{userDetails.resume}</p>
+              <p className={profileStyle}>{userDetails.name}</p>
             </div>
           </div>
 
@@ -55,8 +56,7 @@ const UserProfile = () => {
             <p className={profileStyle}>Career Profile</p>
             <div className="flex relative justify-between">
               <img
-                src=""
-                alt="user-profile-picture"
+                src={profile}
                 className="h-[45px] translate-x-[-65px] absolute"
               />
               <div className="flex flex-col w-[75%]">
@@ -121,9 +121,9 @@ const UserProfile = () => {
               <p className={profileStyle}>{userDetails.education}</p>
             </div>
           </div>
-          <hr />
+          <hr /> */}
 
-          <div className="Profile grid grid-cols-2">
+          {/* <div className="Profile grid grid-cols-2">
             <p className={profileStyle}>Role</p>
             <div className="flex justify-between">
               <p className={profileStyle}>{userDetails.role}</p>
@@ -137,9 +137,9 @@ const UserProfile = () => {
               <p className={profileStyle}>{userDetails.available}</p>
             </div>
           </div>
-          <hr />
+          <hr /> */}
 
-          <div className="Profile grid grid-cols-2 text-[16px]">
+          {/* <div className="Profile grid grid-cols-2 text-[16px]">
             <p className={profileStyle}>Skills</p>
             <div className="flex justify-between ">
               <div className="skills flex flex-col text-[14px]">
@@ -151,7 +151,7 @@ const UserProfile = () => {
                 </ul>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
