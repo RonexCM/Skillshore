@@ -16,15 +16,9 @@ export type TUserProfile = {
   github: string;
 };
 
-export type TEditedData = {
-  name: string;
-  description: string;
-  email: string;
-  phoneNo: string;
+export type editedData = {
   experience: string;
-  language: string;
-  available: string;
-  role: string;
+  career: string;
   education: string;
   skills: string[];
   id: string;

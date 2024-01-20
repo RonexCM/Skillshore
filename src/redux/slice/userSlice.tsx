@@ -2,21 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   data: {
-    // resume: "",
     name: "",
     profile: "",
-    // description: "",
-    // mail: "",
-    // phone: "",
     experience: "",
-    // language: "",
-    // available: "",
     career: "",
     education: "",
     id: "",
     skills: [],
-    // email: "",
-    // phoneNo: "",
+    email: "",
   },
 };
 const userSlice = createSlice({

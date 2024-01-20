@@ -29,7 +29,8 @@ const Login = () => {
             const successMessage = responseData.message;
             const token = responseData.token;
             if (token && successMessage === "Successfully logged in") {
-              cookies.set("token", token, { secure: true, httpOnly: true });
+              // cookies.set("token", token, { secure: true, httpOnly: true });
+              cookies.set("token", token, { secure: true });
               dispatch(addUser(values));
               //dispatch isLoggedIn as true to redux store then navigate to protected route /user
               navigate("/profile");

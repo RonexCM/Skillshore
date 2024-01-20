@@ -1,5 +1,9 @@
-import { TUserProfile } from "../../pages/student/types";
+import Cookies from "universal-cookie";
+import { IUserProfile } from "../../pages/student/types";
 import { myApi } from "./myApi";
+
+const cookies = new Cookies();
+const token = cookies.get("token");
 
 export const apiSlice = myApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -7,14 +11,14 @@ export const apiSlice = myApi.injectEndpoints({
       query: () => ({
         url: `/user`,
         headers: {
-          Authorization: `Bearer 176|wlf0CI3FiOVj0qT4DnMiPPYRj9jE09z5zsJxJJZA4cc6e69d`, // Replace with your actual bearer token
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       }),
     }),
     updateUserProfile: builder.mutation({
       query: ({ id, ...updatedUserData }) => ({
-        url: `/user/${id}`,
+        url: `/student/profile/${id}`,
         method: "PUT",
         body: updatedUserData,
         headers: {
