@@ -16,3 +16,20 @@ a.active:hover {
   background-color: var(--dark);
   color: var(--primary-light);
 }
+/* .status-button {
+  display: inline-block;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.status-button.active {
+  background-color: green;
+  color: white;
+}
+
+.status-button.inactive {
+  background-color: red;
+  color: white;
+} */

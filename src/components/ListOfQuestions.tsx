@@ -44,7 +44,7 @@ const ListOfQuestions = ({ question, index, startingIndex }: Props) => {
   // };
   return (
     <>
-      <tr key={question.id} className="bg-white border-b hover:bg-gray-50">
+      <tr key={question.id} className="bg-white border-b hover:bg-gray-50 ">
         <td className="pl-6 ">
           <div className="flex my-4 items-center whitespace-nowrap">
             {startingIndex + index}

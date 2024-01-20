@@ -44,20 +44,19 @@ const myApiEndpoints = myApi.injectEndpoints({
       }),
       invalidatesTags: ["FetchQuestions"],
     }),
-    changeStatus: builder.mutation({
-      query: ({ id, ...rest }) => ({
-        url: `/questions/${id}`,
-        method: "PUT",
-        body: { ...rest },
-      }),
-    }),
+    // changeStatus: builder.mutation({
+    //   query: ({ id, ...rest }) => ({
+    //     url: `/questions/${id}`,
+    //     method: "PUT",
+    //     body: { ...rest },
+    //   }),
+    // }),
   }),
 });
 
 export const {
   useGetQuestionsQuery,
   useAddQuestionMutation,
-  useChangeStatusMutation,
   useDeleteQuestionMutation,
   useEditQuestionMutation,
   useGetSingleQuestionQuery,

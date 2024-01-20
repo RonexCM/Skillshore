@@ -23,13 +23,17 @@ const ListOfQuizCategorys = ({ quizCategory, index }: Props) => {
   };
   return (
     <>
-      <tr key={quizCategory.id} className="bg-white border-b hover:bg-gray-50">
-        <td className="p-4 pl-6">
+      <tr
+        key={quizCategory.id}
+        className=" bg-white border-b hover:bg-gray-50 
+        "
+      >
+        <td className="p-6  ">
           <div className="flex items-center">{index + 1}</div>
         </td>
         <th
           scope="row"
-          className=" px-6 py-3 font-normal  text-gray-900 whitespace-normal break-all"
+          className=" px-2  py-3 font-normal  text-gray-900 whitespace-normal break-all"
         >
           {quizCategory.title}
         </th>

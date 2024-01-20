@@ -22,8 +22,19 @@ const myQuizApiEndpoints = myApi.injectEndpoints({
       }),
       invalidatesTags: ["FetchQuizzes"],
     }),
+    changeStatus: builder.mutation({
+      query: ({ id, ...rest }) => ({
+        url: `/questions/${id}`,
+        method: "PUT",
+        body: { ...rest },
+      }),
+    }),
   }),
 });
 
-export const { useGetQuizQuery, useAddQuizMutation, useDeleteQuizMutation } =
-  myQuizApiEndpoints;
+export const {
+  useGetQuizQuery,
+  useAddQuizMutation,
+  useChangeStatusMutation,
+  useDeleteQuizMutation,
+} = myQuizApiEndpoints;
