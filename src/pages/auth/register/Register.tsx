@@ -1,11 +1,11 @@
 import { Formik, Field, Form, ErrorMessage, FormikHelpers } from "formik";
-import registrationSchema from "../../validation/registrationValidationSchema";
-import penguinImage from "../../assets/images/penguin.svg";
+import penguinImage from "../../../assets/images/penguin.svg";
 import { Link, useNavigate } from "react-router-dom";
-import { registrationFormType } from "./TRegistrationForm";
-import { useRegisterUserMutation } from "../../redux/services/myRegistrationApiEndpoints";
+import { TRegistrationFormType } from "../types";
+import { useRegisterUserMutation } from "../../../redux/services/myRegistrationApiEndpoints";
+import registrationSchema from "../../../validation/registrationValidationSchema";
 
-const RegistrationForm: React.FC = () => {
+const Register: React.FC = () => {
   const [registerUser] = useRegisterUserMutation();
 
   const initialValues = {
@@ -17,8 +17,8 @@ const RegistrationForm: React.FC = () => {
 
   const navigate = useNavigate();
   const handleSubmit = async (
-    values: registrationFormType,
-    { resetForm }: FormikHelpers<registrationFormType>
+    values: TRegistrationFormType,
+    { resetForm }: FormikHelpers<TRegistrationFormType>
   ) => {
     try {
       await registerUser(values);
@@ -135,4 +135,4 @@ const RegistrationForm: React.FC = () => {
     </div>
   );
 };
-export default RegistrationForm;
+export default Register;

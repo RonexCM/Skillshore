@@ -1,10 +1,10 @@
-import { registrationFormType } from "../../pages/Auth/TRegistrationForm";
+import { TRegistrationFormType } from "../../pages/auth/types";
 import { myApi } from "./myApi";
 
 const myRegistrationApiEndpoints = myApi.injectEndpoints({
   endpoints: (builder) => ({
     registerUser: builder.mutation({
-      query: (body: registrationFormType) => ({
+      query: (body: TRegistrationFormType) => ({
         url: "/register",
         method: "post",
         body,

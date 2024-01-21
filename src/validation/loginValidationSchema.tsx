@@ -1,8 +1,14 @@
 import * as Yup from "yup";
 
-export const validationSchema = Yup.object({
+const loginValidationSchema = Yup.object({
   email: Yup.string()
+    .email("Invalid email address")
     .required("Email is required")
-    .max(255, "Cannot have more than 255 characters"),
+    .matches(
+      /^[a-zA-Z0-9]+([._-]*[a-zA-Z0-9]+)*@[a-zA-Z0-9]+([a-zA-Z0-9]*[a-zA-Z0-9]+)*\.[a-zA-Z]{2,}$/,
+      "Email must be a valid email"
+    ),
   password: Yup.string().required("Password is required"),
 });
+
+export default loginValidationSchema;

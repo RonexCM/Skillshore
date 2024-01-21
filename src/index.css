@@ -7,6 +7,7 @@
 
 a.active.login-nav {
   pointer-events: none;
+  color: #616161;
 }
 p {
   color: #03103f;

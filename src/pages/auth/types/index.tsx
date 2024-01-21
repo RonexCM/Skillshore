@@ -1,14 +1,14 @@
-export type LoginField = {
+export type TLoginField = {
   email: string;
   password: string;
 };
 
-export type LoginResponseSuccess = {
+export type TLoginResponseSuccess = {
   message: string;
   token: string;
 };
 
-export type LoginResponseError = {
+export type TLoginResponseError = {
   message: string;
   errors: { email: string[] };
 };
@@ -28,19 +28,16 @@ export type TUserDetails = {
   expected: string;
 };
 
-export type editUserDetails = {
+export type TEditUserDetails = {
   name: string;
   description: string;
   mail: string;
   phone: string;
 };
 
-export type registrationFormType = {
+export type TRegistrationFormType = {
   name: string;
   email: string;
   password: string;
   confirmPassword: string;
 };
-
-
-

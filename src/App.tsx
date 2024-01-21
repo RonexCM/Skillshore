@@ -1,21 +1,33 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import InitialLayout from "./layouts/InitialLayout";
-import "./index.css";
-import RegistrationForm from "./pages/Auth/Registration";
-import Login from "./pages/Auth/Login";
-
+import { AuthLayout } from "./layouts";
+import { ForgotPassword } from "./pages/auth/forgotPassword";
+import { UserLayout } from "./layouts";
+import { UserProfile, EditProfile } from "./pages/student/profile";
+import { Home } from "./pages/student/home";
+import { Login } from "./pages/auth/login";
+import { Register } from "./pages/auth/register";
 const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<InitialLayout />}>
-          <Route path="/" element={<Login />} />
-          <Route path="/register">
-            <Route index element={<RegistrationForm />} />
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<AuthLayout />}>
+            <Route index element={<Login />} />
+            {/* ----------register form goes here---------- */}
+            <Route path="register" element={<Register />} />
+            {/* ----------register form goes here---------- */}
+            <Route path="forgotPassword" element={<ForgotPassword />} />
           </Route>
-        </Route>
-      </Routes>
-    </BrowserRouter>
+          {/* ----------user pages goes here as protected route---------- */}
+          <Route element={<UserLayout />}>
+            <Route path="/home" element={<Home />} />
+            <Route path="/profile" element={<UserProfile />} />
+            <Route path="/editProfile" element={<EditProfile />} />
+          </Route>
+          {/* ----------admin pages goes here as protected route----------- */}
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 };
 
