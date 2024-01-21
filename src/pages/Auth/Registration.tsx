@@ -2,8 +2,8 @@ import { Formik, Field, Form, ErrorMessage, FormikHelpers } from "formik";
 import registrationSchema from "../../validation/registrationValidationSchema";
 import penguinImage from "../../assets/images/penguin.svg";
 import { Link, useNavigate } from "react-router-dom";
-import { registrationFormType } from "../list/types/types";
-import { useRegisterUserMutation } from "../../redux/services/myApiEndpoints";
+import { registrationFormType } from "./TRegistrationForm";
+import { useRegisterUserMutation } from "../../redux/services/myRegistrationApiEndpoints";
 
 const RegistrationForm: React.FC = () => {
   const [registerUser] = useRegisterUserMutation();
@@ -16,27 +16,21 @@ const RegistrationForm: React.FC = () => {
   };
 
   const navigate = useNavigate();
-  const handleSubmit = (
+  const handleSubmit = async (
     values: registrationFormType,
     { resetForm }: FormikHelpers<registrationFormType>
   ) => {
     try {
-      const handleRegister = async () => {
-        const payload = await registerUser(values).unwrap();
-        console.log(`This is payload: ${payload}`);
-        console.log(payload);
-      };
-      handleRegister();
+      await registerUser(values);
       resetForm();
       navigate("/");
     } catch (error) {
-      console.log(`Error registering the user: ${error}`);
+      console.error("Error registering the user:", error);
     }
   };
 
   return (
     <div className="registrationPage flex justify-around gap-[220px] p-5">
-      {/* registration form goes here */}
       <div className=" registration w-[500px]  rounded-[32px] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.2)] py-7 px-7">
         <Formik
           initialValues={initialValues}
