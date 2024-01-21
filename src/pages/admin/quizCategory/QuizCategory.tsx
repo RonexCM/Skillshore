@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import { ListOfQuizCategorys, Pagination } from "../../../components";
 import { IoSearch } from "react-icons/io5";
 import { useGetQuizCategorysQuery } from "../../../redux/services/myQuizCategoryApiEndpoints";
-import { Spinner } from "flowbite-react";
 import { QuizCategoryType } from "../types";
 import { useLoadingState } from "../../../layouts/AdminLayout";
+import { motion } from "framer-motion";
 
 const QuizCategory = () => {
   const { data, isLoading, isError } = useGetQuizCategorysQuery();
@@ -45,7 +45,11 @@ const QuizCategory = () => {
     ? Math.ceil(filteredQuizCategoryList.length / quizCategorysPerPage)
     : 1;
   return (
-    <div className="flex flex-col basis-full  gap-5 p-5 px-8 ">
+    <motion.div
+      initial={{ opacity: 0.2 }}
+      animate={{ opacity: 1 }}
+      className="flex flex-col basis-full  gap-5 p-5 px-8 "
+    >
       <h1 className="text-primary font-medium text-2xl py-5">Quiz Category</h1>
 
       <div className="flex justify-between">
@@ -123,7 +127,7 @@ const QuizCategory = () => {
           />
         </nav>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

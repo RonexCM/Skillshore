@@ -5,7 +5,7 @@ import { IoSearch } from "react-icons/io5";
 import { useGetQuizQuery } from "../../../redux/services/myQuizApiEndpoints";
 import { QuizType } from "../types";
 import { useLoadingState } from "../../../layouts/AdminLayout";
-
+import { motion } from "framer-motion";
 const Quiz = () => {
   const { data, isLoading, isError } = useGetQuizQuery();
   const [searchTerm, setSearchTerm] = useState("");
@@ -43,7 +43,11 @@ const Quiz = () => {
     : 1;
 
   return (
-    <div className="flex flex-col basis-full  gap-5 p-5 px-8 ">
+    <motion.div
+      initial={{ opacity: 0.2 }}
+      animate={{ opacity: 1 }}
+      className="flex flex-col basis-full  gap-5 p-5 px-8 "
+    >
       <h1 className="text-primary font-medium text-2xl py-5">Quiz</h1>
 
       <div className="flex justify-between">
@@ -126,7 +130,7 @@ const Quiz = () => {
           />
         </nav>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

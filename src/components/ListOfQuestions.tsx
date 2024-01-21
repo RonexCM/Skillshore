@@ -15,7 +15,7 @@ type Props = {
 
 const ListOfQuestions = ({ question, index, startingIndex }: Props) => {
   const navigate = useNavigate();
-
+  console.log(question);
   const dispatch = useDispatch();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [active, setActive] = useState(false);

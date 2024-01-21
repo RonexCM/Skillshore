@@ -6,6 +6,7 @@ import { IoSearch } from "react-icons/io5";
 import { useGetQuestionCategorysQuery } from "../../../redux/services/myQuestionCategoryApiEndpoints";
 import { QuestionCategoryType } from "../types/TQuestionCategoryTypes";
 import { useLoadingState } from "../../../layouts/AdminLayout";
+import { motion } from "framer-motion";
 
 const QuestionCategory = () => {
   // need to change argument of useGetQuestionCategoryQuery accorfing to page required
@@ -26,7 +27,11 @@ const QuestionCategory = () => {
   }, [data, isLoading]);
   const { setShowLoader } = useLoadingState();
   return (
-    <div className="flex flex-col basis-full  gap-5 p-5 px-8 ">
+    <motion.div
+      initial={{ opacity: 0.2 }}
+      animate={{ opacity: 1 }}
+      className="flex flex-col basis-full  gap-5 p-5 px-8 "
+    >
       <h1 className="text-primary font-medium text-2xl py-5">
         Question Category
       </h1>
@@ -102,7 +107,7 @@ const QuestionCategory = () => {
           />
         </nav>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -108,14 +108,15 @@ const Question = () => {
             </thead>
 
             <tbody>
-              {questionsList?.map((question: QuestionType, index: number) => (
-                <ListOfQuestions
-                  key={index}
-                  question={question}
-                  index={index}
-                  startingIndex={startingIndex}
-                />
-              ))}
+              {questionsList[0].title.length > 1 &&
+                questionsList?.map((question: QuestionType, index: number) => (
+                  <ListOfQuestions
+                    key={index}
+                    question={question}
+                    index={index}
+                    startingIndex={startingIndex}
+                  />
+                ))}
             </tbody>
           </table>
         </div>
