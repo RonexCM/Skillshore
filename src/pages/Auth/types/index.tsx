@@ -12,3 +12,32 @@ export type TLoginResponseError = {
   message: string;
   errors: { email: string[] };
 };
+export type TUserDetails = {
+  resume: string;
+  name: string;
+  profile: string;
+  description: string;
+  mail: string;
+  phone: string;
+  experience: string;
+  language: string;
+  available: string;
+  role: string;
+  salary: string;
+  id: string;
+  expected: string;
+};
+
+export type TEditUserDetails = {
+  name: string;
+  description: string;
+  mail: string;
+  phone: string;
+};
+
+export type TRegistrationFormType = {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+};
