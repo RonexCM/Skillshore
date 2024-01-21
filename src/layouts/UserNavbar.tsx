@@ -2,8 +2,13 @@ import { NavLink } from "react-router-dom";
 import skillshoreLogo from "../assets/skillshoresvg.svg";
 import { FaHouse } from "react-icons/fa6";
 import Cookies from "universal-cookie";
+import { logOut } from "../redux/slice/userSlice";
+import { useDispatch } from "react-redux";
+
 const UserNavbar = () => {
-  const logOut = () => {
+  const dispatch = useDispatch();
+  const LogOut = () => {
+    dispatch(logOut());
     new Cookies().remove("token");
   };
   return (
@@ -40,7 +45,7 @@ const UserNavbar = () => {
           <NavLink
             to="/"
             className="cursor-pointer font-normal dark:text-white"
-            onClick={logOut}
+            onClick={LogOut}
           >
             Logout
           </NavLink>

@@ -10,16 +10,11 @@ const EditProfile = () => {
   const dispatch = useDispatch();
   const [updateUserProfile] = useUpdateUserProfileMutation();
 
-  const data = useSelector((state) => state.user.data.data);
-  const { profile, ...rest } = data;
-  const Userdata = {
-    ...data.profile,
-  };
+  const Userdata = useSelector((state) => state.user.data.data.profile);
 
   const handleSubmit = async (values: TEditedData) => {
     try {
       const { skills, ...other } = values;
-      console.log("🚀 ~ handleSubmit ~ values:", values);
 
       let skill;
       if (!Array.isArray(skills)) {
@@ -28,16 +23,10 @@ const EditProfile = () => {
         skill = skills;
       }
       const reqData = { skills: skill, ...other };
-      console.log(reqData);
-      // const UpdatedData = { ...rest, profile: { ...reqData } };
       const res = await updateUserProfile(reqData);
-      const profileData = res.data.data;
-      console.log("🚀 ~ handleSubmit ~ profileData:", profileData);
-      const updatedData = { ...rest, profile: { ...profileData } };
-      console.log("🚀 ~ handleSubmit ~ updatedData:", updatedData);
 
       if (res) {
-        dispatch(setUserData(updatedData));
+        dispatch(setUserData(res));
         navigate("/profile");
       } else {
         console.error("No response from API");

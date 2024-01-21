@@ -2,14 +2,16 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   data: {
-    name: "",
-    profile: "",
-    experience: "",
-    career: "",
-    education: "",
-    id: "",
-    skills: [],
     email: "",
+    id: "",
+    name: "",
+    profile: {
+      id: "",
+      skills: [],
+      education: "",
+      experience: "",
+      career: "",
+    },
   },
 };
 const userSlice = createSlice({
@@ -19,8 +21,11 @@ const userSlice = createSlice({
     setUserData: (state, action) => {
       state.data = action.payload;
     },
+    logOut: (state) => {
+      state.data = initialState.data;
+    },
   },
 });
 
 export default userSlice.reducer;
-export const { setUserData } = userSlice.actions;
+export const { setUserData, logOut } = userSlice.actions;
