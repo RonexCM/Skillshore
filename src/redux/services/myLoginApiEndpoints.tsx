@@ -1,16 +1,16 @@
 import { myApi } from "./myApi";
 import {
-  LoginResponseSuccess,
-  LoginResponseError,
-  LoginField,
+  TLoginResponseSuccess,
+  TLoginResponseError,
+  TLoginField,
 } from "../../pages/auth/types";
 const myLoginApiEndpoints = myApi.injectEndpoints({
   endpoints: (builder) => ({
     loginUser: builder.mutation<
-      LoginResponseSuccess | LoginResponseError,
-      LoginField
+      TLoginResponseSuccess | TLoginResponseError,
+      TLoginField
     >({
-      query: (body: LoginField) => ({
+      query: (body: TLoginField) => ({
         url: `/login`,
         method: "post",
         body,

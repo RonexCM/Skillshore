@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useUpdateUserProfileMutation } from "../../../redux/services/myUserProfileEndpoints";
 import { setUserData } from "../../../redux/slice/userSlice";
 import { userProfileValidationSchema } from "../../../validation";
-import { editedData } from "../types";
+import { TEditedData } from "../types";
 
 const EditProfile = () => {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ const EditProfile = () => {
 
   const data = useSelector((state) => state.user.data);
 
-  const handleSubmit = async (values: editedData) => {
+  const handleSubmit = async (values: TEditedData) => {
     try {
       const { skills, ...other } = values;
       let skill;

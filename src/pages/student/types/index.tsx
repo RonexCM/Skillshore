@@ -1,4 +1,4 @@
-export type IUserProfile = {
+export type TUserProfile = {
   resume: string;
   name: string;
   profile: string;
@@ -16,7 +16,7 @@ export type IUserProfile = {
   github: string;
 };
 
-export type editedData = {
+export type TEditedData = {
   name: string;
   description: string;
   email: string;

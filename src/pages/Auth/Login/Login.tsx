@@ -1,5 +1,5 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { LoginField } from "../types";
+import { TLoginField } from "../types";
 import { loginValidationSchema } from "../../../validation";
 import { Link } from "react-router-dom";
 import { useLoginUserMutation } from "../../../redux/services/myLoginApiEndpoints";
@@ -15,9 +15,9 @@ const Login = () => {
   const dispatch = useDispatch();
   const cookies = new Cookies();
   const navigate = useNavigate();
-  const initialValues = useSelector((state: RootState) => state.loginReducer);
+  const initialValues = useSelector((state: RootState) => state.login);
   const [loginUser] = useLoginUserMutation();
-  const onSubmit = async (values: LoginField) => {
+  const onSubmit = async (values: TLoginField) => {
     const userCredentials = {
       email: values.email.toLowerCase(),
       password: values.password,
@@ -45,6 +45,8 @@ const Login = () => {
         toast.error(errorMessage);
       } else if ("status" in error) {
         toast.error(`Problem logging in!`);
+      } else {
+        toast.error("No response from server!");
       }
     }
   };

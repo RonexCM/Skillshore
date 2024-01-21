@@ -1,9 +1,9 @@
-import { IUserProfile } from "../../pages/student/types";
+import { TUserProfile } from "../../pages/student/types";
 import { myApi } from "./myApi";
 
 export const apiSlice = myApi.injectEndpoints({
   endpoints: (builder) => ({
-    getUser: builder.query<IUserProfile[], void>({
+    getUser: builder.query<TUserProfile[], void>({
       query: () => ({
         url: `/user`,
       }),

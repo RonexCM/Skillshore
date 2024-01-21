@@ -1,14 +1,14 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { LoginField } from "../../pages/auth/types";
+import { TLoginField } from "../../pages/auth/types";
 const initialState = {
   email: "",
   password: "",
 };
 const loginSlice = createSlice({
-  name: "loginReducer",
+  name: "loginSlice",
   initialState,
   reducers: {
-    addUser: (state, action: PayloadAction<LoginField>) => {
+    addUser: (state, action: PayloadAction<TLoginField>) => {
       state.email = action.payload.email;
       state.password = action.payload.password;
     },

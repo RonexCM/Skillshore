@@ -1,14 +1,14 @@
-export type LoginField = {
+export type TLoginField = {
   email: string;
   password: string;
 };
 
-export type LoginResponseSuccess = {
+export type TLoginResponseSuccess = {
   message: string;
   token: string;
 };
 
-export type LoginResponseError = {
+export type TLoginResponseError = {
   message: string;
   errors: { email: string[] };
 };
