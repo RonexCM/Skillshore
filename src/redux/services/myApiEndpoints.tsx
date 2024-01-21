@@ -15,7 +15,7 @@ const myApiEndpoints = myApi.injectEndpoints({
         method: "post",
         body,
       }),
-    }),
+    })
   }),
 });
 

@@ -1,15 +1,15 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { LoginField } from "./list/types/types";
-import { validationSchema } from "../validation/loginValidationSchema";
 import { Link } from "react-router-dom";
-import { useLoginUserMutation } from "../redux/services/myApiEndpoints";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/store";
-import { addUser } from "../redux/slice/loginSlice";
+import { addUser } from "../../redux/slice/loginSlice";
+import { validationSchema } from "../../validation/loginValidationSchema";
+import { useLoginUserMutation } from "../../redux/services/myApiEndpoints";
 
 const Login = () => {
   const dispatch = useDispatch();

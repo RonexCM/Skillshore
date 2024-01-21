@@ -1,24 +1,21 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Login from "./pages/Login";
 import InitialLayout from "./layouts/InitialLayout";
-import Register from "./pages/student/Register";
-import User from "./pages/student/User";
+import "./index.css";
+import RegistrationForm from "./pages/Auth/Registration";
+import Login from "./pages/Auth/Login";
+
 const App = () => {
   return (
-    <div>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<InitialLayout />}>
-            <Route index element={<Login />} />
-            {/* ----------register form goes here---------- */}
-            <Route path="register" element={<Register />} />
+    <BrowserRouter>
+      <Routes>
+        <Route element={<InitialLayout />}>
+          <Route path="/" element={<Login />} />
+          <Route path="/register">
+            <Route index element={<RegistrationForm />} />
           </Route>
-          {/* ----------user pages goes here as protected route---------- */}
-          <Route path="user" element={<User />} />
-          {/* ----------admin pages goes here as protected route----------- */}
-        </Routes>
-      </BrowserRouter>
-    </div>
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 };
 
