@@ -9,7 +9,11 @@ const registrationSchema = Yup.object().shape({
   email: Yup.string()
     .email("Invalid email address")
     .required("Email is required")
-    .max(255, "Email must not exceed 255 charracters"),
+    .max(255, "Email must not exceed 255 charracters")
+    .matches(
+      /^[a-zA-Z0-9]+([._-]*[a-zA-Z0-9]+)*@[a-zA-Z0-9]+([a-zA-Z0-9]*[a-zA-Z0-9]+)*\.[a-zA-Z]{2,}$/,
+      "Email must be a valid email"
+    ),
 
   password: Yup.string()
     .required("Password is required")

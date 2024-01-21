@@ -1,11 +1,11 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Login } from "./pages/auth/login";
 import { AuthLayout } from "./layouts";
-import { Register } from "./pages/auth/register";
 import { ForgotPassword } from "./pages/auth/forgotPassword";
 import { UserLayout } from "./layouts";
 import { UserProfile, EditProfile } from "./pages/student/profile";
 import { Home } from "./pages/student/home";
+import { Login } from "./pages/auth/login";
+import { Register } from "./pages/auth/register";
 const App = () => {
   return (
     <div>
