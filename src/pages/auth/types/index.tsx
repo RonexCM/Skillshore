@@ -39,5 +39,14 @@ export type TRegistrationFormType = {
   name: string;
   email: string;
   password: string;
-  confirmPassword: string;
+  password_confirmation: string;
+};
+
+export type TForgotPasswordEmailField = {
+  email: string;
+};
+
+export type TEnterNewPasswordField = {
+  password: string;
+  confirm_password: string;
 };
