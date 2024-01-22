@@ -6,7 +6,7 @@ import { useGetQuestionsQuery } from "../../../redux/services/myQuestionApiEndpo
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  saveQuestions,
+  saveQuestionList,
   saveQuestionsMetaData,
 } from "../../../redux/slice/questionSlice/questionListSlice";
 import { RootState } from "../../../redux/store";
@@ -26,7 +26,7 @@ const Question = () => {
   useEffect(() => {
     if (questionsData) {
       console.log(questionsData.data);
-      dispatch(saveQuestions(questionsData.data));
+      dispatch(saveQuestionList(questionsData.data));
       dispatch(saveQuestionsMetaData(questionsData.meta));
     }
     setShowLoader(isLoading);

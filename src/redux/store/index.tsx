@@ -6,7 +6,7 @@ import questionListSlice from "../slice/questionSlice/questionListSlice";
 export const store = configureStore({
   reducer: {
     [myApi.reducerPath]: myApi.reducer,
-    editQuestionReducer: questionSlice,
+    question: questionSlice,
     editQuizCategoryReducer: editQuizCategorySlice,
     questionList: questionListSlice,
   },

@@ -34,7 +34,6 @@ export type FetchQuestionsType = {
 };
 
 // export type CommonFetchType = {
-//   data: QuestionType[];
 //   links: {
 //     first: string;
 //     last: string;

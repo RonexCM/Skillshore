@@ -44,9 +44,7 @@ const EditQuestion = () => {
   // as we refresh, data from store is erased and form fields get erased. Do we use localstorage in such condition?
 
   //   ----------formik objects----------
-  const initialValues = useSelector(
-    (state: RootState) => state.editQuestionReducer
-  );
+  const initialValues = useSelector((state: RootState) => state.question);
   console.log(initialValues);
   /**
    * when add button is clicked form is submitted with

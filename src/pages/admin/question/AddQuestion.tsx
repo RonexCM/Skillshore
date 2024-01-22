@@ -255,7 +255,12 @@ const AddQuestion = () => {
                             <button
                               className="flex items-center bg-primary-light p-[4px] rounded-md"
                               type="button"
-                              onClick={() => push("")}
+                              onClick={() => {
+                                if (optionsArray.length < 4) {
+                                  push("");
+                                  setOptionsArray([...optionsArray, ""]);
+                                }
+                              }}
                             >
                               <MdAdd className="text-primary text-xl" />
                               {/* <span className="text-sm text-[#705a5a]">add</span> */}
@@ -269,7 +274,15 @@ const AddQuestion = () => {
                             <button
                               className="flex items-center bg-primary-light p-[4px] rounded-md"
                               type="button"
-                              onClick={() => pop()}
+                              onClick={() => {
+                                if (optionsArray.length > 3) {
+                                  pop();
+                                  const indexToRemove = optionsArray.length - 1;
+                                  setOptionsArray(
+                                    optionsArray.slice(0, indexToRemove)
+                                  );
+                                }
+                              }}
                             >
                               <MdOutlineRemove className="text-primary text-xl" />
                               {/* <span className="text-sm text-[#705a5a]">add</span> */}

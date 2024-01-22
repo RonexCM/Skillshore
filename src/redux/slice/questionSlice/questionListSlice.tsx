@@ -29,7 +29,7 @@ const questionListSlice = createSlice({
   name: "questionListSlice",
   initialState,
   reducers: {
-    saveQuestions: (state, action: PayloadAction<QuestionType[]>) => {
+    saveQuestionList: (state, action: PayloadAction<QuestionType[]>) => {
       state.data = action.payload;
     },
     saveQuestionsMetaData: (state, action: PayloadAction<QuestionMetaType>) => {
@@ -39,5 +39,5 @@ const questionListSlice = createSlice({
 });
 
 export default questionListSlice.reducer;
-export const { saveQuestions, saveQuestionsMetaData } =
+export const { saveQuestionList, saveQuestionsMetaData } =
   questionListSlice.actions;

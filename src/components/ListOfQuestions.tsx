@@ -4,7 +4,7 @@ import DeleteQuestionModal from "../pages/admin/modals/questionModals/DeleteQues
 import { Tooltip, Badge } from "flowbite-react";
 // import { useChangeStatusMutation } from "../redux/services/myQuestionApiEndpoints";
 import { useDispatch } from "react-redux";
-import { saveQuestionDetails } from "../redux/slice/questionSlice/questionSlice";
+import { saveQuestion } from "../redux/slice/questionSlice/questionSlice";
 import { useNavigate } from "react-router-dom";
 import { QuestionType } from "../pages/admin/types";
 type Props = {
@@ -21,7 +21,7 @@ const ListOfQuestions = ({ question, index, startingIndex }: Props) => {
   const [active, setActive] = useState(false);
   // const [changeStatus] = useChangeStatusMutation();
   const handleEdit = () => {
-    dispatch(saveQuestionDetails(question));
+    dispatch(saveQuestion(question));
     navigate("edit-question");
   };
   const handleDelete = () => {

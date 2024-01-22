@@ -21,7 +21,7 @@ const questionSlice = createSlice({
   name: "editQuestionSlice",
   initialState,
   reducers: {
-    saveQuestionDetails: (state, action: PayloadAction<QuestionType>) => {
+    saveQuestion: (state, action: PayloadAction<QuestionType>) => {
       state.id = action.payload.id;
       state.title = action.payload.title;
       state.slug = action.payload.slug;
@@ -35,4 +35,4 @@ const questionSlice = createSlice({
 });
 
 export default questionSlice.reducer;
-export const { saveQuestionDetails } = questionSlice.actions;
+export const { saveQuestion } = questionSlice.actions;
