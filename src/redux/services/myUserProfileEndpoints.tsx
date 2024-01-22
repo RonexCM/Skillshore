@@ -14,6 +14,7 @@ export const apiSlice = myApi.injectEndpoints({
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
+        // providedTags: ["User"],
       }),
     }),
     updateUserProfile: builder.mutation({
@@ -24,6 +25,7 @@ export const apiSlice = myApi.injectEndpoints({
         headers: {
           "Content-Type": "application/json",
         },
+        // invalidatesTags: ["User"],
       }),
     }),
   }),

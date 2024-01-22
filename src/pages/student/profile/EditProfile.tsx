@@ -10,7 +10,7 @@ const EditProfile = () => {
   const dispatch = useDispatch();
   const [updateUserProfile] = useUpdateUserProfileMutation();
 
-  const Userdata = useSelector((state) => state.user.data.data.profile);
+  const UserData = useSelector((state) => state.user.data.data.profile);
 
   const handleSubmit = async (values: TEditedData) => {
     try {
@@ -38,16 +38,63 @@ const EditProfile = () => {
 
   return (
     <>
-      <div className=" bg-white p-9  w-full ">
-        <Formik initialValues={Userdata} onSubmit={handleSubmit}>
-          <Form className="flex flex-col justify-center mx-[150px]">
-            <h2 className="text-[24px] text-primary font-bold mb-10  ">
+      <div className="h-full px-[120px] font-poppins ">
+        <Formik initialValues={UserData} onSubmit={handleSubmit}>
+          <Form className="flex flex-col justify-center mt-[37px]">
+            <h2 className="text-primary leading-7 text-[20px] font-medium pb-[30px]">
               Edit Profile
             </h2>
 
-            <div className="flex flex-row gap-[20px] w-[800px] mb-2">
+            <div className="flex flex-row gap-[20px]  mb-2">
               <div className="flex flex-col text-[18px] mb-4 w-full">
-                <label htmlFor="experience" className="mb-2">
+                <label
+                  htmlFor="education"
+                  className="mb-2 text-dark text-lg font-normal"
+                >
+                  Education
+                </label>
+                <Field
+                  type="text"
+                  id="education"
+                  name="education"
+                  className="w-full text-[16px] h-12 bg-white rounded-lg border-2 border-indigo-100 px-3"
+                />
+                <ErrorMessage
+                  className="text-[13px] text-error mt-1"
+                  name="education"
+                  component="div"
+                />
+              </div>
+            </div>
+
+            <div className="flex flex-row gap-[20px]  mb-2">
+              <div className="flex flex-col text-[18px] mb-4 w-full">
+                <label
+                  htmlFor="career"
+                  className="mb-2 text-lg text-dark font-normal"
+                >
+                  Career
+                </label>
+                <Field
+                  type="text"
+                  id="career"
+                  name="career"
+                  className="w-full text-[16px] h-12 bg-white rounded-lg border-2 border-indigo-100 px-3"
+                />
+                <ErrorMessage
+                  className="text-[13px] text-error mt-1"
+                  name="career"
+                  component="div"
+                />
+              </div>
+            </div>
+
+            <div className="flex flex-row gap-[20px]  mb-2">
+              <div className="flex flex-col text-[18px] mb-4 w-full">
+                <label
+                  htmlFor="experience"
+                  className="mb-2 text-dark text-lg font-normal"
+                >
                   Experience
                 </label>
                 <Field
@@ -64,45 +111,12 @@ const EditProfile = () => {
               </div>
             </div>
 
-            <div className="flex flex-row gap-[20px] w-[800px]">
+            <div className="flex flex-row gap-[20px]  mb-2">
               <div className="flex flex-col text-[18px] mb-4 w-full">
-                <label htmlFor="career" className="mb-2">
-                  Career
-                </label>
-                <Field
-                  type="text"
-                  id="career"
-                  name="career"
-                  className="w-full text-[16px] h-12 bg-white rounded-lg border-2 border-indigo-100 px-3"
-                />
-                <ErrorMessage
-                  className="text-[13px] text-error mt-1"
-                  name="career"
-                  component="div"
-                />
-              </div>
-            </div>
-            <div className="flex flex-row gap-[20px] w-[800px]">
-              <div className="flex flex-col text-[18px] mb-4 w-full">
-                <label htmlFor="education" className="mb-2">
-                  Education
-                </label>
-                <Field
-                  type="text"
-                  id="education"
-                  name="education"
-                  className="w-full text-[16px] h-12 bg-white rounded-lg border-2 border-indigo-100 px-3"
-                />
-                <ErrorMessage
-                  className="text-[13px] text-error mt-1"
-                  name="education"
-                  component="div"
-                />
-              </div>
-            </div>
-            <div className="flex flex-row gap-[20px] w-[800px]">
-              <div className="flex flex-col text-[18px] mb-4 w-full">
-                <label htmlFor="skills" className="mb-2">
+                <label
+                  htmlFor="skills"
+                  className="mb-2 text-lg text-dark font-normal"
+                >
                   Skills
                 </label>
                 <Field
@@ -121,7 +135,7 @@ const EditProfile = () => {
             <div>
               <button
                 type="submit"
-                className="bg-green-700 text-white px-4 py-2 rounded mt-4"
+                className=" text-white bg-green-700 font-medium mb-[40px] rounded-lg text-sm h-[50px] w-[150px]"
               >
                 Save Changes
               </button>

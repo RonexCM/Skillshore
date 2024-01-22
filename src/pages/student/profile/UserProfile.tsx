@@ -33,25 +33,29 @@ const UserProfile = () => {
     fetchData();
   }, [refetch]);
   return (
-    <div className="h-full px-[120px] py-8 font-poppins ">
+    <div className="h-full px-[120px]  font-poppins ">
       {isFetching ? (
         <div className="flex justify-center h-[800px]">
           <LineWave color="#1a2b48" height={100} />;
         </div>
       ) : (
         <>
-          <div className="flex justify-between mt-[50px]">
+          <div className="flex justify-between mt-[37px]">
             <h1 className="text-primary leading-7 text-[20px] font-medium pb-[60px] ">
               Profile
             </h1>
 
-            <button
-              type="button"
-              className=" text-white bg-green-700 font-medium rounded-lg text-sm h-[50px] w-[150px]"
-              onClick={() => navigate("/editProfile")}
-            >
-              Edit Profile
-            </button>
+            {userDetails ? (
+              <button
+                type="button"
+                className="text-white bg-green-700 font-medium rounded-lg text-sm h-[50px] w-[150px]"
+                onClick={() => navigate("/editProfile")}
+              >
+                Edit Profile
+              </button>
+            ) : (
+              <div></div>
+            )}
           </div>
           {userDetails ? (
             <>
@@ -125,7 +129,13 @@ const UserProfile = () => {
               </div>
             </>
           ) : (
-            <p>User NOt found</p>
+            <div className="h-[800px]">
+              <p>
+                This current logged in user's profile details is not found.
+                <br />
+                Please contact your administrator for more details
+              </p>
+            </div>
           )}
         </>
       )}
