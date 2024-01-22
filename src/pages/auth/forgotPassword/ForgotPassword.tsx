@@ -1,15 +1,41 @@
-import { Formik, Field, Form, ErrorMessage } from "formik";
-import { Link, useNavigate } from "react-router-dom";
+import { Formik, Field, Form, ErrorMessage, FormikHelpers } from "formik";
+import { Link } from "react-router-dom";
 import { TForgotPasswordEmailField } from "../types";
 import { forgotPasswordEmailFieldSchema } from "../../../validation";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useForgotPasswordMutation } from "../../../redux/services/myForgotPasswordApiEndpoints";
 
 const ForgotPassword: React.FC = () => {
+  const [forgotPassword] = useForgotPasswordMutation();
   const initialValues: TForgotPasswordEmailField = {
     email: "",
   };
-  const navigate = useNavigate();
-  const handleSubmit = () => {
-    navigate("/enterNewPassword");
+  // const navigate = useNavigate();
+  const handleSubmit = async (
+    values: TForgotPasswordEmailField,
+    { resetForm }: FormikHelpers<TForgotPasswordEmailField>
+  ) => {
+    try {
+      const responseData = await forgotPassword(values).unwrap();
+      resetForm();
+      if (responseData && "data" in responseData) {
+        const successMessage: string = responseData.data.status;
+        toast.success(successMessage, {
+          autoClose: 3000,
+        });
+      }
+      // navigate("/enterNewPassword");
+    } catch (error: any) {
+      if ("status" in error && "data" in error) {
+        const errorMessage = error.data.message;
+        toast.error(errorMessage);
+      } else if ("status" in error) {
+        toast.error(`lol logging in!`);
+      } else {
+        toast.error("No response from server!");
+      }
+    }
   };
   return (
     <div>
@@ -64,6 +90,13 @@ const ForgotPassword: React.FC = () => {
           </Form>
         </Formik>
       </div>
+      <ToastContainer
+        className="top-16"
+        autoClose={10000}
+        hideProgressBar
+        newestOnTop
+        limit={1}
+      />
     </div>
   );
 };
