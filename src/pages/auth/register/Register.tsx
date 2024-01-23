@@ -23,8 +23,8 @@ const Register: React.FC = () => {
     { resetForm }: FormikHelpers<TRegistrationFormType>
   ) => {
     try {
-      const responseData = await registerUser(values);
-      console.log(responseData);
+      const responseData = await registerUser(values).unwrap();
+
       if (responseData && "data" in responseData) {
         const successMessage: string = "Successfully registered";
         resetForm();
