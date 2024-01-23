@@ -142,7 +142,7 @@ const Register: React.FC = () => {
               >
                 Create Account
               </button>
-              <div className="AlreadyHaveAnAccountLogin text-center  text-[14px] font-normal">
+              <div className="text-center  text-[14px] font-normal">
                 <span className="flex gap-1 mt-[8px] ">
                   Already have an account?{" "}
                   <Link
