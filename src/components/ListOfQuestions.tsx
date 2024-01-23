@@ -57,12 +57,6 @@ const ListOfQuestions = ({ question, index, startingIndex }: Props) => {
         </td>
         <td className=" px-6 font-normal text-gray-900 whitespace-nowrap">
           <div className="w-max">
-            {/* <ToggleSwitch
-              checked={active}
-              label={active ? "Active" : "Inactive"}
-              onChange={handleActiveChange}
-              color="green"
-            /> */}
             {active ? (
               <Badge color="success" size="sm">
                 Active

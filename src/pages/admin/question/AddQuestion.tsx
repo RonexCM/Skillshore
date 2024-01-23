@@ -148,7 +148,6 @@ const AddQuestion = () => {
                     <option value="">select category id...</option>
                     {questionCategoriesList["data"].map(
                       (questionCategory, index) => (
-                        // LAST WORKED HERE ----------> CHECK WHAT THE VALUE OF OPTION TAG SHOULD BE
                         <option key={index} value={questionCategory.id}>
                           {questionCategory.id}
                         </option>

@@ -14,7 +14,7 @@ import { AiFillHome } from "react-icons/ai";
 import { useEditQuestionMutation } from "../../../redux/services/myQuestionApiEndpoints";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { motion } from "framer-motion";
+import { delay, motion } from "framer-motion";
 import { AddQuestionFieldType } from "../types";
 import { useGetAllQuestionCategoriesQuery } from "../../../redux/services/myQuestionCategoryApiEndpoints";
 import { MdAdd, MdOutlineRemove } from "react-icons/md";
@@ -50,28 +50,27 @@ const EditQuestion = () => {
   }, [allQuestionCategoriesList]);
 
   const [totalOptions, _] = useState(3);
-  const [addQuestion, { isError, error, data }] = useEditQuestionMutation();
-  // console.log(error);
-  // console.log(data);
+  const [addQuestion, { isError, error }] = useEditQuestionMutation();
   //   ----------formik objects----------
   /**
    * when add button is clicked form is submitted with
    * @param values
    */
-  const onSubmit = async (
-    values: AddQuestionFieldType,
-    actions: FormikHelpers<AddQuestionFieldType>
-  ) => {
+  const onSubmit = async (values: AddQuestionFieldType) => {
     const editedValues = { ...values, id: id };
     await addQuestion(editedValues);
     if (isError) {
       toast.error("Error editing question!");
       console.log(error);
     } else {
-      const { resetForm } = actions;
-      toast.success("Question edited!");
-      resetForm();
-      navigate(-1);
+      toast.success("Question edited!", {
+        autoClose: 400,
+        hideProgressBar: true,
+        onClose: () => {
+          navigate(-1);
+        },
+      });
+
       // setOptionsArray(Array.from({ length: totalOptions }, (_) => ""));
     }
   };
