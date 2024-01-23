@@ -15,7 +15,7 @@ import { useAddQuestionMutation } from "../../../redux/services/myQuestionApiEnd
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
-import { AddQuestionFieldType } from "../types";
+import { AddQuestionFieldType, QuestionType } from "../types";
 import { useGetAllQuestionCategoriesQuery } from "../../../redux/services/myQuestionCategoryApiEndpoints";
 import { MdAdd, MdOutlineRemove } from "react-icons/md";
 import { Tooltip } from "flowbite-react";
@@ -52,13 +52,14 @@ const AddQuestion = () => {
     values: AddQuestionFieldType,
     actions: FormikHelpers<AddQuestionFieldType>
   ) => {
+    console.log(values);
     await addQuestion(values);
     if (isError) {
       toast.error("Error adding question!");
       console.log(error);
     } else {
       const { resetForm } = actions;
-      toast.success("Question Added!");
+      toast.success("Question added!");
       resetForm();
       setOptionsArray(Array.from({ length: totalOptions }, (_) => ""));
     }

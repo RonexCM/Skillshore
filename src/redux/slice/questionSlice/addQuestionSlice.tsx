@@ -8,13 +8,13 @@ import { AddQuestionFieldType } from "../../../pages/admin/types";
 // aaile category id navayera cateory title(STRING) use gareko chu as identifier but question add or edit garda category id (number) matra accept garcha - #URGENT need to send question category_id that the question belongs to, api to fetch all category ids
 const initialState = {
   title: "",
-  category_id: 0,
   slug: "",
   description: "",
   options: ["", "", ""],
   answer: "",
-  weightage: "",
-  status: true,
+  weightage: 0,
+  status: 1,
+  category_id: 0,
 };
 const adduestionSlice = createSlice({
   name: "addQuestionSlice",

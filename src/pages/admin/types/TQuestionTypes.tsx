@@ -1,15 +1,15 @@
-import { QuestionCategoryType } from ".";
 import { TCommonLinksType, TCommonMetaType } from "./TCommonTypes";
 
 export type QuestionType = {
   id: number;
   title: string;
   options: string[];
-  weightage: string;
-  status: string;
+  weightage: number;
+  status: number;
   answer: string;
   slug: string;
   description: string;
+  category: { id: number; title: string };
 };
 
 export type FetchQuestionsType = {
@@ -51,7 +51,18 @@ export type AddQuestionFieldType = {
   description: string;
   options: string[];
   answer: string;
-  weightage: string;
-  status: boolean;
+  weightage: number;
+  status: number;
+  category_id: number;
+};
+export type TEditQuestionFieldType = {
+  id: number;
+  title: string;
+  slug: string;
+  description: string;
+  options: string[];
+  answer: string;
+  weightage: number;
+  status: number;
   category_id: number;
 };

@@ -13,9 +13,9 @@ const initialState = {
   description: "",
   options: [""],
   answer: "",
-  weightage: "",
-  status: "",
-  category_id: "",
+  weightage: 0,
+  status: 0,
+  category: { id: 0, title: "" },
 };
 const questionSlice = createSlice({
   name: "questionSlice",
@@ -30,6 +30,7 @@ const questionSlice = createSlice({
       state.answer = action.payload.answer;
       state.weightage = action.payload.weightage;
       state.status = action.payload.status;
+      state.category = action.payload.category;
     },
   },
 });

@@ -11,7 +11,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { AiFillHome } from "react-icons/ai";
-import { useAddQuestionMutation } from "../../../redux/services/myQuestionApiEndpoints";
+import { useEditQuestionMutation } from "../../../redux/services/myQuestionApiEndpoints";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
@@ -24,6 +24,7 @@ import { saveAllQuestionCategoriesList } from "../../../redux/slice/questionCate
 import { RootState } from "../../../redux/store";
 
 const EditQuestion = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { data: allQuestionCategoriesList } =
     useGetAllQuestionCategoriesQuery();
@@ -32,30 +33,27 @@ const EditQuestion = () => {
     (state: RootState) => state.allQuestionCategories
   );
 
-  const { status: statusAsString, ...rest } = useSelector(
+  const { id, category, ...rest } = useSelector(
     (state: RootState) => state.question
   );
   const initialValues = {
     ...rest,
-    status: statusAsString === "Active" ? true : false,
+    category_id: category.id,
   };
   useEffect(() => {
     if (allQuestionCategoriesList && "data" in allQuestionCategoriesList) {
-      // LAST WORKED HERE ------------------>
       dispatch(
         saveAllQuestionCategoriesList(allQuestionCategoriesList["data"])
       );
+      setOptionsArray(initialValues.options);
     }
   }, [allQuestionCategoriesList]);
 
   const [totalOptions, _] = useState(3);
-
+  const [addQuestion, { isError, error, data }] = useEditQuestionMutation();
+  // console.log(error);
+  // console.log(data);
   //   ----------formik objects----------
-  // const initialValues = useSelector((state: RootState) => state.addQuestion);
-  // const initialValues = {
-  //   status: statusAsBoolean ? "Active" : "Inactive",
-  //   ...rest,
-  // };
   /**
    * when add button is clicked form is submitted with
    * @param values
@@ -64,20 +62,20 @@ const EditQuestion = () => {
     values: AddQuestionFieldType,
     actions: FormikHelpers<AddQuestionFieldType>
   ) => {
-    // await addQuestion(values);
-    // if (isError) {
-    //   toast.error("Error adding question!");
-    //   console.log(error);
-    // } else {
-    //   const { resetForm } = actions;
-    //   toast.success("Question Added!");
-    //   resetForm();
-    //   setOptionsArray(Array.from({ length: totalOptions }, (_) => ""));
-    // }
+    const editedValues = { ...values, id: id };
+    await addQuestion(editedValues);
+    if (isError) {
+      toast.error("Error editing question!");
+      console.log(error);
+    } else {
+      const { resetForm } = actions;
+      toast.success("Question edited!");
+      resetForm();
+      navigate(-1);
+      // setOptionsArray(Array.from({ length: totalOptions }, (_) => ""));
+    }
   };
-  const [optionsArray, setOptionsArray] = useState(
-    Array.from({ length: totalOptions }, (_) => "")
-  );
+  const [optionsArray, setOptionsArray] = useState([""]);
   //   ----------for each input field value take index, value and store it to options state----------
   const handleOptionsInputChange = (index: number, value: string) => {
     const tempArray = [...optionsArray];
@@ -85,12 +83,16 @@ const EditQuestion = () => {
     setOptionsArray(tempArray);
   };
   //   ----------mapping options to option tag for answer dropdown----------
+
   const answerDropdown = optionsArray.map((option, index) => (
-    <option key={index} value={option}>
+    <option
+      selected={option === initialValues.answer}
+      key={index}
+      value={option}
+    >
       {option?.length > 50 ? option.slice(0, 50) + "..." : option}
     </option>
   ));
-  const navigate = useNavigate();
 
   return (
     <motion.div
@@ -381,8 +383,8 @@ const EditQuestion = () => {
                     <option value="" className="text-[#a0a0a0]">
                       select status...
                     </option>
-                    <option value="Active">Active</option>
-                    <option value="Inactive">Inactive</option>
+                    <option value={1}>Active</option>
+                    <option value={0}>Inactive</option>
                   </Field>
                 </div>
                 <ErrorMessage

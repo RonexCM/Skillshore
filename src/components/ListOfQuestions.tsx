@@ -28,7 +28,7 @@ const ListOfQuestions = ({ question, index, startingIndex }: Props) => {
   };
 
   useEffect(() => {
-    if (question.status === "Active") {
+    if (question.status === 1) {
       setActive(true);
     } else {
       setActive(false);

@@ -3,6 +3,7 @@ import {
   FetchQuestionsQueryTransformReturnType,
   FetchQuestionsType,
   QuestionType,
+  TEditQuestionFieldType,
 } from "../../pages/admin/types";
 import { myApi } from "./myApi";
 
@@ -28,7 +29,10 @@ const myApiEndpoints = myApi.injectEndpoints({
       }),
       invalidatesTags: ["FetchQuestions"],
     }),
-    editQuestion: builder.mutation<QuestionType, QuestionType>({
+    editQuestion: builder.mutation<
+      TEditQuestionFieldType,
+      TEditQuestionFieldType
+    >({
       query: ({ id, ...rest }) => ({
         url: `/admin/questions/${id}`,
         method: "PUT",
@@ -44,13 +48,6 @@ const myApiEndpoints = myApi.injectEndpoints({
       }),
       invalidatesTags: ["FetchQuestions"],
     }),
-    // changeStatus: builder.mutation({
-    //   query: ({ id, ...rest }) => ({
-    //     url: `/questions/${id}`,
-    //     method: "PUT",
-    //     body: { ...rest },
-    //   }),
-    // }),
   }),
 });
 

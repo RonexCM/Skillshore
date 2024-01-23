@@ -23,6 +23,7 @@ const Question = () => {
     isError,
   } = useGetQuestionsQuery(currentPageNumber);
 
+  // console.log(questionsData);
   useEffect(() => {
     if (questionsData) {
       dispatch(saveQuestionList(questionsData.data));
