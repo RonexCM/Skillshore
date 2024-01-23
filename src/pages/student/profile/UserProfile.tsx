@@ -46,7 +46,7 @@ const UserProfile = () => {
               Profile
             </h1>
 
-            {userDetails ? (
+            {userDetails.name ? (
               <button
                 type="button"
                 className="text-white bg-green-700 font-medium rounded-lg text-sm h-[50px] w-[150px]"
@@ -58,7 +58,7 @@ const UserProfile = () => {
               <div></div>
             )}
           </div>
-          {userDetails ? (
+          {userDetails.name ? (
             <>
               <div className="userDetails ">
                 <div className="studentInfo flex flex-col gap-11">
