@@ -23,9 +23,17 @@ const Register: React.FC = () => {
     { resetForm }: FormikHelpers<TRegistrationFormType>
   ) => {
     try {
-      const responseData = await registerUser(values).unwrap();
-
-      if (responseData && "data" in responseData) {
+      const responseData = await registerUser(values);
+      if ("error" in responseData) {
+        const errorTemp = responseData.error;
+        if ("data" in errorTemp) {
+          const dataTemp = errorTemp.data;
+          if ("message" in dataTemp) {
+            console.log(dataTemp.message);
+            toast.error(dataTemp.message);
+          }
+        }
+      } else {
         const successMessage: string = "Successfully registered";
         resetForm();
         toast.success(successMessage, {
@@ -34,15 +42,13 @@ const Register: React.FC = () => {
             navigate("/");
           },
         });
-      } else {
-        toast.error("Problem logging in!");
       }
     } catch (error: any) {
       if ("status" in error && "data" in error) {
         const errorMessage = error.data.message;
         toast.error(errorMessage);
       } else if ("status" in error) {
-        toast.error(`lol logging in!`);
+        toast.error(`Problem registering!`);
       } else {
         toast.error("No response from server!");
       }
