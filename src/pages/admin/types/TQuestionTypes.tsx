@@ -1,4 +1,5 @@
 import { QuestionCategoryType } from ".";
+import { TCommonLinksType, TCommonMetaType } from "./TCommonTypes";
 
 export type QuestionType = {
   id: number;
@@ -11,45 +12,19 @@ export type QuestionType = {
   description: string;
 };
 
-export type CommonMetaType = {
-  current_page: number;
-  from: number;
-  last_page: number;
-  links: { url: string; label: string; active: boolean }[];
-  path: string;
-  per_page: number;
-  to: number;
-  total: number;
-};
-
 export type FetchQuestionsType = {
   data: QuestionType[];
-  links: {
-    first: string;
-    last: string;
-    prev: string;
-    next: string;
-  };
-  meta: CommonMetaType;
+  links: TCommonLinksType;
+  meta: TCommonMetaType;
 };
-
-// export type CommonFetchType = {
-//   links: {
-//     first: string;
-//     last: string;
-//     prev: string;
-//     next: string;
-//   };
-//   meta: CommonMetaType;
-// };
 
 export type FetchQuestionsQueryTransformReturnType = {
   data: QuestionType[];
-  meta: CommonMetaType;
+  meta: TCommonMetaType;
 };
 export type CommonQueryTransformReturnType = {
   data: QuestionType[];
-  meta: CommonMetaType;
+  meta: TCommonMetaType;
 };
 
 export type QuestionsMetaLinkChildType = {
@@ -77,6 +52,6 @@ export type AddQuestionFieldType = {
   options: string[];
   answer: string;
   weightage: string;
-  status: string;
-  "category-id": string;
+  status: boolean;
+  category_id: number;
 };

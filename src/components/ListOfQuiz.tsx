@@ -2,8 +2,6 @@ import { useState } from "react";
 import DeleteQuizModal from "../pages/admin/modals/quizModals/DeleteQuizModal";
 import EditQuizModal from "../pages/admin/modals/quizModals/EditQuizModal";
 import { Tooltip } from "flowbite-react";
-import { useChangeStatusMutation } from "../redux/services/myQuizApiEndpoints";
-
 
 type Props = {
   quiz: any;
@@ -11,7 +9,6 @@ type Props = {
 
 const ListOfQuiz = ({ quiz }: Props) => {
   const [active, setActive] = useState(false);
-  const [changeStatus] = useChangeStatusMutation();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const handleEdit = () => {
@@ -29,11 +26,11 @@ const ListOfQuiz = ({ quiz }: Props) => {
   //   }
   // }, [quiz.status, setActive]);
   const handleActiveChange = async () => {
-    await changeStatus({
-      id: quiz.id,
-      status: active ? "Inactive" : "Active",
-    });
-    setActive(!active);
+    // await changeStatus({
+    //   id: quiz.id,
+    //   status: active ? "Inactive" : "Active",
+    // });
+    // setActive(!active);
   };
   return (
     <>

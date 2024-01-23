@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ListOfQuestionCategorys, Pagination } from "../../../components";
 import { IoSearch } from "react-icons/io5";
-import { useGetQuestionCategorysQuery } from "../../../redux/services/myQuestionCategoryApiEndpoints";
+import { useGetQuestionCategoriesQuery } from "../../../redux/services/myQuestionCategoryApiEndpoints";
 import { QuestionCategoryType } from "../types/TQuestionCategoryTypes";
 import { useLoadingState } from "../../../layouts/AdminLayout";
 import { motion } from "framer-motion";
 
 const QuestionCategory = () => {
   // need to change argument of useGetQuestionCategoryQuery accorfing to page required
-  const { data, isLoading, isError } = useGetQuestionCategorysQuery(1);
+  const { data, isLoading, isError } = useGetQuestionCategoriesQuery(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [questionCategorysPerPage, _] = useState(5);

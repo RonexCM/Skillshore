@@ -25,7 +25,6 @@ const Question = () => {
 
   useEffect(() => {
     if (questionsData) {
-      console.log(questionsData.data);
       dispatch(saveQuestionList(questionsData.data));
       dispatch(saveQuestionsMetaData(questionsData.meta));
     }

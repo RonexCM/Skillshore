@@ -2,16 +2,16 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ListOfQuizCategorys, Pagination } from "../../../components";
 import { IoSearch } from "react-icons/io5";
-import { useGetQuizCategorysQuery } from "../../../redux/services/myQuizCategoryApiEndpoints";
+import { useGetQuizCategoriesQuery } from "../../../redux/services/myQuizCategoryApiEndpoints";
 import { QuizCategoryType } from "../types";
 import { useLoadingState } from "../../../layouts/AdminLayout";
 import { motion } from "framer-motion";
 
 const QuizCategory = () => {
-  const { data, isLoading, isError } = useGetQuizCategorysQuery();
-  const [searchTerm, setSearchTerm] = useState("");
+  const { data, isLoading, isError } = useGetQuizCategoriesQuery();
+  // const [searchTerm, setSearchTerm] = useState("");
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
-  const [quizCategorysPerPage, _] = useState(10);
+  // const [quizCategorysPerPage, _] = useState(10);
   const [quizCategorys, setQuizCategorys] = useState<QuizCategoryType[]>([]);
 
   useEffect(() => {
@@ -21,29 +21,29 @@ const QuizCategory = () => {
     setShowLoader(isLoading);
   }, [data, isLoading]);
   const { setShowLoader } = useLoadingState();
-  const indexOfLastQuizCategory = currentPageNumber * quizCategorysPerPage;
-  const indexOfFirstQuizCategory =
-    indexOfLastQuizCategory - quizCategorysPerPage;
-  const filterQuizCategoryList = () => {
-    try {
-      if (!searchTerm) {
-        return quizCategorys;
-      }
-      return quizCategorys.filter((quizCategory: QuizCategoryType) =>
-        quizCategory.title.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const filteredQuizCategoryList = filterQuizCategoryList();
-  const currentQuizCategorys = filteredQuizCategoryList?.slice(
-    indexOfFirstQuizCategory,
-    indexOfLastQuizCategory
-  );
-  const totalNumberOfPages = filteredQuizCategoryList
-    ? Math.ceil(filteredQuizCategoryList.length / quizCategorysPerPage)
-    : 1;
+  // const indexOfLastQuizCategory = currentPageNumber * quizCategorysPerPage;
+  // const indexOfFirstQuizCategory =
+  // indexOfLastQuizCategory - quizCategorysPerPage;
+  // const filterQuizCategoryList = () => {
+  //   try {
+  //     if (!searchTerm) {
+  //       return quizCategorys;
+  //     }
+  //     return quizCategorys.filter((quizCategory: QuizCategoryType) =>
+  //       quizCategory.title.toLowerCase().includes(searchTerm.toLowerCase())
+  //     );
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+  // const filteredQuizCategoryList = filterQuizCategoryList();
+  // const currentQuizCategorys = filteredQuizCategoryList?.slice(
+  //   indexOfFirstQuizCategory,
+  //   indexOfLastQuizCategory
+  // );
+  // const totalNumberOfPages = filteredQuizCategoryList
+  //   ? Math.ceil(filteredQuizCategoryList.length / quizCategorysPerPage)
+  //   : 1;
   return (
     <motion.div
       initial={{ opacity: 0.2 }}
@@ -58,11 +58,7 @@ const QuizCategory = () => {
           <input
             type="text"
             id="table-search"
-            value={searchTerm}
-            onChange={(e) => {
-              setSearchTerm(e.target.value);
-              setCurrentPageNumber(1);
-            }}
+            onChange={(e) => {}}
             className="block p-2 ps-10  text-sm text-gray-900 border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary rounded-lg w-80 bg-gray-50  "
             placeholder="Search Quiz Category"
           ></input>
@@ -104,7 +100,7 @@ const QuizCategory = () => {
             </thead>
 
             <tbody>
-              {currentQuizCategorys?.map(
+              {/* {currentQuizCategorys?.map(
                 (quizCategory: QuizCategoryType, index) => (
                   <ListOfQuizCategorys
                     key={index}
@@ -112,7 +108,7 @@ const QuizCategory = () => {
                     index={index}
                   />
                 )
-              )}
+              )} */}
             </tbody>
           </table>
         </div>
@@ -123,7 +119,7 @@ const QuizCategory = () => {
           <Pagination
             setCurrentPageNumber={setCurrentPageNumber}
             currentPageNumber={currentPageNumber}
-            totalNumberOfPages={totalNumberOfPages}
+            totalNumberOfPages={10}
           />
         </nav>
       </div>

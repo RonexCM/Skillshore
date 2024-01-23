@@ -16,42 +16,34 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
 import { AddQuestionFieldType } from "../types";
-import { useGetQuestionCategorysQuery } from "../../../redux/services/myQuestionCategoryApiEndpoints";
+import { useGetAllQuestionCategoriesQuery } from "../../../redux/services/myQuestionCategoryApiEndpoints";
 import { MdAdd, MdOutlineRemove } from "react-icons/md";
 import { Tooltip } from "flowbite-react";
+import { useDispatch, useSelector } from "react-redux";
+import { saveAllQuestionCategoriesList } from "../../../redux/slice/questionCategorySlice/allQuestionCategoriesListSlice";
+import { RootState } from "../../../redux/store";
 
 const AddQuestion = () => {
-  const { data: questionCategoriesData } = useGetQuestionCategorysQuery(1);
-  const [questionCategoryIds, setQuestionCategoryIds] = useState<string[]>([]);
-
-  const [addQuestion, { data, error, isLoading, isError, isSuccess }] =
-    useAddQuestionMutation();
-
+  const dispatch = useDispatch();
+  const { data: allQuestionCategoriesList } =
+    useGetAllQuestionCategoriesQuery();
+  const [addQuestion, { error, isError }] = useAddQuestionMutation();
+  const questionCategoriesList = useSelector(
+    (state: RootState) => state.allQuestionCategories
+  );
   useEffect(() => {
-    if (questionCategoriesData && "data" in questionCategoriesData) {
-      console.log(questionCategoriesData["data"]);
-      const questionCategoryIdArray = questionCategoriesData["data"].map(
-        (questionCategory) => questionCategory.title
+    if (allQuestionCategoriesList && "data" in allQuestionCategoriesList) {
+      // LAST WORKED HERE ------------------>
+      dispatch(
+        saveAllQuestionCategoriesList(allQuestionCategoriesList["data"])
       );
-      setQuestionCategoryIds(questionCategoryIdArray);
-      console.log(questionCategoryIdArray);
     }
-  }, [questionCategoriesData]);
+  }, [allQuestionCategoriesList]);
 
   const [totalOptions, _] = useState(3);
 
   //   ----------formik objects----------
-  // we dont need to save this from . Do we need to create slice for this? !!!!!!
-  const initialValues: AddQuestionFieldType = {
-    title: "",
-    slug: "",
-    description: "",
-    options: ["", "", ""],
-    answer: "",
-    weightage: "",
-    "category-id": "",
-    status: "Active",
-  };
+  const initialValues = useSelector((state: RootState) => state.addQuestion);
   /**
    * when add button is clicked form is submitted with
    * @param values
@@ -60,18 +52,16 @@ const AddQuestion = () => {
     values: AddQuestionFieldType,
     actions: FormikHelpers<AddQuestionFieldType>
   ) => {
-    console.log(data, error, isLoading, isError, isSuccess);
-    if (error) {
+    await addQuestion(values);
+    if (isError) {
       toast.error("Error adding question!");
       console.log(error);
-      return;
+    } else {
+      const { resetForm } = actions;
+      toast.success("Question Added!");
+      resetForm();
+      setOptionsArray(Array.from({ length: totalOptions }, (_) => ""));
     }
-    const { resetForm } = actions;
-    await addQuestion(values);
-    console.log(values);
-    toast.success("Question Added!");
-    resetForm();
-    setOptionsArray(Array.from({ length: totalOptions }, (_) => ""));
   };
   const [optionsArray, setOptionsArray] = useState(
     Array.from({ length: totalOptions }, (_) => "")
@@ -143,29 +133,32 @@ const AddQuestion = () => {
               {/* category input field and error message */}
               <div className="h-[76px]">
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="category-id" className="text-base text-dark">
+                  <label htmlFor="category_id" className="text-base text-dark">
                     Category ID
                   </label>
                   <Field
                     as="select"
                     type="text"
-                    id="category-id"
-                    autoComplete="current-category-id"
-                    name="category-id"
+                    id="category_id"
+                    autoComplete="current-category_id"
+                    name="category_id"
                     className="p-1 px-2 text-sm rounded-md w-full  border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary"
                   >
                     <option value="">select category id...</option>
-                    {questionCategoryIds.map((oneId, index) => (
-                      <option key={index} value={oneId}>
-                        {oneId}
-                      </option>
-                    ))}
+                    {questionCategoriesList["data"].map(
+                      (questionCategory, index) => (
+                        // LAST WORKED HERE ----------> CHECK WHAT THE VALUE OF OPTION TAG SHOULD BE
+                        <option key={index} value={questionCategory.id}>
+                          {questionCategory.id}
+                        </option>
+                      )
+                    )}
                   </Field>
                 </div>
                 <ErrorMessage
                   className="text-red-500 text-xs "
                   component="div"
-                  name="category-id"
+                  name="category_id"
                 />
               </div>
               {/* slug input field and error message */}

@@ -31,3 +31,10 @@ export type FetchQuestionCategoryQueryTransformReturnType = {
   data: QuestionCategoryType[];
   meta: CommonMetaType;
 };
+export type TQuestionCategoryFetchAllType = {
+  id: number;
+  title: string;
+};
+export type TQuestionCategoryListFetchAllType = {
+  data: TQuestionCategoryFetchAllType[];
+};

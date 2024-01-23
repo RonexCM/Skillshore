@@ -2,12 +2,19 @@ import {
   FetchQuestionCategoryQueryTransformReturnType,
   FetchQuestionCategoryType,
   QuestionCategoryType,
+  TQuestionCategoryListFetchAllType,
 } from "../../pages/admin/types";
 import { myApi } from "./myApi";
 
 const myQuestionCategoryApiEndpoints = myApi.injectEndpoints({
   endpoints: (builder) => ({
-    getQuestionCategorys: builder.query<
+    getAllQuestionCategories: builder.query<
+      TQuestionCategoryListFetchAllType,
+      void
+    >({
+      query: () => "/admin/quiz-categories/all",
+    }),
+    getQuestionCategories: builder.query<
       FetchQuestionCategoryQueryTransformReturnType,
       number
     >({
@@ -39,7 +46,8 @@ const myQuestionCategoryApiEndpoints = myApi.injectEndpoints({
 });
 
 export const {
-  useGetQuestionCategorysQuery,
+  useGetQuestionCategoriesQuery,
   useAddQuestionCategoryMutation,
   useDeleteQuestionCategoryMutation,
+  useGetAllQuestionCategoriesQuery,
 } = myQuestionCategoryApiEndpoints;

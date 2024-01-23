@@ -2,12 +2,12 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ListOfQuiz, Pagination } from "../../../components";
 import { IoSearch } from "react-icons/io5";
-import { useGetQuizQuery } from "../../../redux/services/myQuizApiEndpoints";
+import { useGetAllQuizQuery } from "../../../redux/services/myQuizApiEndpoints";
 import { QuizType } from "../types";
 import { useLoadingState } from "../../../layouts/AdminLayout";
 import { motion } from "framer-motion";
 const Quiz = () => {
-  const { data, isLoading, isError } = useGetQuizQuery();
+  const { data, isLoading, isError } = useGetAllQuizQuery();
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [quizPerPage, _] = useState(5);
