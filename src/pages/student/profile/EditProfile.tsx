@@ -4,23 +4,24 @@ import { useNavigate } from "react-router-dom";
 import { useUpdateUserProfileMutation } from "../../../redux/services/myUserProfileEndpoints";
 import { setUserData } from "../../../redux/slice/userSlice";
 import { editedData } from "../types/index";
-import { AiFillHome } from "react-icons/ai";
+import { FaUserCircle } from "react-icons/fa";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+import { FaUser } from "react-icons/fa";
 
 const EditProfile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [updateUserProfile] = useUpdateUserProfileMutation();
 
-  const UserData = useSelector((state) => state.user.data.data.profile);
+  const UserData = useSelector((state) => state.user.data.profile);
 
-  const handleSubmit = async (values: TEditedData) => {
+  const handleSubmit = async (values: editedData) => {
     try {
       const { skills, ...other } = values;
 
       let skill;
       if (!Array.isArray(skills)) {
-        skill = skills?.split(",");
+        skill = skills || "".split(",");
       } else {
         skill = skills;
       }
@@ -48,11 +49,11 @@ const EditProfile = () => {
               onClick={() => navigate(-1)}
             >
               <div className="hover:underline flex gap-2">
-                <AiFillHome className="text-lg mt-1" />
+                <FaUser className="text-lg mt-1" />
                 Profile
               </div>
             </div>
-            <MdOutlineKeyboardArrowRight className="text-lg" />
+            <MdOutlineKeyboardArrowRight className="text-lg " />
             <span className="text-primary"> Edit Profile</span>
           </div>
         </div>

@@ -12,9 +12,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<CommonLayout layoutFor="auth" />}>
             <Route index element={<Login />} />
-            {/* ----------register form goes here---------- */}
             <Route path="register" element={<Register />} />
-            {/* ----------register form goes here---------- */}
             <Route path="forgotPassword" element={<ForgotPassword />} />
 
             <Route path="enterNewPassword" element={<EnterNewPassword />} />

@@ -29,12 +29,13 @@ const UserNavbar = () => {
         </NavLink>
         <NavLink
           to="/"
+          onClick={LogOut}
           className="cursor-pointer dark:text-white font-bold hover:underline"
         >
           Logout
         </NavLink>
       </div>
-      <ul className="font-medium px-10 py-4 flex space-x-5 cursor-pointer justify-end">
+      {/* <ul className="font-medium px-10 py-4 flex space-x-5 cursor-pointer justify-end">
         <li>
           <NavLink
             to="/profile"
@@ -50,7 +51,7 @@ const UserNavbar = () => {
             Logout
           </NavLink>
         </li>
-      </ul>
+      </ul> */}
     </nav>
   );
 };

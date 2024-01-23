@@ -7,14 +7,13 @@ const token = cookies.get("token");
 
 export const apiSlice = myApi.injectEndpoints({
   endpoints: (builder) => ({
-    getUser: builder.query<TUserProfile[], void>({
+    getUser: builder.query<IUserProfile[], void>({
       query: () => ({
         url: `/user`,
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-        // providedTags: ["User"],
       }),
     }),
     updateUserProfile: builder.mutation({
@@ -25,7 +24,6 @@ export const apiSlice = myApi.injectEndpoints({
         headers: {
           "Content-Type": "application/json",
         },
-        // invalidatesTags: ["User"],
       }),
     }),
   }),

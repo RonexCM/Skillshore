@@ -1,4 +1,4 @@
-export type TUserProfile = {
+export type IUserProfile = {
   resume: string;
   name: string;
   profile: string;

@@ -19,7 +19,7 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUserData: (state, action) => {
-      state.data = action.payload;
+      state.data = action.payload.data;
     },
     logOut: (state) => {
       state.data = initialState.data;

@@ -1,5 +1,4 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { validationSchema } from "../validation/loginValidationSchema";
 import { Link } from "react-router-dom";
 import { useLoginUserMutation } from "../redux/services/myApiEndpoints";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/store";
 import { addUser } from "../redux/slice/loginSlice";
 import { LoginField } from "./types/TLogin";
+import { loginValidationSchema } from "../validation";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -32,8 +32,9 @@ const Login = () => {
               // cookies.set("token", token, { secure: true, httpOnly: true });
               cookies.set("token", token, { secure: true });
               dispatch(addUser(values));
+              console.log("jhyau lagyo");
               //dispatch isLoggedIn as true to redux store then navigate to protected route /user
-              navigate("/profile");
+              navigate("/editProfile");
             } else {
               toast.error("Problem Loging in!");
             }
@@ -57,12 +58,12 @@ const Login = () => {
         <Formik
           initialValues={initialValues}
           onSubmit={onSubmit}
-          validationSchema={validationSchema}
+          validationSchema={loginValidationSchema}
         >
           {({ setFieldValue }) => (
             <Form className="flex flex-col items-center h-max">
               <p className="font-bold text-[32px] text-dark leading-[32px] mb-[8px]">
-                Login
+                Loginhellohi
               </p>
               <div className="flex flex-col h-[130px] mt-[22px] mb-[-30px] w-full">
                 <label

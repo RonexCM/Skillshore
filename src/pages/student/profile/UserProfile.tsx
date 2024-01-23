@@ -4,6 +4,7 @@ import { LineWave } from "react-loader-spinner";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserData } from "../../../redux/slice/userSlice";
+import { RootState } from "../../../redux/store";
 
 const UserProfile = () => {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ const UserProfile = () => {
   const profileStyle = " text-dark font-medium";
   const { data, refetch } = useGetUserQuery();
   const [isFetching, setIsFetching] = useState(true);
-  const userDetails = useSelector((state) => state.user.data.data);
+  const userDetails = useSelector((state: RootState) => state.user.data);
 
   useEffect(() => {
     if (data) {
