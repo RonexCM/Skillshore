@@ -4,26 +4,29 @@ import { useNavigate } from "react-router-dom";
 import { useUpdateUserProfileMutation } from "../../../redux/services/myUserProfileEndpoints";
 import { setUserData } from "../../../redux/slice/userSlice";
 import { editedData } from "../types/index";
-import { FaUserCircle } from "react-icons/fa";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
+import { RootState } from "../../../redux/store";
 
 const EditProfile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [updateUserProfile] = useUpdateUserProfileMutation();
 
-  const UserData = useSelector((state) => state.user.data.profile);
+  const UserData = useSelector((state: RootState) => state.user.data.profile);
 
   const handleSubmit = async (values: editedData) => {
     try {
       const { skills, ...other } = values;
 
-      let skill;
-      if (!Array.isArray(skills)) {
-        skill = skills || "".split(",");
-      } else {
+      let skill: string[];
+
+      if (typeof skills === "string") {
+        skill = (skills as string).split(",");
+      } else if (Array.isArray(skills)) {
         skill = skills;
+      } else {
+        skill = [];
       }
       const reqData = { skills: skill, ...other };
       const res = await updateUserProfile(reqData);
