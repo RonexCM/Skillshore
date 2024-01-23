@@ -1,3 +1,4 @@
 import ForgotPassword from "./ForgotPassword";
+import EnterNewPassword from "./EnterNewPassword";
 
-export { ForgotPassword };
+export { ForgotPassword, EnterNewPassword };

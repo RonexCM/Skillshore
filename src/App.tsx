@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AuthLayout } from "./layouts";
-import { ForgotPassword } from "./pages/auth/forgotPassword";
+import { EnterNewPassword, ForgotPassword } from "./pages/auth/forgotPassword";
 import { UserLayout } from "./layouts";
 import { UserProfile, EditProfile } from "./pages/student/profile";
 import { Home } from "./pages/student/home";
@@ -17,6 +17,8 @@ const App = () => {
             <Route path="register" element={<Register />} />
             {/* ----------register form goes here---------- */}
             <Route path="forgotPassword" element={<ForgotPassword />} />
+
+            <Route path="enterNewPassword" element={<EnterNewPassword />} />
           </Route>
           {/* ----------user pages goes here as protected route---------- */}
           <Route element={<UserLayout />}>
