@@ -1,6 +1,6 @@
 import { TCommonLinksType, TCommonMetaType } from "./TCommonTypes";
 
-export type QuestionType = {
+export type TQuestionType = {
   id: number;
   title: string;
   options: string[];
@@ -12,40 +12,7 @@ export type QuestionType = {
   category: { id: number; title: string };
 };
 
-export type FetchQuestionsType = {
-  data: QuestionType[];
-  links: TCommonLinksType;
-  meta: TCommonMetaType;
-};
-
-export type FetchQuestionsQueryTransformReturnType = {
-  data: QuestionType[];
-  meta: TCommonMetaType;
-};
-export type CommonQueryTransformReturnType = {
-  data: QuestionType[];
-  meta: TCommonMetaType;
-};
-
-export type QuestionsMetaLinkChildType = {
-  active: boolean;
-  label: string;
-  url: string;
-};
-
-export type QuestionsMetaLinksType = QuestionsMetaLinkChildType[];
-
-export type QuestionMetaType = {
-  current_page: number;
-  from: number;
-  last_page: number;
-  links: QuestionsMetaLinksType;
-  path: string;
-  per_page: number;
-  to: number;
-  total: number;
-};
-export type AddQuestionFieldType = {
+export type TAddQuestionFieldType = {
   title: string;
   slug: string;
   description: string;
@@ -55,6 +22,18 @@ export type AddQuestionFieldType = {
   status: number;
   category_id: number;
 };
+
+export type TFetchQuestionsType = {
+  data: TQuestionType[];
+  links: TCommonLinksType;
+  meta: TCommonMetaType;
+};
+
+export type TFetchQuestionsQueryTransformReturnType = {
+  data: TQuestionType[];
+  meta: TCommonMetaType;
+};
+
 export type TEditQuestionFieldType = {
   id: number;
   title: string;
@@ -66,3 +45,22 @@ export type TEditQuestionFieldType = {
   status: number;
   category_id: number;
 };
+
+// export type QuestionsMetaLinkChildType = {
+//   active: boolean;
+//   label: string;
+//   url: string;
+// };
+
+// export type QuestionsMetaLinksType = QuestionsMetaLinkChildType[];
+
+// export type QuestionMetaType = {
+//   current_page: number;
+//   from: number;
+//   last_page: number;
+//   links: QuestionsMetaLinksType;
+//   path: string;
+//   per_page: number;
+//   to: number;
+//   total: number;
+// };

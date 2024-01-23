@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import DeleteQuestionModal from "../pages/admin/modals/questionModals/DeleteQuestionModal";
-
 import { Tooltip, Badge } from "flowbite-react";
-// import { useChangeStatusMutation } from "../redux/services/myQuestionApiEndpoints";
 import { useDispatch } from "react-redux";
 import { saveQuestion } from "../redux/slice/questionSlice/questionSlice";
 import { useNavigate } from "react-router-dom";
 import { QuestionType } from "../pages/admin/types";
+import { motion } from "framer-motion";
+
 type Props = {
   question: QuestionType;
   index: number;
@@ -34,16 +34,14 @@ const ListOfQuestions = ({ question, index, startingIndex }: Props) => {
       setActive(false);
     }
   }, [question.status, setActive]);
-  // const handleActiveChange = async () => {
-  //   await changeStatus({
-  //     id: question.id,
-  //     status: active ? "Inactive" : "Active",
-  //   });
-  //   setActive(!active);
-  // };
   return (
     <>
-      <tr key={question.id} className="bg-white border-b hover:bg-gray-50 ">
+      <motion.tr
+        initial={{ opacity: 0.55 }}
+        animate={{ opacity: 1 }}
+        key={question.id}
+        className="bg-white border-b hover:bg-gray-50 "
+      >
         <td className="pl-6 ">
           <div className="flex my-4 items-center whitespace-nowrap">
             {startingIndex + index}
@@ -93,7 +91,7 @@ const ListOfQuestions = ({ question, index, startingIndex }: Props) => {
             </Tooltip>
           </div>
         </td>
-      </tr>
+      </motion.tr>
       {showDeleteModal && (
         <DeleteQuestionModal
           setShowModal={setShowDeleteModal}

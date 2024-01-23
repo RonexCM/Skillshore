@@ -11,7 +11,7 @@ import {
 } from "../../../redux/slice/questionSlice/questionListSlice";
 import { RootState } from "../../../redux/store";
 import { useLoadingState } from "../../../layouts/AdminLayout";
-import { QuestionType } from "../types";
+import { TQuestionType } from "../types";
 
 const Question = () => {
   const dispatch = useDispatch();
@@ -109,7 +109,7 @@ const Question = () => {
 
             <tbody>
               {questionsList[0].title.length > 1 &&
-                questionsList?.map((question: QuestionType, index: number) => (
+                questionsList?.map((question: TQuestionType, index: number) => (
                   <ListOfQuestions
                     key={index}
                     question={question}

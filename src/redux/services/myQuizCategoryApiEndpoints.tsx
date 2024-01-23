@@ -1,18 +1,18 @@
-import { QuizCategoryType } from "../../pages/admin/types";
+import { TQuizCategoryType } from "../../pages/admin/types";
 import { myApi } from "./myApi";
 
 const myQuizCategoryApiEndpoints = myApi.injectEndpoints({
   endpoints: (builder) => ({
-    getAllQuizCategories: builder.query<QuizCategoryType[], void>({
+    getAllQuizCategories: builder.query<TQuizCategoryType[], void>({
       query: () => "/admin/quiz-categories",
       providesTags: ["FetchQuizCategories"],
     }),
-    getQuizCategories: builder.query<QuizCategoryType[], void>({
+    getQuizCategories: builder.query<TQuizCategoryType[], void>({
       query: () => "/admin/quiz-categories",
       providesTags: ["FetchQuizCategories"],
     }),
-    addQuizCategory: builder.mutation<QuizCategoryType, QuizCategoryType>({
-      query: (body: QuizCategoryType) => ({
+    addQuizCategory: builder.mutation<TQuizCategoryType, TQuizCategoryType>({
+      query: (body: TQuizCategoryType) => ({
         url: "/admin/quiz-categories",
         method: "POST",
         body,
@@ -26,7 +26,7 @@ const myQuizCategoryApiEndpoints = myApi.injectEndpoints({
       }),
       invalidatesTags: ["FetchQuizCategories"],
     }),
-    editQuizCategory: builder.mutation<QuizCategoryType, QuizCategoryType>({
+    editQuizCategory: builder.mutation<TQuizCategoryType, TQuizCategoryType>({
       query: ({ id, ...rest }) => ({
         url: `/quiz-categories/${id}`,
         method: "PUT",

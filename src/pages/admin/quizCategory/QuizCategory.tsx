@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { ListOfQuizCategorys, Pagination } from "../../../components";
 import { IoSearch } from "react-icons/io5";
 import { useGetQuizCategoriesQuery } from "../../../redux/services/myQuizCategoryApiEndpoints";
-import { QuizCategoryType } from "../types";
+import { TQuizCategoryType } from "../types";
 import { useLoadingState } from "../../../layouts/AdminLayout";
 import { motion } from "framer-motion";
 
@@ -12,7 +12,7 @@ const QuizCategory = () => {
   // const [searchTerm, setSearchTerm] = useState("");
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   // const [quizCategorysPerPage, _] = useState(10);
-  const [quizCategorys, setQuizCategorys] = useState<QuizCategoryType[]>([]);
+  const [quizCategorys, setQuizCategorys] = useState<TQuizCategoryType[]>([]);
 
   useEffect(() => {
     if (data) {

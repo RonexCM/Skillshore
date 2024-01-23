@@ -6,12 +6,12 @@ import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { useAddQuizCategoryMutation } from "../../../redux/services/myQuizCategoryApiEndpoints";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { AddQuizCategoryFieldType } from "../types";
+import { TAddQuizCategoryFieldType } from "../types";
 
 const AddQuizCategory = () => {
   const [addQuizCategory] = useAddQuizCategoryMutation();
   //   ----------formik objects----------
-  const initialValues: AddQuizCategoryFieldType = {
+  const initialValues: TAddQuizCategoryFieldType = {
     id: "",
     title: "",
     slug: "",
@@ -21,8 +21,8 @@ const AddQuizCategory = () => {
    * @param values
    */
   const onSubmit = async (
-    values: AddQuizCategoryFieldType,
-    actions: FormikHelpers<AddQuizCategoryFieldType>
+    values: TAddQuizCategoryFieldType,
+    actions: FormikHelpers<TAddQuizCategoryFieldType>
   ) => {
     try {
       const { resetForm } = actions;

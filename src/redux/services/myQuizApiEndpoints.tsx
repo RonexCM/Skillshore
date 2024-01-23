@@ -1,14 +1,14 @@
-import { QuizType } from "../../pages/admin/types";
+import { TQuizType } from "../../pages/admin/types";
 import { myApi } from "./myApi";
 
 const myQuizApiEndpoints = myApi.injectEndpoints({
   endpoints: (builder) => ({
-    getAllQuiz: builder.query<QuizType[], void>({
+    getAllQuiz: builder.query<TQuizType[], void>({
       query: () => "/admin/quizzes",
       providesTags: ["FetchQuizzes"],
     }),
-    addQuiz: builder.mutation<QuizType, QuizType>({
-      query: (body: QuizType) => ({
+    addQuiz: builder.mutation<TQuizType, TQuizType>({
+      query: (body: TQuizType) => ({
         url: "/amdin/quizzes",
         method: "POST",
         body,

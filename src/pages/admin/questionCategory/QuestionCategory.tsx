@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { ListOfQuestionCategorys, Pagination } from "../../../components";
 import { IoSearch } from "react-icons/io5";
 import { useGetQuestionCategoriesQuery } from "../../../redux/services/myQuestionCategoryApiEndpoints";
-import { QuestionCategoryType } from "../types/TQuestionCategoryTypes";
+import { TQuestionCategoryType } from "../types/TQuestionCategoryTypes";
 import { useLoadingState } from "../../../layouts/AdminLayout";
 import { motion } from "framer-motion";
 
@@ -15,7 +15,7 @@ const QuestionCategory = () => {
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [questionCategorysPerPage, _] = useState(5);
   const [questionCategorys, setQuestionCategorys] = useState<
-    QuestionCategoryType[]
+    TQuestionCategoryType[]
   >([]);
   const totalNumberOfPages = 10;
   useEffect(() => {

@@ -1,7 +1,7 @@
 import {
-  FetchQuestionCategoryQueryTransformReturnType,
-  FetchQuestionCategoryType,
-  QuestionCategoryType,
+  TFetchQuestionCategoryQueryTransformReturnType,
+  TFetchQuestionCategoryType,
+  TQuestionCategoryType,
   TQuestionCategoryListFetchAllType,
 } from "../../pages/admin/types";
 import { myApi } from "./myApi";
@@ -15,20 +15,20 @@ const myQuestionCategoryApiEndpoints = myApi.injectEndpoints({
       query: () => "/admin/quiz-categories/all",
     }),
     getQuestionCategories: builder.query<
-      FetchQuestionCategoryQueryTransformReturnType,
+      TFetchQuestionCategoryQueryTransformReturnType,
       number
     >({
       query: (page) => `/admin/question-categories?page=${page}`,
       providesTags: ["FetchQuestionCategories"],
-      transformResponse: (response: FetchQuestionCategoryType) => {
+      transformResponse: (response: TFetchQuestionCategoryType) => {
         return { data: response.data, meta: response.meta };
       },
     }),
     addQuestionCategory: builder.mutation<
-      QuestionCategoryType,
-      QuestionCategoryType
+      TQuestionCategoryType,
+      TQuestionCategoryType
     >({
-      query: (body: QuestionCategoryType) => ({
+      query: (body: TQuestionCategoryType) => ({
         url: "/question-categories",
         method: "POST",
         body,
