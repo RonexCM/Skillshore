@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useUpdateUserProfileMutation } from "../../../redux/services/myUserProfileEndpoints";
 import { setUserData } from "../../../redux/slice/userSlice";
 import { editedData } from "../types/index";
+import { AiFillHome } from "react-icons/ai";
+import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 
 const EditProfile = () => {
   const navigate = useNavigate();
@@ -39,12 +41,24 @@ const EditProfile = () => {
   return (
     <>
       <div className="h-full px-[120px] font-poppins ">
+        <div className="flex flex-col justify-start items-left ">
+          <div className="text-primary  text-lg flex items-center gap-1 self-start mt-[37px]">
+            <div
+              className="flex gap-2  cursor-pointer"
+              onClick={() => navigate(-1)}
+            >
+              <div className="hover:underline flex gap-2">
+                <AiFillHome className="text-lg mt-1" />
+                Profile
+              </div>
+            </div>
+            <MdOutlineKeyboardArrowRight className="text-lg" />
+            <span className="text-primary"> Edit Profile</span>
+          </div>
+        </div>
+
         <Formik initialValues={UserData} onSubmit={handleSubmit}>
           <Form className="flex flex-col justify-center mt-[37px]">
-            <h2 className="text-primary leading-7 text-[20px] font-medium pb-[30px]">
-              Edit Profile
-            </h2>
-
             <div className="flex flex-row gap-[20px]  mb-2">
               <div className="flex flex-col text-[18px] mb-4 w-full">
                 <label
