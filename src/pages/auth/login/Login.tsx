@@ -1,5 +1,5 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { TLoginField } from "../types";
+import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
+import { TLoggedInUserDetails, TLoginField } from "../types";
 import { loginValidationSchema } from "../../../validation";
 import { Link } from "react-router-dom";
 import { useLoginUserMutation } from "../../../redux/services/myLoginApiEndpoints";
@@ -9,18 +9,27 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../redux/store";
-import { addUser } from "../../../redux/slice/loginSlice";
+import { loggedInUser } from "../../../redux/slice/loginSlice";
 
 const Login = () => {
   const dispatch = useDispatch();
   const cookies = new Cookies();
   const navigate = useNavigate();
   const initialValues = useSelector((state: RootState) => state.login);
+  // const initialValues = { ...rest };
   const [loginUser] = useLoginUserMutation();
-  const onSubmit = async (values: TLoginField) => {
+  const onSubmit = async (
+    values: TLoggedInUserDetails,
+    { resetForm }: FormikHelpers<TLoggedInUserDetails>
+  ) => {
     const userCredentials = {
       email: values.email.toLowerCase(),
       password: values.password,
+    };
+    const loggedInUserDetails = {
+      email: values.email.toLowerCase(),
+      password: values.password,
+      isLoggedIn: true,
     };
     toast.dismiss();
     // user clicks login, form is submitted, we get accessToken in response body and token is saved in cookie
@@ -31,9 +40,15 @@ const Login = () => {
           const successMessage = responseData.message;
           const token = responseData.token;
           if (token && successMessage === "Successfully logged in") {
-            cookies.set("token", token, { secure: true, httpOnly: true });
-            dispatch(addUser(userCredentials));
-            navigate("/home");
+            cookies.set("token", token, { secure: true });
+            resetForm();
+            dispatch(loggedInUser(loggedInUserDetails));
+            toast.success("Successfully logged in!", {
+              autoClose: 500,
+              onClose: () => {
+                navigate("/home");
+              },
+            });
           } else {
             toast.error("Problem logging in!");
           }
@@ -53,7 +68,7 @@ const Login = () => {
 
   return (
     <>
-      <div className="relative shadow-[0_10px_40px_-15px_rgba(0,0,0,0.2)] w-[370px] h-max text-dark rounded-[24px] p-[40px] ">
+      <div className="mt-auto shadow-[0_10px_40px_-15px_rgba(0,0,0,0.2)] w-[370px] h-max text-dark rounded-[24px] p-[40px] ">
         <Formik
           initialValues={initialValues}
           onSubmit={onSubmit}

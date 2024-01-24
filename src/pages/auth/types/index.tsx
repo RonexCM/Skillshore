@@ -41,3 +41,9 @@ export type TRegistrationFormType = {
   password: string;
   password_confirmation: string;
 };
+
+export type TLoggedInUserDetails = {
+  email: string;
+  password: string;
+  isLoggedIn: boolean;
+};

@@ -1,19 +1,20 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { TLoginField } from "../../pages/auth/types";
+import { TLoggedInUserDetails } from "../../pages/auth/types";
 const initialState = {
   email: "",
   password: "",
+  isLoggedIn: false,
 };
 const loginSlice = createSlice({
   name: "loginSlice",
   initialState,
   reducers: {
-    addUser: (state, action: PayloadAction<TLoginField>) => {
+    loggedInUser: (state, action: PayloadAction<TLoggedInUserDetails>) => {
       state.email = action.payload.email;
-      state.password = action.payload.password;
+      state.isLoggedIn = action.payload.isLoggedIn;
     },
   },
 });
 
 export default loginSlice.reducer;
-export const { addUser } = loginSlice.actions;
+export const { loggedInUser } = loginSlice.actions;
