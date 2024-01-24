@@ -1,18 +1,17 @@
-import { useEffect } from "react";
+import { ReactNode, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { token } from "../redux/services/myUserProfileEndpoints";
+import Cookies from "universal-cookie";
 
 /**
  * Takes Component that is passed, isLoggedIn is checked, if false naviigate(/) else goes to /user path
  * @returns Component that is passed
  */
 
-// interface ProtectedRouteProps {
-//   Component: React.ComponentType<unknown>;
-// }
-
-const ProtectedRoute = ({ children }) => {
+const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
+
+  const cookie = new Cookies();
+  const token = cookie.get("token");
 
   useEffect(() => {
     if (!token) {
