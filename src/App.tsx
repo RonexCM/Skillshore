@@ -23,11 +23,11 @@ const App = () => {
             <Route path="/home" element={<Home />} />
             <Route
               path="/profile"
-              element={<ProtectedRoute Component={UserProfile} />}
+              element={<ProtectedRoute>{<UserProfile />}</ProtectedRoute>}
             />
             <Route
               path="/editProfile"
-              element={<ProtectedRoute Component={EditProfile} />}
+              element={<ProtectedRoute>{<EditProfile />}</ProtectedRoute>}
             />
           </Route>
           {/* ----------admin pages goes here as protected route----------- */}

@@ -7,6 +7,7 @@ import { editedData } from "../types/index";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 import { RootState } from "../../../redux/store";
+import { useState } from "react";
 
 const EditProfile = () => {
   const navigate = useNavigate();
@@ -14,22 +15,14 @@ const EditProfile = () => {
   const [updateUserProfile] = useUpdateUserProfileMutation();
 
   const UserData = useSelector((state: RootState) => state.user.data.profile);
+  const [userSkills, setUserSkills] = useState<string[]>(
+    UserData?.skills || []
+  );
 
   const handleSubmit = async (values: editedData) => {
     try {
-      const { skills, ...other } = values;
-
-      let skill: string[];
-
-      if (typeof skills === "string") {
-        skill = (skills as string).split(",");
-      } else if (Array.isArray(skills)) {
-        skill = skills;
-      } else {
-        skill = [];
-      }
-      const reqData = { skills: skill, ...other };
-      const res = await updateUserProfile(reqData);
+      values.skills = userSkills;
+      const res = await updateUserProfile(values);
 
       if (res) {
         dispatch(setUserData(res));
@@ -40,6 +33,10 @@ const EditProfile = () => {
     } catch (error) {
       console.error("Error updating data :", error);
     }
+  };
+
+  const changeSkills = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserSkills(e.target.value.split(","));
   };
 
   return (
@@ -141,6 +138,8 @@ const EditProfile = () => {
                   type="text"
                   id="skills"
                   name="skills"
+                  onChange={changeSkills}
+                  value={userSkills}
                   className="w-full text-[16px] h-12 bg-white rounded-lg border-2 border-indigo-100 px-3"
                 />
                 <ErrorMessage

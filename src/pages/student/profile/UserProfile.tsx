@@ -18,7 +18,7 @@ const UserProfile = () => {
     if (data) {
       dispatch(setUserData(data));
     }
-  }, [data, dispatch]);
+  }, [data]);
 
   useEffect(() => {
     const fetchData = async () => {

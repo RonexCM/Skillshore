@@ -3,7 +3,7 @@ import { IUserProfile } from "../../pages/student/types";
 import { myApi } from "./myApi";
 
 const cookies = new Cookies();
-const token = cookies.get("token");
+export const token = cookies.get("token");
 
 export const apiSlice = myApi.injectEndpoints({
   endpoints: (builder) => ({
