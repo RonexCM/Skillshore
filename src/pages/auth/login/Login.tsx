@@ -1,5 +1,5 @@
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
-import { TLoggedInUserDetails, TLoginField } from "../types";
+import { TLoggedInUserDetails } from "../types";
 import { loginValidationSchema } from "../../../validation";
 import { Link } from "react-router-dom";
 import { useLoginUserMutation } from "../../../redux/services/myLoginApiEndpoints";
@@ -16,7 +16,6 @@ const Login = () => {
   const cookies = new Cookies();
   const navigate = useNavigate();
   const initialValues = useSelector((state: RootState) => state.login);
-  // const initialValues = { ...rest };
   const [loginUser] = useLoginUserMutation();
   const onSubmit = async (
     values: TLoggedInUserDetails,
