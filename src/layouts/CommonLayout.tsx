@@ -1,19 +1,23 @@
 import { Outlet } from "react-router-dom";
 import AuthNavbar from "./AuthNavbar";
-import Footer from "./Footer";
+import Footer from "../components/Footer";
+import { UserNavbar } from ".";
 
+type Props = {
+  layoutFor: string;
+};
 /**
  * Layout for login, register and forgot password page
  *
  */
-export const AuthLayout = () => {
+export const CommonLayout = ({ layoutFor }: Props) => {
   return (
     <div className="flex flex-col justify-start min-h-screen items-center">
-      <AuthNavbar />
+      {layoutFor === "auth" ? <AuthNavbar /> : <UserNavbar />}
       <Outlet />
       <Footer />
     </div>
   );
 };
 
-export default AuthLayout;
+export default CommonLayout;

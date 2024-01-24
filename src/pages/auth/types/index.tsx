@@ -9,8 +9,8 @@ export type TLoginResponseSuccess = {
 };
 
 export type TLoginResponseError = {
-  message: string;
-  errors: { email: string[] };
+  status: number;
+  data: { message: string; errors: { email: string[] } };
 };
 export type TUserDetails = {
   resume: string;
@@ -40,10 +40,4 @@ export type TRegistrationFormType = {
   email: string;
   password: string;
   password_confirmation: string;
-};
-
-export type TLoggedInUserDetails = {
-  email: string;
-  password: string;
-  isLoggedIn: boolean;
 };
