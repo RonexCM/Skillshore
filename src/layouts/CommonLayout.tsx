@@ -1,7 +1,6 @@
 import { Outlet } from "react-router-dom";
-import AuthNavbar from "./AuthNavbar";
 import Footer from "../components/Footer";
-import { UserNavbar } from ".";
+import { UserNavbar, AuthNavbar } from ".";
 
 type Props = {
   layoutFor: string;
