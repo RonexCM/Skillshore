@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { RootState } from "../redux/store";
-import { useSelector } from "react-redux";
+import Cookies from "universal-cookie";
 
 /**
  * Takes Component that is passed, isLoggedIn is checked, if false naviigate(/) else goes to /user path
@@ -15,14 +14,17 @@ interface ProtectedRouteProps {
 const ProtectedRoute: React.FC<ProtectedRouteProps> = (props) => {
   const navigate = useNavigate();
   const { Component } = props;
-  const loggedIn = useSelector((state: RootState) => state.login.loggedIn);
+
+  const cookies = new Cookies();
+  const token = cookies.get("token");
 
   useEffect(() => {
-    if (!loggedIn) {
+    if (!token) {
       navigate("/");
     }
   });
-  return <div>{loggedIn ? <Component /> : null}</div>;
+
+  return <div>{token ? <Component /> : null}</div>;
 };
 
 export default ProtectedRoute;
