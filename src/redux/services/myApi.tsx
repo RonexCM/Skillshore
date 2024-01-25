@@ -1,6 +1,13 @@
-import { createApi, fetchBaseQuery, retry } from "@reduxjs/toolkit/query/react";
+import { BaseQueryFn, FetchArgs, createApi, fetchBaseQuery, retry } from "@reduxjs/toolkit/query/react";
 import { baseUrl } from "../../configs";
 import Cookies from "universal-cookie";
+
+type CustomErrorMessage={
+  data:{
+    errors:[],
+    message:string
+  }
+}
 
 const cookies = new Cookies();
 const baseQuery = fetchBaseQuery({
@@ -19,6 +26,6 @@ const baseQueryWithRetry = retry(baseQuery, { maxRetries: 0 });
 
 export const myApi = createApi({
   reducerPath: "myApi",
-  baseQuery: baseQueryWithRetry,
+  baseQuery: baseQueryWithRetry as BaseQueryFn<string | FetchArgs,unknown,CustomErrorMessage>,
   endpoints: () => ({}),
 });

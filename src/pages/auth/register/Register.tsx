@@ -1,4 +1,4 @@
-import { Formik, Field, Form, ErrorMessage, FormikHelpers } from "formik";
+import { Formik, Field, Form, ErrorMessage } from "formik";
 import penguinImage from "../../../assets/images/penguin.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { TRegistrationFormType } from "../types";
@@ -6,61 +6,45 @@ import { useRegisterUserMutation } from "../../../redux/services/myRegistrationA
 import registrationSchema from "../../../validation/registrationValidationSchema";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useEffect } from "react";
+import { registerInitialValues } from "../../../configs/constants";
 
 const Register: React.FC = () => {
-  const [registerUser] = useRegisterUserMutation();
-
-  const initialValues = {
-    name: "",
-    email: "",
-    password: "",
-    password_confirmation: "",
-  };
+  const [registerUser, { isSuccess, error }] = useRegisterUserMutation();
 
   const navigate = useNavigate();
-  const handleSubmit = async (
-    values: TRegistrationFormType,
-    { resetForm }: FormikHelpers<TRegistrationFormType>
-  ) => {
+  const handleSubmit = async (values: TRegistrationFormType) => {
     try {
-      const responseData = await registerUser(values);
-      if ("error" in responseData) {
-        const errorTemp = responseData.error;
-        if ("data" in errorTemp) {
-          const dataTemp = errorTemp.data;
-          if ("message" in dataTemp) {
-            console.log(dataTemp.message);
-            toast.error(dataTemp.message);
-          }
-        }
-      } else {
-        const successMessage: string = "Successfully registered";
-        resetForm();
-        toast.success(successMessage, {
-          autoClose: 1200,
-          onClose: () => {
-            navigate("/");
-          },
-        });
-      }
+      await registerUser(values);
     } catch (error: any) {
-      if ("status" in error && "data" in error) {
-        const errorMessage = error.data.message;
-        toast.error(errorMessage);
-      } else if ("status" in error) {
-        toast.error(`Problem registering!`);
-      } else {
-        toast.error("No response from server!");
-      }
+      console.log(error);
     }
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      const successMessage: string = "Successfully registered";
+      toast.success(successMessage, {
+        autoClose: 400,
+        onClose: () => {
+          navigate("/");
+        },
+      });
+    }
+  }, [isSuccess]);
+
+  useEffect(() => {
+    if (error && "data" in error) {
+      toast.error(error.data.message);
+    }
+  }, [error]);
 
   return (
     <>
       <div className="registrationPage mt-auto flex justify-around gap-[220px] p-5">
         <div className=" registration w-[500px]  rounded-[32px] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.2)] py-7 px-7">
           <Formik
-            initialValues={initialValues}
+            initialValues={registerInitialValues}
             validationSchema={registrationSchema}
             onSubmit={handleSubmit}
           >
