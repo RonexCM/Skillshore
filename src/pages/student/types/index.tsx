@@ -24,7 +24,7 @@ export type editedData = {
 
 export type createProfileData = {
   id: number;
-  skills: string[] | string;
+  skills: string[];
   education: string;
   experience: string;
   career: string;

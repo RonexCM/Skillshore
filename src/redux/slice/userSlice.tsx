@@ -1,10 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { TUserProfile } from "../../pages/student/types";
 
-const initialState = {
+const initialState: TUserProfile = {
   data: {
+    id: 0,
     email: "",
-    id: "",
     name: "",
+    role: "",
     profile: {
       id: 0,
       skills: [],

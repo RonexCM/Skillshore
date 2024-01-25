@@ -6,8 +6,10 @@ import Cookies from "universal-cookie";
  * Takes Component that is passed, isLoggedIn is checked, if false naviigate(/) else goes to /user path
  * @returns Component that is passed
  */
-
-const ProtectedRoute = ({ children}) => {
+interface MyComponentProps {
+  children: ReactNode;
+}
+const ProtectedRoute: React.FC<MyComponentProps>  = ({ children}) => {
   const navigate = useNavigate();
 
   const cookie = new Cookies();
