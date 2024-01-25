@@ -1,9 +1,5 @@
 import { myApi } from "./myApi";
-import {
-  TLoginResponseSuccess,
-  TLoginResponseError,
-  TLoginField,
-} from "../../pages/auth/types";
+import { TLoginResponseSuccess, TLoginField } from "../../pages/auth/types";
 const myLoginApiEndpoints = myApi.injectEndpoints({
   endpoints: (builder) => ({
     loginUser: builder.mutation<TLoginResponseSuccess, TLoginField>({

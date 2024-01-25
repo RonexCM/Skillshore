@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { TRegistrationFormType } from "../types";
 import { useRegisterUserMutation } from "../../../redux/services/myRegistrationApiEndpoints";
 import registrationSchema from "../../../validation/registrationValidationSchema";
-import { ToastContainer, toast } from "react-toastify";
+import {  toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from "react";
 import { registerInitialValues } from "../../../configs/constants";
@@ -23,13 +23,8 @@ const Register: React.FC = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      const successMessage: string = "Successfully registered";
-      toast.success(successMessage, {
-        autoClose: 400,
-        onClose: () => {
-          navigate("/");
-        },
-      });
+      toast.success("Successfully registered");
+      navigate("/");
     }
   }, [isSuccess]);
 
@@ -144,13 +139,6 @@ const Register: React.FC = () => {
           <img src={penguinImage} className="" />
         </div>
       </div>
-      <ToastContainer
-        className="top-16"
-        autoClose={10000}
-        hideProgressBar
-        newestOnTop
-        limit={1}
-      />
     </>
   );
 };

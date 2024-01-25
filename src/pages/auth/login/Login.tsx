@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useLoginUserMutation } from "../../../redux/services/myLoginApiEndpoints";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { loginInitialValues } from "../../../configs/constants";
 
@@ -26,13 +26,9 @@ const Login = () => {
       const data = await loginUser(userCredentials).unwrap();
       if (data.token) {
         cookies.set("token", data.token, { secure: true });
-        toast.success("Successfully logged in!", {
-          autoClose: 400,
-          onClose: () => {
-            resetForm();
-            navigate("/home");
-          },
-        });
+        toast.success("Successfully logged in!");
+        resetForm();
+        navigate("/home");
       }
     } catch (error: any) {
       const errorMessage = error.data.message;
@@ -117,13 +113,6 @@ const Login = () => {
             </Link>
           </Form>
         </Formik>
-        <ToastContainer
-          className="top-16"
-          autoClose={10000}
-          hideProgressBar
-          newestOnTop
-          limit={1}
-        />
       </div>
     </>
   );
