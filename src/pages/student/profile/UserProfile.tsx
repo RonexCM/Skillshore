@@ -10,14 +10,23 @@ const UserProfile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const profileStyle = " text-dark font-medium";
-  const { data, isLoading } = useGetUserQuery();
+  const { data, isLoading, isSuccess } = useGetUserQuery();
   const userDetails = useSelector((state: RootState) => state.user.data);
 
   useEffect(() => {
     if (data) {
+      if (data?.data?.profile === undefined || data?.data?.profile === null) {
+        navigate("/createProfile");
+      }
+    }
+  }, [data, navigate, data?.data?.profile]);
+
+  useEffect(() => {
+    if (data && isSuccess) {
       dispatch(setUserData(data));
     }
-  }, [data]);
+  }, [isSuccess, data]);
+
 
   if (isLoading) {
     return (
@@ -26,12 +35,6 @@ const UserProfile = () => {
       </div>
     );
   }
-
-  if (userDetails.profile === null) {
-    navigate("/createProfile");
-    return null;
-  }
-
   return (
     <div className="h-full px-[120px]  font-poppins ">
       {isLoading ? (
@@ -40,102 +43,108 @@ const UserProfile = () => {
         </div>
       ) : (
         <>
-          <div className="flex justify-between mt-[37px]">
-            <h1 className="text-primary leading-7 text-[20px] font-medium pb-[60px] ">
-              Profile
-            </h1>
-
-            {userDetails.name ? (
-              <button
-                type="button"
-                className="text-white bg-green-700 font-medium rounded-lg text-sm h-[50px] w-[150px]"
-                onClick={() => navigate("/editProfile")}
-              >
-                Edit Profile
-              </button>
-            ) : (
-              <div></div>
-            )}
-          </div>
-          {userDetails.name ? (
+          {userDetails && (
             <>
-              <div className="userDetails ">
-                <div className="studentInfo flex flex-col gap-11">
-                  <div className="Profile grid grid-cols-2">
-                    <p className={profileStyle}>User Name</p>
-                    <div className="flex justify-between">
-                      <p className={profileStyle}>{userDetails.name}</p>
-                    </div>
-                  </div>
-                  <hr />
-                  <div className="studentInfo flex flex-col gap-11">
-                    <div className="Profile grid grid-cols-2">
-                      <p className={profileStyle}>Email Address</p>
-                      <div className="flex justify-between">
-                        <p className={profileStyle}>{userDetails.email}</p>
-                      </div>
-                    </div>
-                  </div>
-                  <hr />
-                  <div className="studentInfo flex flex-col gap-11">
-                    <div className="Profile grid grid-cols-2">
-                      <p className={profileStyle}>Education</p>
-                      <div className="flex justify-between">
-                        <p className={profileStyle}>
-                          {userDetails.profile.education}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <hr />
-                  <div className="studentInfo flex flex-col gap-11">
-                    <div className="Profile grid grid-cols-2">
-                      <p className={profileStyle}>Career</p>
-                      <div className="flex justify-between">
-                        <p className={profileStyle}>
-                          {userDetails.profile.career}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <hr />
-                  <div className="studentInfo flex flex-col gap-11">
-                    <div className="Profile grid grid-cols-2">
-                      <p className={profileStyle}>Experience</p>
-                      <div className="flex justify-between">
-                        <p className={profileStyle}>
-                          {userDetails.profile.experience}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <hr />
-                  <div className="studentInfo flex flex-col gap-11">
-                    <div className="Profile grid grid-cols-2">
-                      <p className={profileStyle}>Skills</p>
-                      <div className="flex justify-between">
-                        <p className={profileStyle}>
-                          {userDetails.profile.skills.map((skill, index) => (
-                            <li className="list-none" key={index}>{`${
-                              index + 1
-                            }. ${skill}`}</li>
-                          ))}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <hr />
-                </div>
+              <div className="flex justify-between mt-[37px]">
+                <h1 className="text-primary leading-7 text-[20px] font-medium pb-[60px] ">
+                  Profile
+                </h1>
+
+                {userDetails.name ? (
+                  <button
+                    type="button"
+                    className="text-white bg-green-700 font-medium rounded-lg text-sm h-[50px] w-[150px]"
+                    onClick={() => navigate("/editProfile")}
+                  >
+                    Edit Profile
+                  </button>
+                ) : (
+                  <div></div>
+                )}
               </div>
+              {userDetails.name ? (
+                <>
+                  <div className="userDetails ">
+                    <div className="studentInfo flex flex-col gap-11">
+                      <div className="Profile grid grid-cols-2">
+                        <p className={profileStyle}>User Name</p>
+                        <div className="flex justify-between">
+                          <p className={profileStyle}>{userDetails.name}</p>
+                        </div>
+                      </div>
+                      <hr />
+                      <div className="studentInfo flex flex-col gap-11">
+                        <div className="Profile grid grid-cols-2">
+                          <p className={profileStyle}>Email Address</p>
+                          <div className="flex justify-between">
+                            <p className={profileStyle}>{userDetails.email}</p>
+                          </div>
+                        </div>
+                      </div>
+                      <hr />
+                      <div className="studentInfo flex flex-col gap-11">
+                        <div className="Profile grid grid-cols-2">
+                          <p className={profileStyle}>Education</p>
+                          <div className="flex justify-between">
+                            <p className={profileStyle}>
+                              {userDetails.profile?.education}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <hr />
+                      <div className="studentInfo flex flex-col gap-11">
+                        <div className="Profile grid grid-cols-2">
+                          <p className={profileStyle}>Career</p>
+                          <div className="flex justify-between">
+                            <p className={profileStyle}>
+                              {userDetails.profile?.career}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <hr />
+                      <div className="studentInfo flex flex-col gap-11">
+                        <div className="Profile grid grid-cols-2">
+                          <p className={profileStyle}>Experience</p>
+                          <div className="flex justify-between">
+                            <p className={profileStyle}>
+                              {userDetails.profile?.experience}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <hr />
+                      <div className="studentInfo flex flex-col gap-11">
+                        <div className="Profile grid grid-cols-2">
+                          <p className={profileStyle}>Skills</p>
+                          <div className="flex justify-between">
+                            <p className={profileStyle}>
+                              {userDetails.profile?.skills?.map(
+                                (skill, index) => (
+                                  <li className="list-none" key={index}>{`${
+                                    index + 1
+                                  }. ${skill}`}</li>
+                                )
+                              )}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <hr />
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <div className="h-[800px]">
+                  <p>
+                    This current logged in user's profile details is not found.
+                    <br />
+                    Please contact your administrator for more details
+                  </p>
+                </div>
+              )}
             </>
-          ) : (
-            <div className="h-[800px]">
-              <p>
-                This current logged in user's profile details is not found.
-                <br />
-                Please contact your administrator for more details
-              </p>
-            </div>
           )}
         </>
       )}

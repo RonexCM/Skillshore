@@ -6,7 +6,7 @@ const initialState = {
     id: "",
     name: "",
     profile: {
-      id: "",
+      id: 0,
       skills: [],
       education: "",
       experience: "",

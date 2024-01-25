@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Form, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useCreateProfileMutation } from "../../../redux/services/myUserProfileEndpoints";
 import { RootState } from "../../../redux/store";
 import { useState } from "react";
@@ -7,7 +7,7 @@ import { createProfileData } from "../types";
 import { setProfileData } from "../../../redux/slice/userSlice";
 import { FaUser } from "react-icons/fa";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
-import { ErrorMessage, Field, Formik } from "formik";
+import { ErrorMessage, Field, Formik, Form } from "formik";
 
 const CreateProfile = () => {
   const navigate = useNavigate();
@@ -18,9 +18,8 @@ const CreateProfile = () => {
     UserData?.skills || []
   );
 
-  const handleSubmit = async (values: createProfileData) => {
+  const handleSubmit = async (values: Omit<createProfileData, "id">) => {
     try {
-      values.skills = userSkills;
       values.skills = userSkills;
       const res = await createUserProfile(values);
 
@@ -54,7 +53,7 @@ const CreateProfile = () => {
               </div>
             </div>
             <MdOutlineKeyboardArrowRight className="text-lg " />
-            <span className="text-primary"> Edit Profile</span>
+            <span className="text-primary"> Create Profile</span>
           </div>
         </div>
 
@@ -162,7 +161,7 @@ const CreateProfile = () => {
                 type="submit"
                 className=" text-white bg-green-700 font-medium mb-[40px] rounded-lg text-sm h-[50px] w-[150px]"
               >
-                Save Changes
+                Create profile
               </button>
             </div>
           </Form>

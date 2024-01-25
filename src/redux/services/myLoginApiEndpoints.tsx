@@ -8,6 +8,7 @@ const myLoginApiEndpoints = myApi.injectEndpoints({
         method: "post",
         body,
       }),
+      invalidatesTags: ["users"],
     }),
   }),
 });
