@@ -9,8 +9,8 @@ export type TLoginResponseSuccess = {
 };
 
 export type TLoginResponseError = {
-  message: string;
-  errors: { email: string[] };
+  status: number;
+  data: { message: string; errors: { email: string[] } };
 };
 export type TUserDetails = {
   resume: string;
