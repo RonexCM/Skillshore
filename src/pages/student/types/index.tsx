@@ -14,15 +14,7 @@ export type TUserProfile = {
   };
 };
 
-export type editedData = {
-  id: number;
-  skills: string[];
-  education: string;
-  experience: string;
-  career: string;
-};
-
-export type createProfileData = {
+export type TProfileData = {
   id: number;
   skills: string[];
   education: string;

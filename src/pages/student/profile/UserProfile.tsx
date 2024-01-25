@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserData } from "../../../redux/slice/userSlice";
 import { RootState } from "../../../redux/store";
+import "react-toastify/dist/ReactToastify.css";
 
 const UserProfile = () => {
   const navigate = useNavigate();
@@ -14,19 +15,16 @@ const UserProfile = () => {
   const userDetails = useSelector((state: RootState) => state.user.data);
 
   useEffect(() => {
-    if (data) {
-      if (data?.data?.profile === undefined || data?.data?.profile === null) {
-        navigate("/createProfile");
-      }
-    }
-  }, [data, navigate, data?.data?.profile]);
-
-  useEffect(() => {
     if (data && isSuccess) {
       dispatch(setUserData(data));
     }
   }, [isSuccess, data]);
 
+  useEffect(() => {
+    if (data?.data?.profile === null) {
+      navigate("/createProfile");
+    }
+  }, [data]);
 
   if (isLoading) {
     return (

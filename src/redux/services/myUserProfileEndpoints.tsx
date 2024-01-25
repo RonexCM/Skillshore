@@ -4,7 +4,6 @@ import { myApi } from "./myApi";
 
 const cookies = new Cookies();
 const token = cookies.get("token");
-console.log(token, "token");
 
 export const apiSlice = myApi.injectEndpoints({
   endpoints: (builder) => ({

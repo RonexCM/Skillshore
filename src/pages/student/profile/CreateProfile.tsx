@@ -1,42 +1,46 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useCreateProfileMutation } from "../../../redux/services/myUserProfileEndpoints";
-import { RootState } from "../../../redux/store";
-import { useState } from "react";
-import { createProfileData } from "../types";
+import { useEffect } from "react";
 import { setProfileData } from "../../../redux/slice/userSlice";
 import { FaUser } from "react-icons/fa";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { ErrorMessage, Field, Formik, Form } from "formik";
+import { createProfileSchema } from "../../../validation";
+import { createProfileValues } from "../../../configs/constants";
+import { TProfileData } from "../types";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CreateProfile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [createUserProfile] = useCreateProfileMutation();
-  const UserData = useSelector((state: RootState) => state.user.data.profile);
-  const [userSkills, setUserSkills] = useState<string[]>(
-    UserData?.skills || []
-  );
+  const [createUserProfile, { isSuccess, data, error }] =
+    useCreateProfileMutation();
 
-  const handleSubmit = async (values: Omit<createProfileData, "id">) => {
+  const handleSubmit = async (values: Omit<TProfileData, "id">) => {
     try {
-      values.skills = userSkills;
-      const res = await createUserProfile(values);
-
-      if (res) {
-        dispatch(setProfileData(res));
-        navigate("/profile");
-      } else {
-        console.error("No response from API");
-      }
+      let formattedSkills = values.skills;
+      formattedSkills = (formattedSkills as string).split(",");
+      await createUserProfile({ ...values, skills: formattedSkills });
     } catch (error) {
       console.error("Error updating data :", error);
     }
   };
 
-  const changeSkills = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserSkills(e.target.value.split(","));
-  };
+  useEffect(() => {
+    if (isSuccess && data) {
+      dispatch(setProfileData(data));
+      toast.success("Profile Created Successfully");
+      navigate("/profile");
+    }
+  }, [isSuccess, data]);
+
+  useEffect(() => {
+    if (error) {
+      toast.error("Something went wrong!!");
+    }
+  }, [error]);
 
   return (
     <>
@@ -58,13 +62,9 @@ const CreateProfile = () => {
         </div>
 
         <Formik
-          initialValues={{
-            education: UserData?.education || "",
-            career: UserData?.career || "",
-            experience: UserData?.experience || "",
-            skills: UserData?.skills ? UserData.skills.join(", ") : "",
-          }}
+          initialValues={createProfileValues}
           onSubmit={handleSubmit}
+          validationSchema={createProfileSchema}
         >
           <Form className="flex flex-col justify-center mt-[37px]">
             <div className="flex flex-row gap-[20px]  mb-2">
@@ -145,8 +145,6 @@ const CreateProfile = () => {
                   type="text"
                   id="skills"
                   name="skills"
-                  onChange={changeSkills}
-                  value={userSkills}
                   className="w-full text-[16px] h-12 bg-white rounded-lg border-2 border-indigo-100 px-3"
                 />
                 <ErrorMessage

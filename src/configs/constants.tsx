@@ -5,5 +5,11 @@ const registerInitialValues = {
   password: "",
   password_confirmation: "",
 };
+const createProfileValues = {
+  skills: "",
+  education: "",
+  experience: "",
+  career: "",
+};
 
-export { loginInitialValues, registerInitialValues };
+export { loginInitialValues, registerInitialValues, createProfileValues };
