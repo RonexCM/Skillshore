@@ -64,7 +64,7 @@ const EditProfile = () => {
   return (
     <>
       {UserData?.education && (
-        <div className="h-full px-[120px] font-poppins ">
+        <div className="h-[full] pl-[70px] pr-[42px] w-[1350px] font-poppins ">
           <div className="flex flex-col justify-start items-left ">
             <div className="text-primary  text-lg flex items-center gap-1 self-start mt-[37px]">
               <div
