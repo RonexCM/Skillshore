@@ -16,7 +16,7 @@ export type TUserProfile = {
 
 export type TProfileData = {
   id: number;
-  skills: string[];
+  skills: string[] | string;
   education: string;
   experience: string;
   career: string;
