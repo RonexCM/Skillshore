@@ -1,3 +1,5 @@
+import { ReactElement } from "react";
+
 export type TUserProfile = {
   data: {
     id: number;
@@ -20,4 +22,9 @@ export type TProfileData = {
   education: string;
   experience: string;
   career: string;
+};
+
+export type TProfileDetails = {
+  title: string;
+  data: string | ReactElement[];
 };

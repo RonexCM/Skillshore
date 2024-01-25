@@ -2,7 +2,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useUpdateUserProfileMutation } from "../../../redux/services/myUserProfileEndpoints";
-import { setUserData } from "../../../redux/slice/userSlice";
+import { setProfileData, setUserData } from "../../../redux/slice/userSlice";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 import { RootState } from "../../../redux/store";
@@ -16,17 +16,19 @@ import "react-toastify/dist/ReactToastify.css";
 const EditProfile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const query = useGetUserQuery();
-  const [updateUserProfile, { isSuccess, data, error }] =
-    useUpdateUserProfileMutation();
+  const { data, isSuccess, isLoading } = useGetUserQuery();
+  const [
+    updateUserProfile,
+    { isSuccess: profileUpdateSuccess, data: profileData, error },
+  ] = useUpdateUserProfileMutation();
 
   const UserData = useSelector((state: RootState) => state.user.data.profile);
 
   useEffect(() => {
-    if (query.data && query.isSuccess) {
-      dispatch(setUserData(query.data));
+    if (data && isSuccess) {
+      dispatch(setUserData(data));
     }
-  }, [query.isSuccess, query.data]);
+  }, [isSuccess, data]);
 
   const handleSubmit = async (values: TProfileData) => {
     try {
@@ -39,20 +41,20 @@ const EditProfile = () => {
   };
 
   useEffect(() => {
-    if (isSuccess && data) {
-      dispatch(setUserData(data));
+    if (profileUpdateSuccess && profileData) {
+      dispatch(setProfileData(profileData));
       toast.success("Profile Edited Successfully");
       navigate("/profile");
     }
-  }, [isSuccess, data]);
+  }, [profileUpdateSuccess, profileData]);
 
   useEffect(() => {
-    if (error) {
-      toast.error("Something went wrong!!");
+    if (error && "data" in error) {
+      toast.error(error.data.message);
     }
   }, [error]);
 
-  if (query.isLoading) {
+  if (isLoading) {
     return (
       <div className="flex justify-center h-[800px]">
         <LineWave color="#1a2b48" height={100} />

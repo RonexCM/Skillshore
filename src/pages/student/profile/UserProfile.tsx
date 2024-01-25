@@ -6,11 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUserData } from "../../../redux/slice/userSlice";
 import { RootState } from "../../../redux/store";
 import "react-toastify/dist/ReactToastify.css";
+import ProfileDetails from "../../../components/ProfileDetails";
 
 const UserProfile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const profileStyle = " text-dark font-medium";
+
   const { data, isLoading, isSuccess } = useGetUserQuery();
   const userDetails = useSelector((state: RootState) => state.user.data);
 
@@ -62,75 +63,35 @@ const UserProfile = () => {
               </div>
               {userDetails.name ? (
                 <>
-                  <div className="userDetails ">
-                    <div className="studentInfo flex flex-col gap-11">
-                      <div className="Profile grid grid-cols-2">
-                        <p className={profileStyle}>User Name</p>
-                        <div className="flex justify-between">
-                          <p className={profileStyle}>{userDetails.name}</p>
-                        </div>
-                      </div>
-                      <hr />
-                      <div className="studentInfo flex flex-col gap-11">
-                        <div className="Profile grid grid-cols-2">
-                          <p className={profileStyle}>Email Address</p>
-                          <div className="flex justify-between">
-                            <p className={profileStyle}>{userDetails.email}</p>
-                          </div>
-                        </div>
-                      </div>
-                      <hr />
-                      <div className="studentInfo flex flex-col gap-11">
-                        <div className="Profile grid grid-cols-2">
-                          <p className={profileStyle}>Education</p>
-                          <div className="flex justify-between">
-                            <p className={profileStyle}>
-                              {userDetails.profile?.education}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <hr />
-                      <div className="studentInfo flex flex-col gap-11">
-                        <div className="Profile grid grid-cols-2">
-                          <p className={profileStyle}>Career</p>
-                          <div className="flex justify-between">
-                            <p className={profileStyle}>
-                              {userDetails.profile?.career}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <hr />
-                      <div className="studentInfo flex flex-col gap-11">
-                        <div className="Profile grid grid-cols-2">
-                          <p className={profileStyle}>Experience</p>
-                          <div className="flex justify-between">
-                            <p className={profileStyle}>
-                              {userDetails.profile?.experience}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <hr />
-                      <div className="studentInfo flex flex-col gap-11">
-                        <div className="Profile grid grid-cols-2">
-                          <p className={profileStyle}>Skills</p>
-                          <div className="flex justify-between">
-                            <p className={profileStyle}>
-                              {userDetails.profile?.skills?.map(
-                                (skill, index) => (
-                                  <li className="list-none" key={index}>{`${
-                                    index + 1
-                                  }. ${skill}`}</li>
-                                )
-                              )}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <hr />
-                    </div>
+                  <div className="studentInfo flex flex-col gap-10 ">
+                    <ProfileDetails
+                      title={"User Name"}
+                      data={userDetails.name}
+                    />
+                    <ProfileDetails
+                      title={"Email Address"}
+                      data={userDetails.email}
+                    />
+                    <ProfileDetails
+                      title={"Education"}
+                      data={userDetails.profile.education}
+                    />
+                    <ProfileDetails
+                      title={"Career "}
+                      data={userDetails.profile.career}
+                    />
+                    <ProfileDetails
+                      title={"Experience"}
+                      data={userDetails.profile.experience}
+                    />
+                    <ProfileDetails
+                      title={"Skills"}
+                      data={userDetails.profile?.skills?.map((skill, index) => (
+                        <li className="list-none" key={index}>{`${
+                          index + 1
+                        }. ${skill}`}</li>
+                      ))}
+                    />
                   </div>
                 </>
               ) : (
