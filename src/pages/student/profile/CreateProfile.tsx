@@ -6,7 +6,7 @@ import { setProfileData } from "../../../redux/slice/userSlice";
 import { FaUser } from "react-icons/fa";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { ErrorMessage, Field, Formik, Form } from "formik";
-import { createProfileSchema } from "../../../validation";
+import { profileValidationSchema } from "../../../validation";
 import { createProfileValues } from "../../../configs/constants";
 import { TProfileData } from "../types";
 import { toast } from "react-toastify";
@@ -64,7 +64,7 @@ const CreateProfile = () => {
         <Formik
           initialValues={createProfileValues}
           onSubmit={handleSubmit}
-          validationSchema={createProfileSchema}
+          validationSchema={profileValidationSchema}
         >
           <Form className="flex flex-col justify-center mt-[37px]">
             <div className="flex flex-row gap-[20px]  mb-2">
