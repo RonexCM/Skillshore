@@ -1,61 +1,46 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import { TLoginField } from "../types";
 import { loginValidationSchema } from "../../../validation";
 import { Link } from "react-router-dom";
 import { useLoginUserMutation } from "../../../redux/services/myLoginApiEndpoints";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../../redux/store";
-import { addUser } from "../../../redux/slice/loginSlice";
+import { loginInitialValues } from "../../../configs/constants";
 
 const Login = () => {
-  const dispatch = useDispatch();
   const cookies = new Cookies();
   const navigate = useNavigate();
-  const initialValues = useSelector((state: RootState) => state.login);
   const [loginUser] = useLoginUserMutation();
-  const onSubmit = async (values: TLoginField) => {
+  const onSubmit = async (
+    values: TLoginField,
+    { resetForm }: FormikHelpers<TLoginField>
+  ) => {
     const userCredentials = {
       email: values.email.toLowerCase(),
       password: values.password,
     };
     toast.dismiss();
-    // user clicks login, form is submitted, we get accessToken in response body and token is saved in cookie
     try {
-      const responseData = await loginUser(userCredentials).unwrap();
-      if (responseData) {
-        if ("message" in responseData && "token" in responseData) {
-          const successMessage = responseData.message;
-          const token = responseData.token;
-          if (token && successMessage === "Successfully logged in") {
-            cookies.set("token", token, { secure: true, httpOnly: true });
-            dispatch(addUser(userCredentials));
-            navigate("/home");
-          } else {
-            toast.error("Problem logging in!");
-          }
-        }
+      const data = await loginUser(userCredentials).unwrap();
+      if (data.token) {
+        cookies.set("token", data.token, { secure: true });
+        toast.success("Successfully logged in!");
+        resetForm();
+        navigate("/profile");
       }
     } catch (error: any) {
-      if ("status" in error && "data" in error) {
-        const errorMessage = error.data.message;
-        toast.error(errorMessage);
-      } else if ("status" in error) {
-        toast.error(`Problem logging in!`);
-      } else {
-        toast.error("No response from server!");
-      }
+      const errorMessage = error.data.message;
+      toast.error(errorMessage);
     }
   };
 
   return (
     <>
-      <div className="relative shadow-[0_10px_40px_-15px_rgba(0,0,0,0.2)] w-[370px] h-max text-dark rounded-[24px] p-[40px] ">
+      <div className="mt-auto shadow-[0_10px_40px_-15px_rgba(0,0,0,0.2)] w-[370px] h-max text-dark rounded-[24px] p-[40px] ">
         <Formik
-          initialValues={initialValues}
+          initialValues={loginInitialValues}
           onSubmit={onSubmit}
           validationSchema={loginValidationSchema}
         >
@@ -128,13 +113,6 @@ const Login = () => {
             </Link>
           </Form>
         </Formik>
-        <ToastContainer
-          className="top-16"
-          autoClose={10000}
-          hideProgressBar
-          newestOnTop
-          limit={1}
-        />
       </div>
     </>
   );

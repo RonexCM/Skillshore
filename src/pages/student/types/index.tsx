@@ -1,31 +1,30 @@
+import { ReactElement } from "react";
+
 export type TUserProfile = {
-  resume: string;
-  name: string;
-  profile: string;
-  description: string;
-  email: string;
-  phoneNo: string;
-  experience: string;
-  language: string;
-  available: string;
-  role: string;
-  education: string;
-  skills: string[];
-  id: string;
-  linkedIn: string;
-  github: string;
+  data: {
+    id: number;
+    name: string;
+    email: string;
+    role: string;
+    profile: {
+      id: number;
+      skills: string[];
+      education: string;
+      experience: string;
+      career: string;
+    };
+  };
 };
 
-export type TEditedData = {
-  name: string;
-  description: string;
-  email: string;
-  phoneNo: string;
-  experience: string;
-  language: string;
-  available: string;
-  role: string;
+export type TProfileData = {
+  id: number;
+  skills: string[] | string;
   education: string;
-  skills: string[];
-  id: string;
+  experience: string;
+  career: string;
+};
+
+export type TProfileDetails = {
+  title: string;
+  data: string | ReactElement[];
 };
