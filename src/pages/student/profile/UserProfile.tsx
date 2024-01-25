@@ -35,7 +35,7 @@ const UserProfile = () => {
     );
   }
   return (
-    <div className="h-full px-[120px]  font-poppins ">
+    <div className="h-[full] pl-[70px] pr-[42px] w-[1350px] font-poppins ">
       {isLoading ? (
         <div className="flex justify-center h-[800px]">
           <LineWave color="#1a2b48" height={100} />;

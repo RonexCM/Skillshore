@@ -28,7 +28,7 @@ const Login = () => {
         cookies.set("token", data.token, { secure: true });
         toast.success("Successfully logged in!");
         resetForm();
-        navigate("/home");
+        navigate("/profile");
       }
     } catch (error: any) {
       const errorMessage = error.data.message;
