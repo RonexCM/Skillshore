@@ -65,3 +65,26 @@ export type TProfileDetails = {
   title: string;
   data: string | ReactElement[];
 };
+
+export type TQuizOptions = {
+  id: number;
+  title: string;
+  slug: string;
+  thumbnail: string;
+  description: string;
+  time: number;
+  retry_after: number;
+  status: number;
+  questions: {
+    data: {
+      questions: Array<{
+        id: number;
+        title: string;
+        description: string;
+        options: Array<string>;
+        weightage: number;
+        status: number;
+      }>;
+    };
+  };
+};
