@@ -1,22 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { TUserProfile } from "../../pages/student/types";
 
-const initialState = {
+const initialState: TUserProfile = {
   data: {
-    resume: "",
-    name: "",
-    profile: "",
-    description: "",
-    mail: "",
-    phone: "",
-    experience: "",
-    language: "",
-    available: "",
-    role: "",
-    education: "",
-    id: "",
-    skills: [],
+    id: 0,
     email: "",
-    phoneNo: "",
+    name: "",
+    role: "",
+    profile: {
+      id: 0,
+      skills: [],
+      education: "",
+      experience: "",
+      career: "",
+    },
   },
 };
 const userSlice = createSlice({
@@ -24,10 +21,16 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUserData: (state, action) => {
-      state.data = action.payload;
+      state.data = action.payload.data;
+    },
+    setProfileData: (state, action) => {
+      state.data.profile = action.payload;
+    },
+    logOut: (state) => {
+      state.data = initialState.data;
     },
   },
 });
 
 export default userSlice.reducer;
-export const { setUserData } = userSlice.actions;
+export const { setUserData, logOut, setProfileData } = userSlice.actions;

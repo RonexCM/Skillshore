@@ -1,6 +1,11 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { EnterNewPassword, ForgotPassword } from "./pages/auth/forgotPassword";
-import { UserProfile, EditProfile } from "./pages/student/profile";
+import {  ProtectedRoute } from "./routes";
+import {
+  UserProfile,
+  EditProfile,
+  CreateProfile,
+} from "./pages/student/profile";
 import { Home } from "./pages/student/home";
 import { Login } from "./pages/auth/login";
 import { Register } from "./pages/auth/register";
@@ -12,9 +17,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<CommonLayout layoutFor="auth" />}>
             <Route index element={<Login />} />
-            {/* ----------register form goes here---------- */}
             <Route path="register" element={<Register />} />
-            {/* ----------register form goes here---------- */}
             <Route path="forgotPassword" element={<ForgotPassword />} />
 
             <Route path="enterNewPassword" element={<EnterNewPassword />} />
@@ -22,8 +25,18 @@ const App = () => {
           {/* ----------user pages goes here as protected route---------- */}
           <Route element={<CommonLayout layoutFor="user" />}>
             <Route path="/home" element={<Home />} />
-            <Route path="/profile" element={<UserProfile />} />
-            <Route path="/editProfile" element={<EditProfile />} />
+            <Route
+              path="/profile"
+              element={<ProtectedRoute>{<UserProfile />}</ProtectedRoute>}
+            />
+            <Route
+              path="/editProfile"
+              element={<ProtectedRoute>{<EditProfile />}</ProtectedRoute>}
+            />
+            <Route
+              path="/createProfile"
+              element={<ProtectedRoute>{<CreateProfile />}</ProtectedRoute>}
+            />
           </Route>
           {/* ----------admin pages goes here as protected route----------- */}
         </Routes>
