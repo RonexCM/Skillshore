@@ -56,8 +56,8 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div>
-      <div className="registrationPage flex justify-around gap-[220px] p-5">
+    <>
+      <div className="registrationPage mt-auto flex justify-around gap-[220px] p-5">
         <div className=" registration w-[500px]  rounded-[32px] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.2)] py-7 px-7">
           <Formik
             initialValues={initialValues}
@@ -167,7 +167,7 @@ const Register: React.FC = () => {
         newestOnTop
         limit={1}
       />
-    </div>
+    </>
   );
 };
 export default Register;
