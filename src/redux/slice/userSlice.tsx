@@ -21,6 +21,9 @@ const userSlice = createSlice({
     setUserData: (state, action) => {
       state.data = action.payload.data;
     },
+    setProfileData: (state, action) => {
+      state.data.profile = action.payload;
+    },
     logOut: (state) => {
       state.data = initialState.data;
     },
@@ -28,4 +31,4 @@ const userSlice = createSlice({
 });
 
 export default userSlice.reducer;
-export const { setUserData, logOut } = userSlice.actions;
+export const { setUserData, logOut, setProfileData } = userSlice.actions;

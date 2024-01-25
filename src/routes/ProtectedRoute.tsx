@@ -7,7 +7,7 @@ import Cookies from "universal-cookie";
  * @returns Component that is passed
  */
 
-const ProtectedRoute = ({ children }: { children: ReactNode }) => {
+const ProtectedRoute = ({ children}) => {
   const navigate = useNavigate();
 
   const cookie = new Cookies();

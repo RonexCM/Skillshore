@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useGetUserQuery } from "../../../redux/services/myUserProfileEndpoints";
 import { LineWave } from "react-loader-spinner";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserData } from "../../../redux/slice/userSlice";
 import { RootState } from "../../../redux/store";
@@ -10,8 +10,7 @@ const UserProfile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const profileStyle = " text-dark font-medium";
-  const { data, refetch } = useGetUserQuery();
-  const [isFetching, setIsFetching] = useState(true);
+  const { data, isLoading } = useGetUserQuery();
   const userDetails = useSelector((state: RootState) => state.user.data);
 
   useEffect(() => {
@@ -20,22 +19,22 @@ const UserProfile = () => {
     }
   }, [data]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsFetching(true);
-        await refetch();
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setIsFetching(false);
-      }
-    };
-    fetchData();
-  }, [refetch]);
+  if (isLoading) {
+    return (
+      <div className="flex justify-center h-[800px]">
+        <LineWave color="#1a2b48" height={100} />
+      </div>
+    );
+  }
+
+  if (userDetails.profile === null) {
+    navigate("/createProfile");
+    return null;
+  }
+
   return (
     <div className="h-full px-[120px]  font-poppins ">
-      {isFetching ? (
+      {isLoading ? (
         <div className="flex justify-center h-[800px]">
           <LineWave color="#1a2b48" height={100} />;
         </div>

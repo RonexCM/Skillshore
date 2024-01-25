@@ -1,31 +1,31 @@
-import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { useUpdateUserProfileMutation } from "../../../redux/services/myUserProfileEndpoints";
-import { setUserData } from "../../../redux/slice/userSlice";
-import { MdOutlineKeyboardArrowRight } from "react-icons/md";
-import { FaUser } from "react-icons/fa";
+import { Form, useNavigate } from "react-router-dom";
+import { useCreateProfileMutation } from "../../../redux/services/myUserProfileEndpoints";
 import { RootState } from "../../../redux/store";
 import { useState } from "react";
-import { editedData } from "../types";
+import { createProfileData } from "../types";
+import { setProfileData } from "../../../redux/slice/userSlice";
+import { FaUser } from "react-icons/fa";
+import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+import { ErrorMessage, Field, Formik } from "formik";
 
-const EditProfile = () => {
+const CreateProfile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [updateUserProfile] = useUpdateUserProfileMutation();
-
+  const [createUserProfile] = useCreateProfileMutation();
   const UserData = useSelector((state: RootState) => state.user.data.profile);
   const [userSkills, setUserSkills] = useState<string[]>(
     UserData?.skills || []
   );
 
-  const handleSubmit = async (values: editedData) => {
+  const handleSubmit = async (values: createProfileData) => {
     try {
       values.skills = userSkills;
-      const res = await updateUserProfile(values);
+      values.skills = userSkills;
+      const res = await createUserProfile(values);
 
       if (res) {
-        dispatch(setUserData(res));
+        dispatch(setProfileData(res));
         navigate("/profile");
       } else {
         console.error("No response from API");
@@ -58,7 +58,15 @@ const EditProfile = () => {
           </div>
         </div>
 
-        <Formik initialValues={UserData} onSubmit={handleSubmit}>
+        <Formik
+          initialValues={{
+            education: UserData?.education || "",
+            career: UserData?.career || "",
+            experience: UserData?.experience || "",
+            skills: UserData?.skills ? UserData.skills.join(", ") : "",
+          }}
+          onSubmit={handleSubmit}
+        >
           <Form className="flex flex-col justify-center mt-[37px]">
             <div className="flex flex-row gap-[20px]  mb-2">
               <div className="flex flex-col text-[18px] mb-4 w-full">
@@ -163,4 +171,5 @@ const EditProfile = () => {
     </>
   );
 };
-export default EditProfile;
+
+export default CreateProfile;
