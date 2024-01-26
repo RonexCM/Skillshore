@@ -56,19 +56,26 @@ const UserProfile = () => {
                     data={userDetails?.profile?.skills?.map((skill, index) => (
 =======
                     data={userDetails.profile.education}
+=======
+                    data={userDetails?.profile?.education}
+>>>>>>> 339eec6 (added persist, removed cookie to manage storage)
                   />
                   <ProfileDetails
                     title={"Career "}
-                    data={userDetails.profile.career}
+                    data={userDetails?.profile?.career}
                   />
                   <ProfileDetails
                     title={"Experience"}
-                    data={userDetails.profile.experience}
+                    data={userDetails?.profile?.experience}
                   />
                   <ProfileDetails
                     title={"Skills"}
+<<<<<<< HEAD
                     data={userDetails.profile?.skills?.map((skill, index) => (
 >>>>>>> 926278e (updated folder structure, fixed some design inconsistency)
+=======
+                    data={userDetails?.profile?.skills?.map((skill, index) => (
+>>>>>>> 339eec6 (added persist, removed cookie to manage storage)
                       <li className="list-none" key={index}>{`${
                         index + 1
                       }. ${skill}`}</li>
