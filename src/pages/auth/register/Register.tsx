@@ -36,7 +36,7 @@ const Register: React.FC = () => {
 
   return (
     <>
-      <div className="registrationPage mt-auto flex justify-around gap-[220px] p-5">
+      <div className="registrationPage m-auto flex justify-around gap-[220px] p-5">
         <div className=" registration w-[500px]  rounded-[32px] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.2)] py-7 px-7">
           <Formik
             initialValues={registerInitialValues}

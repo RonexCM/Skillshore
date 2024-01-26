@@ -44,19 +44,9 @@ const CreateProfile = () => {
 
   return (
     <>
-      <div className="h-[full] pl-[70px] pr-[42px] w-[1350px] font-poppins">
+      <div className="h-[full] pl-[70px] pr-[42px] font-poppins">
         <div className="flex flex-col justify-start items-left ">
           <div className="text-primary  text-lg flex items-center gap-1 self-start mt-[37px]">
-            <div
-              className="flex gap-2  cursor-pointer"
-              onClick={() => navigate(-1)}
-            >
-              <div className="hover:underline flex gap-2">
-                <FaUser className="text-lg mt-1" />
-                Profile
-              </div>
-            </div>
-            <MdOutlineKeyboardArrowRight className="text-lg " />
             <span className="text-primary"> Create Profile</span>
           </div>
         </div>
@@ -71,7 +61,7 @@ const CreateProfile = () => {
               <div className="flex flex-col text-[18px] mb-4 w-full">
                 <label
                   htmlFor="education"
-                  className="mb-2 text-dark text-lg font-normal"
+                  className="mb-2 text-dark text-base font-normal"
                 >
                   Education
                 </label>
@@ -93,7 +83,7 @@ const CreateProfile = () => {
               <div className="flex flex-col text-[18px] mb-4 w-full">
                 <label
                   htmlFor="career"
-                  className="mb-2 text-lg text-dark font-normal"
+                  className="mb-2 text-base text-dark font-normal"
                 >
                   Career
                 </label>
@@ -115,7 +105,7 @@ const CreateProfile = () => {
               <div className="flex flex-col text-[18px] mb-4 w-full">
                 <label
                   htmlFor="experience"
-                  className="mb-2 text-dark text-lg font-normal"
+                  className="mb-2 text-dark text-base font-normal"
                 >
                   Experience
                 </label>
@@ -137,7 +127,7 @@ const CreateProfile = () => {
               <div className="flex flex-col text-[18px] mb-4 w-full">
                 <label
                   htmlFor="skills"
-                  className="mb-2 text-lg text-dark font-normal"
+                  className="mb-2 text-base text-dark font-normal"
                 >
                   Skills
                 </label>

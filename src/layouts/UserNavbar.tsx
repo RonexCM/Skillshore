@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import skillshoreLogo from "../assets/skillshoresvg.svg";
 import Cookies from "universal-cookie";
 import { logOut } from "../redux/slice/userSlice";
@@ -11,6 +11,8 @@ const UserNavbar = () => {
     dispatch(logOut());
     new Cookies().remove("token");
   };
+  const location = useLocation();
+  const { pathname } = location;
   return (
     <nav className="h-[56px] shrink-0 w-full bg-[#03103F] text-white flex justify-between items-center px-12">
       <div className="flex items-center gap-3 cursor-pointer">
@@ -21,12 +23,14 @@ const UserNavbar = () => {
       </div>
 
       <div className="flex gap-[46px] text-sm">
-        <NavLink
-          to="/profile"
-          className="cursor-pointer dark:text-white font-bold hover:underline"
-        >
-          Profile
-        </NavLink>
+        {pathname !== "/createProfile" && (
+          <NavLink
+            to="/profile"
+            className="cursor-pointer dark:text-white font-bold hover:underline"
+          >
+            Profile
+          </NavLink>
+        )}
         <NavLink
           to="/"
           onClick={LogOut}
