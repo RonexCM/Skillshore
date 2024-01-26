@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { myApi } from "../services/myApi";
 import userSlice from "../slice/userSlice";
+<<<<<<< HEAD
 import {
   persistReducer,
   persistStore,
@@ -54,3 +55,18 @@ export const store = configureStore({
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 export const persistor = persistStore(store);
+=======
+import quizSlice from "../slice/quizSlice";
+
+export const store = configureStore({
+  reducer: {
+    [myApi.reducerPath]: myApi.reducer,
+    user: userSlice,
+    quiz: quizSlice,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(myApi.middleware),
+});
+
+export type RootState = ReturnType<typeof store.getState>;
+>>>>>>> 19cf8ac (updated folder structure, fixed some design inconsistency)

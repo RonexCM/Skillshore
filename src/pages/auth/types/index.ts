@@ -9,8 +9,13 @@ export type TLoginResponseSuccess = {
 };
 
 export type TLoginResponseError = {
+<<<<<<< HEAD
   message: string;
   errors: { email: string[] };
+=======
+  status: number;
+  data: { message: string; errors: { email: string[] } };
+>>>>>>> 19cf8ac (updated folder structure, fixed some design inconsistency)
 };
 
 export type TRegistrationFormType = {

@@ -12,6 +12,7 @@ const createProfileValues = {
   career: "",
 };
 
+<<<<<<< HEAD
 const forgotPasswordEmailInitialValues = {
   email: "",
 };
@@ -29,3 +30,6 @@ export {
   forgotPasswordEmailInitialValues,
   resetPasswordInitialValues,
 };
+=======
+export { loginInitialValues, registerInitialValues, createProfileValues };
+>>>>>>> 19cf8ac (updated folder structure, fixed some design inconsistency)

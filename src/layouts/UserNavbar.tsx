@@ -32,6 +32,12 @@ const UserNavbar = () => {
           <NavLink
             to="/profile"
             className="font-bold cursor-pointer dark:text-white hover:underline"
+=======
+        {pathname !== "/createProfile" && (
+          <NavLink
+            to="/profile"
+            className="cursor-pointer dark:text-white font-bold hover:underline"
+>>>>>>> 19cf8ac (updated folder structure, fixed some design inconsistency)
           >
             Profile
           </NavLink>

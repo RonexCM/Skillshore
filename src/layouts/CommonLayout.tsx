@@ -31,7 +31,11 @@ export const CommonLayout = ({ layoutFor }: Props) => {
   }, [isSuccess]);
 
   return (
+<<<<<<< HEAD
     <div className="flex flex-col justify-start min-h-screen">
+=======
+    <div className="flex flex-col justify-start min-h-screen ">
+>>>>>>> 19cf8ac (updated folder structure, fixed some design inconsistency)
       {layoutFor === "auth" ? <AuthNavbar /> : <UserNavbar />}
       <ToastContainer
         className="top-16 absolute"
