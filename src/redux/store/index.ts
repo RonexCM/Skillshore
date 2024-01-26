@@ -2,6 +2,9 @@ import { configureStore } from "@reduxjs/toolkit";
 import { myApi } from "../services/myApi";
 import userSlice from "../slice/userSlice";
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 12dcc4d (added persist & encryption)
 import {
   persistReducer,
   persistStore,
@@ -15,7 +18,10 @@ import {
 import { combineReducers } from "redux";
 import storage from "redux-persist/lib/storage";
 import { encryptTransform } from "redux-persist-transform-encrypt";
+<<<<<<< HEAD
 import authSlice from "../slice/authSlice";
+=======
+>>>>>>> 12dcc4d (added persist & encryption)
 
 const persistConfig = {
   key: "root",
@@ -41,6 +47,7 @@ const persistedReducer = persistReducer<RootReducer>(
   persistConfig,
   rootReducer
 );
+<<<<<<< HEAD
 
 export const store = configureStore({
   reducer: persistedReducer,
@@ -53,6 +60,27 @@ export const store = configureStore({
 });
 
 export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+export const persistor = persistStore(store);
+=======
+import quizSlice from "../slice/quizSlice";
+=======
+>>>>>>> 12dcc4d (added persist & encryption)
+
+export const store = configureStore({
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }).concat(myApi.middleware),
+});
+
+export type RootState = ReturnType<typeof store.getState>;
+<<<<<<< HEAD
+>>>>>>> 19cf8ac (updated folder structure, fixed some design inconsistency)
+=======
 export type AppDispatch = typeof store.dispatch;
 export const persistor = persistStore(store);
 =======
