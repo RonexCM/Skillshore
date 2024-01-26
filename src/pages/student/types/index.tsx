@@ -88,3 +88,15 @@ export type TQuizOptions = {
     };
   };
 };
+
+export type TOptionFieldProps = {
+  index: number;
+  option: string;
+  onSelect: (index: number) => void;
+  isSelected: boolean;
+};
+
+export type TTimerProps = {
+  initialTime?: number;
+  onTimeout: () => void;
+};
