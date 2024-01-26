@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useCreateProfileMutation } from "../../../redux/services/myUserProfileEndpoints";
 import { useEffect } from "react";
 import { setProfileData } from "../../../redux/slice/userSlice";
-import { FaUser } from "react-icons/fa";
-import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { ErrorMessage, Field, Formik, Form } from "formik";
 import { profileValidationSchema } from "../../../validation";
 import { createProfileValues } from "../../../configs/constants";
