@@ -6,7 +6,7 @@ import {
     retry,
 } from "@reduxjs/toolkit/query/react";
 import { baseUrl } from "../../configs";
-import Cookies from "universal-cookie";
+import { RootState } from "../store";
 
 type CustomErrorMessage = {
     data: {
@@ -15,11 +15,10 @@ type CustomErrorMessage = {
     };
 };
 
-const cookies = new Cookies();
 const baseQuery = fetchBaseQuery({
     baseUrl,
-    prepareHeaders: (headers) => {
-        const token = cookies.get("token");
+    prepareHeaders: (headers, { getState }) => {
+        const token = (getState() as RootState).auth.data.token;
         if (token) {
             headers.set("Authorization", `Bearer ${token}`);
         }

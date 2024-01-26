@@ -14,12 +14,13 @@ import {
 import { combineReducers } from "redux";
 import storage from "redux-persist/lib/storage";
 import { encryptTransform } from "redux-persist-transform-encrypt";
+import authSlice from "../slice/authSlice";
 
 const persistConfig = {
     key: "root",
     storage,
     version: 1,
-    whitelist: ["user"],
+    whitelist: ["user","auth"],
     transforms: [
         encryptTransform({
             secretKey: "my-super-secret-key",
@@ -29,6 +30,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
     user: userSlice,
+    auth: authSlice,
     [myApi.reducerPath]: myApi.reducer,
 });
 

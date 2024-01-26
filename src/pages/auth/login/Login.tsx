@@ -4,15 +4,16 @@ import { loginValidationSchema } from "../../../validation";
 import { Link } from "react-router-dom";
 import { useLoginUserMutation } from "../../../redux/services/myLoginApiEndpoints";
 import { useNavigate } from "react-router-dom";
-import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { loginInitialValues } from "../../../configs/constants";
+import { useDispatch } from "react-redux";
+import { setToken } from "../../../redux/slice/authSlice";
 
 const Login = () => {
-  const cookies = new Cookies();
   const navigate = useNavigate();
   const [loginUser] = useLoginUserMutation();
+  const dispatch = useDispatch();
   const onSubmit = async (
     values: TLoginField,
     { resetForm }: FormikHelpers<TLoginField>
@@ -25,7 +26,7 @@ const Login = () => {
     try {
       const data = await loginUser(userCredentials).unwrap();
       if (data.token) {
-        cookies.set("token", data.token, { secure: true });
+        dispatch(setToken(data.token))
         toast.success("Successfully logged in!");
         resetForm();
         navigate("/profile");
@@ -51,7 +52,7 @@ const Login = () => {
             <div className="flex flex-col h-[130px] mt-[22px] mb-[-30px] w-full">
               <label
                 htmlFor="email"
-                className="font-normal text-base text-dark"
+                className="text-base font-normal text-dark"
               >
                 Email
               </label>
@@ -72,7 +73,7 @@ const Login = () => {
             <div className="flex flex-col h-[110px] w-full">
               <label
                 htmlFor="password"
-                className="font-normal text-base text-dark"
+                className="text-base font-normal text-dark"
               >
                 Password
               </label>

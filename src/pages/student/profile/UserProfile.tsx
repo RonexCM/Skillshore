@@ -58,7 +58,7 @@ const UserProfile = () => {
             </div>
             {userDetails.name ? (
               <>
-                <div className="studentInfo flex flex-col gap-10 ">
+                <div className="flex flex-col gap-10 studentInfo ">
                   <ProfileDetails title={"User Name"} data={userDetails.name} />
                   <ProfileDetails
                     title={"Email Address"}
@@ -66,19 +66,19 @@ const UserProfile = () => {
                   />
                   <ProfileDetails
                     title={"Education"}
-                    data={userDetails.profile.education}
+                    data={userDetails?.profile?.education}
                   />
                   <ProfileDetails
                     title={"Career "}
-                    data={userDetails.profile.career}
+                    data={userDetails?.profile?.career}
                   />
                   <ProfileDetails
                     title={"Experience"}
-                    data={userDetails.profile.experience}
+                    data={userDetails?.profile?.experience}
                   />
                   <ProfileDetails
                     title={"Skills"}
-                    data={userDetails.profile?.skills?.map((skill, index) => (
+                    data={userDetails?.profile?.skills?.map((skill, index) => (
                       <li className="list-none" key={index}>{`${
                         index + 1
                       }. ${skill}`}</li>
