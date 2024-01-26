@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { TUserDataTransformed, TUserProfile } from "../../pages/student/types";
+=======
+import { TUserProfile } from "../../pages/student/types";
+>>>>>>> 2a0d873 (added persist, removed cookie to manage storage)
 import { myApi } from "./myApi";
 
 export const apiSlice = myApi.injectEndpoints({

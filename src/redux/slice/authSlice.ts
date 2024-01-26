@@ -2,7 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   data: {
+<<<<<<< HEAD
     token: null,
+=======
+    token: null
+>>>>>>> 2a0d873 (added persist, removed cookie to manage storage)
   },
 };
 const authSlice = createSlice({

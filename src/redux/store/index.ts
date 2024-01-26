@@ -19,9 +19,13 @@ import { combineReducers } from "redux";
 import storage from "redux-persist/lib/storage";
 import { encryptTransform } from "redux-persist-transform-encrypt";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import authSlice from "../slice/authSlice";
 =======
 >>>>>>> 12dcc4d (added persist & encryption)
+=======
+import authSlice from "../slice/authSlice";
+>>>>>>> 2a0d873 (added persist, removed cookie to manage storage)
 
 const persistConfig = {
   key: "root",

@@ -36,8 +36,12 @@ const UserNavbar = () => {
         {pathname !== "/createProfile" && (
           <NavLink
             to="/profile"
+<<<<<<< HEAD
             className="cursor-pointer dark:text-white font-bold hover:underline"
 >>>>>>> 19cf8ac (updated folder structure, fixed some design inconsistency)
+=======
+            className="font-bold cursor-pointer dark:text-white hover:underline"
+>>>>>>> 2a0d873 (added persist, removed cookie to manage storage)
           >
             Profile
           </NavLink>

@@ -53,7 +53,7 @@ const UserProfile = () => {
                   />
                   <ProfileDetails
                     title={"Skills"}
-                    data={userDetails.profile?.skills?.map((skill, index) => (
+                    data={userDetails?.profile?.skills?.map((skill, index) => (
                       <li className="list-none" key={index}>{`${
                         index + 1
                       }. ${skill}`}</li>
