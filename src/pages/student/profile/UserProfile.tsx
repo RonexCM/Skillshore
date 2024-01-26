@@ -54,6 +54,21 @@ const UserProfile = () => {
                   <ProfileDetails
                     title={"Skills"}
                     data={userDetails?.profile?.skills?.map((skill, index) => (
+=======
+                    data={userDetails.profile.education}
+                  />
+                  <ProfileDetails
+                    title={"Career "}
+                    data={userDetails.profile.career}
+                  />
+                  <ProfileDetails
+                    title={"Experience"}
+                    data={userDetails.profile.experience}
+                  />
+                  <ProfileDetails
+                    title={"Skills"}
+                    data={userDetails.profile?.skills?.map((skill, index) => (
+>>>>>>> 926278e (updated folder structure, fixed some design inconsistency)
                       <li className="list-none" key={index}>{`${
                         index + 1
                       }. ${skill}`}</li>
