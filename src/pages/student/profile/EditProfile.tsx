@@ -64,7 +64,7 @@ const EditProfile = () => {
   return (
     <>
       {UserData?.education && (
-        <div className="h-[full] pl-[70px] pr-[42px] w-[1350px] font-poppins ">
+        <div className="h-[full] pl-[70px] pr-[42px] font-poppins ">
           <div className="flex flex-col justify-start items-left ">
             <div className="text-primary  text-lg flex items-center gap-1 self-start mt-[37px]">
               <div
@@ -91,7 +91,7 @@ const EditProfile = () => {
                 <div className="flex flex-col text-[18px] mb-4 w-full">
                   <label
                     htmlFor="education"
-                    className="mb-2 text-dark text-lg font-normal"
+                    className="mb-2 text-dark text-base font-normal"
                   >
                     Education
                   </label>
@@ -113,7 +113,7 @@ const EditProfile = () => {
                 <div className="flex flex-col text-[18px] mb-4 w-full">
                   <label
                     htmlFor="career"
-                    className="mb-2 text-lg text-dark font-normal"
+                    className="mb-2 text-base text-dark font-normal"
                   >
                     Career
                   </label>
@@ -135,7 +135,7 @@ const EditProfile = () => {
                 <div className="flex flex-col text-[18px] mb-4 w-full">
                   <label
                     htmlFor="experience"
-                    className="mb-2 text-dark text-lg font-normal"
+                    className="mb-2 text-dark text-base font-normal"
                   >
                     Experience
                   </label>
@@ -157,7 +157,7 @@ const EditProfile = () => {
                 <div className="flex flex-col text-[18px] mb-4 w-full">
                   <label
                     htmlFor="skills"
-                    className="mb-2 text-lg text-dark font-normal"
+                    className="mb-2 text-base text-dark font-normal"
                   >
                     Skills
                   </label>

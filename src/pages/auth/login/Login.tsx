@@ -38,7 +38,7 @@ const Login = () => {
 
   return (
     <>
-      <div className="mt-auto shadow-[0_10px_40px_-15px_rgba(0,0,0,0.2)] w-[370px] h-max text-dark rounded-[24px] p-[40px] ">
+      <div className="m-auto shadow-[0_10px_40px_-15px_rgba(0,0,0,0.2)] w-[370px] h-max text-dark rounded-[24px] p-[40px] ">
         <Formik
           initialValues={loginInitialValues}
           onSubmit={onSubmit}
