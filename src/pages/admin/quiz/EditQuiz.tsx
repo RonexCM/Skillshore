@@ -1,77 +1,61 @@
+import { Field, Formik, Form, ErrorMessage } from "formik";
 import {
-  Field,
-  FieldArray,
-  Formik,
-  Form,
-  ErrorMessage,
-  FormikHelpers,
-} from "formik";
-import { validationSchemaAddQuiz } from "../../../validation";
-import { useEffect, useState } from "react";
+  validationSchemaAddQuiz,
+  validationSchemaAddQuizCategory,
+} from "../../../validation";
 import { useNavigate } from "react-router-dom";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { AiFillHome } from "react-icons/ai";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
-import { TAddQuizFieldType, TQuestionCategoryFetchAllType } from "../types";
-import { MdAdd, MdOutlineRemove } from "react-icons/md";
-import { Tooltip } from "flowbite-react";
+import { TAddQuizFieldType } from "../types";
+import { useGetAllQuestionCategoriesQuery } from "../../../redux/services/myQuestionCategoryApiEndpoints";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
-import { useGetAllQuizCategoriesQuery } from "../../../redux/services/myQuizCategoryApiEndpoints";
-import { useAddQuizMutation } from "../../../redux/services/myQuizApiEndpoints";
-import { saveAllQuizCategoriesList } from "../../../redux/slice/quizCategorySlice/allQuizCategoriesListSlice";
-import { useGetAllQuestionCategoriesQuery } from "../../../redux/services/myQuestionCategoryApiEndpoints";
-import { saveAllQuestionCategoriesList } from "../../../redux/slice/questionCategorySlice/allQuestionCategoriesListSlice";
+import { useEditQuizMutation } from "../../../redux/services/myQuizApiEndpoints";
 
-const AddQuiz = () => {
+const EditQuiz = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { data: allQuizCategoriesList } = useGetAllQuizCategoriesQuery();
-  const [addQuiz, { error, isError }] = useAddQuizMutation();
-  const { data: allQuestionCategoriesData } =
-    useGetAllQuestionCategoriesQuery();
 
-  const [questionCategories, setQuestionCategories] = useState<
-    TQuestionCategoryFetchAllType[]
-  >([]);
-  useEffect(() => {
-    if (allQuizCategoriesList && "data" in allQuizCategoriesList) {
-      dispatch(saveAllQuizCategoriesList(allQuizCategoriesList["data"]));
-    }
-    if (allQuestionCategoriesData) {
-      dispatch(saveAllQuestionCategoriesList(allQuestionCategoriesData.data));
-      setQuestionCategories(allQuestionCategoriesData.data);
-    }
-  }, [allQuizCategoriesList, allQuestionCategoriesData]);
-  const allQuizCategories = useSelector(
-    (state: RootState) => state.allQuizCategories.data
-  );
+  // const { data: allQuizCategoriesList } =
+  //   useGetAllQuizCategoriesQuery();
+  //   const quizCategoriesList = useSelector(
+  //     (state: RootState) => state.allQuizCategories
+  //   );
+  // const { data: allQuestionCategoriesList } =
+  //   useGetAllQuestionCategoriesQuery();
+  //   const questionCategoriesList = useSelector(
+  //     (state: RootState) => state.allQuestionCategories
+  //   );
 
+  const { data: quizData } = useSelector((state: RootState) => state.quiz);
+  const { id, category, ...rest } = quizData;
+  const initialValues = { ...rest, category_id: category.id };
+
+  const [editQuiz, { isError, error }] = useEditQuizMutation();
   //   ----------formik objects----------
-  const initialValues = useSelector((state: RootState) => state.addQuiz);
-
   /**
    * when add button is clicked form is submitted with
    * @param values
    */
-  const onSubmit = async (
-    values: TAddQuizFieldType,
-    actions: FormikHelpers<TAddQuizFieldType>
-  ) => {
-    console.log(values);
-    await addQuiz(values);
+  const onSubmit = async (values: TAddQuizFieldType) => {
+    const editedValues = { ...values, id: id };
+    await editQuiz(editedValues);
     if (isError) {
-      toast.error("Error adding question!");
+      toast.error("Error editing quiz category!");
       console.log(error);
     } else {
-      const { resetForm } = actions;
-      toast.success("Question added!");
-      resetForm();
+      toast.success("Quiz category edited!", {
+        autoClose: 400,
+        hideProgressBar: true,
+        onClose: () => {
+          navigate(-1);
+        },
+      });
     }
   };
-
-  const navigate = useNavigate();
 
   return (
     <motion.div
@@ -86,16 +70,16 @@ const AddQuiz = () => {
             onClick={() => navigate(-1)}
           >
             <AiFillHome className="text-lg" />
-            <span className="hover:underline">Quiz</span>
+            <span className="hover:underline">Quiz Category</span>
           </div>
           <MdOutlineKeyboardArrowRight className="text-xl" />
-          <span className="text-[#82a6ef]"> New Quiz</span>
+          <span className="text-[#82a6ef]">Edit Category</span>
         </div>
-        <h1 className="text-primary font-medium text-2xl">New Quiz</h1>
+        <h1 className="text-primary font-medium text-2xl">Edit Category</h1>
       </div>
 
       <Formik
-        initialValues={initialValues.data}
+        initialValues={initialValues}
         onSubmit={onSubmit}
         validationSchema={validationSchemaAddQuiz}
       >
@@ -136,14 +120,7 @@ const AddQuiz = () => {
                     autoComplete="current-category_id"
                     name="category_id"
                     className="p-1 px-2 text-sm rounded-md w-full  border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary"
-                  >
-                    <option value="">select category...</option>
-                    {allQuizCategories.map((quizCategory, index) => (
-                      <option key={index} value={quizCategory.id}>
-                        {quizCategory.id}
-                      </option>
-                    ))}
-                  </Field>
+                  ></Field>
                 </div>
                 <ErrorMessage
                   className="text-red-500 text-xs "
@@ -192,7 +169,26 @@ const AddQuiz = () => {
                   name="description"
                 />
               </div>
-
+              {/* thumbnail textarea field and error message */}
+              <div className=" h-[76px]">
+                <div className=" flex flex-col gap-2  ">
+                  <label htmlFor="thumbnail" className="text-base text-dark">
+                    Thumbnail
+                  </label>
+                  <Field
+                    type="file"
+                    id="thumbnail"
+                    autoComplete="current-thumbnail"
+                    name="thumbnail"
+                    className="p-1 px-2 text-sm rounded-md border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full"
+                  />
+                </div>
+                <ErrorMessage
+                  className="text-red-500 text-xs "
+                  component="div"
+                  name="thumbnail"
+                />
+              </div>
               {/* time textarea field and error message */}
               <div className=" h-[76px]">
                 <div className=" flex flex-col gap-2  ">
@@ -233,26 +229,6 @@ const AddQuiz = () => {
                   name="retry_after"
                 />
               </div>
-              {/* thumbnail textarea field and error message */}
-              <div className="h-[76px]">
-                <div className=" flex flex-col gap-2  ">
-                  <label htmlFor="thumbnail" className="text-base text-dark">
-                    Thumbnail
-                  </label>
-                  <Field
-                    type="file"
-                    id="thumbnail"
-                    autoComplete="current-thumbnail"
-                    name="thumbnail"
-                    className=" text-sm rounded-md border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full"
-                  />
-                </div>
-                <ErrorMessage
-                  className="text-red-500 text-xs "
-                  component="div"
-                  name="thumbnail"
-                />
-              </div>
             </div>
 
             {/* submit button */}
@@ -271,4 +247,4 @@ const AddQuiz = () => {
   );
 };
 
-export default AddQuiz;
+export default EditQuiz;

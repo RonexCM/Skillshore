@@ -2,53 +2,51 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ListOfQuiz, Pagination } from "../../../components";
 import { IoSearch } from "react-icons/io5";
-import { useGetAllQuizQuery } from "../../../redux/services/myQuizApiEndpoints";
-import { QuizType } from "../types";
-import { useLoadingState } from "../../../layouts/AdminLayout";
 import { motion } from "framer-motion";
-const Quiz = () => {
-  const { data, isLoading, isError } = useGetAllQuizQuery();
-  const [searchTerm, setSearchTerm] = useState("");
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
+import { useLoadingState } from "../../../layouts/AdminLayout";
+import { TQuizType } from "../types";
+import { useGetQuizzesQuery } from "../../../redux/services/myQuizApiEndpoints";
+import {
+  saveQuizList,
+  saveQuizMetaData,
+} from "../../../redux/slice/quizSlice/quizListSlice";
+
+const Question = () => {
+  const dispatch = useDispatch();
+
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
-  const [quizPerPage, _] = useState(5);
-  const [quiz, setQuiz] = useState<QuizType[]>([]);
+  const [startingIndex, setStartingIndex] = useState(1);
+  const {
+    data: quizzesData,
+    isLoading,
+    isError,
+  } = useGetQuizzesQuery(currentPageNumber);
   useEffect(() => {
-    if (data) {
-      setQuiz(data);
+    if (quizzesData) {
+      dispatch(saveQuizList(quizzesData.data));
+      dispatch(saveQuizMetaData(quizzesData.meta));
     }
     setShowLoader(isLoading);
-  }, [data, isLoading]);
-  const { setShowLoader } = useLoadingState();
-  const indexOfLastQuiz = currentPageNumber * quizPerPage;
-  const indexOfFirstQuiz = indexOfLastQuiz - quizPerPage;
-  const filterQuizList = () => {
-    try {
-      if (!searchTerm) {
-        return quiz;
-      }
-      return quiz.filter((quiz: QuizType) =>
-        quiz.title.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const filteredQuizList = filterQuizList();
-  const currentQuizs = filteredQuizList?.slice(
-    indexOfFirstQuiz,
-    indexOfLastQuiz
+    setStartingIndex(currentPageNumber * 10 - 9);
+  }, [quizzesData, isLoading]);
+
+  const { data: quizList, meta } = useSelector(
+    (state: RootState) => state.quizList
   );
-  const totalNumberOfPages = filteredQuizList
-    ? Math.ceil(filteredQuizList.length / quizPerPage)
-    : 1;
+  // console.log(quizList);
+  const loadingState = useLoadingState();
+
+  const { setShowLoader } = loadingState;
 
   return (
     <motion.div
       initial={{ opacity: 0.2 }}
       animate={{ opacity: 1 }}
-      className="flex flex-col basis-full  gap-5 p-5 px-8 "
+      className="flex flex-col basis-full  gap-5 py-10 px-8 "
     >
-      <h1 className="text-primary font-medium text-2xl py-5">Quiz</h1>
+      <h1 className="text-primary font-medium text-2xl leading-4">Quiz</h1>
 
       <div className="flex justify-between">
         <div className="relative">
@@ -56,32 +54,28 @@ const Quiz = () => {
           <input
             type="text"
             id="table-search"
-            value={searchTerm}
-            onChange={(e) => {
-              setSearchTerm(e.target.value);
-              setCurrentPageNumber(1);
-            }}
-            className="block p-2 ps-10  text-sm text-gray-900 border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary rounded-lg w-80 bg-gray-50  "
+            value=""
+            onChange={() => {}}
+            className="block p-2 ps-10  text-sm text-gray-900 border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary rounded-md w-80 bg-gray-50  "
             placeholder="Search Quiz"
           ></input>
         </div>
         <Link
-          to="add-quiz"
-          className="bg-dark text-primary-light rounded-lg text-xs font-medium py-button-padding-y px-button-padding-x outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"
+          to="addQuiz"
+          className="bg-dark transition-colors flex items-center text-primary-light rounded-lg text-xs font-medium py-button-padding-y px-button-padding-x outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"
         >
-          +Add Quiz
+          <span>+Add Quiz</span>
         </Link>
       </div>
-      <div className=" main-container relative flex flex-col h-full  outline outline-2  outline-primary-light w-full rounded-xl text-center ">
+      <div className=" main-container relative flex flex-col min-h-[666px] outline outline-2  outline-primary-light w-full rounded-md text-center ">
         {isError && (
           <p className="absolute top-[50%] left-[50%] translate-x-[-50%]">
             No Data Found
           </p>
         )}
-        <div className="shadow-md text-primary-light "></div>
-        <div className="title-and-table-div basis-full overflow-y-hidden">
+        <div className="title-and-table-div basis-full relative overflow-y-hidden">
           <table className="w-full text-sm text-left  text-dark">
-            <thead className="border-b-2 border-primary-light h-16">
+            <thead className="border-b-2 border-primary-light bg-[#fcfcfc] shadow-inner h-14">
               <tr>
                 <th scope="col" className="p-2 w-[8%] ">
                   <div className="flex items-center pl-2 w-[20px] text-sm font-semibold">
@@ -96,9 +90,12 @@ const Quiz = () => {
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 w-[17%] text-sm font-semibold "
+                  className="px-6 relative py-3 w-[17%] text-sm font-semibold "
                 >
-                  Time
+                  Time&nbsp;
+                  <span className="text-[10px] absolute opacity-60 top-[32px] left-[18px]">
+                    {"(minutes)"}
+                  </span>
                 </th>
                 <th
                   scope="col"
@@ -113,20 +110,26 @@ const Quiz = () => {
             </thead>
 
             <tbody>
-              {currentQuizs?.map((quiz: any, index) => (
-                <ListOfQuiz key={index} quiz={quiz} />
-              ))}
+              {quizList[0].title.length > 1 &&
+                quizList?.map((quiz: TQuizType, index: number) => (
+                  <ListOfQuiz
+                    key={index}
+                    quiz={quiz}
+                    index={index}
+                    startingIndex={startingIndex}
+                  />
+                ))}
             </tbody>
           </table>
         </div>
         <nav
-          className="flex items-center flex-column  border-t-2 flex-wrap md:flex-row justify-between pt-4 p-3"
+          className="flex items-center bg-[#fcfcfc] flex-column  border-t-2 flex-wrap md:flex-row justify-between pt-4 p-3"
           aria-label="Table navigation"
         >
           <Pagination
             setCurrentPageNumber={setCurrentPageNumber}
-            currentPageNumber={currentPageNumber}
-            totalNumberOfPages={totalNumberOfPages}
+            currentPageNumber={meta.current_page}
+            totalNumberOfPages={meta.last_page}
           />
         </nav>
       </div>
@@ -134,4 +137,4 @@ const Quiz = () => {
   );
 };
 
-export default Quiz;
+export default Question;

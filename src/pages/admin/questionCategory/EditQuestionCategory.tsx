@@ -1,49 +1,47 @@
-import { Field, Formik, Form, ErrorMessage, FormikHelpers } from "formik";
-import {
-  validationSchemaAddQuestion,
-  validationSchemaAddQuiz,
-  validationSchemaAddQuizCategory,
-} from "../../../validation";
+import { Field, Formik, Form, ErrorMessage } from "formik";
+import { validationSchemaAddQuestionCategory } from "../../../validation";
 import { useNavigate } from "react-router-dom";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { AiFillHome } from "react-icons/ai";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
-import { TAddQuizCategoryFieldType } from "../types";
-import { useDispatch, useSelector } from "react-redux";
+import { TAddQuestionCategoryFieldType } from "../types";
+import { useEditQuestionCategoryMutation } from "../../../redux/services/myQuestionCategoryApiEndpoints";
+import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
-import { useAddQuizCategoryMutation } from "../../../redux/services/myQuizCategoryApiEndpoints";
 
-const AddQuizCategory = () => {
-  const dispatch = useDispatch();
-  const [addQuizCategory, { error, isError }] = useAddQuizCategoryMutation();
+const EditQuestionCategory = () => {
+  const navigate = useNavigate();
+  const { data: questionCategoryData } = useSelector(
+    (state: RootState) => state.questionCategory
+  );
+  const { id, ...rest } = questionCategoryData;
+  const initialValues = { ...rest };
+  const [editQuestionCategory, { isError, error }] =
+    useEditQuestionCategoryMutation();
 
   //   ----------formik objects----------
-  const initialValues = useSelector(
-    (state: RootState) => state.addQuizCategory
-  );
   /**
    * when add button is clicked form is submitted with
    * @param values
    */
-  const onSubmit = async (
-    values: TAddQuizCategoryFieldType,
-    actions: FormikHelpers<TAddQuizCategoryFieldType>
-  ) => {
-    console.log(values);
-    await addQuizCategory(values);
+  const onSubmit = async (values: TAddQuestionCategoryFieldType) => {
+    const editedValues = { ...values, id: id };
+    await editQuestionCategory(editedValues);
     if (isError) {
-      toast.error("Error adding category!");
+      toast.error("Error editing question category!");
       console.log(error);
     } else {
-      const { resetForm } = actions;
-      toast.success("Category added!");
-      resetForm();
+      toast.success("Question category edited!", {
+        autoClose: 400,
+        hideProgressBar: true,
+        onClose: () => {
+          navigate(-1);
+        },
+      });
     }
   };
-
-  const navigate = useNavigate();
 
   return (
     <motion.div
@@ -58,18 +56,18 @@ const AddQuizCategory = () => {
             onClick={() => navigate(-1)}
           >
             <AiFillHome className="text-lg" />
-            <span className="hover:underline">Quiz Category</span>
+            <span className="hover:underline">Question Category</span>
           </div>
           <MdOutlineKeyboardArrowRight className="text-xl" />
-          <span className="text-[#82a6ef]"> New Category</span>
+          <span className="text-[#82a6ef]">Edit Category</span>
         </div>
-        <h1 className="text-primary font-medium text-2xl">New Category </h1>
+        <h1 className="text-primary font-medium text-2xl">Edit Category</h1>
       </div>
 
       <Formik
-        initialValues={initialValues.data}
+        initialValues={initialValues}
         onSubmit={onSubmit}
-        validationSchema={validationSchemaAddQuizCategory}
+        validationSchema={validationSchemaAddQuestionCategory}
       >
         {({ handleChange }) => (
           // form field in 2 grid columns
@@ -122,7 +120,7 @@ const AddQuizCategory = () => {
               type="submit"
               className="bg-dark w-max row-start-6 text-primary-light rounded-md text-base font-medium py-button-padding-y px-28 mt-5 outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"
             >
-              Add
+              Confirm Edit
             </button>
           </Form>
         )}
@@ -133,4 +131,4 @@ const AddQuizCategory = () => {
   );
 };
 
-export default AddQuizCategory;
+export default EditQuestionCategory;

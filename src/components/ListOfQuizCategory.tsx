@@ -1,54 +1,57 @@
 import { useState } from "react";
-import DeleteQuizCategoryModal from "../pages/admin/modals/quizCategoryModals/DeleteQuizCategoryModal";
-import EditQuizCategoryModal from "../pages/admin/modals/quizCategoryModals/EditQuizCategoryModal";
 import { Tooltip } from "flowbite-react";
 import { useDispatch } from "react-redux";
-import { saveQuizCategoryDetails } from "../redux/slice/quizCategorySlice/editQuizCategorySlice";
-import { QuizCategoryType } from "../pages/admin/types";
+import { useNavigate } from "react-router-dom";
+import { TQuizCategoryType } from "../pages/admin/types";
+import { motion } from "framer-motion";
+import { saveQuizCategory } from "../redux/slice/quizCategorySlice/quizCategorySlice";
+import { useDeleteQuizCategoryMutation } from "../redux/services/myQuizCategoryApiEndpoints";
+import DeleteModal from "./modals/DeleteModal";
+
 type Props = {
-  quizCategory: QuizCategoryType;
+  quizCategory: TQuizCategoryType;
   index: number;
+  startingIndex: number;
 };
 
-const ListOfQuizCategorys = ({ quizCategory, index }: Props) => {
+const ListOfQuizCategory = ({ quizCategory, index, startingIndex }: Props) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [deleteQuizCategory] = useDeleteQuizCategoryMutation();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [showEditModal, setShowEditModal] = useState(false);
   const handleEdit = () => {
-    dispatch(saveQuizCategoryDetails(quizCategory));
-    setShowEditModal(true);
+    dispatch(saveQuizCategory(quizCategory));
+    navigate(`editQuizCategory`);
+    // navigate(`editQuizCategory/${quizCategory.id}`);
   };
   const handleDelete = () => {
     setShowDeleteModal(true);
   };
+
   return (
     <>
-      <tr
+      <motion.tr
+        initial={{ opacity: 0.55 }}
+        animate={{ opacity: 1 }}
         key={quizCategory.id}
-        className=" bg-white border-b hover:bg-gray-50 
-        "
+        className="bg-white border-b hover:bg-gray-50 "
       >
-        <td className="p-6  ">
-          <div className="flex items-center">{index + 1}</div>
+        <td className="pl-6 ">
+          <div className="flex my-4 items-center whitespace-nowrap">
+            {startingIndex + index}
+          </div>
         </td>
-        <th
-          scope="row"
-          className=" px-2  py-3 font-normal  text-gray-900 whitespace-normal break-all"
-        >
-          {quizCategory.title}
-        </th>
-
-        <td className="px-6 py-3">
-          <div className="flex gap-2">
+        <td className="px-6 font-normal text-gray-900 ">
+          <div className="line-clamp-1">{quizCategory.title}</div>
+        </td>
+        <td className="px-6">
+          <div className="flex items-center gap-2">
             <Tooltip content="Edit" className="text-blue-600" style="light">
               <button
                 onClick={handleEdit}
                 className="font-medium  text-blue-600 dark:text-blue-500 hover:underline"
               >
-                <span
-                  data-tooltip-target="tooltip-default"
-                  className="material-symbols-outlined  text-blue-600 dark:text-blue-500 hover:underline "
-                >
+                <span className="relative material-symbols-outlined  text-blue-600 dark:text-blue-500 hover:underline ">
                   Edit
                 </span>
               </button>
@@ -65,18 +68,17 @@ const ListOfQuizCategorys = ({ quizCategory, index }: Props) => {
             </Tooltip>
           </div>
         </td>
-      </tr>
+      </motion.tr>
       {showDeleteModal && (
-        <DeleteQuizCategoryModal
+        <DeleteModal
           setShowModal={setShowDeleteModal}
           id={quizCategory.id}
+          deleteFunction={deleteQuizCategory}
+          modalFor={"quiz category"}
         />
-      )}
-      {showEditModal && (
-        <EditQuizCategoryModal setShowModal={setShowEditModal} />
       )}
     </>
   );
 };
 
-export default ListOfQuizCategorys;
+export default ListOfQuizCategory;

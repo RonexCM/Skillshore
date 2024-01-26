@@ -1,21 +1,41 @@
-import { TQuizType } from "../../pages/admin/types";
+import {
+  TQuizType,
+  TFetchQuizzesQueryTransformReturnType,
+  TFetchQuizzesType,
+  TAddQuizFieldType,
+  TEditQuizFieldType,
+} from "../../pages/admin/types";
 import { myApi } from "./myApi";
 
 const myQuizApiEndpoints = myApi.injectEndpoints({
   endpoints: (builder) => ({
-    getAllQuiz: builder.query<TQuizType[], void>({
-      query: () => "/admin/quizzes",
+    getQuizzes: builder.query<TFetchQuizzesQueryTransformReturnType, number>({
+      query: (page) => `/admin/quizzes?page=${page}`,
       providesTags: ["FetchQuizzes"],
+      transformResponse: (response: TFetchQuizzesType) => {
+        return { data: response.data, meta: response.meta };
+      },
     }),
-    addQuiz: builder.mutation<TQuizType, TQuizType>({
-      query: (body: TQuizType) => ({
-        url: "/amdin/quizzes",
+    getSingleQuiz: builder.query<TQuizType, number>({
+      query: (id) => `/admin/quizzes/${id}`,
+    }),
+    addQuiz: builder.mutation<TAddQuizFieldType, TAddQuizFieldType>({
+      query: (body: TAddQuizFieldType) => ({
+        url: "/admin/quizzes",
         method: "POST",
         body,
       }),
       invalidatesTags: ["FetchQuizzes"],
     }),
-    deleteQuiz: builder.mutation<void, string>({
+    editQuiz: builder.mutation<TEditQuizFieldType, TEditQuizFieldType>({
+      query: ({ id, ...rest }) => ({
+        url: `/admin/quizzes/${id}`,
+        method: "PUT",
+        body: { ...rest },
+      }),
+      invalidatesTags: ["FetchQuizzes"],
+    }),
+    deleteQuiz: builder.mutation<void, number>({
       query: (id) => ({
         url: `/admin/quizzes/${id}`,
         method: "DELETE",
@@ -25,5 +45,10 @@ const myQuizApiEndpoints = myApi.injectEndpoints({
   }),
 });
 
-export const { useGetAllQuizQuery, useAddQuizMutation, useDeleteQuizMutation } =
-  myQuizApiEndpoints;
+export const {
+  useEditQuizMutation,
+  useGetQuizzesQuery,
+  useGetSingleQuizQuery,
+  useAddQuizMutation,
+  useDeleteQuizMutation,
+} = myQuizApiEndpoints;

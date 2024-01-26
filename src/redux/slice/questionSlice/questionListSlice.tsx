@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { QuestionType, QuestionMetaType } from "../../../pages/admin/types";
+import { TQuestionType } from "../../../pages/admin/types";
+import { TCommonMetaType } from "../../../pages/admin/types/TCommonTypes";
 
 const initialState = {
   data: [
@@ -30,10 +31,10 @@ const questionListSlice = createSlice({
   name: "questionListSlice",
   initialState,
   reducers: {
-    saveQuestionList: (state, action: PayloadAction<QuestionType[]>) => {
+    saveQuestionList: (state, action: PayloadAction<TQuestionType[]>) => {
       state.data = action.payload;
     },
-    saveQuestionsMetaData: (state, action: PayloadAction<QuestionMetaType>) => {
+    saveQuestionsMetaData: (state, action: PayloadAction<TCommonMetaType>) => {
       state.meta = action.payload;
     },
   },

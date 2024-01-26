@@ -7,7 +7,7 @@ import {
 } from "../../pages/admin/types";
 import { myApi } from "./myApi";
 
-const myApiEndpoints = myApi.injectEndpoints({
+const myQuestionApiEndpoints = myApi.injectEndpoints({
   endpoints: (builder) => ({
     getQuestions: builder.query<
       TFetchQuestionsQueryTransformReturnType,
@@ -19,8 +19,8 @@ const myApiEndpoints = myApi.injectEndpoints({
         return { data: response.data, meta: response.meta };
       },
     }),
-    getSingleQuestion: builder.query<TQuestionType, number>({
-      query: (id) => `/questions/${id}`,
+    getSingleQuestion: builder.query<TQuestionType, string>({
+      query: (id) => `/admin/questions/${id}`,
     }),
     addQuestion: builder.mutation<TAddQuestionFieldType, TAddQuestionFieldType>(
       {
@@ -60,4 +60,4 @@ export const {
   useDeleteQuestionMutation,
   useEditQuestionMutation,
   useGetSingleQuestionQuery,
-} = myApiEndpoints;
+} = myQuestionApiEndpoints;

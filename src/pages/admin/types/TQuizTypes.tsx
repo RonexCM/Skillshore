@@ -4,7 +4,7 @@ export type TQuizType = {
   id: number;
   title: string;
   slug: string;
-  thumbnail: string;
+  thumbnail: File | null;
   description: string;
   time: number;
   retry_after: number;
@@ -19,7 +19,7 @@ export type TAddQuizFieldType = {
   title: string;
   slug: string;
   category_id: number;
-  thumbnail: File;
+  thumbnail: File | null;
   description: string;
   time: number;
   retry_after: number;
@@ -28,13 +28,13 @@ export type TAddQuizFieldType = {
   pass_percentage: number;
 };
 
-export type FetchQuestionsType = {
+export type TFetchQuizzesType = {
   data: TQuizType[];
   links: TCommonLinksType;
   meta: TCommonMetaType;
 };
 
-export type FetchQuestionsQueryTransformReturnType = {
+export type TFetchQuizzesQueryTransformReturnType = {
   data: TQuizType[];
   meta: TCommonMetaType;
 };
@@ -44,11 +44,19 @@ export type TEditQuizFieldType = {
   title: string;
   slug: string;
   category_id: number;
-  thumbnail: File;
+  thumbnail: File | null;
   description: string;
   time: number;
   retry_after: number;
   question_categories: number[];
   status: number;
   pass_percentage: number;
+};
+
+export type TAddQuizFieldInitialStateType = {
+  data: TAddQuizFieldType;
+};
+
+export type TEditQuizFieldInitialStateType = {
+  data: TQuizType;
 };

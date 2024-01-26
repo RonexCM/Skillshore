@@ -2,14 +2,14 @@ import { useEffect } from "react";
 import ReactDom from "react-dom";
 import { IoClose } from "react-icons/io5";
 import { BiMessageError } from "react-icons/bi";
-import { useDeleteQuizCategoryMutation } from "../../../../redux/services/myQuizCategoryApiEndpoints";
 type Props = {
+  deleteFunction: (id: number) => void;
+  modalFor: string;
   setShowModal: (a: boolean) => void;
-  id: string;
+  id: number;
 };
 
-const DeleteQuizCategoryModal = ({ setShowModal, id }: Props) => {
-  const [deleteQuizCategory] = useDeleteQuizCategoryMutation();
+const DeleteModal = ({ setShowModal, id, deleteFunction, modalFor }: Props) => {
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
@@ -18,8 +18,7 @@ const DeleteQuizCategoryModal = ({ setShowModal, id }: Props) => {
   }, []);
 
   const handleDelete = async () => {
-    //hit delete api
-    await deleteQuizCategory(id);
+    await deleteFunction(id);
     setShowModal(false);
   };
 
@@ -30,7 +29,6 @@ const DeleteQuizCategoryModal = ({ setShowModal, id }: Props) => {
       setShowModal(false);
     }
   };
-
   return ReactDom.createPortal(
     <>
       <div
@@ -47,7 +45,7 @@ const DeleteQuizCategoryModal = ({ setShowModal, id }: Props) => {
           <BiMessageError className="text-6xl text-[#868686]" />
 
           <h1 className=" text-center my-2 mb-3 font-medium text-base">
-            Are you sure you want to delete this quiz category?
+            Are you sure you want to delete this {modalFor}?
           </h1>
           <div className="flex gap-4">
             <button
@@ -70,4 +68,4 @@ const DeleteQuizCategoryModal = ({ setShowModal, id }: Props) => {
   );
 };
 
-export default DeleteQuizCategoryModal;
+export default DeleteModal;

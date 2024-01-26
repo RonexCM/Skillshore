@@ -15,32 +15,34 @@ import { useAddQuestionMutation } from "../../../redux/services/myQuestionApiEnd
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
-import { AddQuestionFieldType, QuestionType } from "../types";
-import { useGetAllQuestionCategoriesQuery } from "../../../redux/services/myQuestionCategoryApiEndpoints";
+import {
+  TAddQuestionFieldType,
+  TQuestionCategoryListFetchAllType,
+} from "../types";
 import { MdAdd, MdOutlineRemove } from "react-icons/md";
 import { Tooltip } from "flowbite-react";
 import { useDispatch, useSelector } from "react-redux";
-import { saveAllQuestionCategoriesList } from "../../../redux/slice/questionCategorySlice/allQuestionCategoriesListSlice";
 import { RootState } from "../../../redux/store";
+import { useGetAllQuestionCategoriesQuery } from "../../../redux/services/myQuestionCategoryApiEndpoints";
+import { saveAllQuestionCategoriesList } from "../../../redux/slice/questionCategorySlice/allQuestionCategoriesListSlice";
 
 const AddQuestion = () => {
   const dispatch = useDispatch();
-  const { data: allQuestionCategoriesList } =
+  const { data: allQuestionCategoriesListData } =
     useGetAllQuestionCategoriesQuery();
-  const [addQuestion, { error, isError }] = useAddQuestionMutation();
-  const questionCategoriesList = useSelector(
-    (state: RootState) => state.allQuestionCategories
-  );
   useEffect(() => {
-    if (allQuestionCategoriesList && "data" in allQuestionCategoriesList) {
-      // LAST WORKED HERE ------------------>
+    if (allQuestionCategoriesListData) {
       dispatch(
-        saveAllQuestionCategoriesList(allQuestionCategoriesList["data"])
+        saveAllQuestionCategoriesList(allQuestionCategoriesListData.data)
       );
     }
-  }, [allQuestionCategoriesList]);
+  }, [allQuestionCategoriesListData]);
+  const [addQuestion, { error, isError }] = useAddQuestionMutation();
+  const questionCategoriesListData: TQuestionCategoryListFetchAllType =
+    useSelector((state: RootState) => state.allQuestionCategories);
+  const questionCategoriesList = questionCategoriesListData["data"];
 
-  const [totalOptions, _] = useState(3);
+  const [totalOptions, _] = useState(2);
 
   //   ----------formik objects----------
   const initialValues = useSelector((state: RootState) => state.addQuestion);
@@ -49,10 +51,9 @@ const AddQuestion = () => {
    * @param values
    */
   const onSubmit = async (
-    values: AddQuestionFieldType,
-    actions: FormikHelpers<AddQuestionFieldType>
+    values: TAddQuestionFieldType,
+    actions: FormikHelpers<TAddQuestionFieldType>
   ) => {
-    console.log(values);
     await addQuestion(values);
     if (isError) {
       toast.error("Error adding question!");
@@ -146,13 +147,11 @@ const AddQuestion = () => {
                     className="p-1 px-2 text-sm rounded-md w-full  border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary"
                   >
                     <option value="">select category id...</option>
-                    {questionCategoriesList["data"].map(
-                      (questionCategory, index) => (
-                        <option key={index} value={questionCategory.id}>
-                          {questionCategory.id}
-                        </option>
-                      )
-                    )}
+                    {questionCategoriesList?.map((questionCategory, index) => (
+                      <option key={index} value={questionCategory.id}>
+                        {questionCategory.id}
+                      </option>
+                    ))}
                   </Field>
                 </div>
                 <ErrorMessage
@@ -249,7 +248,7 @@ const AddQuestion = () => {
                               className="flex items-center bg-primary-light p-[4px] rounded-md"
                               type="button"
                               onClick={() => {
-                                if (optionsArray.length < 4) {
+                                if (optionsArray.length < 6) {
                                   push("");
                                   setOptionsArray([...optionsArray, ""]);
                                 }
@@ -268,7 +267,7 @@ const AddQuestion = () => {
                               className="flex items-center bg-primary-light p-[4px] rounded-md"
                               type="button"
                               onClick={() => {
-                                if (optionsArray.length > 3) {
+                                if (optionsArray.length > 2) {
                                   pop();
                                   const indexToRemove = optionsArray.length - 1;
                                   setOptionsArray(

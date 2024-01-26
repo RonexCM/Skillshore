@@ -1,73 +1,82 @@
-import { useState } from "react";
-import DeleteQuizModal from "../pages/admin/modals/quizModals/DeleteQuizModal";
-import EditQuizModal from "../pages/admin/modals/quizModals/EditQuizModal";
-import { Tooltip } from "flowbite-react";
+import { useEffect, useState } from "react";
+import { Tooltip, Badge } from "flowbite-react";
+import { useNavigate } from "react-router-dom";
+import { TQuizType } from "../pages/admin/types";
+import { motion } from "framer-motion";
+import { useDeleteQuizMutation } from "../redux/services/myQuizApiEndpoints";
+import DeleteModal from "./modals/DeleteModal";
+import { useDispatch } from "react-redux";
+import { saveQuiz } from "../redux/slice/quizSlice/quizSlice";
 
 type Props = {
-  quiz: any;
+  quiz: TQuizType;
+  index: number;
+  startingIndex: number;
 };
 
-const ListOfQuiz = ({ quiz }: Props) => {
-  const [active, setActive] = useState(false);
+const ListOfQuiz = ({ quiz, index, startingIndex }: Props) => {
+  const navigate = useNavigate();
+  const [deleteQuiz] = useDeleteQuizMutation();
+  const dispatch = useDispatch();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [showEditModal, setShowEditModal] = useState(false);
+  const [active, setActive] = useState(false);
   const handleEdit = () => {
-    setShowEditModal(true);
+    dispatch(saveQuiz(quiz));
+    navigate(`editQuiz`);
+    // navigate(`editQuiz/${quiz.id}`);
   };
   const handleDelete = () => {
     setShowDeleteModal(true);
   };
 
-  // useEffect(() => {
-  //   if (quiz.status === "Active") {
-  //     setActive(true);
-  //   } else {
-  //     setActive(false);
-  //   }
-  // }, [quiz.status, setActive]);
-  const handleActiveChange = async () => {
-    // await changeStatus({
-    //   id: quiz.id,
-    //   status: active ? "Inactive" : "Active",
-    // });
-    // setActive(!active);
-  };
+  useEffect(() => {
+    if (quiz.status === 1) {
+      setActive(true);
+    } else {
+      setActive(false);
+    }
+  }, [quiz.status, setActive]);
   return (
     <>
-      <tr key={quiz.id} className="bg-white border-b hover:bg-gray-50">
-        <td className=" ps-5">
-          <div className="flex items-center whitespace-nowrap">{quiz.id}</div>
+      <motion.tr
+        initial={{ opacity: 0.55 }}
+        animate={{ opacity: 1 }}
+        key={quiz.id}
+        className="bg-white border-b hover:bg-gray-50 "
+      >
+        <td className="pl-6 ">
+          <div className="flex my-4 items-center whitespace-nowrap">
+            {startingIndex + index}
+          </div>
         </td>
-        <th
-          scope="row"
-          className=" px-6 py-3 font-normal  text-gray-900 whitespace-normal break-all"
-        >
-          {quiz.title}
-        </th>
+        <td className="px-6 font-normal text-gray-900 ">
+          <div className="line-clamp-1">{quiz.title}</div>
+        </td>
+        <td className="px-6 font-normal text-gray-900  whitespace-nowrap">
+          {quiz.time}
+        </td>
+        <td className=" px-6 font-normal text-gray-900 whitespace-nowrap">
+          <div className="w-max">
+            {active ? (
+              <Badge color="success" size="sm">
+                Active
+              </Badge>
+            ) : (
+              <Badge color="failure" size="sm">
+                Inactive
+              </Badge>
+            )}
+          </div>
+        </td>
 
-        <td className="px-6 py-3 font-normal text-gray-900 whitespace-nowrap  text-start-">
-          {quiz.timer}
-        </td>
-        <td className="px-6 py-3 w-[20%] ps-9 font-semibold">
-          {quiz.status === "active" ? (
-            <span className="bg-green-100 text-green-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
-              Active
-            </span>
-          ) : (
-            <span className="bg-red-100 text-red-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
-              Inactive
-            </span>
-          )}
-        </td>
-
-        <td className="px-6 py-3">
-          <div className="flex gap-2">
+        <td className="px-6">
+          <div className="flex items-center gap-2">
             <Tooltip content="Edit" className="text-blue-600" style="light">
               <button
                 onClick={handleEdit}
                 className="font-medium  text-blue-600 dark:text-blue-500 hover:underline"
               >
-                <span className="material-symbols-outlined  text-blue-600 dark:text-blue-500 hover:underline ">
+                <span className="relative material-symbols-outlined  text-blue-600 dark:text-blue-500 hover:underline ">
                   Edit
                 </span>
               </button>
@@ -84,11 +93,15 @@ const ListOfQuiz = ({ quiz }: Props) => {
             </Tooltip>
           </div>
         </td>
-      </tr>
+      </motion.tr>
       {showDeleteModal && (
-        <DeleteQuizModal setShowModal={setShowDeleteModal} id={quiz.id} />
+        <DeleteModal
+          setShowModal={setShowDeleteModal}
+          id={quiz.id}
+          deleteFunction={deleteQuiz}
+          modalFor={"quiz"}
+        />
       )}
-      {showEditModal && <EditQuizModal setShowModal={setShowEditModal} />}
     </>
   );
 };

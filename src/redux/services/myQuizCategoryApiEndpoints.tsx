@@ -1,36 +1,58 @@
-import { TQuizCategoryType } from "../../pages/admin/types";
+import {
+  TAddQuizCategoryFieldType,
+  TEditQuizCategoryFieldType,
+  TFetchQuizCategoriesQueryTransformReturnType,
+  TFetchQuizCategoriesType,
+  TQuizCategoryType,
+} from "../../pages/admin/types";
 import { myApi } from "./myApi";
 
 const myQuizCategoryApiEndpoints = myApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllQuizCategories: builder.query<TQuizCategoryType[], void>({
-      query: () => "/admin/quiz-categories",
+      query: () => "/admin/quiz-categories/all",
       providesTags: ["FetchQuizCategories"],
     }),
-    getQuizCategories: builder.query<TQuizCategoryType[], void>({
-      query: () => "/admin/quiz-categories",
+    getQuizCategories: builder.query<
+      TFetchQuizCategoriesQueryTransformReturnType,
+      number
+    >({
+      query: (page) => `/admin/quiz-categories?page=${page}`,
       providesTags: ["FetchQuizCategories"],
+      transformResponse: (response: TFetchQuizCategoriesType) => {
+        return { data: response.data, meta: response.meta };
+      },
     }),
-    addQuizCategory: builder.mutation<TQuizCategoryType, TQuizCategoryType>({
-      query: (body: TQuizCategoryType) => ({
+    getSingleQuizCategory: builder.query<TQuizCategoryType, number>({
+      query: (id) => `/admin/quiz-categories/${id}`,
+    }),
+    addQuizCategory: builder.mutation<
+      TAddQuizCategoryFieldType,
+      TAddQuizCategoryFieldType
+    >({
+      query: (body: TAddQuizCategoryFieldType) => ({
         url: "/admin/quiz-categories",
         method: "POST",
         body,
       }),
       invalidatesTags: ["FetchQuizCategories"],
     }),
-    deleteQuizCategory: builder.mutation<void, string>({
-      query: (id) => ({
-        url: `/quiz-categories/${id}`,
-        method: "DELETE",
+
+    editQuizCategory: builder.mutation<
+      TEditQuizCategoryFieldType,
+      TEditQuizCategoryFieldType
+    >({
+      query: ({ id, ...rest }) => ({
+        url: `/admin/quiz-categories/${id}`,
+        method: "PUT",
+        body: { ...rest },
       }),
       invalidatesTags: ["FetchQuizCategories"],
     }),
-    editQuizCategory: builder.mutation<TQuizCategoryType, TQuizCategoryType>({
-      query: ({ id, ...rest }) => ({
-        url: `/quiz-categories/${id}`,
-        method: "PUT",
-        body: { ...rest },
+    deleteQuizCategory: builder.mutation<void, number>({
+      query: (id) => ({
+        url: `/admin/quiz-categories/${id}`,
+        method: "DELETE",
       }),
       invalidatesTags: ["FetchQuizCategories"],
     }),
@@ -38,9 +60,10 @@ const myQuizCategoryApiEndpoints = myApi.injectEndpoints({
 });
 
 export const {
-  useGetQuizCategoriesQuery,
   useAddQuizCategoryMutation,
   useDeleteQuizCategoryMutation,
   useEditQuizCategoryMutation,
   useGetAllQuizCategoriesQuery,
+  useGetQuizCategoriesQuery,
+  useGetSingleQuizCategoryQuery,
 } = myQuizCategoryApiEndpoints;

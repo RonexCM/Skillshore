@@ -1,21 +1,17 @@
-import {
-  Field,
-  FieldArray,
-  Formik,
-  Form,
-  ErrorMessage,
-  FormikHelpers,
-} from "formik";
+import { Field, FieldArray, Formik, Form, ErrorMessage } from "formik";
 import { validationSchemaAddQuestion } from "../../../validation";
 import { ChangeEvent, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { AiFillHome } from "react-icons/ai";
-import { useEditQuestionMutation } from "../../../redux/services/myQuestionApiEndpoints";
+import {
+  useEditQuestionMutation,
+  useGetSingleQuestionQuery,
+} from "../../../redux/services/myQuestionApiEndpoints";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { delay, motion } from "framer-motion";
-import { AddQuestionFieldType } from "../types";
+import { motion } from "framer-motion";
+import { TAddQuestionFieldType, TEditQuestionFieldType } from "../types";
 import { useGetAllQuestionCategoriesQuery } from "../../../redux/services/myQuestionCategoryApiEndpoints";
 import { MdAdd, MdOutlineRemove } from "react-icons/md";
 import { Tooltip } from "flowbite-react";
@@ -24,10 +20,15 @@ import { saveAllQuestionCategoriesList } from "../../../redux/slice/questionCate
 import { RootState } from "../../../redux/store";
 
 const EditQuestion = () => {
+  // const params = useParams();
+  // if (params.id) {
+  //   const { data } = useGetSingleQuestionQuery(params.id);
+  //   console.log(data);
+  // }
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { data: allQuestionCategoriesList } =
-    useGetAllQuestionCategoriesQuery();
+  // const dispatch = useDispatch();
+  // const { data: allQuestionCategoriesList } =
+  //   useGetAllQuestionCategoriesQuery();
 
   const questionCategoriesList = useSelector(
     (state: RootState) => state.allQuestionCategories
@@ -36,27 +37,38 @@ const EditQuestion = () => {
   const { id, category, ...rest } = useSelector(
     (state: RootState) => state.question
   );
-  const initialValues = {
-    ...rest,
-    category_id: category.id,
-  };
-  useEffect(() => {
-    if (allQuestionCategoriesList && "data" in allQuestionCategoriesList) {
-      dispatch(
-        saveAllQuestionCategoriesList(allQuestionCategoriesList["data"])
-      );
-      setOptionsArray(initialValues.options);
-    }
-  }, [allQuestionCategoriesList]);
+  let initialValues: TAddQuestionFieldType;
+  if (category === null) {
+    initialValues = {
+      ...rest,
+      category_id: 0,
+    };
+  } else {
+    initialValues = {
+      ...rest,
+      category_id: category.id,
+    };
+  }
 
-  const [totalOptions, _] = useState(3);
+  useEffect(() => {
+    // if (initialValues.title.length < 1) {
+    //   navigate(-1);
+    // }
+    // if (allQuestionCategoriesList && "data" in allQuestionCategoriesList) {
+    //   dispatch(
+    //     saveAllQuestionCategoriesList(allQuestionCategoriesList["data"])
+    //   );
+    // }
+    setOptionsArray(initialValues.options);
+  }, []);
+
   const [addQuestion, { isError, error }] = useEditQuestionMutation();
   //   ----------formik objects----------
   /**
    * when add button is clicked form is submitted with
    * @param values
    */
-  const onSubmit = async (values: AddQuestionFieldType) => {
+  const onSubmit = async (values: TAddQuestionFieldType) => {
     const editedValues = { ...values, id: id };
     await addQuestion(editedValues);
     if (isError) {
@@ -70,8 +82,6 @@ const EditQuestion = () => {
           navigate(-1);
         },
       });
-
-      // setOptionsArray(Array.from({ length: totalOptions }, (_) => ""));
     }
   };
   const [optionsArray, setOptionsArray] = useState([""]);
@@ -85,7 +95,7 @@ const EditQuestion = () => {
 
   const answerDropdown = optionsArray.map((option, index) => (
     <option
-      selected={option === initialValues.answer}
+      // selected={option === initialValues.answer}
       key={index}
       value={option}
     >
@@ -119,7 +129,7 @@ const EditQuestion = () => {
         onSubmit={onSubmit}
         validationSchema={validationSchemaAddQuestion}
       >
-        {({ handleChange, values }) => (
+        {({ handleChange }) => (
           // form field in 2 grid columns
           <Form>
             <div className="border-2  p-7 rounded-md grid gap-2 gap-x-6 grid-cols-2 border-primary-light ">

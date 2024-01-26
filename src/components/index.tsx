@@ -1,4 +1,4 @@
-import ListOfQuestionCategorys from "./ListOfQuestionCategory";
+import ListOfQuestionCategory from "./ListOfQuestionCategory";
 import ListOfQuestions from "./ListOfQuestions";
 import ListOfQuiz from "./ListOfQuiz";
 import ListOfQuizCategorys from "./ListOfQuizCategory";
@@ -7,6 +7,6 @@ export {
   Pagination,
   ListOfQuiz,
   ListOfQuizCategorys,
-  ListOfQuestionCategorys,
+  ListOfQuestionCategory,
   ListOfQuestions,
 };

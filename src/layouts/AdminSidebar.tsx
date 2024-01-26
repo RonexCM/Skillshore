@@ -25,7 +25,7 @@ const AdminSidebar = () => {
           &nbsp;&nbsp;Quiz
         </div>
       </NavLink>
-      <NavLink to="question-category" className={navElementsStyles}>
+      <NavLink to="questionCategory" className={navElementsStyles}>
         <div className="flex  ">
           <div className="pt-[2px] ">
             <MdQuestionAnswer />

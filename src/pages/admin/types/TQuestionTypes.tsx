@@ -3,22 +3,22 @@ import { TCommonLinksType, TCommonMetaType } from "./TCommonTypes";
 export type TQuestionType = {
   id: number;
   title: string;
-  options: string[];
-  weightage: number;
-  status: number;
-  answer: string;
   slug: string;
   description: string;
+  options: string[];
+  answer: string;
+  weightage: number;
+  status: number;
   category: { id: number; title: string };
 };
-
+//added undefined to weightage and in initialState of addquestionslice
 export type TAddQuestionFieldType = {
   title: string;
   slug: string;
   description: string;
   options: string[];
   answer: string;
-  weightage: number;
+  weightage: number | undefined;
   status: number;
   category_id: number;
 };
@@ -41,26 +41,7 @@ export type TEditQuestionFieldType = {
   description: string;
   options: string[];
   answer: string;
-  weightage: number;
+  weightage: number | undefined;
   status: number;
   category_id: number;
 };
-
-// export type QuestionsMetaLinkChildType = {
-//   active: boolean;
-//   label: string;
-//   url: string;
-// };
-
-// export type QuestionsMetaLinksType = QuestionsMetaLinkChildType[];
-
-// export type QuestionMetaType = {
-//   current_page: number;
-//   from: number;
-//   last_page: number;
-//   links: QuestionsMetaLinksType;
-//   path: string;
-//   per_page: number;
-//   to: number;
-//   total: number;
-// };

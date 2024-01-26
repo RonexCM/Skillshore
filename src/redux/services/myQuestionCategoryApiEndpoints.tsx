@@ -2,7 +2,9 @@ import {
   TFetchQuestionCategoryQueryTransformReturnType,
   TFetchQuestionCategoryType,
   TQuestionCategoryType,
+  TAddQuestionCategoryFieldType,
   TQuestionCategoryListFetchAllType,
+  TEditQuestionCategoryFieldType,
 } from "../../pages/admin/types";
 import { myApi } from "./myApi";
 
@@ -24,20 +26,34 @@ const myQuestionCategoryApiEndpoints = myApi.injectEndpoints({
         return { data: response.data, meta: response.meta };
       },
     }),
+    getSingleQuestionCategory: builder.query<TQuestionCategoryType, number>({
+      query: (id) => `/admin/question-categories/${id}`,
+    }),
     addQuestionCategory: builder.mutation<
-      TQuestionCategoryType,
-      TQuestionCategoryType
+      TAddQuestionCategoryFieldType,
+      TAddQuestionCategoryFieldType
     >({
-      query: (body: TQuestionCategoryType) => ({
-        url: "/question-categories",
+      query: (body: TAddQuestionCategoryFieldType) => ({
+        url: "/admin/question-categories",
         method: "POST",
         body,
       }),
       invalidatesTags: ["FetchQuestionCategories"],
     }),
-    deleteQuestionCategory: builder.mutation<void, string>({
+    editQuestionCategory: builder.mutation<
+      TEditQuestionCategoryFieldType,
+      TEditQuestionCategoryFieldType
+    >({
+      query: ({ id, ...rest }) => ({
+        url: `/admin/question-categories/${id}`,
+        method: "PUT",
+        body: { ...rest },
+      }),
+      invalidatesTags: ["FetchQuestionCategories"],
+    }),
+    deleteQuestionCategory: builder.mutation<void, number>({
       query: (id) => ({
-        url: `/question-categories/${id}`,
+        url: `/admin/question-categories/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["FetchQuestionCategories"],
@@ -50,4 +66,6 @@ export const {
   useAddQuestionCategoryMutation,
   useDeleteQuestionCategoryMutation,
   useGetAllQuestionCategoriesQuery,
+  useEditQuestionCategoryMutation,
+  useGetSingleQuestionCategoryQuery,
 } = myQuestionCategoryApiEndpoints;

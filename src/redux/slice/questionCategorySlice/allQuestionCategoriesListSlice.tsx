@@ -1,4 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {
+  TQuestionCategoryFetchAllType,
+  TQuestionCategoryListFetchAllType,
+} from "../../../pages/admin/types";
 
 const initialState = {
   data: [
@@ -12,7 +16,10 @@ const allQuestionCategoriesListSlice = createSlice({
   name: "allQuestionCategoriesListSlice",
   initialState,
   reducers: {
-    saveAllQuestionCategoriesList: (state, action: PayloadAction<any>) => {
+    saveAllQuestionCategoriesList: (
+      state,
+      action: PayloadAction<TQuestionCategoryFetchAllType[]>
+    ) => {
       state.data = action.payload;
     },
   },

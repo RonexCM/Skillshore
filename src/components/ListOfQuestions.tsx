@@ -1,27 +1,32 @@
 import { useEffect, useState } from "react";
-import DeleteQuestionModal from "../pages/admin/modals/questionModals/DeleteQuestionModal";
 import { Tooltip, Badge } from "flowbite-react";
+import { useNavigate } from "react-router-dom";
+import { TQuestionType } from "../pages/admin/types";
+import { motion } from "framer-motion";
+import { useDeleteQuestionMutation } from "../redux/services/myQuestionApiEndpoints";
+import DeleteModal from "./modals/DeleteModal";
 import { useDispatch } from "react-redux";
 import { saveQuestion } from "../redux/slice/questionSlice/questionSlice";
-import { useNavigate } from "react-router-dom";
-import { QuestionType } from "../pages/admin/types";
-import { motion } from "framer-motion";
+import { useGetAllQuestionCategoriesQuery } from "../redux/services/myQuestionCategoryApiEndpoints";
+import { saveAllQuestionCategoriesList } from "../redux/slice/questionCategorySlice/allQuestionCategoriesListSlice";
 
 type Props = {
-  question: QuestionType;
+  question: TQuestionType;
   index: number;
   startingIndex: number;
 };
 
 const ListOfQuestions = ({ question, index, startingIndex }: Props) => {
   const navigate = useNavigate();
+  const [deleteQuestion] = useDeleteQuestionMutation();
+
   const dispatch = useDispatch();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [active, setActive] = useState(false);
   // const [changeStatus] = useChangeStatusMutation();
   const handleEdit = () => {
     dispatch(saveQuestion(question));
-    navigate("edit-question");
+    navigate(`editQuestion`);
   };
   const handleDelete = () => {
     setShowDeleteModal(true);
@@ -93,9 +98,11 @@ const ListOfQuestions = ({ question, index, startingIndex }: Props) => {
         </td>
       </motion.tr>
       {showDeleteModal && (
-        <DeleteQuestionModal
+        <DeleteModal
           setShowModal={setShowDeleteModal}
           id={question.id}
+          deleteFunction={deleteQuestion}
+          modalFor={"question"}
         />
       )}
     </>

@@ -12,6 +12,8 @@ import {
 import { RootState } from "../../../redux/store";
 import { useLoadingState } from "../../../layouts/AdminLayout";
 import { TQuestionType } from "../types";
+import { saveAllQuestionCategoriesList } from "../../../redux/slice/questionCategorySlice/allQuestionCategoriesListSlice";
+import { useGetAllQuestionCategoriesQuery } from "../../../redux/services/myQuestionCategoryApiEndpoints";
 
 const Question = () => {
   const dispatch = useDispatch();
@@ -22,8 +24,6 @@ const Question = () => {
     isLoading,
     isError,
   } = useGetQuestionsQuery(currentPageNumber);
-
-  // console.log(questionsData);
   useEffect(() => {
     if (questionsData) {
       dispatch(saveQuestionList(questionsData.data));
@@ -36,11 +36,19 @@ const Question = () => {
   const { data: questionsList, meta } = useSelector(
     (state: RootState) => state.questionList
   );
-
+  // console.log(questionsList);
   const loadingState = useLoadingState();
-
   const { setShowLoader } = loadingState;
 
+  const { data: allQuestionCategoriesListData } =
+    useGetAllQuestionCategoriesQuery();
+  useEffect(() => {
+    if (allQuestionCategoriesListData) {
+      dispatch(
+        saveAllQuestionCategoriesList(allQuestionCategoriesListData.data)
+      );
+    }
+  }, [allQuestionCategoriesListData]);
   return (
     <motion.div
       initial={{ opacity: 0.2 }}
@@ -62,7 +70,7 @@ const Question = () => {
           ></input>
         </div>
         <Link
-          to="add-question"
+          to="addQuestion"
           className="bg-dark transition-colors flex items-center text-primary-light rounded-lg text-xs font-medium py-button-padding-y px-button-padding-x outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"
         >
           <span>+Add Question</span>

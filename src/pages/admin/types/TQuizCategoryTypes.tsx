@@ -1,7 +1,7 @@
 import { TCommonLinksType, TCommonMetaType } from "./TCommonTypes";
 
 export type TQuizCategoryType = {
-  id: string;
+  id: number;
   title: string;
   slug: string;
 };
@@ -22,8 +22,8 @@ export type TFetchQuizCategoriesQueryTransformReturnType = {
   meta: TCommonMetaType;
 };
 
-export type TEditQuizCategoriesFieldType = {
-  id: string;
+export type TEditQuizCategoryFieldType = {
+  id: number;
   title: string;
   slug: string;
 };

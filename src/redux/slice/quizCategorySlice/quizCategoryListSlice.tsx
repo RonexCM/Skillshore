@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TQuestionCategoryType } from "../../../pages/admin/types";
+import { TQuizCategoryType } from "../../../pages/admin/types";
 import { TCommonMetaType } from "../../../pages/admin/types/TCommonTypes";
 
 const initialState = {
@@ -21,17 +21,17 @@ const initialState = {
     total: 1,
   },
 };
-const questionCategoryListSlice = createSlice({
-  name: "questionCategoryListSlice",
+const quizCategoryListSlice = createSlice({
+  name: "quizCategoryListSlice",
   initialState,
   reducers: {
-    saveQuestionCategoryList: (
+    saveQuizCategoryList: (
       state,
-      action: PayloadAction<TQuestionCategoryType[]>
+      action: PayloadAction<TQuizCategoryType[]>
     ) => {
       state.data = action.payload;
     },
-    saveQuestionCategoriesMetaData: (
+    saveQuizCategoriesMetaData: (
       state,
       action: PayloadAction<TCommonMetaType>
     ) => {
@@ -40,6 +40,6 @@ const questionCategoryListSlice = createSlice({
   },
 });
 
-export default questionCategoryListSlice.reducer;
-export const { saveQuestionCategoryList, saveQuestionCategoriesMetaData } =
-  questionCategoryListSlice.actions;
+export default quizCategoryListSlice.reducer;
+export const { saveQuizCategoryList, saveQuizCategoriesMetaData } =
+  quizCategoryListSlice.actions;

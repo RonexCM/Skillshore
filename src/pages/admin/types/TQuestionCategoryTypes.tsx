@@ -22,7 +22,7 @@ export type TFetchQuestionCategoryQueryTransformReturnType = {
   meta: TCommonMetaType;
 };
 
-export type TEditQuestionFieldType = {
+export type TEditQuestionCategoryFieldType = {
   id: number;
   title: string;
   slug: string;

@@ -1,56 +1,62 @@
 import { useState } from "react";
-import DeleteQuestionCategoryModal from "../pages/admin/modals/questionCategoryModals/DeleteQuestionCategoryModal";
-import EditQuestionCategoryModal from "../pages/admin/modals/questionCategoryModals/EditQuestionCategoryModal";
 import { Tooltip } from "flowbite-react";
+import { useNavigate } from "react-router-dom";
+import { TQuestionCategoryType } from "../pages/admin/types";
+import { motion } from "framer-motion";
+import DeleteModal from "./modals/DeleteModal";
+import { useDeleteQuestionCategoryMutation } from "../redux/services/myQuestionCategoryApiEndpoints";
+import { useDispatch } from "react-redux";
+import { saveQuestionCategory } from "../redux/slice/questionCategorySlice/questionCategorySlice";
 
 type Props = {
-  questionCategory: any;
+  questionCategory: TQuestionCategoryType;
+  index: number;
+  startingIndex: number;
 };
 
-const ListOfQuestionCategorys = ({ questionCategory }: Props) => {
+const ListOfQuestionCategory = ({
+  questionCategory,
+  index,
+  startingIndex,
+}: Props) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [showEditModal, setShowEditModal] = useState(false);
-
   const handleEdit = () => {
-    setShowEditModal(true);
+    dispatch(saveQuestionCategory(questionCategory));
+    navigate(`editQuestionCategory`);
+
+    // navigate(`editQuestionCategory/${questionCategory.id}`);
   };
   const handleDelete = () => {
     setShowDeleteModal(true);
   };
+  const [deleteQuestionCategory] = useDeleteQuestionCategoryMutation();
+
   return (
     <>
-      <tr
+      <motion.tr
+        initial={{ opacity: 0.55 }}
+        animate={{ opacity: 1 }}
         key={questionCategory.id}
-        className="bg-white border-b hover:bg-gray-50"
+        className="bg-white border-b hover:bg-gray-50 "
       >
-        <td className="p-4 pl-6">
-          <div className="flex items-center">{questionCategory.id}</div>
+        <td className="pl-6 ">
+          <div className="flex my-4 items-center whitespace-nowrap">
+            {startingIndex + index}
+          </div>
         </td>
-        <th
-          scope="row"
-          className=" px-6 py-3 font-normal  text-gray-900 whitespace-normal break-all"
-        >
-          {questionCategory.title}
-        </th>
-        {/* <td className="px-6 py-3 font-normal text-gray-900 whitespace-nowrap ">
-          {questionCategory.slug}
-        </td> */}
-        {/* <td className="px-6 my-3 font-normal text-gray-900 break-all  line-clamp-2 ">
-          {questionCategory.description}
-        </td> */}
-
-        {/* <td className="px-6 py-3 font-normal text-gray-900 whitespace-nowrap  text-center">
-          {questionCategory.weightage}
-        </td> */}
-
-        <td className="px-6 py-3">
-          <div className="flex gap-2">
+        <td className="px-6 font-normal text-gray-900 ">
+          <div className="line-clamp-1">{questionCategory.title}</div>
+        </td>
+        <td className="px-6">
+          <div className="flex items-center gap-2">
             <Tooltip content="Edit" className="text-blue-600" style="light">
               <button
                 onClick={handleEdit}
                 className="font-medium  text-blue-600 dark:text-blue-500 hover:underline"
               >
-                <span className="material-symbols-outlined  text-blue-600 dark:text-blue-500 hover:underline ">
+                <span className="relative material-symbols-outlined  text-blue-600 dark:text-blue-500 hover:underline ">
                   Edit
                 </span>
               </button>
@@ -67,18 +73,17 @@ const ListOfQuestionCategorys = ({ questionCategory }: Props) => {
             </Tooltip>
           </div>
         </td>
-      </tr>
+      </motion.tr>
       {showDeleteModal && (
-        <DeleteQuestionCategoryModal
+        <DeleteModal
           setShowModal={setShowDeleteModal}
           id={questionCategory.id}
+          deleteFunction={deleteQuestionCategory}
+          modalFor={"question category"}
         />
-      )}
-      {showEditModal && (
-        <EditQuestionCategoryModal setShowModal={setShowEditModal} />
       )}
     </>
   );
 };
 
-export default ListOfQuestionCategorys;
+export default ListOfQuestionCategory;

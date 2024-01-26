@@ -1,46 +1,17 @@
-import { Link } from "react-router-dom";
-
 import { useEffect, useState } from "react";
-
 import { IoSearch } from "react-icons/io5";
-
-import { ListOfQuestions, Pagination } from "../../../components";
-import { QuestionType } from "../types";
+import { Pagination } from "../../../components";
 import { useGetQuestionsQuery } from "../../../redux/services/myQuestionApiEndpoints";
 
 const Question = () => {
   const { data, isLoading } = useGetQuestionsQuery(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
-  const [questionsPerPage, _] = useState(10);
-  const [questions, setQuestions] = useState<QuestionType[]>([]);
   useEffect(() => {
     if (data) {
       // setQuestions(data);
     }
   }, [data]);
-  const indexOfLastQuestion = currentPageNumber * questionsPerPage;
-  const indexOfFirstQuestion = indexOfLastQuestion - questionsPerPage;
-  const filterQuestionList = () => {
-    try {
-      if (!searchTerm) {
-        return questions;
-      }
-      return questions.filter((question: QuestionType) =>
-        question.title.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const filteredQuestionList = filterQuestionList();
-  const currentQuestions = filteredQuestionList?.slice(
-    indexOfFirstQuestion,
-    indexOfLastQuestion
-  );
-  const totalNumberOfPages = filteredQuestionList
-    ? Math.ceil(filteredQuestionList.length / questionsPerPage)
-    : 1;
 
   return (
     <div className="flex flex-col basis-full  gap-2 p-5 px-8 ">
@@ -61,12 +32,6 @@ const Question = () => {
             placeholder="Search Reports"
           ></input>
         </div>
-        <Link
-          to="add-question"
-          className="bg-dark text-primary-light rounded-lg text-xs font-medium py-button-padding-y px-button-padding-x outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"
-        >
-          +Add Report
-        </Link>
       </div>
       <div className="pt-0">{isLoading && <p className=""></p>}</div>
       {isLoading ? (
@@ -148,7 +113,7 @@ const Question = () => {
           <Pagination
             setCurrentPageNumber={setCurrentPageNumber}
             currentPageNumber={currentPageNumber}
-            totalNumberOfPages={totalNumberOfPages}
+            totalNumberOfPages={1}
           />
         </nav>
       </div>
