@@ -104,6 +104,9 @@ const QuizDashboard = () => {
     }
   };
 
+  const showResult = () => {
+    navigate("/result");
+  };
   const handleTimeout = () => {
     postQuizData(quizAnswer);
     navigate("/quizzes");
