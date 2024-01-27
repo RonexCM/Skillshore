@@ -25,10 +25,14 @@ const Login = () => {
       const data = await loginUser(userCredentials).unwrap();
       if (data.token) {
 <<<<<<< HEAD
+<<<<<<< HEAD
         dispatch(setToken(data.token));
 =======
         dispatch(setToken(data.token))
 >>>>>>> 2a0d873 (added persist, removed cookie to manage storage)
+=======
+        dispatch(setToken(data.token));
+>>>>>>> a47ddf0 (made few design changes and added next and select button functionality)
         toast.success("Successfully logged in!");
         resetForm();
       }

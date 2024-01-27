@@ -10,11 +10,12 @@ import { FaHouse } from "react-icons/fa6";
 import OptionField from "../../../components/OptionField";
 import Timer from "../../../components/Timer";
 import { LineWave } from "react-loader-spinner";
+import { toast } from "react-toastify";
 
 const QuizDashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const quizId = 9;
+  const quizId = 1;
   const { data, isLoading } = useGetQuizOptionsQuery(quizId);
   const quizDetails = useSelector((state: RootState) => state.quiz.data);
   const [index, setIndex] = useState(0);
@@ -42,10 +43,17 @@ const QuizDashboard = () => {
   };
 
   const nextButton = () => {
-    setIndex(index + 1);
-    setSelectedOptionIndex(null);
+    if (selectedOptionIndex !== null && selectedOptionIndex >= 0) {
+      setIndex(index + 1);
+      setSelectedOptionIndex(null);
+    } else {
+      toast.error("Please select an answer before moving to the next question");
+    }
   };
 
+  const showResult = () => {
+    navigate("/result");
+  };
   const handleTimeout = () => {
     console.log("Time is up!");
   };
@@ -58,35 +66,45 @@ const QuizDashboard = () => {
             onClick={() => navigate(-1)}
           >
             <div className="hover:underline flex gap-2">
-              <FaHouse className="text-lg mt-1" />
+              <FaHouse className="text-lg mt-1 " />
               Home
             </div>
           </div>
           <MdOutlineKeyboardArrowRight className="text-lg " />
-          <span className="text-primary">Quiz Dashboard</span>
+          <span className="text-primary text-opacity-80">Quiz Dashboard</span>
         </div>
       </div>
-      <div className=" flex my-4 items-center ">
+      <div className=" grid grid-cols-2 my-4 items-center">
         <img src={JsIcon} />
+        <div className="flex justify-end">
+          <p className="text-lg font-medium text-primary mr-6">
+            {time && (
+              <Timer initialTime={time * 60} onTimeout={handleTimeout} />
+            )}
+          </p>
+        </div>
       </div>
       <div className=" grid grid-cols-2  h-[480px] mb-10 w-full ">
-        <div className=" flex flex-col gap-5 mt-[50px]">
-          <p>{quizDetails.title}</p>
-          <p>{questions[index]?.title}</p>
-          <p className="truncate">{quizDetails.description}</p>
+        <div className=" flex flex-col gap-20 mt-[50px]">
+          <p className="text-dark text-[18px] font-semibold">
+            {quizDetails.title}
+          </p>
+          <p className="text-[16px] font-medium">{questions[index]?.title}</p>
+          <div className="h-full w-[600px]">
+            <p className="items-center">{quizDetails.description}</p>
+          </div>
         </div>
         <div className=" pl-10 grid grid-cols-1 ">
           <div className=" flex justify-between items-center">
             <p className="ml-5 text-dark text-sm font-semibold">
               Select one answer
             </p>
-            <p className="text-sm font-medium text-primary">
-              {time && (
-                <Timer initialTime={time * 60} onTimeout={handleTimeout} />
-              )}
-            </p>
+
             {index == questions.length - 1 ? (
-              <button className="mr-5 text-dark text-sm font-semibold rounded-[3px] bg-primary-light py-[16px] px-[24px]">
+              <button
+                onClick={showResult}
+                className="mr-5 text-dark text-sm font-semibold rounded-[3px] bg-primary-light py-[16px] px-[24px]"
+              >
                 Submit
               </button>
             ) : (
@@ -98,7 +116,7 @@ const QuizDashboard = () => {
               </button>
             )}
           </div>
-          <div className=" grid grid-cols-1 row-span-5">
+          <div className=" grid grid-cols-1 row-span-5 mt-5">
             {questions[index]?.options.map((option: string, index: number) => (
               <OptionField
                 key={index}

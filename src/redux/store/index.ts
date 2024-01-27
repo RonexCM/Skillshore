@@ -21,6 +21,7 @@ import { encryptTransform } from "redux-persist-transform-encrypt";
 <<<<<<< HEAD
 <<<<<<< HEAD
 import authSlice from "../slice/authSlice";
+<<<<<<< HEAD
 =======
 >>>>>>> 12dcc4d (added persist & encryption)
 =======
