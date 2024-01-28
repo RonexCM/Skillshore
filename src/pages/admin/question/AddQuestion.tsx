@@ -136,7 +136,7 @@ const AddQuestion = () => {
               <div className="h-[76px]">
                 <div className="flex flex-col gap-2">
                   <label htmlFor="category_id" className="text-base text-dark">
-                    Category ID
+                    Category
                   </label>
                   <Field
                     as="select"
@@ -146,10 +146,10 @@ const AddQuestion = () => {
                     name="category_id"
                     className="p-1 px-2 text-sm rounded-md w-full  border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary"
                   >
-                    <option value="">select category id...</option>
+                    <option value="">select category...</option>
                     {questionCategoriesList?.map((questionCategory, index) => (
                       <option key={index} value={questionCategory.id}>
-                        {questionCategory.id}
+                        {questionCategory.title}
                       </option>
                     ))}
                   </Field>
@@ -356,7 +356,7 @@ const AddQuestion = () => {
             {/* submit button */}
             <button
               type="submit"
-              className="bg-dark w-max row-start-6 text-primary-light rounded-md text-base font-medium py-button-padding-y px-28 mt-5 outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"
+              className="bg-dark w-max row-start-6 text-primary-light rounded-md text-base font-medium py-button-padding-y px-16 mt-5 outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"
             >
               Add
             </button>

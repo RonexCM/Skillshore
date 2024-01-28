@@ -3,13 +3,14 @@ import {
   TEditQuizCategoryFieldType,
   TFetchQuizCategoriesQueryTransformReturnType,
   TFetchQuizCategoriesType,
+  TQuizCategoryListFetchAllType,
   TQuizCategoryType,
 } from "../../pages/admin/types";
 import { myApi } from "./myApi";
 
 const myQuizCategoryApiEndpoints = myApi.injectEndpoints({
   endpoints: (builder) => ({
-    getAllQuizCategories: builder.query<TQuizCategoryType[], void>({
+    getAllQuizCategories: builder.query<TQuizCategoryListFetchAllType, void>({
       query: () => "/admin/quiz-categories/all",
       providesTags: ["FetchQuizCategories"],
     }),

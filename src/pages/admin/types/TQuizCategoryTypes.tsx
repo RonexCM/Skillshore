@@ -27,3 +27,12 @@ export type TEditQuizCategoryFieldType = {
   title: string;
   slug: string;
 };
+
+// TYPES FOR API USED TO FETCH ALL DATA WITHOUT PAGINATON
+export type TQuizCategoryFetchAllType = {
+  id: number;
+  title: string;
+};
+export type TQuizCategoryListFetchAllType = {
+  data: TQuizCategoryFetchAllType[];
+};

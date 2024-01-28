@@ -8,8 +8,8 @@ const validationSchemaAddQuestion = Yup.object({
   answer: Yup.string().required("Answer is required"),
   weightage: Yup.string().required("Weightage is required"),
   category_id: Yup.number()
-    .required("Category ID is required")
-    .positive("Category ID is required"),
+    .required("Category is required")
+    .positive("Category is required"),
   status: Yup.boolean().required("Status is required"),
 });
 export default validationSchemaAddQuestion;

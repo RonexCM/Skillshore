@@ -14,7 +14,7 @@ const myQuestionCategoryApiEndpoints = myApi.injectEndpoints({
       TQuestionCategoryListFetchAllType,
       void
     >({
-      query: () => "/admin/quiz-categories/all",
+      query: () => "/admin/question-categories/all",
     }),
     getQuestionCategories: builder.query<
       TFetchQuestionCategoryQueryTransformReturnType,

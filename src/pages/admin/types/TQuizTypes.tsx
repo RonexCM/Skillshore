@@ -18,14 +18,14 @@ export type TQuizType = {
 export type TAddQuizFieldType = {
   title: string;
   slug: string;
-  category_id: number;
+  category_id: number | null;
   thumbnail: File | null;
   description: string;
-  time: number;
-  retry_after: number;
-  question_categories: number[];
+  time: number | null;
+  retry_after: number | null;
+  question_categories: number[] | null[];
   status: number;
-  pass_percentage: number;
+  pass_percentage: number | null;
 };
 
 export type TFetchQuizzesType = {

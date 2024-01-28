@@ -1,28 +1,19 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import {
-  ListOfQuestionCategory,
-  ListOfQuizCategorys,
-  Pagination,
-} from "../../../components";
+import { ListOfQuizCategorys, Pagination } from "../../../components";
 import { IoSearch } from "react-icons/io5";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { useLoadingState } from "../../../layouts/AdminLayout";
-import { TQuestionCategoryType, TQuizCategoryType } from "../types";
-import { useGetQuestionCategoriesQuery } from "../../../redux/services/myQuestionCategoryApiEndpoints";
-import {
-  saveQuestionCategoriesMetaData,
-  saveQuestionCategoryList,
-} from "../../../redux/slice/questionCategorySlice/questionCategoryListSlice";
+import { TQuizCategoryType } from "../types";
 import { useGetQuizCategoriesQuery } from "../../../redux/services/myQuizCategoryApiEndpoints";
 import {
   saveQuizCategoriesMetaData,
   saveQuizCategoryList,
 } from "../../../redux/slice/quizCategorySlice/quizCategoryListSlice";
 
-const QuestionCategory = () => {
+const QuizCategory = () => {
   const dispatch = useDispatch();
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [startingIndex, setStartingIndex] = useState(1);
@@ -78,50 +69,51 @@ const QuestionCategory = () => {
         </Link>
       </div>
       <div className=" main-container relative flex flex-col min-h-[666px] outline outline-2  outline-primary-light w-full rounded-md text-center ">
-        {isError && (
+        {quizCategoriesData && quizCategoriesData.data.length < 0 ? (
           <p className="absolute top-[50%] left-[50%] translate-x-[-50%]">
             No Data Found
           </p>
+        ) : (
+          <div className="title-and-table-div basis-full relative overflow-y-hidden">
+            <table className="w-full text-sm text-left  text-dark">
+              <thead className="border-b-2 border-primary-light bg-[#fcfcfc] shadow-inner h-14">
+                <tr>
+                  <th scope="col" className="p-2 w-[8%] ">
+                    <div className="flex items-center pl-2 w-[20px] text-sm font-semibold">
+                      S.N
+                    </div>
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 w-auto text-sm font-semibold"
+                  >
+                    Title
+                  </th>
+
+                  <th scope="col" className="px-6 py-3 w-[15%] font-semibold">
+                    Action
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {quizCategoryList[0].title.length > 1 &&
+                  quizCategoryList?.map(
+                    (quizCategory: TQuizCategoryType, index: number) => (
+                      <ListOfQuizCategorys
+                        key={index}
+                        quizCategory={quizCategory}
+                        index={index}
+                        startingIndex={startingIndex}
+                      />
+                    )
+                  )}
+              </tbody>
+            </table>
+          </div>
         )}
-        <div className="title-and-table-div basis-full relative overflow-y-hidden">
-          <table className="w-full text-sm text-left  text-dark">
-            <thead className="border-b-2 border-primary-light bg-[#fcfcfc] shadow-inner h-14">
-              <tr>
-                <th scope="col" className="p-2 w-[8%] ">
-                  <div className="flex items-center pl-2 w-[20px] text-sm font-semibold">
-                    S.N
-                  </div>
-                </th>
-                <th
-                  scope="col"
-                  className="px-6 py-3 w-auto text-sm font-semibold"
-                >
-                  Title
-                </th>
-
-                <th scope="col" className="px-6 py-3 w-[15%] font-semibold">
-                  Action
-                </th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {quizCategoryList[0].title.length > 1 &&
-                quizCategoryList?.map(
-                  (quizCategory: TQuizCategoryType, index: number) => (
-                    <ListOfQuizCategorys
-                      key={index}
-                      quizCategory={quizCategory}
-                      index={index}
-                      startingIndex={startingIndex}
-                    />
-                  )
-                )}
-            </tbody>
-          </table>
-        </div>
         <nav
-          className="flex items-center bg-[#fcfcfc] flex-column  border-t-2 flex-wrap md:flex-row justify-between pt-4 p-3"
+          className="flex mt-auto items-center bg-[#fcfcfc] flex-column  border-t-2 flex-wrap md:flex-row justify-between pt-4 p-3"
           aria-label="Table navigation"
         >
           <Pagination
@@ -135,4 +127,4 @@ const QuestionCategory = () => {
   );
 };
 
-export default QuestionCategory;
+export default QuizCategory;

@@ -27,25 +27,33 @@ import { saveAllQuestionCategoriesList } from "../../../redux/slice/questionCate
 
 const AddQuiz = () => {
   const dispatch = useDispatch();
-  const { data: allQuizCategoriesList } = useGetAllQuizCategoriesQuery();
-  const [addQuiz, { error, isError }] = useAddQuizMutation();
+  const { data: allQuizCategoriesData } = useGetAllQuizCategoriesQuery();
   const { data: allQuestionCategoriesData } =
     useGetAllQuestionCategoriesQuery();
+  console.log("quiz");
+  console.log(allQuizCategoriesData);
+  console.log("question");
 
-  const [questionCategories, setQuestionCategories] = useState<
-    TQuestionCategoryFetchAllType[]
-  >([]);
+  console.log(allQuestionCategoriesData);
+  const [addQuiz, { error, isError }] = useAddQuizMutation();
+
+  // const [questionCategories, setQuestionCategories] = useState<
+  //   TQuestionCategoryFetchAllType[]
+  // >([]);
   useEffect(() => {
-    if (allQuizCategoriesList && "data" in allQuizCategoriesList) {
-      dispatch(saveAllQuizCategoriesList(allQuizCategoriesList["data"]));
+    if (allQuizCategoriesData && "data" in allQuizCategoriesData) {
+      dispatch(saveAllQuizCategoriesList(allQuizCategoriesData.data));
     }
     if (allQuestionCategoriesData) {
       dispatch(saveAllQuestionCategoriesList(allQuestionCategoriesData.data));
-      setQuestionCategories(allQuestionCategoriesData.data);
+      // setQuestionCategories(allQuestionCategoriesData.data);
     }
-  }, [allQuizCategoriesList, allQuestionCategoriesData]);
+  }, [allQuizCategoriesData, allQuestionCategoriesData]);
   const allQuizCategories = useSelector(
     (state: RootState) => state.allQuizCategories.data
+  );
+  const allQuestionCategories = useSelector(
+    (state: RootState) => state.allQuestionCategories.data
   );
 
   //   ----------formik objects----------
@@ -123,34 +131,6 @@ const AddQuiz = () => {
                   name="title"
                 />
               </div>
-              {/* category input field and error message */}
-              <div className="h-[76px]">
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="category_id" className="text-base text-dark">
-                    Category ID
-                  </label>
-                  <Field
-                    as="select"
-                    type="text"
-                    id="category_id"
-                    autoComplete="current-category_id"
-                    name="category_id"
-                    className="p-1 px-2 text-sm rounded-md w-full  border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary"
-                  >
-                    <option value="">select category...</option>
-                    {allQuizCategories.map((quizCategory, index) => (
-                      <option key={index} value={quizCategory.id}>
-                        {quizCategory.id}
-                      </option>
-                    ))}
-                  </Field>
-                </div>
-                <ErrorMessage
-                  className="text-red-500 text-xs "
-                  component="div"
-                  name="category_id"
-                />
-              </div>
               {/* slug input field and error message */}
               <div className=" h-[76px]">
                 <div className=" flex flex-col gap-2  ">
@@ -171,7 +151,69 @@ const AddQuiz = () => {
                   name="slug"
                 />
               </div>
-
+              {/* category input field and error message */}
+              <div className="h-[76px]">
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="category_id" className="text-base text-dark">
+                    Category
+                  </label>
+                  <Field
+                    as="select"
+                    type="text"
+                    id="category_id"
+                    autoComplete="current-category_id"
+                    name="category_id"
+                    className="p-1 px-2 text-sm rounded-md w-full  border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary"
+                  >
+                    <option value="" className="text-gray-300">
+                      select category...
+                    </option>
+                    {allQuizCategories.map((quizCategory, index) => (
+                      <option key={index} value={quizCategory.id}>
+                        {quizCategory.title}
+                      </option>
+                    ))}
+                  </Field>
+                </div>
+                <ErrorMessage
+                  className="text-red-500 text-xs "
+                  component="div"
+                  name="category_id"
+                />
+              </div>
+              {/* question categories textarea field and error message */}
+              <div className=" h-[76px]">
+                <div className=" flex flex-col gap-2  ">
+                  <label
+                    htmlFor="question_categories"
+                    className="text-base text-dark"
+                  >
+                    Question Categories
+                  </label>
+                  <Field
+                    as="select"
+                    type="text"
+                    id="question_categories"
+                    autoComplete="current-question_categories"
+                    name="question_categories"
+                    className="p-1 px-2 text-sm rounded-md border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full"
+                  >
+                    <option value="" className="text-gray-300">
+                      select category...
+                    </option>
+                    {allQuestionCategories.map((questionCategory, index) => (
+                      <option key={index} value={questionCategory.id}>
+                        {questionCategory.title}
+                      </option>
+                    ))}
+                  </Field>
+                </div>
+                <ErrorMessage
+                  className="text-red-500 text-xs "
+                  component="div"
+                  name="question_categories"
+                />
+              </div>
               {/* description textarea field and error message */}
               <div className="flex flex-col gap-1 col-span-2 h-[228px]">
                 <div className="flex  flex-col gap-2">
@@ -213,6 +255,30 @@ const AddQuiz = () => {
                   name="time"
                 />
               </div>
+              {/* pass_percentage textarea field and error message */}
+              <div className=" h-[76px]">
+                <div className=" flex flex-col gap-2  ">
+                  <label
+                    htmlFor="pass_percentage"
+                    className="text-base text-dark"
+                  >
+                    Pass Percentage
+                  </label>
+                  <Field
+                    type="text"
+                    id="pass_percentage"
+                    autoComplete="current-pass_percentage"
+                    name="pass_percentage"
+                    className="p-1 px-2 text-sm rounded-md border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full"
+                  />
+                </div>
+                <ErrorMessage
+                  className="text-red-500 text-xs "
+                  component="div"
+                  name="pass_percentage"
+                />
+              </div>
+
               {/* retry_after textarea field and error message */}
               <div className=" h-[76px]">
                 <div className=" flex flex-col gap-2  ">
@@ -258,7 +324,7 @@ const AddQuiz = () => {
             {/* submit button */}
             <button
               type="submit"
-              className="bg-dark w-max row-start-6 text-primary-light rounded-md text-base font-medium py-button-padding-y px-28 mt-5 outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"
+              className="bg-dark w-max row-start-6 text-primary-light rounded-md text-base font-medium py-button-padding-y px-16 mt-5 outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"
             >
               Add
             </button>
