@@ -7,12 +7,20 @@ const myQuizOptionEndpoints = myApi.injectEndpoints({
       query: (quizId) => ({
         url: `/student/quizzes/${quizId}/start`,
         headers: {
-          Authorization: `Bearer 141|XfWfwPUJMgZYGWCBNjZm8VTuGPIDkUs1gXSstN7p5df06bd6`,
+          // Authorization: `Bearer 141|XfWfwPUJMgZYGWCBNjZm8VTuGPIDkUs1gXSstN7p5df06bd6`,
           "Content-Type": "application/json",
         },
+      }),
+    }),
+    postQuizData: builder.mutation({
+      query: ({ quiz_id, ...quizData }) => ({
+        url: `/student/quizzes/${quiz_id}/submit`,
+        method: "POST",
+        body: quizData,
       }),
     }),
   }),
 });
 
-export const { useGetQuizOptionsQuery } = myQuizOptionEndpoints;
+export const { useGetQuizOptionsQuery, usePostQuizDataMutation } =
+  myQuizOptionEndpoints;

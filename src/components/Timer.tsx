@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { TTimerProps } from "../pages/student/types";
 
-const Timer = ({ initialTime, onTimeout }: TTimerProps) => {
+const Timer = ({ initialTime, onTimeout, updateTimeLeft }: TTimerProps) => {
   const [timeLeft, setTimeLeft] = useState(initialTime);
   useEffect(() => {
     const interval = setInterval(() => {
       setTimeLeft((prevTime) => (prevTime > 0 ? prevTime - 1 : prevTime));
+      updateTimeLeft(timeLeft);
     }, 1000);
 
     return () => {
@@ -14,7 +15,7 @@ const Timer = ({ initialTime, onTimeout }: TTimerProps) => {
         onTimeout();
       }
     };
-  }, [timeLeft, onTimeout]);
+  }, [timeLeft, onTimeout, updateTimeLeft]);
 
   const formatTime = (timeInSeconds: number) => {
     const minutes = Math.floor(timeInSeconds / 60);
