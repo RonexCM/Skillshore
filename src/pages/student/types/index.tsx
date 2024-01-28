@@ -97,7 +97,7 @@ export type TOptionFieldProps = {
 };
 
 export type TTimerProps = {
-  initialTime?: number;
+  initialTime: number;
   onTimeout: () => void;
   updateTimeLeft: (timeLeft: number) => void;
 };

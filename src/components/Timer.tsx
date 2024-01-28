@@ -6,7 +6,7 @@ const Timer = ({ initialTime, onTimeout, updateTimeLeft }: TTimerProps) => {
   useEffect(() => {
     const interval = setInterval(() => {
       setTimeLeft((prevTime) => (prevTime > 0 ? prevTime - 1 : prevTime));
-      updateTimeLeft(timeLeft);
+      updateTimeLeft(initialTime + 1 - timeLeft);
     }, 1000);
 
     return () => {
@@ -15,7 +15,7 @@ const Timer = ({ initialTime, onTimeout, updateTimeLeft }: TTimerProps) => {
         onTimeout();
       }
     };
-  }, [timeLeft, onTimeout, updateTimeLeft]);
+  }, [timeLeft, onTimeout, updateTimeLeft, initialTime]);
 
   const formatTime = (timeInSeconds: number) => {
     const minutes = Math.floor(timeInSeconds / 60);

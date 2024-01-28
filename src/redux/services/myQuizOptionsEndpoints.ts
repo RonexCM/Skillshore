@@ -13,8 +13,8 @@ const myQuizOptionEndpoints = myApi.injectEndpoints({
       }),
     }),
     postQuizData: builder.mutation({
-      query: ({ quiz_id, ...quizData }) => ({
-        url: `/student/quizzes/${quiz_id}/submit`,
+      query: (quizData) => ({
+        url: `/student/quizzes/${quizData.quiz_id}/submit`,
         method: "POST",
         body: quizData,
       }),

@@ -14,7 +14,7 @@ import {
   useGetQuizOptionsQuery,
   usePostQuizDataMutation,
 } from "../../../redux/services/myQuizOptionsEndpoints";
-import { setQuizId } from "../../../redux/slice/userQuizSlice";
+import { setAnswerData } from "../../../redux/slice/userQuizSlice";
 
 const QuizDashboard = () => {
   const navigate = useNavigate();
@@ -23,8 +23,8 @@ const QuizDashboard = () => {
   const [postQuizData] = usePostQuizDataMutation();
   const { data, isLoading } = useGetQuizOptionsQuery(quizId);
   const quizDetails = useSelector((state: RootState) => state.quiz.data);
-  const quizAnswer = useSelector((state: RootState) => state.answer);
-  console.log("🚀 ~ QuizDashboard ~ quizAnswer:", quizAnswer);
+  const quizAnswer = useSelector((state: RootState) => state.answer.data);
+
   const [index, setIndex] = useState(0);
   const [selectedOptionIndex, setSelectedOptionIndex] = useState<number | null>(
     null
@@ -36,14 +36,15 @@ const QuizDashboard = () => {
     if (data) {
       dispatch(setQuizData(data));
     }
-  }, [data]);
+  }, [data, dispatch]);
 
   useEffect(() => {
-    dispatch(setQuizId(quizId));
+    const data = { ...quizAnswer, quiz_id: quizId };
+    dispatch(setAnswerData(data));
   }, [dispatch]);
 
-  const updateTimeLeft = (newTimeLeft: number) => {
-    setTimer(time * 60 - newTimeLeft);
+  const updateTimeLeft = (newTime: number) => {
+    setTimer(newTime);
   };
   if (isLoading) {
     return (
@@ -59,19 +60,21 @@ const QuizDashboard = () => {
 
   const nextButton = () => {
     if (selectedOptionIndex !== null && selectedOptionIndex >= 0) {
-      // const alphaIndex = String.fromCharCode(65 + selectedOptionIndex);
-      // const data = {
-      //   answers: [
-      //     {
-      //       question_id: questions[index].id,
-      //       answers: alphaIndex,
-      //     },
-      //   ],
-      //   total_question: index + 1,
-      // };
+      const alphaIndex = String.fromCharCode(65 + selectedOptionIndex);
+      const data = {
+        ...quizAnswer,
+        answers: [
+          ...quizAnswer.answers,
+          {
+            question_id: questions[index].id,
+            answer: alphaIndex,
+          },
+        ],
+        total_question: index + 1,
+      };
 
       setIndex(index + 1);
-      // dispatch(setAnswerData(data));
+      dispatch(setAnswerData(data));
       setSelectedOptionIndex(null);
     } else {
       toast.error("Please select an answer before moving to the next question");
@@ -82,31 +85,20 @@ const QuizDashboard = () => {
     if (selectedOptionIndex === null) {
       toast.error("Please select an answer before moving to the next question");
     } else {
-      // const alphaIndex = String.fromCharCode(65 + selectedOptionIndex);
-      // const data = {
-      //   answers: [
-      //     {
-      //       question_id: questions[index].id,
-      //       answers: alphaIndex,
-      //     },
-      //   ],
-      //   total_time: timer,
-      //   total_question: index + 1,
-      // };
+      const alphaIndex = String.fromCharCode(65 + selectedOptionIndex);
       const data = {
-        quiz_id: 1,
+        ...quizAnswer,
         answers: [
-          { question_id: 1, answer: "B" },
-          { question_id: 4, answer: "B" },
-          { question_id: 6, answer: "B" },
-          { question_id: 8, answer: "B" },
-          { question_id: 11, answer: "B" },
-          { question_id: 1, answer: "B" },
+          ...quizAnswer.answers,
+          {
+            question_id: questions[index].id,
+            answer: alphaIndex,
+          },
         ],
-        total_time: 120,
-        total_question: 6,
+        total_time: timer,
+        total_question: index + 1,
       };
-      // dispatch(setTotalTime(data));
+      dispatch(setAnswerData(data));
       postQuizData(data);
 
       navigate("/result");
@@ -114,7 +106,8 @@ const QuizDashboard = () => {
   };
 
   const handleTimeout = () => {
-    console.log("Time is up!");
+    postQuizData(quizAnswer);
+    navigate("/result");
   };
   return (
     <div className="h-full w-full px-[50px] font-poppins">
