@@ -110,7 +110,7 @@ const QuizDashboard = () => {
   return (
     <div className="h-full w-full px-[50px] font-poppins">
       <div className="flex flex-col justify-start items-left ">
-        <div className="text-primary  text-lg flex items-center gap-1 self-start ml-[23px]  mt-[10px]">
+        <div className="text-primary  text-lg flex items-center gap-1 self-start ml-[23px]  mt-[32px]">
           <span className="text-primary text-opacity-80">
             {quizDetails.title}
           </span>
@@ -119,7 +119,7 @@ const QuizDashboard = () => {
       <div className=" grid grid-cols-2 my-4 items-center">
         <img src={JsIcon} className="ml-[23px]  " />
         <div className="flex justify-end">
-          <p className="text-xl font-medium text-primary">
+          <p className="text-2xl font-medium text-primary">
             {time && (
               <Timer
                 initialTime={time * 60}
@@ -131,7 +131,7 @@ const QuizDashboard = () => {
         </div>
       </div>
       <div className=" grid grid-cols-2  h-[480px] mb-10 w-full ">
-        <div className=" flex flex-col gap-20 mt-[50px] ml-[23px]  ">
+        <div className=" flex flex-col gap-20 mt-[47px] ml-[23px]  ">
           <p className="text-dark text-[18px] font-semibold">
             {questions[index]?.title}
           </p>
