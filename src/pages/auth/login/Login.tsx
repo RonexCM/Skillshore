@@ -9,8 +9,10 @@ import "react-toastify/dist/ReactToastify.css";
 import { loginInitialValues } from "../../../configs/constants";
 import { useDispatch } from "react-redux";
 import { setToken } from "../../../redux/slice/authSlice";
+import { FormEvent, useRef, useState } from "react";
 
 const Login = () => {
+  const passwordRef = useRef<HTMLInputElement | null>(null);
   const navigate = useNavigate();
   const [loginUser] = useLoginUserMutation();
   const dispatch = useDispatch();
@@ -26,7 +28,7 @@ const Login = () => {
     try {
       const data = await loginUser(userCredentials).unwrap();
       if (data.token) {
-        dispatch(setToken(data.token))
+        dispatch(setToken(data.token));
         toast.success("Successfully logged in!");
         resetForm();
         navigate("/profile");
@@ -36,11 +38,30 @@ const Login = () => {
       toast.error(errorMessage);
     }
   };
-
+  const [password, setPassword] = useState("");
   return (
     <>
       <div className="m-auto shadow-[0_10px_40px_-15px_rgba(0,0,0,0.2)] w-[370px] h-max text-dark rounded-[24px] p-[40px] ">
-        <Formik
+        <form
+          onSubmit={(e: FormEvent) => {
+            e.preventDefault();
+            passwordRef && passwordRef.current
+              ? console.log(passwordRef.current.value)
+              : null;
+          }}
+        >
+          <input
+            ref={passwordRef}
+            className="bg-red-400"
+            type="password"
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
+          <button type="submit">submit</button>
+        </form>
+        {/* <Formik
           initialValues={loginInitialValues}
           onSubmit={onSubmit}
           validationSchema={loginValidationSchema}
@@ -49,6 +70,8 @@ const Login = () => {
             <p className="font-bold text-[32px] text-dark leading-[32px] mb-[8px]">
               Login
             </p>
+            
+
             <div className="flex flex-col h-[130px] mt-[22px] mb-[-30px] w-full">
               <label
                 htmlFor="email"
@@ -113,7 +136,7 @@ const Login = () => {
               Forgot Password?
             </Link>
           </Form>
-        </Formik>
+        </Formik> */}
       </div>
     </>
   );
