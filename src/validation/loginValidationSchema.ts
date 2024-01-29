@@ -10,11 +10,7 @@ const loginValidationSchema = Yup.object({
     ),
   password: Yup.string()
     .required("Password is required")
-    .min(8, "Password must be at least 8 characters")
-    .matches(
-      /^.*(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*]).*$/,
-      "Must include at least one of uppercase, lowercase, digit and special character"
-    ),
+    .min(8, "Password must be at least 8 characters"),
 });
 
 export default loginValidationSchema;
