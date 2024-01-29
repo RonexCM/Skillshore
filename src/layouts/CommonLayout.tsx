@@ -32,10 +32,14 @@ export const CommonLayout = ({ layoutFor }: Props) => {
 
   return (
 <<<<<<< HEAD
+<<<<<<< HEAD
     <div className="flex flex-col justify-start min-h-screen">
 =======
     <div className="flex flex-col justify-start min-h-screen ">
 >>>>>>> 19cf8ac (updated folder structure, fixed some design inconsistency)
+=======
+    <div className="flex flex-col justify-between items-center min-h-screen">
+>>>>>>> 2230a16 (fixed issues in register and forgot password page)
       {layoutFor === "auth" ? <AuthNavbar /> : <UserNavbar />}
       <ToastContainer
         className="top-16 absolute"

@@ -124,6 +124,7 @@ const Register: React.FC = () => {
                     />
                   </div>
                 </div>
+<<<<<<< HEAD
                 <button
                   type="submit"
                   className="w-full text-slate-900 text-sm font-semibold font-['Poppins'] leading-none h-12 px-6 py-4 my-3 bg-amber-400 rounded-lg justify-center items-center gap-2.5 inline-flex hover:outline hover:outline-2 hover:outline-primary"
@@ -143,6 +144,27 @@ const Register: React.FC = () => {
                 </div>
               </Form>
             )}
+=======
+              </div>
+              <button
+                type="submit"
+                className="w-full text-slate-900 text-sm font-semibold font-['Poppins'] leading-none h-12 px-6 py-4 my-3 bg-amber-400 rounded-lg justify-center items-center gap-2.5 inline-flex hover:outline hover:outline-2 hover:outline-primary"
+              >
+                Create Account
+              </button>
+              <div className="text-center  text-[14px] font-normal">
+                <span className="flex gap-1 mt-[8px] ">
+                  Already have an account?{" "}
+                  <Link
+                    to="/"
+                    className="text-primary font-['Poppins'] text-14 leading-18.2 hover:underline"
+                  >
+                    Login
+                  </Link>
+                </span>
+              </div>
+            </Form>
+>>>>>>> 2230a16 (fixed issues in register and forgot password page)
           </Formik>
         </div>
         <div className=" w-1/2 flex justify-center items-center">

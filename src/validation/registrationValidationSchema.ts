@@ -2,9 +2,15 @@ import * as Yup from "yup";
 
 const registrationSchema = Yup.object().shape({
 <<<<<<< HEAD
+<<<<<<< HEAD
     name: Yup.string()
         .required("Name is required")
         .max(255, "Name must not exceed 255 charracters"),
+=======
+  name: Yup.string()
+    .required("Name is required")
+    .max(255, "Name must not exceed 255 charracters"),
+>>>>>>> 2230a16 (fixed issues in register and forgot password page)
 
     email: Yup.string()
         .email("Email must be a valid email")
