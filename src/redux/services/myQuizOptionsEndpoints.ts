@@ -7,7 +7,6 @@ const myQuizOptionEndpoints = myApi.injectEndpoints({
       query: (quizId) => ({
         url: `/student/quizzes/${quizId}/start`,
         headers: {
-          // Authorization: `Bearer 141|XfWfwPUJMgZYGWCBNjZm8VTuGPIDkUs1gXSstN7p5df06bd6`,
           "Content-Type": "application/json",
         },
       }),

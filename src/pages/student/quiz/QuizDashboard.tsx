@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
-import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { useNavigate } from "react-router";
 import JsIcon from "../../../assets/images/FrameJS.png";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { setQuizData } from "../../../redux/slice/quizSlice";
-import { FaHouse } from "react-icons/fa6";
 import OptionField from "../../../components/OptionField";
 import Timer from "../../../components/Timer";
 import { LineWave } from "react-loader-spinner";
@@ -112,24 +110,16 @@ const QuizDashboard = () => {
   return (
     <div className="h-full w-full px-[50px] font-poppins">
       <div className="flex flex-col justify-start items-left ">
-        <div className="text-primary  text-lg flex items-center gap-1 self-start mt-[33px]">
-          <div
-            className="flex gap-2  cursor-pointer"
-            onClick={() => navigate(-1)}
-          >
-            <div className="hover:underline flex gap-2">
-              <FaHouse className="text-lg mt-1 " />
-              Home
-            </div>
-          </div>
-          <MdOutlineKeyboardArrowRight className="text-lg " />
-          <span className="text-primary text-opacity-80">Quiz Dashboard</span>
+        <div className="text-primary  text-lg flex items-center gap-1 self-start ml-[23px]  mt-[33px]">
+          <span className="text-primary text-opacity-80">
+            {quizDetails.title}
+          </span>
         </div>
       </div>
       <div className=" grid grid-cols-2 my-4 items-center">
-        <img src={JsIcon} />
+        <img src={JsIcon} className="ml-[23px]  " />
         <div className="flex justify-end">
-          <p className="text-lg font-medium text-primary mr-6">
+          <p className="text-xl font-medium text-primary">
             {time && (
               <Timer
                 initialTime={time * 60}
@@ -141,31 +131,30 @@ const QuizDashboard = () => {
         </div>
       </div>
       <div className=" grid grid-cols-2  h-[480px] mb-10 w-full ">
-        <div className=" flex flex-col gap-20 mt-[50px]">
+        <div className=" flex flex-col gap-20 mt-[50px] ml-[23px]  ">
           <p className="text-dark text-[18px] font-semibold">
-            {quizDetails.title}
+            {questions[index]?.title}
           </p>
-          <p className="text-[16px] font-medium">{questions[index]?.title}</p>
           <div className="h-full w-[600px]">
             <p className="items-center">{quizDetails.description}</p>
           </div>
         </div>
         <div className=" pl-10 grid grid-cols-1 ">
-          <div className=" flex justify-between items-center">
-            <p className="ml-5 text-dark text-sm font-semibold">
+          <div className=" flex justify-between items-center mb-5">
+            <p className=" text-dark text-sm font-semibold">
               Select one answer
             </p>
 
             {index == questions.length - 1 ? (
               <button
                 onClick={submitQuiz}
-                className="mr-5 text-dark text-sm font-semibold rounded-[3px] bg-primary-light py-[16px] px-[24px]"
+                className=" text-dark text-sm font-semibold rounded-[3px] bg-primary-light py-[16px] px-[24px]"
               >
                 Submit
               </button>
             ) : (
               <button
-                className="mr-5 text-dark text-sm font-semibold rounded-[3px] bg-primary-light py-[16px] px-[24px]"
+                className=" text-dark text-sm font-semibold rounded-[3px] bg-primary-light py-[16px] px-[24px]"
                 onClick={nextButton}
               >
                 Next Question

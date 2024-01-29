@@ -19,12 +19,14 @@ const OptionField = ({
     <div className=" flex items-center h-4 ">
       <div
         className={`mr-5  font-bold ${
-          isSelected ? "bg-primary text-white" : "text-primary"
+          isSelected
+            ? "bg-primary text-white"
+            : "text-primary bg-primary-light py-8"
         } p-5  `}
         onClick={handleSelect}
       >
         {alphaIndex}
-        {isSelected && <FaCheck color="white" className="mt-5 text-primary" />}
+        {isSelected && <FaCheck color="white" className="mt-5 text-primary " />}
       </div>
       <div>{option}</div>
     </div>
