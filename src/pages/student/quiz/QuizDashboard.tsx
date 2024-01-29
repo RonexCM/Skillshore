@@ -110,7 +110,7 @@ const QuizDashboard = () => {
   return (
     <div className="h-full w-full px-[50px] font-poppins">
       <div className="flex flex-col justify-start items-left ">
-        <div className="text-primary  text-lg flex items-center gap-1 self-start ml-[23px]  mt-[33px]">
+        <div className="text-primary  text-lg flex items-center gap-1 self-start ml-[23px]  mt-[10px]">
           <span className="text-primary text-opacity-80">
             {quizDetails.title}
           </span>
