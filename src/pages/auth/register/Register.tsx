@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { TRegistrationFormType } from "../types";
 import { useRegisterUserMutation } from "../../../redux/services/myRegistrationApiEndpoints";
 import registrationSchema from "../../../validation/registrationValidationSchema";
-import {  toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from "react";
 import { registerInitialValues } from "../../../configs/constants";
@@ -117,7 +117,7 @@ const Register: React.FC = () => {
               </div>
               <button
                 type="submit"
-                className="w-full text-slate-900 text-sm font-semibold font-['Poppins'] leading-none h-12 px-6 py-4 my-3 bg-amber-400 rounded-lg justify-center items-center gap-2.5 inline-flex"
+                className="w-full text-slate-900 text-sm font-semibold font-['Poppins'] leading-none h-12 px-6 py-4 my-3 bg-amber-400 rounded-lg justify-center items-center gap-2.5 inline-flex hover:outline hover:outline-2 hover:outline-primary"
               >
                 Create Account
               </button>
