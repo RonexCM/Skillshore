@@ -9,8 +9,30 @@ export type TLoginResponseSuccess = {
 };
 
 export type TLoginResponseError = {
-  status: number;
-  data: { message: string; errors: { email: string[] } };
+  message: string;
+  errors: { email: string[] };
+};
+export type TUserDetails = {
+  resume: string;
+  name: string;
+  profile: string;
+  description: string;
+  mail: string;
+  phone: string;
+  experience: string;
+  language: string;
+  available: string;
+  role: string;
+  salary: string;
+  id: string;
+  expected: string;
+};
+
+export type TEditUserDetails = {
+  name: string;
+  description: string;
+  mail: string;
+  phone: string;
 };
 
 export type TRegistrationFormType = {
@@ -27,3 +49,4 @@ export type TAccessibleRoutes = {
 export type TAllowedRoute = {
   [key: string]: string;
 };
+

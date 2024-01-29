@@ -12,4 +12,12 @@ const createProfileValues = {
   career: "",
 };
 
-export { loginInitialValues, registerInitialValues, createProfileValues };
+const forgotPasswordEmailInitialValues = {
+  email: "",
+};
+export {
+  loginInitialValues,
+  registerInitialValues,
+  createProfileValues,
+  forgotPasswordEmailInitialValues,
+};

@@ -26,11 +26,11 @@ const App = () => {
                             <Route index element={<Login />} />
                             <Route path="/register" element={<Register />} />
                             <Route
-                                path="forgotPassword"
+                                path="forgot-password"
                                 element={<ForgotPassword />}
                             />
                             <Route
-                                path="enterNewPassword"
+                                path="enter-new-password"
                                 element={<EnterNewPassword />}
                             />
                         </Route>

@@ -1,10 +1,9 @@
 import * as Yup from "yup";
 
 const registrationSchema = Yup.object().shape({
-    name: Yup.string()
-        .required("Name is required")
-        .min(10, "Name must be at least 10 characters")
-        .max(255, "Name must not exceed 255 charracters"),
+  name: Yup.string()
+    .required("Name is required")
+    .max(255, "Name must not exceed 255 charracters"),
 
     email: Yup.string()
         .email("Invalid email address")
