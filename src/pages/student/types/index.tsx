@@ -67,14 +67,22 @@ export type TProfileDetails = {
 };
 
 export type TQuizOptions = {
-  id: number;
-  title: string;
-  slug: string;
-  thumbnail: string;
-  description: string;
-  time: number;
-  retry_after: number;
-  status: number;
+  data: {
+    id: number;
+    title: string;
+    slug: string;
+    thumbnail: string;
+    description: string;
+    time: number;
+    retry_after: number;
+    status: number;
+    pass_percentage: number;
+    category: {
+      id: number;
+      title: string;
+      slug: string;
+    };
+  };
   questions: {
     data: {
       questions: Array<{

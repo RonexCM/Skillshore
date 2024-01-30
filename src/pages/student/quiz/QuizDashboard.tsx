@@ -13,6 +13,7 @@ import {
   usePostQuizDataMutation,
 } from "../../../redux/services/myQuizOptionsEndpoints";
 import { setAnswerData } from "../../../redux/slice/userQuizSlice";
+import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 
 const QuizDashboard = () => {
   const navigate = useNavigate();
@@ -99,7 +100,7 @@ const QuizDashboard = () => {
       dispatch(setAnswerData(data));
       postQuizData(data);
 
-      navigate("/result");
+      navigate("/category");
     }
   };
 
@@ -110,10 +111,14 @@ const QuizDashboard = () => {
   return (
     <div className="h-full w-full px-[50px] font-poppins">
       <div className="flex flex-col justify-start items-left ">
-        <div className="text-primary  text-lg flex items-center gap-1 self-start ml-[23px]  mt-[32px]">
-          <span className="text-primary text-opacity-80">
-            {quizDetails.title}
-          </span>
+        <div className="text-primary  text-lg flex items-center gap-1 self-start mt-[37px]">
+          <div className="flex gap-2  cursor-pointer">
+            <div className="hover:underline flex gap-2">
+              {quizDetails.title}
+            </div>
+          </div>
+          <MdOutlineKeyboardArrowRight className="text-lg " />
+          <span className="text-primary">{quizDetails?.category?.title}</span>
         </div>
       </div>
       <div className=" grid grid-cols-2 my-4 items-center">
