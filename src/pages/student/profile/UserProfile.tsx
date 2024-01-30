@@ -7,6 +7,7 @@ import { setUserData } from "../../../redux/slice/userSlice";
 import { RootState } from "../../../redux/store";
 import "react-toastify/dist/ReactToastify.css";
 import ProfileDetails from "../../../components/ProfileDetails";
+import useCheckRole from "../../../hooks/useCheckRole";
 
 const UserProfile = () => {
   const navigate = useNavigate();
@@ -14,13 +15,12 @@ const UserProfile = () => {
 
   const { data: userData, isLoading, isSuccess } = useGetUserQuery();
   const userDetails = useSelector((state: RootState) => state.user.data);
+  console.log("🚀 ~ UserProfile ~ userDetails:", userDetails);
 
+  useCheckRole(userData);
   useEffect(() => {
     if (userData && isSuccess) {
       dispatch(setUserData(userData));
-    }
-    if (userData?.profile === null) {
-      navigate("/create-profile");
     }
   }, [isSuccess, userData]);
 

@@ -7,13 +7,21 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { loginInitialValues } from "../../../configs/constants";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setToken } from "../../../redux/slice/authSlice";
+import { RootState } from "../../../redux/store";
+import { useEffect } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
   const [loginUser] = useLoginUserMutation();
   const dispatch = useDispatch();
+  const authData = useSelector((state: RootState) => state.auth.data);
+  useEffect(() => {
+    if (authData.token !== null) {
+      navigate("/profile");
+    }
+  }, [authData]);
   const onSubmit = async (
     values: TLoginField,
     { resetForm }: FormikHelpers<TLoginField>
