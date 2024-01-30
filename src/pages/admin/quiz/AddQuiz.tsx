@@ -1,11 +1,4 @@
-import {
-  Field,
-  FieldArray,
-  Formik,
-  Form,
-  ErrorMessage,
-  FormikHelpers,
-} from "formik";
+import { Field, Formik, Form, ErrorMessage, FormikHelpers } from "formik";
 import { validationSchemaAddQuiz } from "../../../validation";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -14,9 +7,7 @@ import { AiFillHome } from "react-icons/ai";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
-import { TAddQuizFieldType, TQuestionCategoryFetchAllType } from "../types";
-import { MdAdd, MdOutlineRemove } from "react-icons/md";
-import { Tooltip } from "flowbite-react";
+import { TAddQuizFieldType, option } from "../types";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { useGetAllQuizCategoriesQuery } from "../../../redux/services/myQuizCategoryApiEndpoints";
@@ -24,29 +15,20 @@ import { useAddQuizMutation } from "../../../redux/services/myQuizApiEndpoints";
 import { saveAllQuizCategoriesList } from "../../../redux/slice/quizCategorySlice/allQuizCategoriesListSlice";
 import { useGetAllQuestionCategoriesQuery } from "../../../redux/services/myQuestionCategoryApiEndpoints";
 import { saveAllQuestionCategoriesList } from "../../../redux/slice/questionCategorySlice/allQuestionCategoriesListSlice";
+import CustomSelect from "../../../components/CustomSelect";
 
 const AddQuiz = () => {
   const dispatch = useDispatch();
   const { data: allQuizCategoriesData } = useGetAllQuizCategoriesQuery();
   const { data: allQuestionCategoriesData } =
     useGetAllQuestionCategoriesQuery();
-  console.log("quiz");
-  console.log(allQuizCategoriesData);
-  console.log("question");
-
-  console.log(allQuestionCategoriesData);
   const [addQuiz, { error, isError }] = useAddQuizMutation();
-
-  // const [questionCategories, setQuestionCategories] = useState<
-  //   TQuestionCategoryFetchAllType[]
-  // >([]);
   useEffect(() => {
     if (allQuizCategoriesData && "data" in allQuizCategoriesData) {
       dispatch(saveAllQuizCategoriesList(allQuizCategoriesData.data));
     }
     if (allQuestionCategoriesData) {
       dispatch(saveAllQuestionCategoriesList(allQuestionCategoriesData.data));
-      // setQuestionCategories(allQuestionCategoriesData.data);
     }
   }, [allQuizCategoriesData, allQuestionCategoriesData]);
   const allQuizCategories = useSelector(
@@ -56,6 +38,11 @@ const AddQuiz = () => {
     (state: RootState) => state.allQuestionCategories.data
   );
 
+  const questionCategoriesOptions = allQuestionCategories.map((obj) => ({
+    value: obj.id,
+    label: obj.title,
+  }));
+
   //   ----------formik objects----------
   const initialValues = useSelector((state: RootState) => state.addQuiz);
 
@@ -63,24 +50,34 @@ const AddQuiz = () => {
    * when add button is clicked form is submitted with
    * @param values
    */
-  const onSubmit = async (
+  const onSubmit = (
     values: TAddQuizFieldType,
     actions: FormikHelpers<TAddQuizFieldType>
   ) => {
     console.log(values);
-    await addQuiz(values);
-    if (isError) {
-      toast.error("Error adding question!");
-      console.log(error);
-    } else {
-      const { resetForm } = actions;
-      toast.success("Question added!");
-      resetForm();
-    }
+    // await addQuiz(values);
+    // if (isError) {
+    //   toast.error("Error adding question!");
+    //   console.log(error);
+    // } else {
+    //   const { resetForm } = actions;
+    //   toast.success("Question added!");
+    //   resetForm();
+    // }
   };
 
   const navigate = useNavigate();
-
+  const [questionCategoriesFromSelect, setQuestionCategoriesFromSelect] =
+    useState<option[]>([]);
+  console.log(questionCategoriesFromSelect);
+  const [questionCategoryIdsToSend, setQuestionCategoryIdsToSend] = useState<
+    number[]
+  >([]);
+  useEffect(() => {
+    const tempArray = questionCategoriesFromSelect.map((obj) => obj.value);
+    setQuestionCategoryIdsToSend(tempArray);
+    console.log(questionCategoryIdsToSend);
+  }, [questionCategoriesFromSelect]);
   return (
     <motion.div
       initial={{ opacity: 0.2 }}
@@ -107,7 +104,7 @@ const AddQuiz = () => {
         onSubmit={onSubmit}
         validationSchema={validationSchemaAddQuiz}
       >
-        {({ handleChange }) => (
+        {() => (
           // form field in 2 grid columns
           <Form>
             <div className="border-2  p-7 rounded-md grid gap-2 gap-x-6 grid-cols-2 border-primary-light ">
@@ -168,7 +165,7 @@ const AddQuiz = () => {
                     <option value="" className="text-gray-300">
                       select category...
                     </option>
-                    {allQuizCategories.map((quizCategory, index) => (
+                    {allQuizCategories?.map((quizCategory, index) => (
                       <option key={index} value={quizCategory.id}>
                         {quizCategory.title}
                       </option>
@@ -190,7 +187,7 @@ const AddQuiz = () => {
                   >
                     Question Categories
                   </label>
-                  <Field
+                  {/* <Field
                     as="select"
                     type="text"
                     id="question_categories"
@@ -206,7 +203,16 @@ const AddQuiz = () => {
                         {questionCategory.title}
                       </option>
                     ))}
-                  </Field>
+                  </Field> */}
+                  <Field
+                    name="question_categories"
+                    component={CustomSelect}
+                    value={questionCategoryIdsToSend}
+                    options={questionCategoriesOptions}
+                    setQuestionCategoriesFromSelect={
+                      setQuestionCategoriesFromSelect
+                    }
+                  />
                 </div>
                 <ErrorMessage
                   className="text-red-500 text-xs "
