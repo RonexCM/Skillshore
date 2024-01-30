@@ -19,7 +19,7 @@ const App = () => {
           <Route path="/" element={<CommonLayout layoutFor="auth" />}>
             <Route index element={<Login />} />
             <Route path="register" element={<Register />} />
-            <Route path="forgotPassword" element={<ForgotPassword />} />
+            <Route path="forgot-password" element={<ForgotPassword />} />
 
             <Route path="password-reset/:token" element={<ResetPassword />} />
           </Route>

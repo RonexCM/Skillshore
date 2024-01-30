@@ -1,31 +1,25 @@
-import { Formik, Field, Form, ErrorMessage, FormikHelpers } from "formik";
+import { Formik, Field, Form, ErrorMessage } from "formik";
 import { Link } from "react-router-dom";
 import { TForgotPasswordEmailField } from "../types";
 import { forgotPasswordEmailFieldSchema } from "../../../validation";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useForgotPasswordMutation } from "../../../redux/services/myForgotPasswordApiEndpoints";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { forgotPasswordEmailInitialValues } from "../../../configs/constants";
 
 const ForgotPassword: React.FC = () => {
   const [forgotPassword, { isSuccess, error }] = useForgotPasswordMutation();
 
-  const [formReset, setFormReset] = useState(null);
-  const handleSubmit = async (
-    values: TForgotPasswordEmailField,
-    { resetForm }: FormikHelpers<TForgotPasswordEmailField>
-  ) => {
+  const handleSubmit = async (values: TForgotPasswordEmailField) => {
     try {
       await forgotPassword(values);
-      resetForm && setFormReset(resetForm as unknown as any);
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
     if (isSuccess) {
-      formReset && formReset();
       toast.success("Please check your email to see verification link");
     }
   }, [isSuccess]);
