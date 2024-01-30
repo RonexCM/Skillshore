@@ -5,7 +5,7 @@ const AuthNavbar = () => {
 
   return (
     <nav className="h-[56px] shrink-0 w-full bg-[#03103F] text-white flex justify-between items-center px-12">
-      <NavLink to="." className="login-nav flex gap-2">
+      <NavLink to="/profile" className="login-nav flex gap-2">
         <img src={skillshoreLogo} alt="skillshore-logo" />
       </NavLink>
       <div className="flex gap-[46px] text-sm">

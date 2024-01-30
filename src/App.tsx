@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { EnterNewPassword, ForgotPassword } from "./pages/auth/forgotPassword";
-import {  ProtectedRoute } from "./routes";
+import { ProtectedRoute } from "./routes";
 import {
   UserProfile,
   EditProfile,
@@ -30,11 +30,11 @@ const App = () => {
               element={<ProtectedRoute>{<UserProfile />}</ProtectedRoute>}
             />
             <Route
-              path="/editProfile"
+              path="/edit-profile"
               element={<ProtectedRoute>{<EditProfile />}</ProtectedRoute>}
             />
             <Route
-              path="/createProfile"
+              path="/create-profile"
               element={<ProtectedRoute>{<CreateProfile />}</ProtectedRoute>}
             />
           </Route>

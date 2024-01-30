@@ -5,14 +5,14 @@ import { useUpdateUserProfileMutation } from "../../../redux/services/myUserProf
 import { setProfileData, setUserData } from "../../../redux/slice/userSlice";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
-import { RootState } from "../../../redux/store";
 import { useEffect } from "react";
 import { TProfileData } from "../types";
-import { profileValidationSchema } from "../../../validation";
 import { useGetUserQuery } from "../../../redux/services/myUserProfileEndpoints";
 import { LineWave } from "react-loader-spinner";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { RootState } from "../../../redux/store";
+import { profileValidationSchema } from "../../../validation";
 const EditProfile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -32,8 +32,9 @@ const EditProfile = () => {
 
   const handleSubmit = async (values: TProfileData) => {
     try {
-      let formattedSkills = values.skills;
-      formattedSkills = (formattedSkills as string).split(",");
+      let skills = values.skills;
+      skills = (skills as string).split(",");
+      const formattedSkills = skills.filter((skill) => skill.trim() !== "");
       await updateUserProfile({ ...values, skills: formattedSkills });
     } catch (error) {
       console.error("Error updating data :", error);
@@ -82,7 +83,7 @@ const EditProfile = () => {
           </div>
 
           <Formik
-            initialValues={UserData}
+            initialValues={{ ...UserData, skills: UserData.skills.join(", ") }}
             onSubmit={handleSubmit}
             validationSchema={profileValidationSchema}
           >

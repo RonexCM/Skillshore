@@ -1,12 +1,15 @@
-import { TUserProfile } from "../../pages/student/types";
+import { TUserDataTransformed, TUserProfile } from "../../pages/student/types";
 import { myApi } from "./myApi";
 
 export const apiSlice = myApi.injectEndpoints({
   endpoints: (builder) => ({
-    getUser: builder.query<TUserProfile, void>({
+    getUser: builder.query<TUserDataTransformed, void>({
       query: () => ({
         url: `/user`,
       }),
+      transformResponse: (response: TUserProfile) => {
+        return { data: response.data, profile: response.data.profile };
+      },
       providesTags: ["users"],
     }),
     updateUserProfile: builder.mutation({
@@ -23,6 +26,7 @@ export const apiSlice = myApi.injectEndpoints({
         method: "POST",
         body: newProfileData,
       }),
+
       invalidatesTags: ["users"],
     }),
   }),
