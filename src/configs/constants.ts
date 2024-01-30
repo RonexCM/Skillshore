@@ -15,9 +15,17 @@ const createProfileValues = {
 const forgotPasswordEmailInitialValues = {
   email: "",
 };
+
+const resetPasswordInitialValues = {
+  token: "",
+  email: "",
+  password: "",
+  password_confirmation: "",
+};
 export {
   loginInitialValues,
   registerInitialValues,
   createProfileValues,
   forgotPasswordEmailInitialValues,
+  resetPasswordInitialValues,
 };
