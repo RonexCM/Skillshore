@@ -20,7 +20,7 @@ const UserProfile = () => {
       dispatch(setUserData(userData));
     }
     if (userData?.profile === null) {
-      navigate("/createProfile");
+      navigate("/create-profile");
     }
   }, [isSuccess, userData]);
 
@@ -50,7 +50,7 @@ const UserProfile = () => {
                   <button
                     type="button"
                     className="text-white bg-green-700 font-medium rounded-lg text-sm h-[50px] w-[150px]"
-                    onClick={() => navigate("/editProfile")}
+                    onClick={() => navigate("/edit-profile")}
                   >
                     Edit Profile
                   </button>
