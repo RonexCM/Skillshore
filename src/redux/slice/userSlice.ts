@@ -26,6 +26,9 @@ const userSlice = createSlice({
     setProfileData: (state, action) => {
       state.data.profile = action.payload;
     },
+    logOut: (state) => {
+      state.data = initialState.data;
+    },
   },
 });
 
