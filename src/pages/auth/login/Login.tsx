@@ -16,12 +16,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [loginUser] = useLoginUserMutation();
   const dispatch = useDispatch();
-  const authData = useSelector((state: RootState) => state.auth.data);
-  useEffect(() => {
-    if (authData.token !== null) {
-      navigate("/profile");
-    }
-  }, [authData]);
+
   const onSubmit = async (
     values: TLoginField,
     { resetForm }: FormikHelpers<TLoginField>

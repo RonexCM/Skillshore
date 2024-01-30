@@ -15,7 +15,6 @@ const UserProfile = () => {
 
   const { data: userData, isLoading, isSuccess } = useGetUserQuery();
   const userDetails = useSelector((state: RootState) => state.user.data);
-  console.log("🚀 ~ UserProfile ~ userDetails:", userDetails);
 
   useCheckRole(userData);
   useEffect(() => {
