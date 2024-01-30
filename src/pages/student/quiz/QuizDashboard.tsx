@@ -17,7 +17,7 @@ import { setAnswerData } from "../../../redux/slice/userQuizSlice";
 const QuizDashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const quizId = 1;
+  const quizId = 12;
   const [postQuizData] = usePostQuizDataMutation();
   const { data, isLoading } = useGetQuizOptionsQuery(quizId);
   const quizDetails = useSelector((state: RootState) => state.quiz.data);
