@@ -5,14 +5,13 @@ const registrationSchema = Yup.object().shape({
     .required("Name is required")
     .max(255, "Name must not exceed 255 charracters"),
 
-    email: Yup.string()
-        .email("Invalid email address")
-        .required("Email is required")
-        .max(255, "Email must not exceed 255 charracters")
-        .matches(
-            /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i,
-            "Email must be a valid email"
-        ),
+  email: Yup.string()
+    .email("Email must be a valid email")
+    .required("Email is required")
+    .matches(
+      /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i,
+      "Email must be a valid email"
+    ),
 
   password: Yup.string()
     .required("Password is required")
