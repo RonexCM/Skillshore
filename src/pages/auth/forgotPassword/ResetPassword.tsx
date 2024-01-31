@@ -15,9 +15,11 @@ const ResetPassword: React.FC = () => {
   const { search } = useLocation();
   const searchParams = new URLSearchParams(search);
   const email = searchParams.get("email");
-
-  resetPasswordInitialValues.token = token || "";
-  resetPasswordInitialValues.email = email || "";
+  const resetPasswordFields = {
+    ...resetPasswordInitialValues,
+    token: token || "", 
+    email: email || ""
+  }
 
   const handleSubmit = async (values: TResetPassword) => {
     try {
@@ -43,7 +45,7 @@ const ResetPassword: React.FC = () => {
     <div className="flex m-auto h-max">
       <div className="relative shadow-[0_10px_40px_-15px_rgba(0,0,0,0.2)] w-[470px] h-max text-dark rounded-[20px] py-[25px] px-[42px] ">
         <Formik
-          initialValues={resetPasswordInitialValues}
+          initialValues={resetPasswordFields}
           validationSchema={enterNewPasswordSchema}
           onSubmit={handleSubmit}
         >
