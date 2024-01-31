@@ -7,7 +7,6 @@ import { setUserData } from "../../../redux/slice/userSlice";
 import { RootState } from "../../../redux/store";
 import "react-toastify/dist/ReactToastify.css";
 import ProfileDetails from "../../../components/ProfileDetails";
-import useCheckRole from "../../../hooks/useCheckRole";
 
 const UserProfile = () => {
   const navigate = useNavigate();

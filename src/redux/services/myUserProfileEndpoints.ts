@@ -12,6 +12,13 @@ export const apiSlice = myApi.injectEndpoints({
       },
       providesTags: ["users"],
     }),
+    getUserRole: builder.mutation({
+      query: () => ({
+        url: `/user`,
+        method: "GET",
+      }),
+      invalidatesTags: ["users"],
+    }),
     updateUserProfile: builder.mutation({
       query: ({ id, ...updatedUserData }) => ({
         url: `/student/profile/${id}`,
@@ -34,6 +41,7 @@ export const apiSlice = myApi.injectEndpoints({
 
 export const {
   useGetUserQuery,
+  useGetUserRoleMutation,
   useUpdateUserProfileMutation,
   useCreateProfileMutation,
 } = apiSlice;

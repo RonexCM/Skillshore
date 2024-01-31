@@ -1,12 +1,15 @@
 import { NavLink, useLocation } from "react-router-dom";
 import skillshoreLogo from "../assets/skillshoresvg.svg";
 import { logOut } from "../redux/slice/authSlice";
+
 import { useDispatch } from "react-redux";
 import { FaHouse } from "react-icons/fa6";
+import { setInitialData } from "../redux/slice/userSlice";
 
 const UserNavbar = () => {
   const dispatch = useDispatch();
   const LogOut = () => {
+    dispatch(setInitialData());
     dispatch(logOut());
   };
   const location = useLocation();
