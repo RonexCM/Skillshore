@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import JsIcon from "../../../assets/images/FrameJS.png";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { setQuizData } from "../../../redux/slice/quizSlice";
@@ -14,11 +13,12 @@ import {
 } from "../../../redux/services/myQuizOptionsEndpoints";
 import { setAnswerData } from "../../../redux/slice/userQuizSlice";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+import { useParams } from "react-router-dom";
 
 const QuizDashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const quizId = 12;
+  const { id: quizId } = useParams();
   const [postQuizData] = usePostQuizDataMutation();
   const { data, isLoading } = useGetQuizOptionsQuery(quizId);
   const quizDetails = useSelector((state: RootState) => state.quiz.data);
@@ -100,16 +100,16 @@ const QuizDashboard = () => {
       dispatch(setAnswerData(data));
       postQuizData(data);
 
-      navigate("/category");
+      navigate("/quizzes");
     }
   };
 
   const handleTimeout = () => {
     postQuizData(quizAnswer);
-    navigate("/result");
+    navigate("/quizzes");
   };
   return (
-    <div className="h-full w-full px-[50px] font-poppins">
+    <div className="h-max w-full px-[50px] font-poppins">
       <div className="flex flex-col justify-start items-left ">
         <div className="text-primary  text-lg flex items-center gap-1 self-start mt-[37px]">
           <div className="flex gap-2  cursor-pointer">
@@ -121,8 +121,11 @@ const QuizDashboard = () => {
           <span className="text-primary">{quizDetails?.category?.title}</span>
         </div>
       </div>
-      <div className=" grid grid-cols-2 my-4 items-center">
-        <img src={JsIcon} className="ml-[23px]  " />
+      <div className=" grid grid-cols-2 my-4 items-center ">
+        <img
+          src={quizDetails.thumbnail}
+          className="ml-[23px] h-[120px] w-[120px]  "
+        />
         <div className="flex justify-end">
           <p className="text-2xl font-medium text-primary">
             {time && (
@@ -135,12 +138,12 @@ const QuizDashboard = () => {
           </p>
         </div>
       </div>
-      <div className=" grid grid-cols-2  h-[480px] mb-10 w-full ">
+      <div className=" grid grid-cols-2  h-max mb-10 w-full ">
         <div className=" flex flex-col gap-20 mt-[47px] ml-[23px]  ">
           <p className="text-dark text-[18px] font-semibold">
             {questions[index]?.title}
           </p>
-          <div className="h-full w-[600px]">
+          <div className="h-full w-auto">
             <p className="items-center">{quizDetails.description}</p>
           </div>
         </div>
