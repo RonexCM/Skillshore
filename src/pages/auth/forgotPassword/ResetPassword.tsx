@@ -16,8 +16,8 @@ const ResetPassword: React.FC = () => {
   const searchParams = new URLSearchParams(search);
   const email = searchParams.get("email");
 
-  resetPasswordInitialValues.token = token;
-  resetPasswordInitialValues.email = email;
+  resetPasswordInitialValues.token = token || "";
+  resetPasswordInitialValues.email = email || "";
 
   const handleSubmit = async (values: TResetPassword) => {
     try {
@@ -60,7 +60,7 @@ const ResetPassword: React.FC = () => {
                     id="password"
                     name="password"
                     placeholder="Password"
-                    className="w-full h-12 bg-white rounded-lg border-2 border-indigo-100 px-3 hover:border-accent"
+                    className="w-full h-12 px-3 bg-white border-2 border-indigo-100 rounded-lg hover:border-accent"
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
@@ -79,7 +79,7 @@ const ResetPassword: React.FC = () => {
                     id="confirmPassword"
                     name="password_confirmation"
                     placeholder="Confirm Password"
-                    className="w-full h-12 bg-white rounded-lg border-2 border-indigo-100 px-3 hover:border-accent"
+                    className="w-full h-12 px-3 bg-white border-2 border-indigo-100 rounded-lg hover:border-accent"
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
