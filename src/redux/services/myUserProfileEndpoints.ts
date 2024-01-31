@@ -11,6 +11,13 @@ export const apiSlice = myApi.injectEndpoints({
         return { data: response.data, profile: response.data.profile };
       },
     }),
+    getUserRole: builder.mutation({
+      query: () => ({
+        url: `/user`,
+        method: "GET",
+      }),
+      invalidatesTags: ["users"],
+    }),
     updateUserProfile: builder.mutation({
       query: ({ id, ...updatedUserData }) => ({
         url: `/student/profile/${id}`,
