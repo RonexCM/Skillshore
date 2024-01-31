@@ -187,23 +187,23 @@ const QuizCategory = () => {
           ))}
         </div>
       </div>
-      {
+      {showQuizModal && (
         <QuizModal
           selectQuiz={selectQuiz}
           setShowModal={setShowQuizModal}
           id={1}
           modalFor={"quizModal"}
         />
-      }
+      )}
+      {showQuizModal && (
+        <div
+          className="fixed  top-0 left-0 right-0 bottom-0 z-1 bg-[#03103F] opacity-50"
+          onClick={() => {
+            setShowQuizModal(false);
+          }}
+        ></div>
+      )}
     </section>
-    // {showQuizModal && (
-    //   <div
-    //     className="fixed  top-0 left-0 right-0 bottom-0 z-1 bg-[#03103F] opacity-50"
-    //     onClick={() => {
-    //       setShowQuizModal(false);
-    //     }}
-    //   ></div>
-    // )}
   );
 };
 
