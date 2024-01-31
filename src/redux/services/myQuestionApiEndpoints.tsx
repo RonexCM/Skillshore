@@ -4,22 +4,31 @@ import {
   TFetchQuestionsType,
   TQuestionType,
   TEditQuestionFieldType,
+  TSingleQuestionType,
 } from "../../pages/admin/types";
+import { TSearchParams } from "../../pages/admin/types/TCommonTypes";
 import { myApi } from "./myApi";
 
 const myQuestionApiEndpoints = myApi.injectEndpoints({
   endpoints: (builder) => ({
     getQuestions: builder.query<
       TFetchQuestionsQueryTransformReturnType,
-      number
+      TSearchParams
     >({
-      query: (page) => `/admin/questions?page=${page}`,
+      query: ({ page, title }) => {
+        let query = `/admin/questions?page=${page}`;
+        if (title) {
+          query += `&title=${title}`;
+        }
+        return query;
+      },
       providesTags: ["FetchQuestions"],
       transformResponse: (response: TFetchQuestionsType) => {
         return { data: response.data, meta: response.meta };
       },
     }),
-    getSingleQuestion: builder.query<TQuestionType, string>({
+
+    getSingleQuestion: builder.query<TSingleQuestionType, string>({
       query: (id) => `/admin/questions/${id}`,
     }),
     addQuestion: builder.mutation<TAddQuestionFieldType, TAddQuestionFieldType>(

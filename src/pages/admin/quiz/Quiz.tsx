@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { ListOfQuiz, Pagination } from "../../../components";
 import { IoSearch } from "react-icons/io5";
 import { motion } from "framer-motion";
@@ -18,11 +18,12 @@ const Quiz = () => {
 
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [startingIndex, setStartingIndex] = useState(1);
-  const {
-    data: quizzesData,
-    isLoading,
-    isError,
-  } = useGetQuizzesQuery(currentPageNumber);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const { data: quizzesData, isLoading } = useGetQuizzesQuery({
+    page: currentPageNumber,
+    title: searchTerm,
+  });
   useEffect(() => {
     if (quizzesData) {
       dispatch(saveQuizList(quizzesData.data));
@@ -35,9 +36,7 @@ const Quiz = () => {
   const { data: quizList, meta } = useSelector(
     (state: RootState) => state.quizList
   );
-  console.log(quizList);
   const loadingState = useLoadingState();
-
   const { setShowLoader } = loadingState;
 
   return (
@@ -47,15 +46,16 @@ const Quiz = () => {
       className="flex flex-col basis-full  gap-5 py-10 px-8 "
     >
       <h1 className="text-primary font-medium text-2xl leading-4">Quiz</h1>
-
       <div className="flex justify-between">
         <div className="relative">
           <IoSearch className="absolute text-2xl text-[#8a8a8a] top-[8px] left-3 border-r-2 pr-2" />
           <input
             type="text"
             id="table-search"
-            value=""
-            onChange={() => {}}
+            value={searchTerm}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+              setSearchTerm(e.target.value);
+            }}
             className="block p-2 ps-10  text-sm text-gray-900 border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary rounded-md w-80 bg-gray-50  "
             placeholder="Search Quiz"
           ></input>

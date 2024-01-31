@@ -6,6 +6,7 @@ import {
   TQuizCategoryListFetchAllType,
   TQuizCategoryType,
 } from "../../pages/admin/types";
+import { TSearchParams } from "../../pages/admin/types/TCommonTypes";
 import { myApi } from "./myApi";
 
 const myQuizCategoryApiEndpoints = myApi.injectEndpoints({
@@ -16,9 +17,15 @@ const myQuizCategoryApiEndpoints = myApi.injectEndpoints({
     }),
     getQuizCategories: builder.query<
       TFetchQuizCategoriesQueryTransformReturnType,
-      number
+      TSearchParams
     >({
-      query: (page) => `/admin/quiz-categories?page=${page}`,
+      query: ({ page, title }) => {
+        let query = `/admin/questions?page=${page}`;
+        if (title) {
+          query += `&title=${title}`;
+        }
+        return query;
+      },
       providesTags: ["FetchQuizCategories"],
       transformResponse: (response: TFetchQuizCategoriesType) => {
         return { data: response.data, meta: response.meta };

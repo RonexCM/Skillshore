@@ -14,3 +14,8 @@ export type TCommonLinksType = {
   prev: string;
   next: string;
 };
+
+export type TSearchParams = {
+  page: number;
+  title: string;
+};

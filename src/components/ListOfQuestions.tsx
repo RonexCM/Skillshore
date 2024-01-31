@@ -25,8 +25,7 @@ const ListOfQuestions = ({ question, index, startingIndex }: Props) => {
   const [active, setActive] = useState(false);
   // const [changeStatus] = useChangeStatusMutation();
   const handleEdit = () => {
-    dispatch(saveQuestion(question));
-    navigate(`editQuestion`);
+    navigate(`editQuestion/${question.id}`);
   };
   const handleDelete = () => {
     setShowDeleteModal(true);

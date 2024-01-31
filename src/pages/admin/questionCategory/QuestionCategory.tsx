@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { ListOfQuestionCategory, Pagination } from "../../../components";
 import { IoSearch } from "react-icons/io5";
 import { motion } from "framer-motion";
@@ -17,11 +17,13 @@ const QuestionCategory = () => {
   const dispatch = useDispatch();
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [startingIndex, setStartingIndex] = useState(1);
-  const {
-    data: questionCategoriesData,
-    isLoading,
-    isError,
-  } = useGetQuestionCategoriesQuery(currentPageNumber);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const { data: questionCategoriesData, isLoading } =
+    useGetQuestionCategoriesQuery({
+      page: currentPageNumber,
+      title: searchTerm,
+    });
   useEffect(() => {
     if (questionCategoriesData) {
       dispatch(saveQuestionCategoryList(questionCategoriesData.data));
@@ -55,8 +57,10 @@ const QuestionCategory = () => {
           <input
             type="text"
             id="table-search"
-            value=""
-            onChange={() => {}}
+            value={searchTerm}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+              setSearchTerm(e.target.value);
+            }}
             className="block p-2 ps-10  text-sm text-gray-900 border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary rounded-md w-80 bg-gray-50  "
             placeholder="Search Category"
           ></input>
@@ -97,7 +101,7 @@ const QuestionCategory = () => {
               </thead>
 
               <tbody>
-                {questionCategoriesList[0].title.length > 1 &&
+                {questionCategoriesList &&
                   questionCategoriesList?.map(
                     (
                       questionCategory: TQuestionCategoryType,

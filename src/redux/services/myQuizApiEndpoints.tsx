@@ -5,12 +5,22 @@ import {
   TAddQuizFieldType,
   TEditQuizFieldType,
 } from "../../pages/admin/types";
+import { TSearchParams } from "../../pages/admin/types/TCommonTypes";
 import { myApi } from "./myApi";
 
 const myQuizApiEndpoints = myApi.injectEndpoints({
   endpoints: (builder) => ({
-    getQuizzes: builder.query<TFetchQuizzesQueryTransformReturnType, number>({
-      query: (page) => `/admin/quizzes?page=${page}`,
+    getQuizzes: builder.query<
+      TFetchQuizzesQueryTransformReturnType,
+      TSearchParams
+    >({
+      query: ({ page, title }) => {
+        let query = `/admin/quizzes?page=${page}`;
+        if (title) {
+          query += `&title=${title}`;
+        }
+        return query;
+      },
       providesTags: ["FetchQuizzes"],
       transformResponse: (response: TFetchQuizzesType) => {
         return { data: response.data, meta: response.meta };

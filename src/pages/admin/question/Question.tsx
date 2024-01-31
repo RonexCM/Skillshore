@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { ListOfQuestions, Pagination } from "../../../components";
 import { IoSearch } from "react-icons/io5";
 import { useGetQuestionsQuery } from "../../../redux/services/myQuestionApiEndpoints";
@@ -19,11 +19,12 @@ const Question = () => {
   const dispatch = useDispatch();
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [startingIndex, setStartingIndex] = useState(1);
-  const {
-    data: questionsData,
-    isLoading,
-    isError,
-  } = useGetQuestionsQuery(currentPageNumber);
+  const [searchTerm, setSearchTerm] = useState("");
+  const { data: questionsData, isLoading } = useGetQuestionsQuery({
+    page: currentPageNumber,
+    title: searchTerm,
+  });
+
   useEffect(() => {
     if (questionsData) {
       dispatch(saveQuestionList(questionsData.data));
@@ -63,11 +64,13 @@ const Question = () => {
           <input
             type="text"
             id="table-search"
-            value=""
-            onChange={() => {}}
+            value={searchTerm}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+              setSearchTerm(e.target.value);
+            }}
             className="block p-2 ps-10  text-sm text-gray-900 border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary rounded-md w-80 bg-gray-50  "
             placeholder="Search Question"
-          ></input>
+          />
         </div>
         <Link
           to="addQuestion"
@@ -117,7 +120,7 @@ const Question = () => {
               </thead>
 
               <tbody>
-                {questionsList[0].title.length > 1 &&
+                {questionsList &&
                   questionsList?.map(
                     (question: TQuestionType, index: number) => (
                       <ListOfQuestions

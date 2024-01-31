@@ -4,14 +4,8 @@ import { Pagination } from "../../../components";
 import { useGetQuestionsQuery } from "../../../redux/services/myQuestionApiEndpoints";
 
 const Question = () => {
-  const { data, isLoading } = useGetQuestionsQuery(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
-  useEffect(() => {
-    if (data) {
-      // setQuestions(data);
-    }
-  }, [data]);
 
   return (
     <div className="flex flex-col basis-full  gap-2 p-5 px-8 ">
@@ -33,8 +27,8 @@ const Question = () => {
           ></input>
         </div>
       </div>
-      <div className="pt-0">{isLoading && <p className=""></p>}</div>
-      {isLoading ? (
+
+      {false ? (
         <div className="pb-2 ps-5">
           <div role="status">
             <svg

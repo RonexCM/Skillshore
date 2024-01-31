@@ -11,6 +11,19 @@ export type TQuestionType = {
   status: number;
   category: { id: number; title: string };
 };
+export type TSingleQuestionType = {
+  data: {
+    id: number;
+    title: string;
+    slug: string;
+    description: string;
+    options: string[];
+    answer: string;
+    weightage: number;
+    status: number;
+    category: { id: number; title: string };
+  };
+};
 //added undefined to weightage and in initialState of addquestionslice
 export type TAddQuestionFieldType = {
   title: string;
@@ -18,7 +31,7 @@ export type TAddQuestionFieldType = {
   description: string;
   options: string[];
   answer: string;
-  weightage: number | undefined;
+  weightage: number;
   status: number;
   category_id: number;
 };

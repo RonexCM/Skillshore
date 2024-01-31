@@ -48,7 +48,7 @@ const App = () => {
               <Route path="question">
                 <Route index element={<Question />} />
                 <Route path="addQuestion" element={<AddQuestion />} />
-                <Route path="editQuestion" element={<EditQuestion />} />
+                <Route path="editQuestion/:id" element={<EditQuestion />} />
                 {/* <Route path="editQuestion/:id" element={<EditQuestion />} /> */}
               </Route>
               <Route path="report" element={<Report />} />

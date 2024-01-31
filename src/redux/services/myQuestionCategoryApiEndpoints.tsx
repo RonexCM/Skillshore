@@ -6,6 +6,7 @@ import {
   TQuestionCategoryListFetchAllType,
   TEditQuestionCategoryFieldType,
 } from "../../pages/admin/types";
+import { TSearchParams } from "../../pages/admin/types/TCommonTypes";
 import { myApi } from "./myApi";
 
 const myQuestionCategoryApiEndpoints = myApi.injectEndpoints({
@@ -18,9 +19,15 @@ const myQuestionCategoryApiEndpoints = myApi.injectEndpoints({
     }),
     getQuestionCategories: builder.query<
       TFetchQuestionCategoryQueryTransformReturnType,
-      number
+      TSearchParams
     >({
-      query: (page) => `/admin/question-categories?page=${page}`,
+      query: ({ page, title }) => {
+        let query = `/admin/question-categories?page=${page}`;
+        if (title) {
+          query += `&title=${title}`;
+        }
+        return query;
+      },
       providesTags: ["FetchQuestionCategories"],
       transformResponse: (response: TFetchQuestionCategoryType) => {
         return { data: response.data, meta: response.meta };

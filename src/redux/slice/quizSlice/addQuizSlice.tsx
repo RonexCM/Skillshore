@@ -9,13 +9,13 @@ const initialState: TAddQuizFieldInitialStateType = {
     title: "",
     slug: "",
     category_id: 0,
-    thumbnail: null,
     description: "",
-    time: 0,
-    retry_after: 0,
+    time: "",
+    retry_after: "",
+    thumbnail: "",
     question_categories: [0],
     status: 1,
-    pass_percentage: 0,
+    pass_percentage: "",
   },
 };
 const addQuizSlice = createSlice({

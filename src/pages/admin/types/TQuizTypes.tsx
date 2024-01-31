@@ -19,13 +19,13 @@ export type TAddQuizFieldType = {
   title: string;
   slug: string;
   category_id: number;
-  thumbnail: File | null;
+  thumbnail: File | string;
   description: string;
-  time: number;
-  retry_after: number;
+  time: string | number;
+  retry_after: string | number;
   question_categories: number[] | undefined[];
   status: number;
-  pass_percentage: number;
+  pass_percentage: string | number;
 };
 
 export type TFetchQuizzesType = {

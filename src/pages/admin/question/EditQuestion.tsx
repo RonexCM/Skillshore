@@ -11,54 +11,61 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
-import { TAddQuestionFieldType, TEditQuestionFieldType } from "../types";
-import { useGetAllQuestionCategoriesQuery } from "../../../redux/services/myQuestionCategoryApiEndpoints";
+import {
+  TAddQuestionFieldType,
+  TEditQuestionFieldType,
+  TQuestionType,
+} from "../types";
 import { MdAdd, MdOutlineRemove } from "react-icons/md";
 import { Tooltip } from "flowbite-react";
-import { useDispatch, useSelector } from "react-redux";
-import { saveAllQuestionCategoriesList } from "../../../redux/slice/questionCategorySlice/allQuestionCategoriesListSlice";
+import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 
+type ParamsType = {
+  id: string;
+};
 const EditQuestion = () => {
-  // const params = useParams();
-  // if (params.id) {
-  //   const { data } = useGetSingleQuestionQuery(params.id);
-  //   console.log(data);
-  // }
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
-  // const { data: allQuestionCategoriesList } =
-  //   useGetAllQuestionCategoriesQuery();
+  const params = useParams();
+  const { id } = params as ParamsType;
+  const initialStateSingleQuestion = {
+    id: 0,
+    title: "initial",
+    slug: "",
+    description: "",
+    options: ["", ""],
+    answer: "",
+    weightage: 0,
+    status: 0,
+    category: { id: 0, title: "" },
+  };
+  const { data: questionData } = useGetSingleQuestionQuery(id);
+  const [question, setQuestion] = useState<TQuestionType>(
+    initialStateSingleQuestion
+  );
 
+  const initialValues = {
+    title: question.title,
+    slug: question.slug,
+    description: question.description,
+    options: question.options,
+    answer: question.answer,
+    weightage: question.weightage,
+    status: question.status,
+    category_id: question.category.id,
+  };
+  console.log("question", question);
+  console.log("initialvalues", initialValues);
+
+  useEffect(() => {
+    if (questionData) {
+      setQuestion(questionData.data);
+    }
+  }, [questionData, question]);
   const questionCategoriesList = useSelector(
     (state: RootState) => state.allQuestionCategories
   );
-
-  const { id, category, ...rest } = useSelector(
-    (state: RootState) => state.question
-  );
-  let initialValues: TAddQuestionFieldType;
-  if (category === null) {
-    initialValues = {
-      ...rest,
-      category_id: 0,
-    };
-  } else {
-    initialValues = {
-      ...rest,
-      category_id: category.id,
-    };
-  }
-
   useEffect(() => {
-    // if (initialValues.title.length < 1) {
-    //   navigate(-1);
-    // }
-    // if (allQuestionCategoriesList && "data" in allQuestionCategoriesList) {
-    //   dispatch(
-    //     saveAllQuestionCategoriesList(allQuestionCategoriesList["data"])
-    //   );
-    // }
     setOptionsArray(initialValues.options);
   }, []);
 
@@ -69,7 +76,10 @@ const EditQuestion = () => {
    * @param values
    */
   const onSubmit = async (values: TAddQuestionFieldType) => {
-    const editedValues = { ...values, id: id };
+    const editedValues = {
+      ...values,
+      id: questionData?.data.id,
+    } as TEditQuestionFieldType;
     await addQuestion(editedValues);
     if (isError) {
       toast.error("Error editing question!");
@@ -85,13 +95,13 @@ const EditQuestion = () => {
     }
   };
   const [optionsArray, setOptionsArray] = useState([""]);
-  //   ----------for each input field value take index, value and store it to options state----------
+  // //   ----------for each input field value take index, value and store it to options state----------
   const handleOptionsInputChange = (index: number, value: string) => {
     const tempArray = [...optionsArray];
     tempArray[index] = value;
     setOptionsArray(tempArray);
   };
-  //   ----------mapping options to option tag for answer dropdown----------
+  // //   ----------mapping options to option tag for answer dropdown----------
 
   const answerDropdown = optionsArray.map((option, index) => (
     <option
@@ -204,31 +214,30 @@ const EditQuestion = () => {
                   name="slug"
                 />
               </div>
-
-              {/* weightage input field and error message */}
-              <div className="flex  flex-col gap-1 h-[76px]">
-                <div className="flex flex-col gap-2 w-full">
-                  <label htmlFor="weightage" className="text-base text-dark">
-                    Weightage
+              {/* status input field and error message */}
+              <div className="flex  flex-col gap-1">
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="status" className="text-base text-dark">
+                    Status
                   </label>
                   <Field
                     as="select"
-                    type="text"
-                    id="weightage"
-                    autoComplete="current-weightage"
-                    name="weightage"
+                    id="status"
+                    autoComplete="current-status"
+                    name="status"
                     className="p-1 px-2 text-sm rounded-md border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full"
                   >
-                    <option value="">select weightage...</option>
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="15">15</option>
+                    <option value="" className="text-[#a0a0a0]">
+                      select status...
+                    </option>
+                    <option value={1}>Active</option>
+                    <option value={0}>Inactive</option>
                   </Field>
                 </div>
                 <ErrorMessage
-                  className="text-red-500 text-xs "
+                  className="text-red-500 text-xs"
                   component="div"
-                  name="weightage"
+                  name="status"
                 />
               </div>
 
@@ -291,7 +300,7 @@ const EditQuestion = () => {
                               className="flex items-center bg-primary-light p-[4px] rounded-md"
                               type="button"
                               onClick={() => {
-                                if (optionsArray.length > 3) {
+                                if (optionsArray.length > 2) {
                                   pop();
                                   const indexToRemove = optionsArray.length - 1;
                                   setOptionsArray(
@@ -376,30 +385,30 @@ const EditQuestion = () => {
                   name="answer"
                 />
               </div>
-              {/* status input field and error message */}
-              <div className="flex  flex-col gap-1">
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="status" className="text-base text-dark">
-                    Status
+              {/* weightage input field and error message */}
+              <div className="flex  flex-col gap-1 h-[76px]">
+                <div className="flex flex-col gap-2 w-full">
+                  <label htmlFor="weightage" className="text-base text-dark">
+                    Weightage
                   </label>
                   <Field
                     as="select"
-                    id="status"
-                    autoComplete="current-status"
-                    name="status"
+                    type="text"
+                    id="weightage"
+                    autoComplete="current-weightage"
+                    name="weightage"
                     className="p-1 px-2 text-sm rounded-md border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full"
                   >
-                    <option value="" className="text-[#a0a0a0]">
-                      select status...
-                    </option>
-                    <option value={1}>Active</option>
-                    <option value={0}>Inactive</option>
+                    <option value="">select weightage...</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
                   </Field>
                 </div>
                 <ErrorMessage
-                  className="text-red-500 text-xs"
+                  className="text-red-500 text-xs "
                   component="div"
-                  name="status"
+                  name="weightage"
                 />
               </div>
             </div>

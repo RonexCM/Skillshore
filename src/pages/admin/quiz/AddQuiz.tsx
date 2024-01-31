@@ -1,6 +1,6 @@
 import { Field, Formik, Form, ErrorMessage, FormikHelpers } from "formik";
 import { validationSchemaAddQuiz } from "../../../validation";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { AiFillHome } from "react-icons/ai";
@@ -19,10 +19,13 @@ import CustomSelect from "../../../components/CustomSelect";
 
 const AddQuiz = () => {
   const dispatch = useDispatch();
+  const [thumbnail, setThumbnail] = useState<File | string | undefined>();
   const { data: allQuizCategoriesData } = useGetAllQuizCategoriesQuery();
   const { data: allQuestionCategoriesData } =
     useGetAllQuestionCategoriesQuery();
-  const [addQuiz, { error, isError }] = useAddQuizMutation();
+  const [addQuiz, { data, error }] = useAddQuizMutation();
+  console.log(error);
+  console.log(data);
   useEffect(() => {
     if (allQuizCategoriesData && "data" in allQuizCategoriesData) {
       dispatch(saveAllQuizCategoriesList(allQuizCategoriesData.data));
@@ -50,34 +53,47 @@ const AddQuiz = () => {
    * when add button is clicked form is submitted with
    * @param values
    */
-  const onSubmit = (
+  const onSubmit = async (
     values: TAddQuizFieldType,
     actions: FormikHelpers<TAddQuizFieldType>
   ) => {
-    console.log(values);
-    // await addQuiz(values);
-    // if (isError) {
-    //   toast.error("Error adding question!");
-    //   console.log(error);
-    // } else {
-    //   const { resetForm } = actions;
-    //   toast.success("Question added!");
-    //   resetForm();
-    // }
+    const valuesToSend = {
+      ...values,
+      question_categories: [...questionCategoryIdsToSend],
+      thumbnail: thumbnail!,
+      category_id: Number(values.category_id),
+    };
+    await addQuiz(valuesToSend);
+    console.log(valuesToSend);
+    console.log(error);
+    console.log(data);
+    if (error) {
+      toast.error("Error adding question!");
+      console.log(error);
+    } else {
+      const { resetForm } = actions;
+      toast.success("Question added!", {
+        autoClose: 400,
+        hideProgressBar: true,
+        onClose: () => {
+          navigate(-1);
+        },
+      });
+      resetForm();
+    }
   };
 
   const navigate = useNavigate();
   const [questionCategoriesFromSelect, setQuestionCategoriesFromSelect] =
     useState<option[]>([]);
-  console.log(questionCategoriesFromSelect);
   const [questionCategoryIdsToSend, setQuestionCategoryIdsToSend] = useState<
     number[]
   >([]);
   useEffect(() => {
     const tempArray = questionCategoriesFromSelect.map((obj) => obj.value);
     setQuestionCategoryIdsToSend(tempArray);
-    console.log(questionCategoryIdsToSend);
   }, [questionCategoriesFromSelect]);
+
   return (
     <motion.div
       initial={{ opacity: 0.2 }}
@@ -104,8 +120,7 @@ const AddQuiz = () => {
         onSubmit={onSubmit}
         validationSchema={validationSchemaAddQuiz}
       >
-        {() => (
-          // form field in 2 grid columns
+        {({ handleChange }) => (
           <Form>
             <div className="border-2  p-7 rounded-md grid gap-2 gap-x-6 grid-cols-2 border-primary-light ">
               {/* title input field and error message */}
@@ -187,27 +202,10 @@ const AddQuiz = () => {
                   >
                     Question Categories
                   </label>
-                  {/* <Field
-                    as="select"
-                    type="text"
-                    id="question_categories"
-                    autoComplete="current-question_categories"
-                    name="question_categories"
-                    className="p-1 px-2 text-sm rounded-md border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full"
-                  >
-                    <option value="" className="text-gray-300">
-                      select category...
-                    </option>
-                    {allQuestionCategories.map((questionCategory, index) => (
-                      <option key={index} value={questionCategory.id}>
-                        {questionCategory.title}
-                      </option>
-                    ))}
-                  </Field> */}
+
                   <Field
                     name="question_categories"
                     component={CustomSelect}
-                    value={questionCategoryIdsToSend}
                     options={questionCategoriesOptions}
                     setQuestionCategoriesFromSelect={
                       setQuestionCategoriesFromSelect
@@ -248,7 +246,7 @@ const AddQuiz = () => {
                     Time
                   </label>
                   <Field
-                    type="text"
+                    type="number"
                     id="time"
                     autoComplete="current-time"
                     name="time"
@@ -271,7 +269,7 @@ const AddQuiz = () => {
                     Pass Percentage
                   </label>
                   <Field
-                    type="text"
+                    type="number"
                     id="pass_percentage"
                     autoComplete="current-pass_percentage"
                     name="pass_percentage"
@@ -292,7 +290,7 @@ const AddQuiz = () => {
                     Retry After
                   </label>
                   <Field
-                    type="text"
+                    type="number"
                     id="retry_after"
                     autoComplete="current-retry_after"
                     name="retry_after"
@@ -313,9 +311,16 @@ const AddQuiz = () => {
                   </label>
                   <Field
                     type="file"
+                    accept="image/png, image/jpg, image/jpeg"
                     id="thumbnail"
                     autoComplete="current-thumbnail"
                     name="thumbnail"
+                    onChange={(event: FormEvent<HTMLInputElement>) => {
+                      if (event.currentTarget.files === null) return;
+                      const file = event.currentTarget.files[0];
+                      setThumbnail(file);
+                      handleChange(event);
+                    }}
                     className=" text-sm rounded-md border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full"
                   />
                 </div>

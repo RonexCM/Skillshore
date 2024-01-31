@@ -41,14 +41,14 @@ const AdminSidebar = () => {
           &nbsp;&nbsp;Question
         </div>
       </NavLink>
-      <NavLink to="report" className={navElementsStyles}>
+      {/* <NavLink to="report" className={navElementsStyles}>
         <div className="flex  ">
           <div className="pt-[2px] ">
             <HiDocumentReport />
           </div>
           &nbsp;&nbsp;Report
         </div>
-      </NavLink>
+      </NavLink> */}
     </div>
   );
 };
