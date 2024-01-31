@@ -191,13 +191,13 @@ const QuizCategory = () => {
         <QuizModal
           selectQuiz={selectQuiz}
           setShowModal={setShowQuizModal}
-          id={1}
+          id={0}
           modalFor={"quizModal"}
         />
       )}
       {showQuizModal && (
         <div
-          className="fixed  top-0 left-0 right-0 bottom-0 z-1 bg-[#03103F] opacity-50"
+          className="fixed  top-0 left-0 right-0 bottom-0 z-1 bg-[#03103F] opacity-50 justify-items-center align-top "
           onClick={() => {
             setShowQuizModal(false);
           }}

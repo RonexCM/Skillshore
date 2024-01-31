@@ -14,6 +14,13 @@ const myQuizApiEndpoints = myApi.injectEndpoints({
         return { data: response.data, meta: response.meta };
       },
     }),
+    getQuizById: builder.query({
+      query: (id) => ({
+        url: `/student/quizzes/all/${id}`,
+        method: "GET",
+        providesTags: ["FetchQuizzes"],
+      }),
+    }),
     addQuiz: builder.mutation<TAllQuizType, TAllQuizType>({
       query: (body: TAllQuizType) => ({
         url: "/student/quizzes/all",
@@ -32,5 +39,9 @@ const myQuizApiEndpoints = myApi.injectEndpoints({
   }),
 });
 
-export const { useGetAllQuizQuery, useAddQuizMutation, useDeleteQuizMutation } =
-  myQuizApiEndpoints;
+export const {
+  useGetAllQuizQuery,
+  useGetQuizByIdQuery,
+  useAddQuizMutation,
+  useDeleteQuizMutation,
+} = myQuizApiEndpoints;
