@@ -32,7 +32,7 @@ const Login = () => {
         dispatch(setToken(data.token));
         toast.success("Successfully logged in!");
         resetForm();
-        navigate("/profile");
+        navigate("/home");
       }
     } catch (error: any) {
       const errorMessage = error.data.message;

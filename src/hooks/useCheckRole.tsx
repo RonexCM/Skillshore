@@ -9,7 +9,6 @@ const useCheckRole = (userData: TUserProfile) => {
     if (!userData) return;
     const { data } = userData;
     if (data.role === "admin") {
-      console.log(data.role);
       return navigate("/admin");
     }
     if (data.role === "student" && data.profile === null) {
@@ -18,8 +17,5 @@ const useCheckRole = (userData: TUserProfile) => {
   }, [userData]);
 };
 
-// if (!userData.data.profile) {
-//   navigate("/create-profile");
-// }
 
 export default useCheckRole;

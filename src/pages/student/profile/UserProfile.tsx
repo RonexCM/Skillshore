@@ -16,7 +16,6 @@ const UserProfile = () => {
   const { data: userData, isLoading, isSuccess } = useGetUserQuery();
   const userDetails = useSelector((state: RootState) => state.user.data);
 
-  useCheckRole(userData);
   useEffect(() => {
     if (userData && isSuccess) {
       dispatch(setUserData(userData));
