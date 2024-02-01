@@ -40,7 +40,6 @@ const EditProfile = () => {
       toast.success("Profile Edited Successfully");
       navigate("/profile");
     }
-    console.log("🚀 ~ useEffect ~ profileData:", profileData);
   }, [profileUpdateSuccess, profileData]);
 
   useEffect(() => {

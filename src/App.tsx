@@ -11,7 +11,6 @@ import { Login } from "./pages/auth/login";
 import { Register } from "./pages/auth/register";
 import CommonLayout from "./layouts/CommonLayout";
 import Admin from "./pages/admin/Admin";
-
 const App = () => {
   return (
     <div>
