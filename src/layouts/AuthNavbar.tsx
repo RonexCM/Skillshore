@@ -12,7 +12,7 @@ const AuthNavbar = () => {
         <NavLink to="." end className={navElementStyles}>
           Login
         </NavLink>
-        <NavLink to="register" className={navElementStyles}>
+        <NavLink to="/register" className={navElementStyles}>
           Register
         </NavLink>
       </div>
