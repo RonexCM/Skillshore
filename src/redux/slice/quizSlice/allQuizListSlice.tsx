@@ -12,6 +12,9 @@ const initialState = {
       time: 0,
       retry_after: 0,
       status: "",
+      result: "",
+      categories: "",
+      category: "",
     },
   ],
   meta: {

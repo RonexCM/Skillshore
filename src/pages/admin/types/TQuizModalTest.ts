@@ -3,4 +3,5 @@ export type QuizModalTypes = {
   title: string;
   time: number;
   thumbnail: string;
+  retry_after: number;
 };

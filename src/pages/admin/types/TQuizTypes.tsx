@@ -9,6 +9,9 @@ export type TAllQuizType = {
   time: number;
   retry_after: number;
   status: string;
+  result: string;
+  categories: string;
+  category: string;
 };
 
 export type TAddQuizFieldType = {
@@ -18,6 +21,7 @@ export type TAddQuizFieldType = {
   thumbnail: string;
   timer: number;
   retry_after: number;
+  result: string;
 };
 
 export type TFetchQuizQueryTransformResponseType = {

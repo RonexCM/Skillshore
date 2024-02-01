@@ -13,6 +13,7 @@ export type QuizCategoryType = {
 export type TAllQuizCategoryType = {
   id: number;
   title: string;
+  categories: string;
 };
 
 export type TAllQuizCategoriesType = {

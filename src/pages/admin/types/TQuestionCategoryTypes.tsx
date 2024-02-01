@@ -1,4 +1,4 @@
-import { CommonMetaType } from ".";
+import { CommonMetaType } from "./TCommonTypes";
 
 export type QuestionCategoryType = {
   id: string;

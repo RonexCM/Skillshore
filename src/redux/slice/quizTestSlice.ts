@@ -2,7 +2,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { QuizModalTypes } from "../../pages/admin/types";
 
 const initialState = {
-  data: {},
+  data: {
+    title: "",
+    description: "",
+    thumbnail: "",
+    time: 0,
+  },
 };
 
 const quizTestSlice = createSlice({

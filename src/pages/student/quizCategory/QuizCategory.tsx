@@ -1,4 +1,3 @@
-// import { SiJavascript } from "react-icons/si";
 import { HiCheck } from "react-icons/hi";
 import { MdOutlineTimer } from "react-icons/md";
 import { ChangeEvent, useEffect, useState } from "react";
@@ -17,16 +16,18 @@ import { saveQuizDescription } from "../../../redux/slice/quizTestSlice";
 
 const QuizCategory = () => {
   const [showQuizModal, setShowQuizModal] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const dispatch = useDispatch();
   const handleStart = (quizData: any) => {
-    const { title, description, time, thumbnail } = quizData;
+    const { title, description, time, thumbnail, retry_after } = quizData;
     dispatch(
       saveQuizDescription({
         title,
         description,
         time,
         thumbnail,
+        retry_after,
       })
     );
     setShowQuizModal(true);
@@ -60,7 +61,7 @@ const QuizCategory = () => {
   const handleCheckbox = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
 
-    if (name === "selectall") {
+    if (name === "selectAll") {
       const tempCategoryArray = quizCategoryArray.map((quizCategory) => {
         return { ...quizCategory, isChecked: checked };
       });
@@ -74,17 +75,63 @@ const QuizCategory = () => {
       setQuizCategoryArray(tempCategoryArray);
     }
   };
+
   const handleClear = () => {
     const tempCategoryArray = quizCategoryArray.map((quizCategory) => {
       return { ...quizCategory, isChecked: false };
     });
     setQuizCategoryArray(tempCategoryArray);
+    setSelectedCategory(null);
   };
   const { data: listOfQuiz } = useSelector((state: RootState) => state.allQuiz);
   const navigate = useNavigate();
   const selectQuiz = (quizId: number) => {
     navigate(`/student-quiz/${quizId}`);
   };
+
+  const getStatus = (result: any) => {
+    if (result && result.passed) {
+      return (
+        <span className="bg-green-100 text-green-800 text-xs ms-7 font-medium me-2 ps-5 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
+          Completed
+        </span>
+      );
+    } else if (result && result.total_answered) {
+      return (
+        <>
+          <span className="bg-red-100 text-red-800 text-base font-medium me-2 ms-8 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
+            Failed
+          </span>
+          <br />
+          <span className="bg-green-700 text-white text-xs font-medium me-2 mt-6  px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-red-300 ">
+            Retry after {result.retry_after}2 Days
+          </span>
+        </>
+      );
+    } else {
+      return (
+        <span className="text-xs font-medium opacity-0.7">Not Attempted</span>
+      );
+    }
+  };
+  const filteredQuizzes = listOfQuiz.filter((quiz) => {
+    if (!selectedCategory) {
+      return true;
+    }
+    return (
+      (quiz.categories &&
+        Array.isArray(quiz.categories) &&
+        quiz.categories.includes(selectedCategory)) ||
+      (quiz.category && quiz.category.title === selectedCategory)
+    );
+  });
+
+  const handleCategoryRadio = (category: string) => {
+    setSelectedCategory((prevCategory) =>
+      prevCategory === category ? null : category
+    );
+  };
+
   return (
     <section className=" px-[132px] py-[40px]">
       <div className="flex flex-col gap-[24px] items-start">
@@ -119,9 +166,9 @@ const QuizCategory = () => {
             <div className="flex gap-4 items-center">
               <input
                 className="border-2 border-primary-light rounded-sm hover:bg-[#689fff]"
-                type="checkbox"
-                id="selectall"
-                name="selectall"
+                type="radio"
+                id="selectAll"
+                name="selectAll"
                 onChange={handleCheckbox}
                 checked={
                   quizCategoryArray.filter(
@@ -131,7 +178,7 @@ const QuizCategory = () => {
               />
               <label
                 className="text-sm text-dark font-normal"
-                htmlFor="selectall"
+                htmlFor="selectAll"
               >
                 All
               </label>
@@ -140,11 +187,11 @@ const QuizCategory = () => {
               <div key={index} className="flex gap-4 items-center">
                 <input
                   className="border-2 border-primary-light rounded-sm hover:bg-[#689fff]"
-                  type="checkbox"
+                  type="radio"
                   id={`quizcategory${index + 1}`}
                   name={quizCategory.title}
-                  onChange={handleCheckbox}
-                  checked={quizCategory.isChecked}
+                  onChange={() => handleCategoryRadio(quizCategory.title)}
+                  checked={selectedCategory === quizCategory.title}
                 />
                 <label
                   className="text-sm text-dark font-normal"
@@ -157,24 +204,23 @@ const QuizCategory = () => {
           </div>
         </div>
         <div className="col-span-9 grid grid-cols-4 gap-4">
-          {listOfQuiz.map((quiz, index) => (
+          {filteredQuizzes.map((quiz, index) => (
             <div
               key={index}
               className="p-6 flex h-auto max-h-[370px] flex-col border-2 items-center border-opacity-[0.55] justify-between border-primary-light rounded-md  transition-all ease-in-out delay-50"
             >
               <img src={quiz.thumbnail} alt="quiz" />
-              <div className="flex flex-col py-7 gap-2 items-center">
-                <div className="text-base text-dark font-semibold text-center line-clamp-1 hover:line-clamp-none ">
+              <div className="flex flex-col py-7 gap-2 items-center ">
+                <div className="text- xl  text-dark font-semibold text-center line-clamp-1 hover:line-clamp-none ">
                   {quiz.title}
                 </div>
-                {passed ? (
+                {quiz.result ? (
                   <Badge
-                    className="pr-[12px] pl-[10px]"
-                    icon={HiCheck}
-                    color="success"
+                    className="pr-[12px] pl-[10px] text-xl"
+                    color={quiz.result.passed ? "success" : "error"}
                     size="xs"
                   >
-                    Passed
+                    {getStatus(quiz.result)}
                   </Badge>
                 ) : (
                   <Badge
@@ -186,8 +232,11 @@ const QuizCategory = () => {
                   </Badge>
                 )}
               </div>
-              {passed ? (
-                <Button style="completed" text="Completed" />
+              {quiz.result ? (
+                <Button
+                  style={quiz.result.passed ? "completed" : "failed"}
+                  text={quiz.result.passed ? "Passed" : "Failed"}
+                />
               ) : (
                 <Button
                   style="light"

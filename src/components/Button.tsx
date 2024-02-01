@@ -6,7 +6,7 @@ type Props = {
 
 const Button = ({ style, text, onClick }: Props) => {
   const gray =
-    "bg-primary-light bg-opacity-[0.7] text-sm font-semibold text-dark rounded-sm px-5 py-3 hover:text-error hover:bg-[#eeeeee7d] transition-all";
+    "bg-primary-light bg-opacity-[0.5] text-sm font-semibold text-dark rounded-sm px-5 py-3 hover:text-error hover:bg-[#eeeeee7d] transition-all";
   const dark =
     "bg-dark text-primary-light text-sm font-semibold text-dark rounded-sm px-5 py-3 hover:bg-[#213ebbff]";
   const light =
