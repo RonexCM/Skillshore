@@ -124,7 +124,7 @@ const QuizDashboard = () => {
       <div className=" grid grid-cols-2 my-4 items-center ">
         <img
           src={quizDetails.thumbnail}
-          className="ml-[23px] h-[120px] w-[120px]  "
+          className="ml-[23px] h-[100px] w-[230px]"
         />
         <div className="flex justify-end">
           <p className="text-2xl font-medium text-primary">
