@@ -112,7 +112,7 @@ const QuizDashboard = () => {
     <div className="h-max w-full px-[50px] font-poppins">
       <div className="flex flex-col justify-start items-left ">
         <div className="text-primary  text-lg flex items-center gap-1 self-start mt-[37px]">
-          <div className="flex gap-2  cursor-pointer">
+          <div className="flex gap-2 ml-[20px] cursor-pointer">
             <div className="hover:underline flex gap-2">
               {quizDetails.title}
             </div>
@@ -121,11 +121,8 @@ const QuizDashboard = () => {
           <span className="text-primary">{quizDetails?.category?.title}</span>
         </div>
       </div>
-      <div className=" grid grid-cols-2 my-4 items-center ">
-        <img
-          src={quizDetails.thumbnail}
-          className="ml-[23px] h-[100px] w-[230px]"
-        />
+      <div className=" grid grid-cols-2  items-center  ">
+        <img src={quizDetails.thumbnail} className=" h-[150px] w-[200px]" />
         <div className="flex justify-end">
           <p className="text-2xl font-medium text-primary">
             {time && (
