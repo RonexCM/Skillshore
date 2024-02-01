@@ -54,7 +54,7 @@ const ForgotPassword: React.FC = () => {
                   id="email"
                   name="email"
                   placeholder="Email"
-                  className="w-full h-12 bg-white rounded-lg border-2 border-indigo-100 px-3 hover:border-accent"
+                  className="w-full h-12 bg-white rounded-lg border-2 outline-none border-indigo-100 px-3 hover:border-accent focus:border-3 focus:border-blue-600"
                 />
                 <ErrorMessage
                   className="text-[13px] font-light text-error py-1"

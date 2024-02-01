@@ -5,7 +5,7 @@ const forgotPasswordEmailFieldSchema = Yup.object({
     .email("Email must be a valid email")
     .required("Email is required")
     .matches(
-      /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i,
+      /^[a-zA-Z0-9._+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
       "Email must be a valid email"
     ),
 });

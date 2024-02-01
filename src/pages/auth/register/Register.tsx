@@ -56,7 +56,7 @@ const Register: React.FC = () => {
                       id="name"
                       name="name"
                       placeholder="Name"
-                      className="w-full h-12 bg-white rounded-lg border-2 border-indigo-100 px-3 hover:border-accent"
+                      className="w-full h-12 bg-white outline-none rounded-lg border-2 border-indigo-100 px-3 hover:border-accent focus:border-3 focus:border-blue-600"
                     />
                     <ErrorMessage
                       className="text-[13px] font-light text-error py-1"
@@ -73,7 +73,7 @@ const Register: React.FC = () => {
                       id="email"
                       name="email"
                       placeholder="Email"
-                      className="w-full h-12 bg-white rounded-lg border-2 border-indigo-100 px-3 hover:border-accent"
+                      className="w-full h-12 bg-white outline-none rounded-lg border-2 border-indigo-100 px-3 hover:border-accent focus:border-3 focus:border-blue-600"
                     />
                     <ErrorMessage
                       className="text-[13px] font-light text-error py-1"
@@ -90,7 +90,7 @@ const Register: React.FC = () => {
                       id="password"
                       name="password"
                       placeholder="Password"
-                      className="w-full h-12 bg-white rounded-lg border-2 border-indigo-100 px-3 hover:border-accent"
+                      className="w-full h-12 bg-white outline-none rounded-lg border-2 border-indigo-100 px-3 hover:border-accent focus:border-3 focus:border-blue-600"
                       onChange={handleChange}
                       onBlur={handleBlur}
                     />
@@ -112,7 +112,7 @@ const Register: React.FC = () => {
                       id="password_confirmation"
                       name="password_confirmation"
                       placeholder="Confirm Password"
-                      className="w-full h-12 bg-white rounded-lg border-2 border-indigo-100 px-3 hover:border-accent"
+                      className="w-full h-12 bg-white outline-none rounded-lg border-2 border-indigo-100 px-3 hover:border-accent focus:border-3 focus:border-blue-600"
                       onChange={handleChange}
                       onBlur={handleBlur}
                     />
