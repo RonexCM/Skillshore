@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { ReactElement } from "react";
 
 export type TUserProfile = {
@@ -14,6 +15,24 @@ export type TUserProfile = {
       career: string;
     };
   };
+=======
+export type IUserProfile = {
+  resume: string;
+  name: string;
+  profile: string;
+  description: string;
+  email: string;
+  phoneNo: string;
+  experience: string;
+  language: string;
+  available: string;
+  role: string;
+  education: string;
+  skills: string[];
+  id: string;
+  linkedIn: string;
+  github: string;
+>>>>>>> 046268c (Added breadcrumb and fixed footer)
 };
 
 export type TUserRole = {
