@@ -2,13 +2,11 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useUpdateUserProfileMutation } from "../../../redux/services/myUserProfileEndpoints";
-import { setProfileData, setUserData } from "../../../redux/slice/userSlice";
+import { setProfileData } from "../../../redux/slice/userSlice";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 import { useEffect } from "react";
 import { TProfileData } from "../types";
-import { useGetUserQuery } from "../../../redux/services/myUserProfileEndpoints";
-import { LineWave } from "react-loader-spinner";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { RootState } from "../../../redux/store";
@@ -16,19 +14,12 @@ import { profileValidationSchema } from "../../../validation";
 const EditProfile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { data, isSuccess, isLoading } = useGetUserQuery();
   const [
     updateUserProfile,
     { isSuccess: profileUpdateSuccess, data: profileData, error },
   ] = useUpdateUserProfileMutation();
 
   const UserData = useSelector((state: RootState) => state.user.data.profile);
-
-  useEffect(() => {
-    if (data && isSuccess) {
-      dispatch(setUserData(data));
-    }
-  }, [isSuccess, data]);
 
   const handleSubmit = async (values: TProfileData) => {
     try {
@@ -43,10 +34,12 @@ const EditProfile = () => {
 
   useEffect(() => {
     if (profileUpdateSuccess && profileData) {
-      dispatch(setProfileData(profileData));
+      const { data } = profileData;
+      dispatch(setProfileData(data));
       toast.success("Profile Edited Successfully");
       navigate("/profile");
     }
+    console.log("🚀 ~ useEffect ~ profileData:", profileData);
   }, [profileUpdateSuccess, profileData]);
 
   useEffect(() => {
@@ -55,13 +48,6 @@ const EditProfile = () => {
     }
   }, [error]);
 
-  if (isLoading) {
-    return (
-      <div className="flex justify-center h-[800px]">
-        <LineWave color="#1a2b48" height={100} />
-      </div>
-    );
-  }
   return (
     <>
       {UserData?.education && (

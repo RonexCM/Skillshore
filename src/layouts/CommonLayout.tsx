@@ -6,8 +6,7 @@ import { ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { useEffect } from "react";
-import { useGetUserRoleMutation } from "../redux/services/myUserProfileEndpoints";
-import useCheckRole from "../hooks/useCheckRole";
+import { useGetUserMutation } from "../redux/services/myUserProfileEndpoints";
 import { setUserData } from "../redux/slice/userSlice";
 
 type Props = {
@@ -15,24 +14,21 @@ type Props = {
 };
 
 export const CommonLayout = ({ layoutFor }: Props) => {
-  const [getUserRole, { isSuccess }] = useGetUserRoleMutation();
+  const [getUserRole, { isSuccess, data }] = useGetUserMutation();
   const dispatch = useDispatch();
   const token = useSelector((state: RootState) => state.auth.data.token);
 
   useEffect(() => {
     if (token) {
-      getUserRole;
+      getUserRole();
     }
   }, [token]);
 
   useEffect(() => {
     if (isSuccess) {
-      const { data } = getUserRole();
       dispatch(setUserData(data));
     }
-  });
-
-  useCheckRole();
+  }, [isSuccess]);
 
   return (
     <div className="flex flex-col justify-start min-h-screen ">

@@ -19,7 +19,7 @@ const App = () => {
           <Route path="/admin" element={<Admin />} />
           <Route path="/" element={<CommonLayout layoutFor="auth" />}>
             <Route index element={<Login />} />
-            <Route path="register" element={<Register />} />
+            <Route path="/register" element={<Register />} />
             <Route path="forgotPassword" element={<ForgotPassword />} />
 
             <Route path="enterNewPassword" element={<EnterNewPassword />} />

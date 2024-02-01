@@ -17,6 +17,7 @@ const CreateProfile = () => {
     useCreateProfileMutation();
 
   const handleSubmit = async (values: Omit<TProfileData, "id">) => {
+    console.log("🚀 ~ handleSubmit ~ values:", values);
     try {
       let formattedSkills = values.skills;
       formattedSkills = (formattedSkills as string).split(",");
