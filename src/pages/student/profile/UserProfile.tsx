@@ -1,25 +1,16 @@
 import { useNavigate } from "react-router-dom";
-
 import { RootState } from "../../../redux/store";
 import "react-toastify/dist/ReactToastify.css";
 import ProfileDetails from "../../../components/ProfileDetails";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { FaHouse } from "react-icons/fa6";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
 
 const UserProfile = () => {
   const navigate = useNavigate();
-  const isAuthenticated = useSelector(
-    (state: RootState) => state.auth.data.token
-  );
+
   const userDetails = useSelector((state: RootState) => state.user.data);
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate("/");
-    }
-  }, [isAuthenticated]);
   return (
     <div className="h-full px-[120px]  font-poppins ">
       <>

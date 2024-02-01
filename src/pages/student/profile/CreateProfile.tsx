@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useCreateProfileMutation } from "../../../redux/services/myUserProfileEndpoints";
 import { useEffect } from "react";
 import { setProfileData } from "../../../redux/slice/userSlice";
@@ -9,12 +9,16 @@ import { createProfileValues } from "../../../configs/constants";
 import { TProfileData } from "../types";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import useCheckRole from "../../../hooks/useCheckRole";
 
 const CreateProfile = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch();
   const [createUserProfile, { isSuccess, data, error }] =
     useCreateProfileMutation();
+  useCheckRole();
+
   const handleSubmit = async (values: Omit<TProfileData, "id">) => {
     try {
       let formattedSkills = values.skills;
@@ -33,6 +37,11 @@ const CreateProfile = () => {
     }
   }, [isSuccess, data]);
 
+  useEffect(() => {
+    if (location.pathname === "/create-profile") {
+      navigate("/create-profile");
+    }
+  }, [location.pathname, navigate]);
   useEffect(() => {
     if (error) {
       toast.error("Something went wrong!!");

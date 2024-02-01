@@ -18,7 +18,7 @@ const AuthRoute: React.FC<MyComponentProps> = ({ children }) => {
     if (token) {
       navigate("/");
     }
-  }, []);
+  }, [token]);
 
   return <div>{children}</div>;
 };

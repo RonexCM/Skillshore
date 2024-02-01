@@ -1,6 +1,6 @@
 import { ReactNode, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { RootState } from "../redux/store";
 // import { useNavigate, useLocation } from "react-router-dom";
 /**
@@ -12,16 +12,24 @@ interface MyComponentProps {
 }
 const ProtectedRoute: React.FC<MyComponentProps> = ({ children }) => {
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
   const token = useSelector((state: RootState) => state.auth.data.token);
-
+  const data = useSelector((state: RootState) => state.user.data);
+  const location = useLocation();
   useEffect(() => {
     if (!token) {
       return navigate("/");
     }
   });
 
-  return <div>{token ? children : null}</div>;
+  useEffect(() => {
+    if (!data.profile && location.pathname === "/home") {
+      return navigate("/create-profile");
+    } else if (data.profile && location.pathname === "/create-profile") {
+      return navigate("/home");
+    }
+  }, [location.pathname, data]);
+
+  return <div>{children}</div>;
 };
 
 export default ProtectedRoute;

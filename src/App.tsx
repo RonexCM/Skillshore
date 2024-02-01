@@ -36,7 +36,10 @@ const App = () => {
           </Route>
           {/* ----------user pages goes here as protected route---------- */}
           <Route element={<CommonLayout layoutFor="user" />}>
-            <Route path="/home" element={<Home />} />
+            <Route
+              path="/home"
+              element={<ProtectedRoute>{<Home />}</ProtectedRoute>}
+            />
             <Route
               path="/profile"
               element={<ProtectedRoute>{<UserProfile />}</ProtectedRoute>}
