@@ -11,12 +11,11 @@ const useCheckRole = () => {
     if (!userData) return;
 
     if (userData.role === "admin") {
-      return navigate("/admin");
+      navigate("/admin");
+    } else if (userData.role === "student" && userData.profile === null) {
+      navigate("/create-profile");
     }
-    if (userData.role === "student" && userData.profile === null) {
-      return navigate("/create-profile");
-    }
-  }, [userData]);
+  }, [userData, navigate]);
 };
 
 export default useCheckRole;

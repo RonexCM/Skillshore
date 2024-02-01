@@ -3,7 +3,6 @@ import Footer from "../components/Footer";
 import AuthNavbar from "./AuthNavbar";
 import UserNavbar from "./UserNavbar";
 import { ToastContainer } from "react-toastify";
-import { LineWave } from "react-loader-spinner";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { useEffect } from "react";
@@ -16,19 +15,23 @@ type Props = {
 };
 
 export const CommonLayout = ({ layoutFor }: Props) => {
-  const [getUserRole, { isLoading }] = useGetUserRoleMutation();
+  const [getUserRole, { isSuccess }] = useGetUserRoleMutation();
   const dispatch = useDispatch();
   const token = useSelector((state: RootState) => state.auth.data.token);
 
   useEffect(() => {
-    const fetchData = async () => {
-      if (token) {
-        const { data } = await getUserRole();
-        dispatch(setUserData(data));
-      }
-    };
-    fetchData();
-  }, [token, getUserRole]);
+    if (token) {
+      getUserRole;
+    }
+  }, [token]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      const { data } = getUserRole();
+      dispatch(setUserData(data));
+    }
+  });
+
   useCheckRole();
 
   return (
@@ -41,13 +44,7 @@ export const CommonLayout = ({ layoutFor }: Props) => {
         newestOnTop
         limit={1}
       />
-      {isLoading ? (
-        <div className="flex justify-center h-[800px]">
-          <LineWave color="#1a2b48" height={100} />
-        </div>
-      ) : (
-        <Outlet />
-      )}
+      <Outlet />
       <Footer />
     </div>
   );
