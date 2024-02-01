@@ -13,7 +13,7 @@ type Props = {
  */
 export const CommonLayout = ({ layoutFor }: Props) => {
   return (
-    <div className="flex flex-col justify-between items-center min-h-screen">
+    <div className="flex flex-col justify-start min-h-screen">
       {layoutFor === "auth" ? <AuthNavbar /> : <UserNavbar />}
       <ToastContainer
         className="top-16 absolute"
