@@ -4,6 +4,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { AiFillHome } from "react-icons/ai";
+import { ImCross } from "react-icons/im";
 import {
   useEditQuestionMutation,
   useGetSingleQuestionQuery,
@@ -11,11 +12,7 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
-import {
-  TAddQuestionFieldType,
-  TEditQuestionFieldType,
-  TQuestionType,
-} from "../types";
+import { TEditQuestionFieldType } from "../types";
 import { MdAdd, MdOutlineRemove } from "react-icons/md";
 import { Tooltip } from "flowbite-react";
 import { useSelector } from "react-redux";
@@ -24,94 +21,95 @@ import { RootState } from "../../../redux/store";
 type ParamsType = {
   id: string;
 };
+
 const EditQuestion = () => {
   const navigate = useNavigate();
   const params = useParams();
   const { id } = params as ParamsType;
-  const initialStateSingleQuestion = {
-    id: 0,
-    title: "initial",
-    slug: "",
-    description: "",
-    options: ["", ""],
-    answer: "",
-    weightage: 0,
-    status: 0,
-    category: { id: 0, title: "" },
-  };
   const { data: questionData } = useGetSingleQuestionQuery(id);
-  const [question, setQuestion] = useState<TQuestionType>(
-    initialStateSingleQuestion
-  );
-
-  const initialValues = {
-    title: question.title,
-    slug: question.slug,
-    description: question.description,
-    options: question.options,
-    answer: question.answer,
-    weightage: question.weightage,
-    status: question.status,
-    category_id: question.category.id,
-  };
-  console.log("question", question);
-  console.log("initialvalues", initialValues);
-
-  useEffect(() => {
-    if (questionData) {
-      setQuestion(questionData.data);
-    }
-  }, [questionData, question]);
+  // console.log(questionData);
   const questionCategoriesList = useSelector(
     (state: RootState) => state.allQuestionCategories
   );
-  useEffect(() => {
-    setOptionsArray(initialValues.options);
-  }, []);
+  const [addQuestion, { isError, error, isSuccess }] =
+    useEditQuestionMutation();
+  const [optionsArray, setOptionsArray] = useState([""]);
 
-  const [addQuestion, { isError, error }] = useEditQuestionMutation();
-  //   ----------formik objects----------
-  /**
-   * when add button is clicked form is submitted with
-   * @param values
-   */
-  const onSubmit = async (values: TAddQuestionFieldType) => {
+  useEffect(() => {
+    if (questionData) {
+      setOptionsArray(questionData.options);
+    }
+  }, [questionData]);
+
+  const onSubmit = async (values: TEditQuestionFieldType) => {
     const editedValues = {
       ...values,
-      id: questionData?.data.id,
+      id: questionData?.id,
     } as TEditQuestionFieldType;
-    await addQuestion(editedValues);
-    if (isError) {
-      toast.error("Error editing question!");
+
+    try {
+      await addQuestion(editedValues);
+    } catch (error) {
       console.log(error);
-    } else {
-      toast.success("Updated!", {
-        autoClose: 400,
-        hideProgressBar: true,
-        onClose: () => {
-          navigate(-1);
-        },
-      });
     }
   };
-  const [optionsArray, setOptionsArray] = useState([""]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Updated!");
+      navigate(-1);
+    }
+  }, [isSuccess]);
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error.data.message);
+    }
+  }, [error]);
+
   // //   ----------for each input field value take index, value and store it to options state----------
+
   const handleOptionsInputChange = (index: number, value: string) => {
     const tempArray = [...optionsArray];
     tempArray[index] = value;
     setOptionsArray(tempArray);
   };
+
   // //   ----------mapping options to option tag for answer dropdown----------
 
   const answerDropdown = optionsArray.map((option, index) => (
-    <option
-      // selected={option === initialValues.answer}
-      key={index}
-      value={option}
-    >
+    <option key={index} value={option}>
       {option?.length > 50 ? option.slice(0, 50) + "..." : option}
     </option>
   ));
+
+  if (!questionData) {
+    return <div style={{ margin: "0 auto" }}>Loading...</div>;
+  }
+
+  const {
+    id: editId,
+    title,
+    slug,
+    description,
+    options,
+    answer,
+    weightage,
+    status,
+    category_id,
+  }: TEditQuestionFieldType = questionData;
+
+  const mappedQuestionData: TEditQuestionFieldType = {
+    id: editId,
+    title,
+    slug,
+    description,
+    options,
+    answer,
+    weightage,
+    status,
+    category_id,
+  };
 
   return (
     <motion.div
@@ -135,7 +133,7 @@ const EditQuestion = () => {
       </div>
 
       <Formik
-        initialValues={initialValues}
+        initialValues={mappedQuestionData}
         onSubmit={onSubmit}
         validationSchema={validationSchemaAddQuestion}
       >
@@ -167,7 +165,7 @@ const EditQuestion = () => {
               <div className="h-[76px]">
                 <div className="flex flex-col gap-2">
                   <label htmlFor="category_id" className="text-base text-dark">
-                    Category ID
+                    Category
                   </label>
                   <Field
                     as="select"
@@ -177,12 +175,12 @@ const EditQuestion = () => {
                     name="category_id"
                     className="p-1 px-2 text-sm rounded-md w-full  border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary"
                   >
-                    <option value="">select category id...</option>
+                    <option value="">select category...</option>
                     {questionCategoriesList["data"].map(
                       (questionCategory, index) => (
                         // LAST WORKED HERE ----------> CHECK WHAT THE VALUE OF OPTION TAG SHOULD BE
                         <option key={index} value={questionCategory.id}>
-                          {questionCategory.id}
+                          {questionCategory.title}
                         </option>
                       )
                     )}
@@ -264,7 +262,7 @@ const EditQuestion = () => {
               {/* options input fields and error message */}
               <div className="flex flex-col col-span-2 gap-2 ">
                 <FieldArray name="options">
-                  {({ form, push, pop }) => {
+                  {({ form, push, pop, remove }) => {
                     const { values } = form;
                     const { options } = values;
 
@@ -281,7 +279,7 @@ const EditQuestion = () => {
                               className="flex items-center bg-primary-light p-[4px] rounded-md"
                               type="button"
                               onClick={() => {
-                                if (optionsArray.length < 4) {
+                                if (optionsArray.length < 6) {
                                   push("");
                                   setOptionsArray([...optionsArray, ""]);
                                 }
@@ -321,8 +319,23 @@ const EditQuestion = () => {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 key={index}
-                                className="h-[112px]"
+                                className="h-[112px] relative"
                               >
+                                <ImCross
+                                  onClick={() => {
+                                    console.log(optionsArray);
+                                    if (optionsArray.length > 2) {
+                                      remove(index);
+
+                                      setOptionsArray((prevOptions) =>
+                                        prevOptions.filter(
+                                          (_, i) => i !== index
+                                        )
+                                      );
+                                    }
+                                  }}
+                                  className="absolute cursor-pointer text-[#fb6e6e] text-xs top-[8px] right-[8px]"
+                                />
                                 <div className="flex gap-2 items-center">
                                   <label
                                     htmlFor={`option-${index + 1}`}
@@ -423,8 +436,6 @@ const EditQuestion = () => {
           </Form>
         )}
       </Formik>
-
-      <ToastContainer />
     </motion.div>
   );
 };

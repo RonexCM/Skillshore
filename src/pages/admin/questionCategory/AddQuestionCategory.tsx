@@ -15,11 +15,13 @@ import { useAddQuestionCategoryMutation } from "../../../redux/services/myQuesti
 import { useDispatch, useSelector } from "react-redux";
 
 import { RootState } from "../../../redux/store";
+import { useEffect } from "react";
 
 const AddQuestionCategory = () => {
   const dispatch = useDispatch();
-  const [addQuestionCategory, { error, isError }] =
+  const [addQuestionCategory, { error, isError, isSuccess }] =
     useAddQuestionCategoryMutation();
+  const navigate = useNavigate();
 
   //   ----------formik objects----------
   const initialValues = useSelector(
@@ -33,20 +35,25 @@ const AddQuestionCategory = () => {
     values: TAddQuestionCategoryFieldType,
     actions: FormikHelpers<TAddQuestionCategoryFieldType>
   ) => {
-    console.log(values);
-    await addQuestionCategory(values);
-    if (isError) {
-      toast.error("Error adding category!");
+    try {
+      await addQuestionCategory(values);
+    } catch (error) {
       console.log(error);
-    } else {
-      const { resetForm } = actions;
-      toast.success("Category added!");
-      resetForm();
     }
   };
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Category added!");
+      navigate(-1);
+    }
+  }, [isSuccess]);
 
+  useEffect(() => {
+    if (error) {
+      toast.error(error.data.message);
+    }
+  }, [error]);
   return (
     <motion.div
       initial={{ opacity: 0.2 }}
@@ -129,8 +136,6 @@ const AddQuestionCategory = () => {
           </Form>
         )}
       </Formik>
-
-      <ToastContainer />
     </motion.div>
   );
 };

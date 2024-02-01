@@ -241,8 +241,6 @@ const EditQuiz = () => {
           </Form>
         )}
       </Formik>
-
-      <ToastContainer />
     </motion.div>
   );
 };

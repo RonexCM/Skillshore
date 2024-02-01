@@ -125,8 +125,6 @@ const EditQuestionCategory = () => {
           </Form>
         )}
       </Formik>
-
-      <ToastContainer />
     </motion.div>
   );
 };

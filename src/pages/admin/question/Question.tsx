@@ -12,8 +12,6 @@ import {
 import { RootState } from "../../../redux/store";
 import { useLoadingState } from "../../../layouts/AdminLayout";
 import { TQuestionType } from "../types";
-import { saveAllQuestionCategoriesList } from "../../../redux/slice/questionCategorySlice/allQuestionCategoriesListSlice";
-import { useGetAllQuestionCategoriesQuery } from "../../../redux/services/myQuestionCategoryApiEndpoints";
 
 const Question = () => {
   const dispatch = useDispatch();
@@ -37,19 +35,10 @@ const Question = () => {
   const { data: questionsList, meta } = useSelector(
     (state: RootState) => state.questionList
   );
-  // console.log(questionsList);
+
   const loadingState = useLoadingState();
   const { setShowLoader } = loadingState;
 
-  const { data: allQuestionCategoriesListData } =
-    useGetAllQuestionCategoriesQuery();
-  useEffect(() => {
-    if (allQuestionCategoriesListData) {
-      dispatch(
-        saveAllQuestionCategoriesList(allQuestionCategoriesListData.data)
-      );
-    }
-  }, [allQuestionCategoriesListData]);
   return (
     <motion.div
       initial={{ opacity: 0.2 }}
@@ -80,61 +69,59 @@ const Question = () => {
         </Link>
       </div>
       <div className=" main-container relative flex flex-col min-h-[666px] outline outline-2  outline-primary-light w-full rounded-md text-center ">
-        {allQuestionCategoriesListData &&
-        allQuestionCategoriesListData?.data.length < 0 ? (
-          <p className="absolute top-[50%] left-[50%] translate-x-[-50%]">
-            No Data Found
-          </p>
-        ) : (
-          <div className="title-and-table-div basis-full relative overflow-y-hidden">
-            <table className="w-full text-sm text-left  text-dark">
-              <thead className="border-b-2 border-primary-light bg-[#fcfcfc] shadow-inner h-14">
-                <tr>
-                  <th scope="col" className="p-2 w-[8%] ">
-                    <div className="flex items-center pl-2 w-[20px] text-sm font-semibold">
-                      S.N
-                    </div>
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 w-[40%] text-sm font-semibold"
-                  >
-                    Title
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 w-[17%] text-sm font-semibold "
-                  >
-                    Weightage
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 w-[20%] text-sm font-semibold"
-                  >
-                    Status
-                  </th>
-                  <th scope="col" className="px-6 py-3 w-[15%] font-semibold">
-                    Action
-                  </th>
-                </tr>
-              </thead>
+        <div className="title-and-table-div basis-full relative overflow-y-hidden">
+          <table className="w-full text-sm text-left  text-dark">
+            <thead className="border-b-2 border-primary-light bg-[#fcfcfc] shadow-inner h-14">
+              <tr>
+                <th scope="col" className="p-2 w-[8%] ">
+                  <div className="flex items-center pl-2 w-[20px] text-sm font-semibold">
+                    S.N
+                  </div>
+                </th>
+                <th
+                  scope="col"
+                  className="px-6 py-3 w-[40%] text-sm font-semibold"
+                >
+                  Title
+                </th>
+                <th
+                  scope="col"
+                  className="px-6 py-3 w-[17%] text-sm font-semibold "
+                >
+                  Weightage
+                </th>
+                <th
+                  scope="col"
+                  className="px-6 py-3 w-[20%] text-sm font-semibold"
+                >
+                  Status
+                </th>
+                <th scope="col" className="px-6 py-3 w-[15%] font-semibold">
+                  Action
+                </th>
+              </tr>
+            </thead>
 
-              <tbody>
-                {questionsList &&
-                  questionsList?.map(
-                    (question: TQuestionType, index: number) => (
-                      <ListOfQuestions
-                        key={index}
-                        question={question}
-                        index={index}
-                        startingIndex={startingIndex}
-                      />
-                    )
-                  )}
-              </tbody>
-            </table>
-          </div>
-        )}
+            <tbody>
+              {questionsData ? (
+                questionsData.data?.map(
+                  (question: TQuestionType, index: number) => (
+                    <ListOfQuestions
+                      key={index}
+                      question={question}
+                      index={index}
+                      startingIndex={startingIndex}
+                    />
+                  )
+                )
+              ) : (
+                <tr className="absolute top-[50%] left-[50%] translate-x-[-50%]">
+                  No Data Found
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
 
         <nav
           className="flex items-center bg-[#fcfcfc] flex-column  border-t-2 flex-wrap md:flex-row justify-between pt-4 p-3"

@@ -12,6 +12,7 @@ import { AdminDashboardLayout, AuthLayout } from "./layouts";
 import EditQuizCategory from "./pages/admin/quizCategory/EditQuizCategory";
 import EditQuestionCategory from "./pages/admin/questionCategory/EditQuestionCategory";
 import EditQuiz from "./pages/admin/quiz/EditQuiz";
+import PageNotFound from "./pages/PageNotFound";
 
 const App = () => {
   return (
@@ -27,8 +28,6 @@ const App = () => {
               <Route index element={<QuizCategory />} />
               <Route path="addQuizCategory" element={<AddQuizCategory />} />
               <Route path="editQuizCategory" element={<EditQuizCategory />} />
-              {/* <Route path="editQuestion/:id" element={<EditQuestion />} /> */}
-
               <Route path="quiz">
                 <Route index element={<Quiz />} />
                 <Route path="addQuiz" element={<AddQuiz />} />
@@ -49,12 +48,12 @@ const App = () => {
                 <Route index element={<Question />} />
                 <Route path="addQuestion" element={<AddQuestion />} />
                 <Route path="editQuestion/:id" element={<EditQuestion />} />
-                {/* <Route path="editQuestion/:id" element={<EditQuestion />} /> */}
               </Route>
               <Route path="report" element={<Report />} />
             </Route>
-            {/* <Route path="profile" element={<} /> */}
+            <Route path="*" element={<PageNotFound />} />
           </Route>
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
     </div>

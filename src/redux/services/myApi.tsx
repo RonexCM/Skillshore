@@ -10,7 +10,7 @@ const baseQuery = fetchBaseQuery({
     if (token) {
       headers.set("Authorization", `Bearer ${token}`);
     }
-    headers.set("Content-type", "application/json");
+    // headers.set("Content-type", "application/json");
     headers.set("Accept", "application/json");
     return headers;
   },
@@ -21,10 +21,12 @@ export const myApi = createApi({
   reducerPath: "myApi",
   baseQuery: baseQueryWithRetry,
   endpoints: () => ({}),
+  keepUnusedDataFor: 1,
   tagTypes: [
     "FetchQuestions",
     "FetchQuestionCategories",
     "FetchQuizzes",
     "FetchQuizCategories",
+    "FetchSingleQuestion",
   ],
 });

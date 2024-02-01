@@ -4,6 +4,7 @@ import Footer from "./Footer";
 import { Outlet, useOutletContext } from "react-router-dom";
 import { Spinner } from "flowbite-react";
 import { motion } from "framer-motion";
+import { ToastContainer } from "react-toastify";
 
 type ContextType = {
   showLoader: boolean;

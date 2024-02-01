@@ -35,7 +35,7 @@ const QuizCategory = () => {
   const { data: quizCategoryList, meta } = useSelector(
     (state: RootState) => state.quizCategoryList
   );
-  // console.log(quizCategoryList);
+
   const loadingState = useLoadingState();
 
   const { setShowLoader } = loadingState;
@@ -72,49 +72,49 @@ const QuizCategory = () => {
         </Link>
       </div>
       <div className=" main-container relative flex flex-col min-h-[666px] outline outline-2  outline-primary-light w-full rounded-md text-center ">
-        {quizCategoriesData && quizCategoriesData.data.length < 0 ? (
-          <p className="absolute top-[50%] left-[50%] translate-x-[-50%]">
-            No Data Found
-          </p>
-        ) : (
-          <div className="title-and-table-div basis-full relative overflow-y-hidden">
-            <table className="w-full text-sm text-left  text-dark">
-              <thead className="border-b-2 border-primary-light bg-[#fcfcfc] shadow-inner h-14">
-                <tr>
-                  <th scope="col" className="p-2 w-[8%] ">
-                    <div className="flex items-center pl-2 w-[20px] text-sm font-semibold">
-                      S.N
-                    </div>
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 w-auto text-sm font-semibold"
-                  >
-                    Title
-                  </th>
+        <div className="title-and-table-div basis-full relative overflow-y-hidden">
+          <table className="w-full text-sm text-left  text-dark">
+            <thead className="border-b-2 border-primary-light bg-[#fcfcfc] shadow-inner h-14">
+              <tr>
+                <th scope="col" className="p-2 w-[8%] ">
+                  <div className="flex items-center pl-2 w-[20px] text-sm font-semibold">
+                    S.N
+                  </div>
+                </th>
+                <th
+                  scope="col"
+                  className="px-6 py-3 w-auto text-sm font-semibold"
+                >
+                  Title
+                </th>
 
-                  <th scope="col" className="px-6 py-3 w-[15%] font-semibold">
-                    Action
-                  </th>
+                <th scope="col" className="px-6 py-3 w-[15%] font-semibold">
+                  Action
+                </th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {quizCategoriesData ? (
+                quizCategoriesData.data?.map(
+                  (quizCategory: TQuizCategoryType, index: number) => (
+                    <ListOfQuizCategorys
+                      key={index}
+                      quizCategory={quizCategory}
+                      index={index}
+                      startingIndex={startingIndex}
+                    />
+                  )
+                )
+              ) : (
+                <tr className="absolute top-[50%] left-[50%] translate-x-[-50%]">
+                  No Data Found
                 </tr>
-              </thead>
+              )}
+            </tbody>
+          </table>
+        </div>
 
-              <tbody>
-                {quizCategoryList &&
-                  quizCategoryList?.map(
-                    (quizCategory: TQuizCategoryType, index: number) => (
-                      <ListOfQuizCategorys
-                        key={index}
-                        quizCategory={quizCategory}
-                        index={index}
-                        startingIndex={startingIndex}
-                      />
-                    )
-                  )}
-              </tbody>
-            </table>
-          </div>
-        )}
         <nav
           className="flex mt-auto items-center bg-[#fcfcfc] flex-column  border-t-2 flex-wrap md:flex-row justify-between pt-4 p-3"
           aria-label="Table navigation"

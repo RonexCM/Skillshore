@@ -4,7 +4,7 @@ import { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { AiFillHome } from "react-icons/ai";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
 import { TAddQuizFieldType, option } from "../types";
@@ -19,13 +19,12 @@ import CustomSelect from "../../../components/CustomSelect";
 
 const AddQuiz = () => {
   const dispatch = useDispatch();
-  const [thumbnail, setThumbnail] = useState<File | string | undefined>();
+  const [thumbnail, setThumbnail] = useState<File | string>("");
   const { data: allQuizCategoriesData } = useGetAllQuizCategoriesQuery();
   const { data: allQuestionCategoriesData } =
     useGetAllQuestionCategoriesQuery();
-  const [addQuiz, { data, error }] = useAddQuizMutation();
-  console.log(error);
-  console.log(data);
+  const [addQuiz, { error, isSuccess }] = useAddQuizMutation();
+
   useEffect(() => {
     if (allQuizCategoriesData && "data" in allQuizCategoriesData) {
       dispatch(saveAllQuizCategoriesList(allQuizCategoriesData.data));
@@ -60,28 +59,29 @@ const AddQuiz = () => {
     const valuesToSend = {
       ...values,
       question_categories: [...questionCategoryIdsToSend],
-      thumbnail: thumbnail!,
+      thumbnail: thumbnail,
       category_id: Number(values.category_id),
     };
-    await addQuiz(valuesToSend);
-    console.log(valuesToSend);
-    console.log(error);
-    console.log(data);
-    if (error) {
-      toast.error("Error adding question!");
+
+    try {
+      await addQuiz(valuesToSend);
+    } catch (error) {
       console.log(error);
-    } else {
-      const { resetForm } = actions;
-      toast.success("Question added!", {
-        autoClose: 400,
-        hideProgressBar: true,
-        onClose: () => {
-          navigate(-1);
-        },
-      });
-      resetForm();
     }
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Question added!");
+      navigate(-1);
+    }
+  }, [isSuccess]);
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error.data.message);
+    }
+  }, [error]);
 
   const navigate = useNavigate();
   const [questionCategoriesFromSelect, setQuestionCategoriesFromSelect] =
@@ -317,7 +317,10 @@ const AddQuiz = () => {
                     name="thumbnail"
                     onChange={(event: FormEvent<HTMLInputElement>) => {
                       if (event.currentTarget.files === null) return;
-                      const file = event.currentTarget.files[0];
+                      const file = URL.createObjectURL(
+                        event.currentTarget.files[0]
+                      );
+                      console.log({ file });
                       setThumbnail(file);
                       handleChange(event);
                     }}
@@ -342,8 +345,6 @@ const AddQuiz = () => {
           </Form>
         )}
       </Formik>
-
-      <ToastContainer />
     </motion.div>
   );
 };

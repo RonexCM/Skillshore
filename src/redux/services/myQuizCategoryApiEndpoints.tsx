@@ -20,7 +20,7 @@ const myQuizCategoryApiEndpoints = myApi.injectEndpoints({
       TSearchParams
     >({
       query: ({ page, title }) => {
-        let query = `/admin/questions?page=${page}`;
+        let query = `/admin/quiz-categories?page=${page}`;
         if (title) {
           query += `&title=${title}`;
         }

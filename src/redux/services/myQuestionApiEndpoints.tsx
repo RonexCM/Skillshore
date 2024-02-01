@@ -2,9 +2,7 @@ import {
   TAddQuestionFieldType,
   TFetchQuestionsQueryTransformReturnType,
   TFetchQuestionsType,
-  TQuestionType,
   TEditQuestionFieldType,
-  TSingleQuestionType,
 } from "../../pages/admin/types";
 import { TSearchParams } from "../../pages/admin/types/TCommonTypes";
 import { myApi } from "./myApi";
@@ -22,14 +20,19 @@ const myQuestionApiEndpoints = myApi.injectEndpoints({
         }
         return query;
       },
+
       providesTags: ["FetchQuestions"],
+
       transformResponse: (response: TFetchQuestionsType) => {
         return { data: response.data, meta: response.meta };
       },
     }),
 
-    getSingleQuestion: builder.query<TSingleQuestionType, string>({
+    getSingleQuestion: builder.query<TEditQuestionFieldType, string>({
       query: (id) => `/admin/questions/${id}`,
+      transformResponse: (response: any) => {
+        return { ...response.data, category_id: response.data.category.id };
+      },
     }),
     addQuestion: builder.mutation<TAddQuestionFieldType, TAddQuestionFieldType>(
       {

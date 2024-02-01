@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { AiFillHome } from "react-icons/ai";
 import { useAddQuestionMutation } from "../../../redux/services/myQuestionApiEndpoints";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
 import {
@@ -25,6 +25,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { useGetAllQuestionCategoriesQuery } from "../../../redux/services/myQuestionCategoryApiEndpoints";
 import { saveAllQuestionCategoriesList } from "../../../redux/slice/questionCategorySlice/allQuestionCategoriesListSlice";
+import { ImCross } from "react-icons/im";
 
 const AddQuestion = () => {
   const dispatch = useDispatch();
@@ -37,7 +38,7 @@ const AddQuestion = () => {
       );
     }
   }, [allQuestionCategoriesListData]);
-  const [addQuestion, { error, isError }] = useAddQuestionMutation();
+  const [addQuestion, { error, isSuccess }] = useAddQuestionMutation();
   const questionCategoriesListData: TQuestionCategoryListFetchAllType =
     useSelector((state: RootState) => state.allQuestionCategories);
   const questionCategoriesList = questionCategoriesListData["data"];
@@ -54,17 +55,26 @@ const AddQuestion = () => {
     values: TAddQuestionFieldType,
     actions: FormikHelpers<TAddQuestionFieldType>
   ) => {
-    await addQuestion(values);
-    if (isError) {
-      toast.error("Error adding question!");
+    try {
+      await addQuestion(values);
+    } catch (error) {
       console.log(error);
-    } else {
-      const { resetForm } = actions;
-      toast.success("Question added!");
-      resetForm();
-      setOptionsArray(Array.from({ length: totalOptions }, (_) => ""));
     }
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Question added!");
+      navigate(-1);
+    }
+  }, [isSuccess]);
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error.data.message);
+    }
+  }, [error]);
+
   const [optionsArray, setOptionsArray] = useState(
     Array.from({ length: totalOptions }, (_) => "")
   );
@@ -231,7 +241,7 @@ const AddQuestion = () => {
               {/* options input fields and error message */}
               <div className="flex flex-col col-span-2 gap-2 ">
                 <FieldArray name="options">
-                  {({ form, push, pop }) => {
+                  {({ form, push, pop, remove }) => {
                     const { values } = form;
                     const { options } = values;
 
@@ -288,8 +298,23 @@ const AddQuestion = () => {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 key={index}
-                                className="h-[112px]"
+                                className="h-[112px] relative"
                               >
+                                <ImCross
+                                  onClick={() => {
+                                    console.log(optionsArray);
+                                    if (optionsArray.length > 2) {
+                                      remove(index);
+
+                                      setOptionsArray((prevOptions) =>
+                                        prevOptions.filter(
+                                          (_, i) => i !== index
+                                        )
+                                      );
+                                    }
+                                  }}
+                                  className="absolute cursor-pointer text-[#fb6e6e] text-xs top-[8px] right-[8px]"
+                                />
                                 <div className="flex gap-2 items-center">
                                   <label
                                     htmlFor={`option-${index + 1}`}
@@ -363,8 +388,6 @@ const AddQuestion = () => {
           </Form>
         )}
       </Formik>
-
-      <ToastContainer />
     </motion.div>
   );
 };

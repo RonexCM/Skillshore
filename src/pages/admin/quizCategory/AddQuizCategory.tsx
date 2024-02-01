@@ -1,23 +1,21 @@
 import { Field, Formik, Form, ErrorMessage, FormikHelpers } from "formik";
-import {
-  validationSchemaAddQuestion,
-  validationSchemaAddQuiz,
-  validationSchemaAddQuizCategory,
-} from "../../../validation";
+import { validationSchemaAddQuizCategory } from "../../../validation";
 import { useNavigate } from "react-router-dom";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { AiFillHome } from "react-icons/ai";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
 import { TAddQuizCategoryFieldType } from "../types";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { useAddQuizCategoryMutation } from "../../../redux/services/myQuizCategoryApiEndpoints";
+import { useEffect } from "react";
 
 const AddQuizCategory = () => {
-  const dispatch = useDispatch();
-  const [addQuizCategory, { error, isError }] = useAddQuizCategoryMutation();
+  const navigate = useNavigate();
+
+  const [addQuizCategory, { error, isSuccess }] = useAddQuizCategoryMutation();
 
   //   ----------formik objects----------
   const initialValues = useSelector(
@@ -31,20 +29,25 @@ const AddQuizCategory = () => {
     values: TAddQuizCategoryFieldType,
     actions: FormikHelpers<TAddQuizCategoryFieldType>
   ) => {
-    console.log(values);
-    await addQuizCategory(values);
-    if (isError) {
-      toast.error("Error adding category!");
+    try {
+      await addQuizCategory(values);
+    } catch (error) {
       console.log(error);
-    } else {
-      const { resetForm } = actions;
-      toast.success("Category added!");
-      resetForm();
     }
   };
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Category added!");
+      navigate(-1);
+    }
+  }, [isSuccess]);
 
+  useEffect(() => {
+    if (error) {
+      toast.error(error.data.message);
+    }
+  }, [error]);
   return (
     <motion.div
       initial={{ opacity: 0.2 }}
@@ -71,7 +74,7 @@ const AddQuizCategory = () => {
         onSubmit={onSubmit}
         validationSchema={validationSchemaAddQuizCategory}
       >
-        {({ handleChange }) => (
+        {() => (
           // form field in 2 grid columns
           <Form>
             <div className="border-2  p-7 rounded-md grid gap-2 gap-x-6 grid-cols-2 border-primary-light ">
@@ -127,8 +130,6 @@ const AddQuizCategory = () => {
           </Form>
         )}
       </Formik>
-
-      <ToastContainer />
     </motion.div>
   );
 };

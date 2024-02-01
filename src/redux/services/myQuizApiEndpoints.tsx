@@ -30,11 +30,14 @@ const myQuizApiEndpoints = myApi.injectEndpoints({
       query: (id) => `/admin/quizzes/${id}`,
     }),
     addQuiz: builder.mutation<TAddQuizFieldType, TAddQuizFieldType>({
-      query: (body: TAddQuizFieldType) => ({
-        url: "/admin/quizzes",
-        method: "POST",
-        body,
-      }),
+      query: (payload: TAddQuizFieldType) => {
+        return {
+          url: "/admin/quizzes",
+          method: "POST",
+          body: payload,
+          headers: { "Content-type": "multipart/form-data" },
+        };
+      },
       invalidatesTags: ["FetchQuizzes"],
     }),
     editQuiz: builder.mutation<TEditQuizFieldType, TEditQuizFieldType>({
