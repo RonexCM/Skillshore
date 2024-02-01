@@ -40,13 +40,7 @@ export const CommonLayout = ({ layoutFor }: Props) => {
         newestOnTop
         limit={1}
       />
-      {isLoading ? (
-        <div className="flex justify-center h-[800px]">
-          <LineWave color="#1a2b48" height={100} />
-        </div>
-      ) : (
-        <Outlet />
-      )}
+      <Outlet />
       <Footer />
     </div>
   );
