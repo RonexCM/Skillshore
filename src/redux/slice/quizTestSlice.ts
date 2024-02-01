@@ -1,7 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { QuizModalTypes } from "../../pages/admin/types";
-// import { QuizModalType} from "../../pages/admin/types/TQuizModalTest";
-// import { QuizModalType } from "../../pages/admin/types";
 
 const initialState = {
   data: {},
@@ -12,9 +10,7 @@ const quizTestSlice = createSlice({
   initialState,
   reducers: {
     saveQuizDescription: (state, action: PayloadAction<QuizModalTypes>) => {
-      console.log(action.payload);
       state.data = action.payload;
-    //   console.log(state.data);
     },
   },
 });

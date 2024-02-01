@@ -17,6 +17,7 @@ import { encryptTransform } from "redux-persist-transform-encrypt";
 import authSlice from "../slice/authSlice";
 import allQuizCategoriesListSlice from "../slice/quizCategorySlice/allQuizCategoriesListSlice";
 import allQuizListSlice from "../slice/quizSlice/allQuizListSlice";
+import quizTestSlice from "../slice/quizTestSlice";
 
 const persistConfig = {
   key: "root",
@@ -35,6 +36,7 @@ const rootReducer = combineReducers({
   auth: authSlice,
   allQuizCategories: allQuizCategoriesListSlice,
   allQuiz: allQuizListSlice,
+  allModal: quizTestSlice,
   [myApi.reducerPath]: myApi.reducer,
 });
 

@@ -4,7 +4,6 @@ import { MdOutlineTimer } from "react-icons/md";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useGetAllQuizCategoriesQuery } from "../../../redux/services/myQuizCategoryApiEndpoints";
 import { useDispatch, useSelector } from "react-redux";
-// import { saveAllQuizCategoriesList } from "../../../redux/slice/quizCategorySlice/allQuizCategoryListSlice";
 import { useGetAllQuizQuery } from "../../../redux/services/myQuizApiEndpoints";
 import { saveAllQuizList } from "../../../redux/slice/quizSlice/allQuizListSlice";
 import { RootState } from "../../../redux/store";
@@ -15,7 +14,6 @@ import { Badge } from "flowbite-react";
 import QuizModal from "../../../components/modals/QuizModal";
 import { useNavigate } from "react-router-dom";
 import { saveQuizDescription } from "../../../redux/slice/quizTestSlice";
-// import { saveQuizDescription } from "../../../redux/slice/quizTest";
 
 const QuizCategory = () => {
   const [showQuizModal, setShowQuizModal] = useState(false);
@@ -184,7 +182,7 @@ const QuizCategory = () => {
                     color="gray"
                     icon={MdOutlineTimer}
                   >
-                    {quiz.time}
+                    {quiz.time} min
                   </Badge>
                 )}
               </div>
