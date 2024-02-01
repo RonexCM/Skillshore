@@ -15,8 +15,8 @@ const myQuizApiEndpoints = myApi.injectEndpoints({
       },
     }),
     getQuizById: builder.query({
-      query: (id) => ({
-        url: `/student/quizzes/all/${id}`,
+      query: () => ({
+        url: `/student/quizzes/all`,
         method: "GET",
         providesTags: ["FetchQuizzes"],
       }),

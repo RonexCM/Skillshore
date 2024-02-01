@@ -2,6 +2,8 @@ import { FaThumbsUp } from "react-icons/fa";
 import { IoMdClose, IoMdStopwatch } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { useGetQuizByIdQuery } from "../../redux/services/myQuizApiEndpoints";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 type Props = {
   selectQuiz: (id: number) => void;
@@ -11,7 +13,9 @@ type Props = {
 };
 const QuizModal = ({ setShowModal, id }: Props) => {
   const { data: QuizData, error, isLoading } = useGetQuizByIdQuery(id);
-  // console.log("id", id);
+  const quizTestSlice = useSelector((state: RootState) => state.quizModal.data);
+
+  console.log(quizTestSlice);
   const navigate = useNavigate();
   const StartQuiz = () => {
     navigate("/quizzes");
@@ -47,10 +51,10 @@ const QuizModal = ({ setShowModal, id }: Props) => {
             <div className=" md:p-5 text-center h-[260px] ">
               <div className="flex h-[56px]">
                 <div className=" ps-4 pe-1 pt-5 font-bold text-2xl bg-[#F7DF1E]">
-                  {/* <img src={quiz.thumbnail} alt="quiz" /> */} JS
+                  {/* <img src={quizTestSlice.thumbnail} alt="quiz" /> JS */}
                 </div>
                 <div className="ps-6">
-                  <h4 className="text-left font-bold pb-1">{QuizData.title}</h4>
+                  {/* <h4 className="text-left font-bold pb-1">{quizTestSlice.title}</h4> */}
                   <span className="flex">
                     <p className="rounded-lg bg-[#E1E7FF] ps-1 pe-2 text-center text-[14px] font-bold">
                       <button className="pe-1">
@@ -65,7 +69,7 @@ const QuizModal = ({ setShowModal, id }: Props) => {
                 </div>
               </div>
               <h3 className="mb-5 pt-7 text-[14px] text-left font-normal text-gray-950 ">
-                {QuizData.description}
+                {/* {quizTestSlice.description} */}
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Incidunt praesentium tempore, illo excepturi deserunt corporis
                 nostrum animi, voluptate ut, rem dolorem ad porro eligendi!
@@ -75,7 +79,7 @@ const QuizModal = ({ setShowModal, id }: Props) => {
                   <button className="pe-[5px]">
                     <IoMdStopwatch />
                   </button>
-                  30min
+                  {/* {quizTestSlice.time} min */}
                 </p>
                 <button
                   onClick={StartQuiz}

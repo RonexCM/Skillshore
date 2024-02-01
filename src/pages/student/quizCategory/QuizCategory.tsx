@@ -14,15 +14,25 @@ import Button from "../../../components/Button";
 import { Badge } from "flowbite-react";
 import QuizModal from "../../../components/modals/QuizModal";
 import { useNavigate } from "react-router-dom";
+import { saveQuizDescription } from "../../../redux/slice/quizTestSlice";
+// import { saveQuizDescription } from "../../../redux/slice/quizTest";
 
 const QuizCategory = () => {
   const [showQuizModal, setShowQuizModal] = useState(false);
 
-  const handleStart = () => {
-    setShowQuizModal(true);
-    console.log("Quiz category");
-  };
   const dispatch = useDispatch();
+  const handleStart = (quizData: any) => {
+    const { title, description, time, thumbnail } = quizData;
+    dispatch(
+      saveQuizDescription({
+        title,
+        description,
+        time,
+        thumbnail,
+      })
+    );
+    setShowQuizModal(true);
+  };
   const { data: quizData } = useGetAllQuizQuery();
   const { data: quizCategoriesData } = useGetAllQuizCategoriesQuery();
   useEffect(() => {
@@ -181,7 +191,11 @@ const QuizCategory = () => {
               {passed ? (
                 <Button style="completed" text="Completed" />
               ) : (
-                <Button style="light" text="Start Quiz" onClick={handleStart} />
+                <Button
+                  style="light"
+                  text="Start Quiz"
+                  onClick={() => handleStart(quiz)}
+                />
               )}
             </div>
           ))}
