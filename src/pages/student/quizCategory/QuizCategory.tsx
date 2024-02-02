@@ -99,11 +99,11 @@ const QuizCategory = () => {
     } else if (result && result.total_answered) {
       return (
         <>
-          <span className="bg-red-100 text-red-800 text-base font-medium me-2 ms-8 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
+          {/* <span className="bg-red-100 text-red-800 text-base font-medium me-2 ms-8 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
             Failed
-          </span>
+          </span> */}
           <br />
-          <span className="bg-green-700 text-white text-xs font-medium me-2 mt-6  px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-red-300 ">
+          <span className="bg-gray-700 text-white text-xs font-medium me-2 mt-6  px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-red-300 ">
             Retry after {result.retry_after}2 Days
           </span>
         </>
