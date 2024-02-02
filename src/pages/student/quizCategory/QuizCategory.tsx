@@ -1,4 +1,4 @@
-import { HiCheck } from "react-icons/hi";
+// import { HiCheck } from "react-icons/hi";
 import { MdOutlineTimer } from "react-icons/md";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useGetAllQuizCategoriesQuery } from "../../../redux/services/myQuizCategoryApiEndpoints";
@@ -13,6 +13,11 @@ import { Badge } from "flowbite-react";
 import QuizModal from "../../../components/modals/QuizModal";
 import { useNavigate } from "react-router-dom";
 import { saveQuizDescription } from "../../../redux/slice/quizTestSlice";
+import { CiLock } from "react-icons/ci";
+// import { IoMdCloseCircleOutline } from "react-icons/io";
+// import { CiLock } from "react-icons/ci";
+// import { LuShieldClose } from "react-icons/lu";
+// import { IoMdClose, IoMdCloseCircleOutline } from "react-icons/io";
 
 const QuizCategory = () => {
   const [showQuizModal, setShowQuizModal] = useState(false);
@@ -93,18 +98,15 @@ const QuizCategory = () => {
     if (result && result.passed) {
       return (
         <span className="bg-green-100 text-green-800 text-xs ms-7 font-medium me-2 ps-5 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
-          Completed
+          Passed
         </span>
       );
     } else if (result && result.total_answered) {
       return (
         <>
-          {/* <span className="bg-red-100 text-red-800 text-base font-medium me-2 ms-8 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
-            Failed
-          </span> */}
-          <br />
-          <span className="bg-gray-700 text-white text-xs font-medium me-2 mt-6  px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-red-300 ">
-            Retry after {result.retry_after}2 Days
+          <CiLock className="inline-block  text-red-600" />
+          <span className="text-red-600 text-base font-medium  mt-6 px-2 py-0.5 rounded ">
+            Retry after{result.retry_after} 2 days
           </span>
         </>
       );
@@ -233,10 +235,12 @@ const QuizCategory = () => {
                 )}
               </div>
               {quiz.result ? (
-                <Button
-                  style={quiz.result.passed ? "completed" : "failed"}
-                  text={quiz.result.passed ? "Passed" : "Failed"}
-                />
+                <Badge>
+                  <Button
+                    style={quiz.result.passed ? "completed" : "failed"}
+                    text={quiz.result.passed ? "Passed" : "Failed"}
+                  />
+                </Badge>
               ) : (
                 <Button
                   style="light"
