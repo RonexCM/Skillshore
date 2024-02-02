@@ -8,7 +8,7 @@ const initialState: TAddQuestionFieldType = {
   description: "",
   options: ["", ""],
   answer: "",
-  weightage: undefined,
+  weightage: 0,
   status: 1,
   category_id: 0,
 };

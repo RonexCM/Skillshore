@@ -37,6 +37,7 @@ const Quiz = () => {
   const { data: quizList, meta } = useSelector(
     (state: RootState) => state.quizList
   );
+  
   const loadingState = useLoadingState();
   const { setShowLoader } = loadingState;
 
@@ -117,7 +118,7 @@ const Quiz = () => {
                 ))
               ) : (
                 <tr className="absolute top-[50%] left-[50%] translate-x-[-50%]">
-                  No Data Found
+                  <td>No Data Found</td>
                 </tr>
               )}
             </tbody>

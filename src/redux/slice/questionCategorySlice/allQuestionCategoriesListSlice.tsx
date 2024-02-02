@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   TQuestionCategoryFetchAllType,
-  TQuestionCategoryListFetchAllType,
 } from "../../../pages/admin/types";
 
 const initialState = {

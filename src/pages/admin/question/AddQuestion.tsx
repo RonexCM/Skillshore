@@ -70,7 +70,7 @@ const AddQuestion = () => {
   }, [isSuccess]);
 
   useEffect(() => {
-    if (error) {
+    if (error && "data" in error) {
       toast.error(error.data.message);
     }
   }, [error]);

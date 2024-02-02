@@ -6,20 +6,19 @@ import {
 import { useNavigate } from "react-router-dom";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { AiFillHome } from "react-icons/ai";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
 import { TAddQuestionCategoryFieldType } from "../types";
 import { useAddQuestionCategoryMutation } from "../../../redux/services/myQuestionCategoryApiEndpoints";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { RootState } from "../../../redux/store";
 import { useEffect } from "react";
 
 const AddQuestionCategory = () => {
-  const dispatch = useDispatch();
-  const [addQuestionCategory, { error, isError, isSuccess }] =
+  const [addQuestionCategory, { error, isSuccess }] =
     useAddQuestionCategoryMutation();
   const navigate = useNavigate();
 
@@ -27,10 +26,12 @@ const AddQuestionCategory = () => {
   const initialValues = useSelector(
     (state: RootState) => state.addQuestionCategory
   );
+
   /**
    * when add button is clicked form is submitted with
    * @param values
    */
+
   const onSubmit = async (
     values: TAddQuestionCategoryFieldType,
     actions: FormikHelpers<TAddQuestionCategoryFieldType>
@@ -50,10 +51,11 @@ const AddQuestionCategory = () => {
   }, [isSuccess]);
 
   useEffect(() => {
-    if (error) {
+    if (error && "data" in error) {
       toast.error(error.data.message);
     }
   }, [error]);
+
   return (
     <motion.div
       initial={{ opacity: 0.2 }}
@@ -80,7 +82,7 @@ const AddQuestionCategory = () => {
         onSubmit={onSubmit}
         validationSchema={validationSchemaAddQuestionCategory}
       >
-        {({ handleChange }) => (
+        {() => (
           // form field in 2 grid columns
           <Form>
             <div className="border-2  p-7 rounded-md grid gap-2 gap-x-6 grid-cols-2 border-primary-light ">

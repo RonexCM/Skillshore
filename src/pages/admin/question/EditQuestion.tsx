@@ -9,7 +9,7 @@ import {
   useEditQuestionMutation,
   useGetSingleQuestionQuery,
 } from "../../../redux/services/myQuestionApiEndpoints";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
 import { TEditQuestionFieldType } from "../types";
@@ -17,29 +17,31 @@ import { MdAdd, MdOutlineRemove } from "react-icons/md";
 import { Tooltip } from "flowbite-react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
+import { useLoadingState } from "../../../layouts/AdminLayout";
 
 type ParamsType = {
   id: string;
 };
 
 const EditQuestion = () => {
+  const loadingState = useLoadingState();
+  const { setShowLoader } = loadingState;
   const navigate = useNavigate();
   const params = useParams();
   const { id } = params as ParamsType;
-  const { data: questionData } = useGetSingleQuestionQuery(id);
-  // console.log(questionData);
+  const { data: questionData, isLoading } = useGetSingleQuestionQuery(id);
   const questionCategoriesList = useSelector(
     (state: RootState) => state.allQuestionCategories
   );
-  const [addQuestion, { isError, error, isSuccess }] =
-    useEditQuestionMutation();
+  const [addQuestion, { error, isSuccess }] = useEditQuestionMutation();
   const [optionsArray, setOptionsArray] = useState([""]);
 
   useEffect(() => {
     if (questionData) {
       setOptionsArray(questionData.options);
     }
-  }, [questionData]);
+    setShowLoader(isLoading);
+  }, [questionData, isLoading]);
 
   const onSubmit = async (values: TEditQuestionFieldType) => {
     const editedValues = {
@@ -62,12 +64,12 @@ const EditQuestion = () => {
   }, [isSuccess]);
 
   useEffect(() => {
-    if (error) {
+    if (error && "data" in error) {
       toast.error(error.data.message);
     }
   }, [error]);
 
-  // //   ----------for each input field value take index, value and store it to options state----------
+  //  ----------for each input field value take index, value and store it to options state----------
 
   const handleOptionsInputChange = (index: number, value: string) => {
     const tempArray = [...optionsArray];
@@ -75,7 +77,7 @@ const EditQuestion = () => {
     setOptionsArray(tempArray);
   };
 
-  // //   ----------mapping options to option tag for answer dropdown----------
+  //  ----------mapping options to option tag for answer dropdown----------
 
   const answerDropdown = optionsArray.map((option, index) => (
     <option key={index} value={option}>
@@ -83,9 +85,7 @@ const EditQuestion = () => {
     </option>
   ));
 
-  if (!questionData) {
-    return <div style={{ margin: "0 auto" }}>Loading...</div>;
-  }
+  if (!questionData) return;
 
   const {
     id: editId,
@@ -98,7 +98,6 @@ const EditQuestion = () => {
     status,
     category_id,
   }: TEditQuestionFieldType = questionData;
-
   const mappedQuestionData: TEditQuestionFieldType = {
     id: editId,
     title,

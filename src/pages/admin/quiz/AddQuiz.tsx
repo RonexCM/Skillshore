@@ -78,7 +78,7 @@ const AddQuiz = () => {
   }, [isSuccess]);
 
   useEffect(() => {
-    if (error) {
+    if (error && "data" in error) {
       toast.error(error.data.message);
     }
   }, [error]);
@@ -317,9 +317,7 @@ const AddQuiz = () => {
                     name="thumbnail"
                     onChange={(event: FormEvent<HTMLInputElement>) => {
                       if (event.currentTarget.files === null) return;
-                      const file = URL.createObjectURL(
-                        event.currentTarget.files[0]
-                      );
+                      const file = event.currentTarget.files[0];
                       console.log({ file });
                       setThumbnail(file);
                       handleChange(event);

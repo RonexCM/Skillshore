@@ -2,11 +2,11 @@ import { useState } from "react";
 import { Tooltip } from "flowbite-react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { TQuizCategoryType } from "../pages/admin/types";
 import { motion } from "framer-motion";
 import { saveQuizCategory } from "../redux/slice/quizCategorySlice/quizCategorySlice";
 import { useDeleteQuizCategoryMutation } from "../redux/services/myQuizCategoryApiEndpoints";
 import DeleteModal from "./modals/DeleteModal";
+import { TQuizCategoryType } from "../pages/admin/types/TQuizCategoryTypes";
 
 type Props = {
   quizCategory: TQuizCategoryType;

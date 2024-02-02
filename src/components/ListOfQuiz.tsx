@@ -23,7 +23,6 @@ const ListOfQuiz = ({ quiz, index, startingIndex }: Props) => {
   const handleEdit = () => {
     dispatch(saveQuiz(quiz));
     navigate(`editQuiz`);
-    // navigate(`editQuiz/${quiz.id}`);
   };
   const handleDelete = () => {
     setShowDeleteModal(true);

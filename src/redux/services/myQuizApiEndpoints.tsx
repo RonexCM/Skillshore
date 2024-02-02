@@ -35,7 +35,7 @@ const myQuizApiEndpoints = myApi.injectEndpoints({
           url: "/admin/quizzes",
           method: "POST",
           body: payload,
-          headers: { "Content-type": "multipart/form-data" },
+          // headers: { "Content-type": "multipart/form-data" },
         };
       },
       invalidatesTags: ["FetchQuizzes"],

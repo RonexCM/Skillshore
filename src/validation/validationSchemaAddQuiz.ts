@@ -18,6 +18,7 @@ const validationSchemaAddQuiz = Yup.object({
     .notOneOf([0], "Input should not be zero")
     .required("Retry after is required"),
   question_categories: Yup.array()
+    .notOneOf([[0]], "Question Categories are required")
     .of(Yup.number().required("Question Categories are required"))
     .required("Question Categories are required"),
   status: Yup.boolean().required("Status is required"),

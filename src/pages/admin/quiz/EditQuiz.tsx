@@ -32,7 +32,7 @@ const EditQuiz = () => {
 
   const { data: quizData } = useSelector((state: RootState) => state.quiz);
   const { id, category, ...rest } = quizData;
-  const initialValues = { ...rest, category_id: category.id };
+  // const initialValues = { ...rest, category_id: category.id };
 
   const [editQuiz, { isError, error }] = useEditQuizMutation();
   //   ----------formik objects----------
@@ -41,8 +41,8 @@ const EditQuiz = () => {
    * @param values
    */
   const onSubmit = async (values: TAddQuizFieldType) => {
-    const editedValues = { ...values, id: id };
-    await editQuiz(editedValues);
+    // const editedValues = { ...values, id: id };
+    // await editQuiz(editedValues);
     if (isError) {
       toast.error("Error editing quiz category!");
       console.log(error);
@@ -56,7 +56,7 @@ const EditQuiz = () => {
       });
     }
   };
-
+  if (true) return <p>Edit Quiz</p>;
   return (
     <motion.div
       initial={{ opacity: 0.2 }}

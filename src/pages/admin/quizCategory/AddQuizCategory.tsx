@@ -21,10 +21,12 @@ const AddQuizCategory = () => {
   const initialValues = useSelector(
     (state: RootState) => state.addQuizCategory
   );
+
   /**
    * when add button is clicked form is submitted with
    * @param values
    */
+
   const onSubmit = async (
     values: TAddQuizCategoryFieldType,
     actions: FormikHelpers<TAddQuizCategoryFieldType>
@@ -44,10 +46,11 @@ const AddQuizCategory = () => {
   }, [isSuccess]);
 
   useEffect(() => {
-    if (error) {
+    if (error && "data" in error) {
       toast.error(error.data.message);
     }
   }, [error]);
+
   return (
     <motion.div
       initial={{ opacity: 0.2 }}

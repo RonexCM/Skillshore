@@ -1,10 +1,13 @@
 import { NavLink } from "react-router-dom";
 import { MdHome } from "react-icons/md";
 import skillshoreLogo from "../assets/skillshoresvg.svg";
+import { useDispatch } from "react-redux";
+import { logOut } from "../redux/slice/authSlice";
 
 const AdminNavbar = () => {
-  const handleLogout = () => {
-    // show a modal saying confirm logout?
+  const dispatch = useDispatch();
+  const LogOut = () => {
+    dispatch(logOut());
   };
   return (
     <div className="h-[56px] shrink-0 w-full bg-[#03103F] text-white flex justify-between items-center px-5">
@@ -13,10 +16,7 @@ const AdminNavbar = () => {
         <img src={skillshoreLogo} alt="skillshore-logo" />
       </NavLink>
       <div className="flex gap-4 text-sm">
-        <NavLink to="profile" className="font-bold hover:underline">
-          Profile
-        </NavLink>
-        <button className="font-normal hover:underline" onClick={handleLogout}>
+        <button className="font-normal hover:underline" onClick={LogOut}>
           Logout
         </button>
       </div>

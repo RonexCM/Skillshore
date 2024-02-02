@@ -6,9 +6,6 @@ import { motion } from "framer-motion";
 import { useDeleteQuestionMutation } from "../redux/services/myQuestionApiEndpoints";
 import DeleteModal from "./modals/DeleteModal";
 import { useDispatch } from "react-redux";
-import { saveQuestion } from "../redux/slice/questionSlice/questionSlice";
-import { useGetAllQuestionCategoriesQuery } from "../redux/services/myQuestionCategoryApiEndpoints";
-import { saveAllQuestionCategoriesList } from "../redux/slice/questionCategorySlice/allQuestionCategoriesListSlice";
 
 type Props = {
   question: TQuestionType;
@@ -18,12 +15,12 @@ type Props = {
 
 const ListOfQuestions = ({ question, index, startingIndex }: Props) => {
   const navigate = useNavigate();
+
   const [deleteQuestion] = useDeleteQuestionMutation();
 
-  const dispatch = useDispatch();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [active, setActive] = useState(false);
-  // const [changeStatus] = useChangeStatusMutation();
+
   const handleEdit = () => {
     navigate(`editQuestion/${question.id}`);
   };
@@ -38,6 +35,7 @@ const ListOfQuestions = ({ question, index, startingIndex }: Props) => {
       setActive(false);
     }
   }, [question.status, setActive]);
+
   return (
     <>
       <motion.tr

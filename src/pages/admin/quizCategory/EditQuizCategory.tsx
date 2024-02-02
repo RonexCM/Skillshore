@@ -1,18 +1,16 @@
-import { Field, FieldArray, Formik, Form, ErrorMessage } from "formik";
-import {
-  validationSchemaAddQuestion,
-  validationSchemaAddQuizCategory,
-} from "../../../validation";
+import { Field, Formik, Form, ErrorMessage } from "formik";
+import { validationSchemaAddQuizCategory } from "../../../validation";
 import { useNavigate } from "react-router-dom";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { AiFillHome } from "react-icons/ai";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
 import { TAddQuizCategoryFieldType } from "../types";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { useEditQuizCategoryMutation } from "../../../redux/services/myQuizCategoryApiEndpoints";
+import { useEffect } from "react";
 
 const EditQuizCategory = () => {
   const navigate = useNavigate();
@@ -23,28 +21,36 @@ const EditQuizCategory = () => {
   const { id, ...rest } = quizCategoryData;
   const initialValues = { ...rest };
 
-  const [editQuizCategory, { isError, error }] = useEditQuizCategoryMutation();
+  const [editQuizCategory, { error, isSuccess }] =
+    useEditQuizCategoryMutation();
+
   //   ----------formik objects----------
   /**
    * when add button is clicked form is submitted with
    * @param values
    */
+
   const onSubmit = async (values: TAddQuizCategoryFieldType) => {
     const editedValues = { ...values, id: id };
-    await editQuizCategory(editedValues);
-    if (isError) {
-      toast.error("Error editing quiz category!");
+    try {
+      await editQuizCategory(editedValues);
+    } catch (error) {
       console.log(error);
-    } else {
-      toast.success("Updated!", {
-        autoClose: 400,
-        hideProgressBar: true,
-        onClose: () => {
-          navigate(-1);
-        },
-      });
     }
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Updated!");
+      navigate(-1);
+    }
+  }, [isSuccess]);
+
+  useEffect(() => {
+    if (error && "data" in error) {
+      toast.error(error.data.message);
+    }
+  }, [error]);
 
   return (
     <motion.div

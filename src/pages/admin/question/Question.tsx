@@ -116,7 +116,7 @@ const Question = () => {
                 )
               ) : (
                 <tr className="absolute top-[50%] left-[50%] translate-x-[-50%]">
-                  No Data Found
+                  <td>No Data Found</td>
                 </tr>
               )}
             </tbody>

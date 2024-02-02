@@ -23,6 +23,7 @@ const QuizCategory = () => {
     page: currentPageNumber,
     title: searchTerm,
   });
+
   useEffect(() => {
     if (quizCategoriesData) {
       dispatch(saveQuizCategoryList(quizCategoriesData.data));
@@ -37,7 +38,6 @@ const QuizCategory = () => {
   );
 
   const loadingState = useLoadingState();
-
   const { setShowLoader } = loadingState;
 
   return (
@@ -108,7 +108,7 @@ const QuizCategory = () => {
                 )
               ) : (
                 <tr className="absolute top-[50%] left-[50%] translate-x-[-50%]">
-                  No Data Found
+                  <td>No Data Found</td>
                 </tr>
               )}
             </tbody>

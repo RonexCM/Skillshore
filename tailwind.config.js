@@ -27,4 +27,8 @@ export default {
     },
   },
   plugins: [require("flowbite/plugin")],
+  nav1: "#CFDAFE",
+  nav2: "#FFB72A",
+  foot1: "#E1E7FF",
+  foot2: "#2F5CFE",
 };

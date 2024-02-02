@@ -15,6 +15,7 @@ import {
 
 const QuestionCategory = () => {
   const dispatch = useDispatch();
+
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [startingIndex, setStartingIndex] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
@@ -24,6 +25,8 @@ const QuestionCategory = () => {
       page: currentPageNumber,
       title: searchTerm,
     });
+
+
   useEffect(() => {
     if (questionCategoriesData) {
       dispatch(saveQuestionCategoryList(questionCategoriesData.data));
@@ -108,7 +111,7 @@ const QuestionCategory = () => {
                 )
               ) : (
                 <tr className="absolute top-[50%] left-[50%] translate-x-[-50%]">
-                  No Data Found
+                  <td>No Data Found</td>
                 </tr>
               )}
             </tbody>
