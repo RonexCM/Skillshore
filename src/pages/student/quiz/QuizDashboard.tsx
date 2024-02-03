@@ -40,7 +40,7 @@ const QuizDashboard = () => {
   useEffect(() => {
     const data = { ...quizAnswer, quiz_id: quizId };
     dispatch(setAnswerData(data));
-  }, [dispatch]);
+  }, [data]);
 
   const updateTimeLeft = (newTime: number) => {
     setTimer(newTime);
