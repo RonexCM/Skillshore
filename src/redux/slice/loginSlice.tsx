@@ -3,7 +3,6 @@ import { TLoginField } from "../../pages/auth/types";
 const initialState = {
   email: "",
   password: "",
-  loggedIn: false,
 };
 const loginSlice = createSlice({
   name: "loginSlice",
@@ -12,7 +11,6 @@ const loginSlice = createSlice({
     addUser: (state, action: PayloadAction<TLoginField>) => {
       state.email = action.payload.email;
       state.password = action.payload.password;
-      state.loggedIn = true;
     },
   },
 });
