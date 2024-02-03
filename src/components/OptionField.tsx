@@ -16,19 +16,26 @@ const OptionField = ({
   const alphaIndex = String.fromCharCode(65 + index);
 
   return (
-    <div className=" flex items-center h-[100px] m-[8px]">
+    <div
+      onClick={handleSelect}
+      className=" flex  h-[120px] mb-7 cursor-pointer rounded-none border-[1px]"
+    >
       <div
-        className={`font-bold  ${
+        className={`font-bold cursor-pointer  ${
           isSelected
             ? "bg-primary text-white p-6"
             : "text-primary bg-primary-light p-[1.66rem]"
         }  h-full `}
-        onClick={handleSelect}
       >
         {alphaIndex}
-        {isSelected && <FaCheck color="white" className=" text-primary mt-5" />}
+        {isSelected && (
+          <FaCheck
+            color="white"
+            className=" text-primary mt-5  cursor-pointer"
+          />
+        )}
       </div>
-      <div className="ml-5">{option}</div>
+      <div className="ml-5 cursor-pointer mt-[20px]">{option}</div>
     </div>
   );
 };

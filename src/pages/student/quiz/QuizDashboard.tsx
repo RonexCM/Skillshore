@@ -124,7 +124,7 @@ const QuizDashboard = () => {
       <div className=" grid grid-cols-2  items-center  ">
         <img src={quizDetails.thumbnail} className=" h-[150px] w-[200px]" />
         <div className="flex justify-end">
-          <p className="text-2xl font-medium text-primary">
+          <p className="text-4xl font-medium text-primary">
             {time && (
               <Timer
                 initialTime={time * 60}
@@ -135,9 +135,10 @@ const QuizDashboard = () => {
           </p>
         </div>
       </div>
+      <hr className="mb-5 opacity-50" />
       <div className=" grid grid-cols-2  h-max mb-10 w-full ">
-        <div className=" flex flex-col gap-20 mt-[47px] ml-[23px]  ">
-          <p className="text-dark text-[18px] font-semibold">
+        <div className=" flex flex-col gap-20  ml-[23px]  ">
+          <p className="text-dark text-[18px] mt-5 font-semibold">
             {questions[index]?.title}
           </p>
           <div className="h-full w-auto">
@@ -153,20 +154,20 @@ const QuizDashboard = () => {
             {index == questions.length - 1 ? (
               <button
                 onClick={submitQuiz}
-                className=" text-dark text-sm font-semibold rounded-[3px] bg-primary-light py-[16px] px-[24px]"
+                className=" text-dark text-sm font-semibold rounded-[3px] bg-primary-light  hover:bg-primary hover:text-white py-[16px] px-[24px]"
               >
                 Submit
               </button>
             ) : (
               <button
-                className=" text-dark text-sm font-semibold rounded-[3px] bg-primary-light py-[16px] px-[24px]"
+                className=" text-dark text-sm font-semibold rounded-[3px] bg-primary-light hover:bg-primary hover:text-white py-[16px] px-[24px]"
                 onClick={nextButton}
               >
                 Next Question
               </button>
             )}
           </div>
-          <div className=" grid grid-cols-1 row-span-5 mt-5">
+          <div className=" grid grid-cols-1 row-span-5 ">
             {questions[index]?.options.map((option: string, index: number) => (
               <OptionField
                 key={index}
