@@ -1,8 +1,14 @@
 import * as Yup from "yup";
 
 const validationSchemaAddQuiz = Yup.object({
-  title: Yup.string().required("Title is required"),
-  slug: Yup.string().required("Slug is required"),
+  title: Yup.string().required("Title is required").max(255),
+  slug: Yup.string()
+    .required("Slug is required")
+    .max(255)
+    .matches(
+      /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
+      "Slug should be words seperated by '-'"
+    ),
   category_id: Yup.number()
     .required("Category is required")
     .positive("Category is required"),
