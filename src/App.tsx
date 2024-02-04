@@ -22,7 +22,7 @@ const App = () => {
             <Route path="register" element={<Register />} />
             <Route path="forgot-password" element={<ForgotPassword />} />
 
-            <Route path="password-reset/:token" element={<ResetPassword />} />
+            <Route path="enterNewPassword" element={<EnterNewPassword />} />
           </Route>
           {/* ----------user pages goes here as protected route---------- */}
           <Route element={<CommonLayout layoutFor="user" />}>

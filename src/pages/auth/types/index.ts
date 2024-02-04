@@ -28,3 +28,21 @@ export type TAllowedRoute = {
   [key: string]: string;
 };
 
+export type TForgotPasswordEmailField = {
+  email: string;
+};
+
+export type TResetPassword = {
+  token: string;
+  email: string | null;
+  password: string;
+  password_confirmation: string;
+};
+
+export type TAccessibleRoutes = {
+  [key: string]: string[];
+};
+
+export type TAllowedRoute = {
+  [key: string]: string;
+};

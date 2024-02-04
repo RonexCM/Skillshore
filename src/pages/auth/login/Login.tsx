@@ -8,12 +8,11 @@ import "react-toastify/dist/ReactToastify.css";
 import { loginInitialValues } from "../../../configs/constants";
 import { useDispatch } from "react-redux";
 import { setToken } from "../../../redux/slice/authSlice";
-import useCheckRole from "../../../hooks/useCheckRole";
 
 const Login = () => {
   const [loginUser] = useLoginUserMutation();
   const dispatch = useDispatch();
-  useCheckRole();
+
   const onSubmit = async (
     values: TLoginField,
   ) => {
