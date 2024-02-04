@@ -12,7 +12,7 @@ const UserProfile = () => {
   const userDetails = useSelector((state: RootState) => state.user.data);
 
   return (
-    <div className="h-full px-[120px]  font-poppins ">
+    <div className="h-full px-[70px] pr-[42px] font-poppins ">
       <>
         {userDetails && (
           <>

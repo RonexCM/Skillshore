@@ -13,18 +13,19 @@ const UserNavbar = () => {
     dispatch(logOut());
   };
   const location = useLocation();
-  const { pathname } = location;
+  const isCreateProfile = location.pathname === "/create-profile";
+
   return (
     <nav className="h-[56px] shrink-0 w-full bg-[#03103F] text-white flex justify-between items-center px-12">
       <div className="flex items-center gap-3 cursor-pointer">
-        <NavLink to="/home" className="flex gap-2 login-nav">
+        <NavLink to={isCreateProfile ? "#" : "/home"} className="flex gap-2 login-nav">
           <FaHouse className="w-6 h-6 ml-5 text-gray-200" />
           <img src={skillshoreLogo} alt="skillshore-logo" />
         </NavLink>
       </div>
 
       <div className="flex gap-[46px] text-sm">
-        {pathname !== "/create-profile" && (
+        {!isCreateProfile && (
           <NavLink
             to="/profile"
             className="font-bold cursor-pointer dark:text-white hover:underline"
