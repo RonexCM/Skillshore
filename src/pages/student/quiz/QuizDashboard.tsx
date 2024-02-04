@@ -35,7 +35,7 @@ const QuizDashboard = () => {
     if (data) {
       dispatch(setQuizData(data));
     }
-  }, [data, dispatch]);
+  }, [data]);
 
   useEffect(() => {
     const data = { ...quizAnswer, quiz_id: quizId };
