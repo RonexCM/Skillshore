@@ -61,11 +61,14 @@ const App = () => {
             <Route element={<AdminDashboardLayout />}>
               <Route index element={<QuizCategory />} />
               <Route path="addQuizCategory" element={<AddQuizCategory />} />
-              <Route path="editQuizCategory" element={<EditQuizCategory />} />
+              <Route
+                path="editQuizCategory/:id"
+                element={<EditQuizCategory />}
+              />
               <Route path="quiz">
                 <Route index element={<Quiz />} />
                 <Route path="addQuiz" element={<AddQuiz />} />
-                <Route path="editQuiz" element={<EditQuiz />} />
+                <Route path="editQuiz/:id" element={<EditQuiz />} />
               </Route>
               <Route path="questionCategory">
                 <Route index element={<QuestionCategory />} />
@@ -74,7 +77,7 @@ const App = () => {
                   element={<AddQuestionCategory />}
                 />
                 <Route
-                  path="editQuestionCategory"
+                  path="editQuestionCategory/:id"
                   element={<EditQuestionCategory />}
                 />
               </Route>

@@ -26,8 +26,17 @@ const myQuizApiEndpoints = myApi.injectEndpoints({
         return { data: response.data, meta: response.meta };
       },
     }),
-    getSingleQuiz: builder.query<TQuizType, number>({
+    getSingleQuiz: builder.query<any, string>({
       query: (id) => `/admin/quizzes/${id}`,
+      transformResponse: (response: any) => {
+        return {
+          ...response.data,
+          thumbnail: "",
+          question_categories: response.data.question_categories.map(
+            (obj) => obj.id
+          ),
+        };
+      },
     }),
     addQuiz: builder.mutation<TAddQuizFieldType, TAddQuizFieldType>({
       query: (payload: TAddQuizFieldType) => {

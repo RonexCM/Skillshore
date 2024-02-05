@@ -3,6 +3,7 @@ import {
   TEditQuizCategoryFieldType,
   TFetchQuizCategoriesQueryTransformReturnType,
   TFetchQuizCategoriesType,
+  TQuizCategoryFetchAllType,
   TQuizCategoryListFetchAllType,
   TQuizCategoryType,
 } from "../../pages/admin/types";
@@ -11,9 +12,12 @@ import { myApi } from "./myApi";
 
 const myQuizCategoryApiEndpoints = myApi.injectEndpoints({
   endpoints: (builder) => ({
-    getAllQuizCategories: builder.query<TQuizCategoryListFetchAllType, void>({
+    getAllQuizCategories: builder.query<TQuizCategoryFetchAllType[], void>({
       query: () => "/admin/quiz-categories/all",
       providesTags: ["FetchQuizCategories"],
+      transformResponse: (response: TQuizCategoryListFetchAllType) => {
+        return [...response.data];
+      },
     }),
     getQuizCategories: builder.query<
       TFetchQuizCategoriesQueryTransformReturnType,
@@ -31,8 +35,13 @@ const myQuizCategoryApiEndpoints = myApi.injectEndpoints({
         return { data: response.data, meta: response.meta };
       },
     }),
-    getSingleQuizCategory: builder.query<TQuizCategoryType, number>({
+    getSingleQuizCategory: builder.query<any, string>({
       query: (id) => `/admin/quiz-categories/${id}`,
+      transformResponse: (response: any) => {
+        return {
+          ...response.data,
+        };
+      },
     }),
     addQuizCategory: builder.mutation<
       TAddQuizCategoryFieldType,

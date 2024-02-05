@@ -23,7 +23,7 @@ export type TFetchQuizCategoriesQueryTransformReturnType = {
 };
 
 export type TEditQuizCategoryFieldType = {
-  id: number;
+  id: string;
   title: string;
   slug: string;
 };

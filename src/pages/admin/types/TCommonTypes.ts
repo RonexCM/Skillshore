@@ -19,3 +19,7 @@ export type TSearchParams = {
   page: number;
   title: string;
 };
+
+export type ParamsType = {
+  id: string;
+};

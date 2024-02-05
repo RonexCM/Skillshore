@@ -18,7 +18,7 @@ const validationSchemaAddQuiz = Yup.object({
   //   console.log("Uploaded file:", file.size);
   //   return file.size <= 10000000;
   // }),
-  description: Yup.string().max(255).required("Description is required"),
+  description: Yup.string().max(5000).required("Description is required"),
   time: Yup.number().required("Time is required"),
   retry_after: Yup.number()
     .notOneOf([0], "Input should not be zero")

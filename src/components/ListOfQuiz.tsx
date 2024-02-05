@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import { useDeleteQuizMutation } from "../redux/services/myQuizApiEndpoints";
 import DeleteModal from "./modals/DeleteModal";
 import { useDispatch } from "react-redux";
-import { saveQuiz } from "../redux/slice/quizSlice/quizSlice";
 
 type Props = {
   quiz: TQuizType;
@@ -21,8 +20,7 @@ const ListOfQuiz = ({ quiz, index, startingIndex }: Props) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [active, setActive] = useState(false);
   const handleEdit = () => {
-    dispatch(saveQuiz(quiz));
-    navigate(`editQuiz`);
+    navigate(`editQuiz/${quiz.id}`);
   };
   const handleDelete = () => {
     setShowDeleteModal(true);

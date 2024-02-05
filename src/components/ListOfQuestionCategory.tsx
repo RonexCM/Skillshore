@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import DeleteModal from "./modals/DeleteModal";
 import { useDeleteQuestionCategoryMutation } from "../redux/services/myQuestionCategoryApiEndpoints";
 import { useDispatch } from "react-redux";
-import { saveQuestionCategory } from "../redux/slice/questionCategorySlice/questionCategorySlice";
 
 type Props = {
   questionCategory: TQuestionCategoryType;
@@ -23,10 +22,7 @@ const ListOfQuestionCategory = ({
   const dispatch = useDispatch();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const handleEdit = () => {
-    dispatch(saveQuestionCategory(questionCategory));
-    navigate(`editQuestionCategory`);
-
-    // navigate(`editQuestionCategory/${questionCategory.id}`);
+    navigate(`editQuestionCategory/${questionCategory.id}`);
   };
   const handleDelete = () => {
     setShowDeleteModal(true);

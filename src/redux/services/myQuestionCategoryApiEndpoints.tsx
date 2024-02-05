@@ -11,11 +11,16 @@ import { myApi } from "./myApi";
 
 const myQuestionCategoryApiEndpoints = myApi.injectEndpoints({
   endpoints: (builder) => ({
-    getAllQuestionCategories: builder.query<
-      TQuestionCategoryListFetchAllType,
-      void
-    >({
+    getAllQuestionCategories: builder.query<any[], void>({
       query: () => "/admin/question-categories/all",
+      transformResponse: (response: TQuestionCategoryListFetchAllType) => {
+        return [
+          ...response.data.map((category) => ({
+            value: category.id,
+            label: category.title,
+          })),
+        ];
+      },
     }),
     getQuestionCategories: builder.query<
       TFetchQuestionCategoryQueryTransformReturnType,
@@ -33,8 +38,13 @@ const myQuestionCategoryApiEndpoints = myApi.injectEndpoints({
         return { data: response.data, meta: response.meta };
       },
     }),
-    getSingleQuestionCategory: builder.query<TQuestionCategoryType, number>({
+    getSingleQuestionCategory: builder.query<any, string>({
       query: (id) => `/admin/question-categories/${id}`,
+      transformResponse: (response: any) => {
+        return {
+          ...response.data,
+        };
+      },
     }),
     addQuestionCategory: builder.mutation<
       TAddQuestionCategoryFieldType,
