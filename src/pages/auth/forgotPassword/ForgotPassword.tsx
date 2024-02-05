@@ -1,48 +1,25 @@
-<<<<<<< HEAD
 import { Formik, Field, Form, ErrorMessage } from "formik";
-=======
-import { Formik, Field, Form, ErrorMessage, FormikHelpers } from "formik";
->>>>>>> 2230a16 (fixed issues in register and forgot password page)
 import { Link } from "react-router-dom";
 import { TForgotPasswordEmailField } from "../types";
 import { forgotPasswordEmailFieldSchema } from "../../../validation";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useForgotPasswordMutation } from "../../../redux/services/myForgotPasswordApiEndpoints";
-<<<<<<< HEAD
 import { useEffect } from "react";
-=======
-import { useEffect, useState } from "react";
->>>>>>> 2230a16 (fixed issues in register and forgot password page)
 import { forgotPasswordEmailInitialValues } from "../../../configs/constants";
 
 const ForgotPassword: React.FC = () => {
   const [forgotPassword, { isSuccess, error }] = useForgotPasswordMutation();
 
-<<<<<<< HEAD
   const handleSubmit = async (values: TForgotPasswordEmailField) => {
     try {
       await forgotPassword(values);
-=======
-  const [formReset, setFormReset] = useState(null);
-  const handleSubmit = async (
-    values: TForgotPasswordEmailField,
-    { resetForm }: FormikHelpers<TForgotPasswordEmailField>
-  ) => {
-    try {
-      await forgotPassword(values);
-      resetForm && setFormReset(resetForm as unknown as any);
->>>>>>> 2230a16 (fixed issues in register and forgot password page)
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
     if (isSuccess) {
-<<<<<<< HEAD
-=======
-      formReset && formReset();
->>>>>>> 2230a16 (fixed issues in register and forgot password page)
       toast.success("Please check your email to see verification link");
     }
   }, [isSuccess]);
@@ -77,11 +54,7 @@ const ForgotPassword: React.FC = () => {
                   id="email"
                   name="email"
                   placeholder="Email"
-<<<<<<< HEAD
                   className="w-full h-12 bg-white rounded-lg border-2 outline-none border-indigo-100 px-3 hover:border-accent focus:border-3 focus:border-blue-600"
-=======
-                  className="w-full h-12 bg-white rounded-lg border-2 border-indigo-100 px-3 hover:border-accent"
->>>>>>> 2230a16 (fixed issues in register and forgot password page)
                 />
                 <ErrorMessage
                   className="text-[13px] font-light text-error py-1"
@@ -92,11 +65,7 @@ const ForgotPassword: React.FC = () => {
             </div>
             <button
               type="submit"
-<<<<<<< HEAD
               className="w-full text-slate-900 text-sm font-semibold font-['Poppins'] leading-none h-12 px-6 py-4 my-3 bg-amber-400 rounded-lg justify-center items-center gap-2.5 inline-flex hover:outline hover:outline-2 hover:outline-primary"
-=======
-              className="w-full text-slate-900 text-sm font-semibold font-['Poppins'] leading-none h-12 px-6 py-4 my-3 bg-amber-400 rounded-lg justify-center items-center gap-2.5 inline-flex"
->>>>>>> 2230a16 (fixed issues in register and forgot password page)
             >
               Submit
             </button>

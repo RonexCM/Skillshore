@@ -8,7 +8,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { loginInitialValues } from "../../../configs/constants";
 import { useDispatch } from "react-redux";
 import { setToken } from "../../../redux/slice/authSlice";
-import { FormEvent, useRef, useState } from "react";
 
 const Login = () => {
   const [loginUser] = useLoginUserMutation();
@@ -25,15 +24,7 @@ const Login = () => {
     try {
       const data = await loginUser(userCredentials).unwrap();
       if (data.token) {
-<<<<<<< HEAD
-<<<<<<< HEAD
         dispatch(setToken(data.token));
-=======
-        dispatch(setToken(data.token))
->>>>>>> 2a0d873 (added persist, removed cookie to manage storage)
-=======
-        dispatch(setToken(data.token));
->>>>>>> a47ddf0 (made few design changes and added next and select button functionality)
         toast.success("Successfully logged in!");
         resetForm();
       }
@@ -42,35 +33,15 @@ const Login = () => {
       toast.error(errorMessage);
     }
   };
-  const [password, setPassword] = useState("");
+
   return (
     <>
       <div className="m-auto shadow-[0_10px_40px_-15px_rgba(0,0,0,0.2)] w-[370px] h-max text-dark rounded-[24px] p-[40px] ">
-        <form
-          onSubmit={(e: FormEvent) => {
-            e.preventDefault();
-            passwordRef && passwordRef.current
-              ? console.log(passwordRef.current.value)
-              : null;
-          }}
-        >
-          <input
-            ref={passwordRef}
-            className="bg-red-400"
-            type="password"
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-          />
-          <button type="submit">submit</button>
-        </form>
-        {/* <Formik
+        <Formik
           initialValues={loginInitialValues}
           onSubmit={onSubmit}
           validationSchema={loginValidationSchema}
         >
-<<<<<<< HEAD
           {({ handleChange, handleBlur }) => (
             <Form className="flex flex-col items-center h-max">
               <p className="font-bold text-[32px] text-dark leading-[32px] mb-[8px]">
@@ -138,85 +109,15 @@ const Login = () => {
                   Register
                 </Link>
               </div>
-=======
-          <Form className="flex flex-col items-center h-max">
-            <p className="font-bold text-[32px] text-dark leading-[32px] mb-[8px]">
-              Login
-            </p>
-            
-
-            <div className="flex flex-col h-[130px] mt-[22px] mb-[-30px] w-full">
-              <label
-                htmlFor="email"
-                className="text-base font-normal text-dark"
-              >
-                Email
-              </label>
-              <Field
-                className="h-field-height w-full text-base border-[2px] outline-none border-primary-light rounded-[10px] px-3 hover:border-accent focus:border-3 focus:border-blue-600 "
-                type="email"
-                placeholder="Email"
-                id="email"
-                autoComplete="current-email"
-                name="email"
-              />
-              <ErrorMessage
-                className="text-[13px] text-error"
-                component="div"
-                name="email"
-              />
-            </div>
-            <div className="flex flex-col h-[110px] w-full">
-              <label
-                htmlFor="password"
-                className="text-base font-normal text-dark"
-              >
-                Password
-              </label>
-              <Field
-                className="h-field-height w-full text-base border-[2px] outline-none border-primary-light rounded-[10px] px-3 hover:border-accent focus:border-3 focus:border-primary"
-                type="password"
-                placeholder="Password"
-                id="password"
-                autoComplete="current-password"
-                name="password"
-              />
-              <ErrorMessage
-                className="text-[13px] text-error leading-[12px] mt-[3px]"
-                component="div"
-                name="password"
-              />
-            </div>
-            <button
-              type="submit"
-              className="px-button-padding-x py-button-padding-y rounded-[10px]  mb-[18px] bg-accent text-dark font-semibold font-poppins hover:outline hover:outline-2 hover:outline-primary focus:outline focus:outline-2 focus:outline-primary"
-            >
-              Login
-            </button>
-            <div className="flex gap-1 mt-[9px] text-text-dark">
-              <p className="text-[14px] font-normal">Don't have an account?</p>
->>>>>>> 2a0d873 (added persist, removed cookie to manage storage)
               <Link
                 to="forgot-password"
                 className="text-[14px] font-normal mt-[8px] rounded-sm text-primary hover:underline focus:outline focus:outline-2 focus:outline-primary"
               >
                 Forgot Password?
               </Link>
-<<<<<<< HEAD
             </Form>
           )}
         </Formik>
-=======
-            </div>
-            <Link
-              to="forgotPassword"
-              className="text-[14px] font-normal mt-[8px] rounded-sm text-primary hover:underline focus:outline focus:outline-2 focus:outline-primary"
-            >
-              Forgot Password?
-            </Link>
-          </Form>
-        </Formik> */}
->>>>>>> 9b39a80 (wip)
       </div>
     </>
   );
