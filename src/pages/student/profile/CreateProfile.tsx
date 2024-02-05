@@ -15,6 +15,7 @@ const CreateProfile = () => {
   const dispatch = useDispatch();
   const [createUserProfile, { isSuccess, data: profileData, error }] =
     useCreateProfileMutation();
+
   const handleSubmit = async (values: Omit<TProfileData, "id">) => {
     try {
       let formattedSkills = values.skills;
