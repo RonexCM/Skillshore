@@ -8,7 +8,6 @@ import { RootState } from "../redux/store";
 import { useEffect } from "react";
 import { useGetUserMutation } from "../redux/services/myUserProfileEndpoints";
 import { setUserData } from "../redux/slice/userSlice";
-import useCheckRole from "../hooks/useCheckRole";
 
 type Props = {
   layoutFor: string;
@@ -32,10 +31,10 @@ export const CommonLayout = ({ layoutFor }: Props) => {
   }, [isSuccess]);
 
   return (
-    <div className="flex flex-col justify-start min-h-screen">
+    <div className="flex flex-col justify-start min-h-screen ">
       {layoutFor === "auth" ? <AuthNavbar /> : <UserNavbar />}
       <ToastContainer
-        className="top-16 absolute"
+        className="top-16"
         autoClose={2000}
         hideProgressBar
         newestOnTop
