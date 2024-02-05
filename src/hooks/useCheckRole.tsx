@@ -27,5 +27,3 @@ const useCheckRole = () => {
 };
 
 export default useCheckRole;
-
-

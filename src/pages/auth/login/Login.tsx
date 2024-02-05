@@ -1,20 +1,24 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import { TLoginField } from "../types";
 import { loginValidationSchema } from "../../../validation";
 import { Link } from "react-router-dom";
 import { useLoginUserMutation } from "../../../redux/services/myLoginApiEndpoints";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { loginInitialValues } from "../../../configs/constants";
 import { useDispatch } from "react-redux";
 import { setToken } from "../../../redux/slice/authSlice";
+import useCheckRole from "../../../hooks/useCheckRole";
 
 const Login = () => {
+  // const navigate = useNavigate();
   const [loginUser] = useLoginUserMutation();
   const dispatch = useDispatch();
-
+  useCheckRole();
   const onSubmit = async (
     values: TLoginField,
+    { resetForm }: FormikHelpers<TLoginField>
   ) => {
     const userCredentials = {
       email: values.email.toLowerCase(),
@@ -26,6 +30,7 @@ const Login = () => {
       if (data.token) {
         dispatch(setToken(data.token));
         toast.success("Successfully logged in!");
+        resetForm();
       }
     } catch (error: any) {
       const errorMessage = error.data.message;
@@ -109,7 +114,7 @@ const Login = () => {
                 </Link>
               </div>
               <Link
-                to="forgot-password"
+                to="forgotPassword"
                 className="text-[14px] font-normal mt-[8px] rounded-sm text-primary hover:underline focus:outline focus:outline-2 focus:outline-primary"
               >
                 Forgot Password?
