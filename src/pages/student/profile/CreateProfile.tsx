@@ -13,7 +13,7 @@ import "react-toastify/dist/ReactToastify.css";
 const CreateProfile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [createUserProfile, { isSuccess, data, error }] =
+  const [createUserProfile, { isSuccess, data: profileData, error }] =
     useCreateProfileMutation();
 
   const handleSubmit = async (values: Omit<TProfileData, "id">) => {
@@ -27,12 +27,13 @@ const CreateProfile = () => {
   };
 
   useEffect(() => {
-    if (isSuccess && data) {
+    if (isSuccess && profileData) {
+      const { data } = profileData;
       dispatch(setProfileData(data));
       toast.success("Profile Created Successfully");
       navigate("/profile");
     }
-  }, [isSuccess, data]);
+  }, [isSuccess, profileData]);
 
   useEffect(() => {
     if (error) {
