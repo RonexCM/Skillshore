@@ -140,7 +140,7 @@ const QuizDashboard = () => {
       </div>
       <hr className="mb-5 opacity-50" />
       <div className=" grid grid-cols-2  h-max mb-10 w-full ">
-        <div className=" flex flex-col gap-20  ml-[23px]  ">
+        <div className=" flex flex-col w-[90%] gap-20  ml-[23px]  ">
           <p className="text-dark text-[18px] mt-5 font-semibold">
             {questions[index]?.title}
           </p>
