@@ -98,15 +98,13 @@ const QuizDashboard = () => {
         total_question: index + 1,
       };
       dispatch(setAnswerData(data));
+      console.log("🚀 ~ submitQuiz ~ data:", data);
       postQuizData(data);
 
       navigate("/quizzes");
     }
   };
 
-  const showResult = () => {
-    navigate("/result");
-  };
   const handleTimeout = () => {
     postQuizData(quizAnswer);
     navigate("/quizzes");
