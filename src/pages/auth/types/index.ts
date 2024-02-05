@@ -20,14 +20,6 @@ export type TRegistrationFormType = {
   password_confirmation: string;
 };
 
-export type TAccessibleRoutes = {
-  [key: string]: string[];
-};
-
-export type TAllowedRoute = {
-  [key: string]: string;
-};
-
 export type TForgotPasswordEmailField = {
   email: string;
 };
