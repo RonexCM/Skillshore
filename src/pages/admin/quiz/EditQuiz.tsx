@@ -48,7 +48,7 @@ const EditQuiz = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success("Question added!");
+      toast.success("Updated!");
       navigate(-1);
     }
   }, [isSuccess]);
@@ -115,7 +115,7 @@ const EditQuiz = () => {
               />
             </div>
 
-            <FormikButton type="submit" label="Add" />
+            <FormikButton type="submit" label="Edit" />
           </Form>
         )}
       </Formik>

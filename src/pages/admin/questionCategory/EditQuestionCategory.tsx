@@ -74,7 +74,7 @@ const EditQuestionCategory = () => {
             <FormikInputField name="slug" label="Slug" type="text" />
           </div>
 
-          <FormikButton type="submit" label="Add" />
+          <FormikButton type="submit" label="Edit" />
         </Form>
       </Formik>
     </motion.div>

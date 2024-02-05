@@ -37,7 +37,7 @@ const AddQuiz = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success("Question added!");
+      toast.success("Quiz added!");
       navigate(-1);
     }
   }, [isSuccess]);
