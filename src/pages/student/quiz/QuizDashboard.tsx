@@ -12,13 +12,17 @@ import {
   usePostQuizDataMutation,
 } from "../../../redux/services/myQuizOptionsEndpoints";
 import { setAnswerData } from "../../../redux/slice/userQuizSlice";
-import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { useParams } from "react-router-dom";
+import BreadCrumb from "../../../components/BreadCrumb";
+import { FaHouse } from "react-icons/fa6";
+import QuizQuestionField from "../../../components/QuizQuestionField";
+import QuizButton from "../../../components/QuizButton";
 
 const QuizDashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { id: quizId } = useParams();
+  // const { id: quizId } = useParams();
+  const quizId = 12;
   const [postQuizData] = usePostQuizDataMutation();
   const { data, isLoading } = useGetQuizOptionsQuery(quizId);
   const quizDetails = useSelector((state: RootState) => state.quiz.data);
@@ -98,7 +102,6 @@ const QuizDashboard = () => {
         total_question: index + 1,
       };
       dispatch(setAnswerData(data));
-      console.log("🚀 ~ submitQuiz ~ data:", data);
       postQuizData(data);
 
       navigate("/quizzes");
@@ -112,14 +115,12 @@ const QuizDashboard = () => {
   return (
     <div className="h-max w-full px-[50px] font-poppins">
       <div className="flex flex-col justify-start items-left ">
-        <div className="text-primary  text-lg flex items-center gap-1 self-start mt-[37px]">
-          <div className="flex gap-2 ml-[20px] cursor-pointer">
-            <div className="hover:underline flex gap-2">
-              {quizDetails.title}
-            </div>
-          </div>
-          <MdOutlineKeyboardArrowRight className="text-lg " />
-          <span className="text-primary">{quizDetails?.category?.title}</span>
+        <div className="text-primary ml-5 text-lg flex items-center gap-1 self-start mt-[37px]">
+          <BreadCrumb
+            icon={FaHouse}
+            title="Home"
+            subTitle={quizDetails.title}
+          />
         </div>
       </div>
       <div className=" grid grid-cols-2  items-center  ">
@@ -136,36 +137,24 @@ const QuizDashboard = () => {
           </p>
         </div>
       </div>
-      <hr className="mb-5 opacity-50" />
-      <div className=" grid grid-cols-2  h-max mb-10 w-full ">
-        <div className=" flex flex-col w-[90%] gap-20  ml-[23px]  ">
-          <p className="text-dark text-[18px] mt-5 font-semibold">
-            {questions[index]?.title}
-          </p>
-          <div className="h-full w-auto">
-            <p className="items-center">{quizDetails.description}</p>
-          </div>
+      <div className="border-t border-primary-light "></div>
+      <div className=" grid grid-cols-2  h-max w-full  ">
+        <div className="border-r border-primary-light">
+          <QuizQuestionField
+            title={questions[index]?.title}
+            description={quizDetails.description}
+          />
         </div>
-        <div className=" pl-10 grid grid-cols-1 ">
-          <div className=" flex justify-between items-center mb-5">
+        <div className=" pl-10 grid grid-cols-1  ">
+          <div className=" flex justify-between items-center my-5">
             <p className=" text-dark text-sm font-semibold">
               Select one answer
             </p>
 
             {index == questions.length - 1 ? (
-              <button
-                onClick={submitQuiz}
-                className=" text-dark text-sm font-semibold rounded-[3px] bg-primary-light  hover:bg-primary hover:text-white py-[16px] px-[24px]"
-              >
-                Submit
-              </button>
+              <QuizButton onClick={submitQuiz} title="Submit" />
             ) : (
-              <button
-                className=" text-dark text-sm font-semibold rounded-[3px] bg-primary-light hover:bg-primary hover:text-white py-[16px] px-[24px]"
-                onClick={nextButton}
-              >
-                Next Question
-              </button>
+              <QuizButton onClick={nextButton} title="Next Question" />
             )}
           </div>
           <div className=" grid grid-cols-1 row-span-5 ">

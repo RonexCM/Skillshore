@@ -15,6 +15,7 @@ import { Login } from "./pages/auth/login";
 import { Register } from "./pages/auth/register";
 import CommonLayout from "./layouts/CommonLayout";
 import Admin from "./pages/admin/Admin";
+import QuizDashboard from "./pages/student/quiz/QuizDashboard";
 
 const App = () => {
   return (
@@ -35,6 +36,7 @@ const App = () => {
               <Route path="/profile" element={<UserProfile />} />
               <Route path="/edit-profile" element={<EditProfile />} />
               <Route path="/create-profile" element={<CreateProfile />} />
+              <Route path="/quiz" element={<QuizDashboard />} />
             </Route>
             {/* ----------admin pages goes here as protected route----------- */}
             <Route path="/admin">
