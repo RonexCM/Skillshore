@@ -40,7 +40,7 @@ const App = () => {
             </Route>
             {/* ----------admin pages goes here as protected route----------- */}
             <Route path="/admin">
-                <Route index element={<Admin />} />
+              <Route index element={<Admin />} />
             </Route>
           </Routes>
         </AuthWrapper>
