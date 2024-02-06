@@ -2,9 +2,9 @@ import { useNavigate } from "react-router-dom";
 import { RootState } from "../../../redux/store";
 import "react-toastify/dist/ReactToastify.css";
 import ProfileDetails from "../../../components/ProfileDetails";
-import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { FaHouse } from "react-icons/fa6";
 import { useSelector } from "react-redux";
+import BreadCrumb from "../../../components/BreadCrumb";
 
 const UserProfile = () => {
   const navigate = useNavigate();
@@ -17,21 +17,7 @@ const UserProfile = () => {
         {userDetails && (
           <>
             <div className="flex justify-between mt-[40px]">
-              <div className="flex flex-col justify-start items-left">
-                <div className="text-primary  text-lg flex items-center gap-1 self-start ">
-                  <div
-                    className="flex gap-2  cursor-pointer"
-                    onClick={() => navigate(-1)}
-                  >
-                    <div className="hover:underline flex gap-2">
-                      <FaHouse className="text-lg mt-1" />
-                      Home
-                    </div>
-                  </div>
-                  <MdOutlineKeyboardArrowRight className="text-lg " />
-                  <span className="text-primary"> Profile</span>
-                </div>
-              </div>
+              <BreadCrumb icon={FaHouse} title="Home" subTitle="Profile" />
 
               {userDetails.name ? (
                 <button
