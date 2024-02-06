@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import skillshoreLogo from "../assets/skillshoresvg.svg";
+
 const AuthNavbar = () => {
   const navElementStyles = "login-nav font-bold hover:underline";
 
@@ -12,7 +13,7 @@ const AuthNavbar = () => {
         <NavLink to="." end className={navElementStyles}>
           Login
         </NavLink>
-        <NavLink to="register" className={navElementStyles}>
+        <NavLink to="/register" className={navElementStyles}>
           Register
         </NavLink>
       </div>
