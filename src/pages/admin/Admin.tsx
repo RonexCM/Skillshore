@@ -4,7 +4,6 @@ import { logOut } from "../../redux/slice/authSlice";
 import { useDispatch } from "react-redux";
 
 const Admin = () => {
-  console.log("admin");
   const dispatch = useDispatch();
   const LogOut = () => {
     dispatch(setInitialData());
