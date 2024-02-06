@@ -23,9 +23,6 @@ const EditProfile = () => {
   ] = useUpdateUserProfileMutation();
 
   const UserData = useSelector((state: RootState) => state.user.data.profile);
-  const [userSkills, setUserSkills] = useState<string[]>(
-    UserData?.skills || []
-  );
 
   const handleSubmit = async (values: TProfileData) => {
     try {
