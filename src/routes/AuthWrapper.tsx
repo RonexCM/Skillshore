@@ -32,16 +32,18 @@ const AuthWrapper: React.FC<{ children: ReactNode }> = ({ children }) => {
         let allowedRoutes: string[] = [];
         let user: string = "";
 
-        if (userData.role === "admin") {
-            allowedRoutes = adminRoute;
-            user = "adminRoute";
-        } else {
-            allowedRoutes = userData.profile
+        if(userData.role !== ""){
+            if (userData.role === "admin") {
+                allowedRoutes = adminRoute;
+                user = "adminRoute";
+            } else {
+                allowedRoutes = userData.profile
                 ? userWithProfileRoute
                 : userWithNoProfileRoute;
-            user = userData.profile
+                user = userData.profile
                 ? "userWithProfileRoute"
                 : "userWithNoProfileRoute";
+            }
         }
 
         handleUnauthorizedRoutes(allowedRoutes, user);

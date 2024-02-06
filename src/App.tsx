@@ -4,7 +4,7 @@ import {
   ForgotPassword,
   ResetPassword,
 } from "./pages/auth/forgotPassword";
-import { AuthWrapper } from "./routes";
+import { AuthWrapper, ProtectedRoute } from "./routes";
 import {
   UserProfile,
   EditProfile,
@@ -22,7 +22,7 @@ const App = () => {
       <BrowserRouter>
         <AuthWrapper>
           <Routes>
-            <Route path="/" element={<CommonLayout layoutFor="auth" />}>
+            <Route path="/" element={<ProtectedRoute><CommonLayout layoutFor="auth" /></ProtectedRoute> }>
               <Route index element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="forgot-password" element={<ForgotPassword />} />
@@ -31,14 +31,14 @@ const App = () => {
             </Route>
             {/* ----------user pages goes here as protected route---------- */}
             <Route element={<CommonLayout layoutFor="user" />}>
-              <Route path="/home" element={<Home />} />
-              <Route path="/profile" element={<UserProfile />} />
-              <Route path="/edit-profile" element={<EditProfile />} />
-              <Route path="/create-profile" element={<CreateProfile />} />
+              <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+              <Route path="/profile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
+              <Route path="/edit-profile" element={<ProtectedRoute><EditProfile /></ProtectedRoute>} />
+              <Route path="/create-profile" element={<ProtectedRoute><CreateProfile /></ProtectedRoute>} />
             </Route>
             {/* ----------admin pages goes here as protected route----------- */}
             <Route path="/admin">
-                <Route index element={<Admin />} />
+                <Route index element={<ProtectedRoute><Admin /></ProtectedRoute>} />
             </Route>
           </Routes>
         </AuthWrapper>
