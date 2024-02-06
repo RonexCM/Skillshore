@@ -29,14 +29,16 @@ const ListOfQuestionCategory = ({
     setShowDeleteModal(true);
   };
 
-  const [deleteQuestionCategory, { data }] =
+  const [deleteQuestionCategory, { data, isSuccess }] =
     useDeleteQuestionCategoryMutation();
 
   useEffect(() => {
-    if (data) {
+    if (data && "error" in data) {
       toast.error(data.error);
+    } else if (isSuccess) {
+      toast.success("Deleted!");
     }
-  }, [data]);
+  }, [data, isSuccess]);
 
   return (
     <>

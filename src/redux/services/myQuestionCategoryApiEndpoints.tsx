@@ -72,7 +72,7 @@ const myQuestionCategoryApiEndpoints = myApi.injectEndpoints({
       invalidatesTags: ["FetchQuestionCategories"],
     }),
 
-    deleteQuestionCategory: builder.mutation<void, number>({
+    deleteQuestionCategory: builder.mutation<any, number>({
       query: (id) => {
         return {
           url: `/admin/question-categories/${id}`,

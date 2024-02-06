@@ -5,6 +5,7 @@ import { TQuestionType } from "../pages/admin/types";
 import { motion } from "framer-motion";
 import { useDeleteQuestionMutation } from "../redux/services/myQuestionApiEndpoints";
 import DeleteModal from "./modals/DeleteModal";
+import { toast } from "react-toastify";
 
 type Props = {
   question: TQuestionType;
@@ -15,7 +16,7 @@ type Props = {
 const ListOfQuestions = ({ question, index, startingIndex }: Props) => {
   const navigate = useNavigate();
 
-  const [deleteQuestion] = useDeleteQuestionMutation();
+  const [deleteQuestion, { isSuccess }] = useDeleteQuestionMutation();
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [active, setActive] = useState(false);
@@ -35,6 +36,13 @@ const ListOfQuestions = ({ question, index, startingIndex }: Props) => {
       setActive(false);
     }
   }, [question.status, setActive]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      console.log(isSuccess);
+      toast.success("Deleted!");
+    }
+  }, [isSuccess]);
 
   return (
     <>

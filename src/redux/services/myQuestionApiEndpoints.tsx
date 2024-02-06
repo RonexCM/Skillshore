@@ -29,7 +29,10 @@ const myQuestionApiEndpoints = myApi.injectEndpoints({
     getSingleQuestion: builder.query<TEditQuestionFieldType, string>({
       query: (id) => `/admin/questions/${id}`,
       transformResponse: (response: any) => {
-        return { ...response.data, category_id: response.data.category.id };
+        return {
+          ...response.data,
+          category_id: response.data.category ? response.data.category.id : 0,
+        };
       },
     }),
 

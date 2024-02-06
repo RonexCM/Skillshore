@@ -50,38 +50,40 @@ const App = () => {
               <Route path="/create-profile" element={<CreateProfile />} />
             </Route>
             {/* ----------admin pages goes here as protected route----------- */}
-            <Route path="/admin" element={<AdminLayout />}>
-              <Route element={<AdminDashboardLayout />}>
-                <Route index element={<QuizCategory />} />
-                <Route path="addQuizCategory" element={<AddQuizCategory />} />
-                <Route
-                  path="editQuizCategory/:id"
-                  element={<EditQuizCategory />}
-                />
-                <Route path="quiz">
-                  <Route index element={<Quiz />} />
-                  <Route path="addQuiz" element={<AddQuiz />} />
-                  <Route path="editQuiz/:id" element={<EditQuiz />} />
-                </Route>
-                <Route path="questionCategory">
-                  <Route index element={<QuestionCategory />} />
+            <Route path="/admin">
+              <Route element={<AdminLayout />}>
+                <Route element={<AdminDashboardLayout />}>
+                  <Route index element={<QuizCategory />} />
+                  <Route path="addQuizCategory" element={<AddQuizCategory />} />
                   <Route
-                    path="addQuestionCategory"
-                    element={<AddQuestionCategory />}
+                    path="editQuizCategory/:id"
+                    element={<EditQuizCategory />}
                   />
-                  <Route
-                    path="editQuestionCategory/:id"
-                    element={<EditQuestionCategory />}
-                  />
+                  <Route path="quiz">
+                    <Route index element={<Quiz />} />
+                    <Route path="addQuiz" element={<AddQuiz />} />
+                    <Route path="editQuiz/:id" element={<EditQuiz />} />
+                  </Route>
+                  <Route path="questionCategory">
+                    <Route index element={<QuestionCategory />} />
+                    <Route
+                      path="addQuestionCategory"
+                      element={<AddQuestionCategory />}
+                    />
+                    <Route
+                      path="editQuestionCategory/:id"
+                      element={<EditQuestionCategory />}
+                    />
+                  </Route>
+                  <Route path="question">
+                    <Route index element={<Question />} />
+                    <Route path="addQuestion" element={<AddQuestion />} />
+                    <Route path="editQuestion/:id" element={<EditQuestion />} />
+                  </Route>
+                  <Route path="report" element={<Report />} />
                 </Route>
-                <Route path="question">
-                  <Route index element={<Question />} />
-                  <Route path="addQuestion" element={<AddQuestion />} />
-                  <Route path="editQuestion/:id" element={<EditQuestion />} />
-                </Route>
-                <Route path="report" element={<Report />} />
+                <Route path="*" element={<PageNotFound />} />
               </Route>
-              <Route path="*" element={<PageNotFound />} />
             </Route>
           </Routes>
         </AuthWrapper>

@@ -64,7 +64,7 @@ const myQuizApiEndpoints = myApi.injectEndpoints({
       invalidatesTags: ["FetchQuizzes"],
     }),
 
-    deleteQuiz: builder.mutation<void, number>({
+    deleteQuiz: builder.mutation<any, number>({
       query: (id) => {
         return {
           url: `/admin/quizzes/${id}`,

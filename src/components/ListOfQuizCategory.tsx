@@ -15,7 +15,8 @@ type Props = {
 
 const ListOfQuizCategory = ({ quizCategory, index, startingIndex }: Props) => {
   const navigate = useNavigate();
-  const [deleteQuizCategory, { data }] = useDeleteQuizCategoryMutation();
+  const [deleteQuizCategory, { data, isSuccess }] =
+    useDeleteQuizCategoryMutation();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const handleEdit = () => {
@@ -27,10 +28,12 @@ const ListOfQuizCategory = ({ quizCategory, index, startingIndex }: Props) => {
   };
 
   useEffect(() => {
-    if (data) {
+    if (data && "error" in data) {
       toast.error(data.error);
+    } else if (isSuccess) {
+      toast.success("Deleted!");
     }
-  }, [data]);
+  }, [data, isSuccess]);
 
   return (
     <>
