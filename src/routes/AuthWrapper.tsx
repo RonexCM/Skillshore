@@ -71,6 +71,9 @@ const AuthWrapper: React.FC<{ children: ReactNode }> = ({ children }) => {
         allowedRoutes: string[],
         user: string
     ) => {
+        const isAllowed = allowedRoutes.some(route => pathname.startsWith(`${route}/`)); 
+        if(allowedRoutes.includes(pathname) || isAllowed) return;
+
         if (!allowedRoutes.includes(pathname)) {
             navigate(defaultRoutes[user]);
         }
