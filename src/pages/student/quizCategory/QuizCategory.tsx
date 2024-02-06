@@ -14,6 +14,7 @@ import QuizModal from "../../../components/modals/QuizModal";
 import { useNavigate } from "react-router-dom";
 import { saveQuizDescription } from "../../../redux/slice/quizTestSlice";
 import { CiLock } from "react-icons/ci";
+import { IoCheckmarkDoneCircle, IoCloudDone } from "react-icons/io5";
 // import { IoMdCloseCircleOutline } from "react-icons/io";
 // import { CiLock } from "react-icons/ci";
 // import { LuShieldClose } from "react-icons/lu";
@@ -97,16 +98,21 @@ const QuizCategory = () => {
   const getStatus = (result: any) => {
     if (result && result.passed) {
       return (
-        <span className="bg-green-100 text-green-800 text-xs ms-7 font-medium me-2 ps-5 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
-          Passed
-        </span>
+        <>
+          <span>
+            <IoCheckmarkDoneCircle className="inline-block text-green-600" />
+          </span>
+          <span className="bg-white text-green-600 text-base ms-1 font-medium me-2 ps-2 px-2.5 py-0.5 round ">
+            Passed
+          </span>
+        </>
       );
     } else if (result && result.total_answered) {
       return (
         <>
-          <CiLock className="inline-block  text-red-600" />
-          <span className="text-red-600 text-base font-medium  mt-6 px-2 py-0.5 rounded ">
-            Retry after{result.retry_after} 2 days
+          <CiLock className="inline-block text-red-600" />
+          <span className="text-red-600 text-base font-medium mt-6 px-2 py-0.5 rounded ">
+            Retry after {result.retry_after} 2 days
           </span>
         </>
       );
@@ -218,7 +224,7 @@ const QuizCategory = () => {
                 </div>
                 {quiz.result ? (
                   <Badge
-                    className="pr-[12px] pl-[10px] text-xl"
+                    className="pr-[12px] pl-[10px] text-xl bg-white "
                     color={quiz.result.passed ? "success" : "error"}
                     size="xs"
                   >
