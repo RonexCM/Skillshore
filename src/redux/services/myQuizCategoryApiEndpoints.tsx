@@ -5,7 +5,6 @@ import {
   TFetchQuizCategoriesType,
   TQuizCategoryFetchAllType,
   TQuizCategoryListFetchAllType,
-  TQuizCategoryType,
 } from "../../pages/admin/types";
 import { TSearchParams } from "../../pages/admin/types/TCommonTypes";
 import { myApi } from "./myApi";
@@ -19,6 +18,7 @@ const myQuizCategoryApiEndpoints = myApi.injectEndpoints({
         return [...response.data];
       },
     }),
+
     getQuizCategories: builder.query<
       TFetchQuizCategoriesQueryTransformReturnType,
       TSearchParams
@@ -35,6 +35,7 @@ const myQuizCategoryApiEndpoints = myApi.injectEndpoints({
         return { data: response.data, meta: response.meta };
       },
     }),
+
     getSingleQuizCategory: builder.query<any, string>({
       query: (id) => `/admin/quiz-categories/${id}`,
       transformResponse: (response: any) => {
@@ -43,6 +44,7 @@ const myQuizCategoryApiEndpoints = myApi.injectEndpoints({
         };
       },
     }),
+
     addQuizCategory: builder.mutation<
       TAddQuizCategoryFieldType,
       TAddQuizCategoryFieldType
@@ -66,11 +68,15 @@ const myQuizCategoryApiEndpoints = myApi.injectEndpoints({
       }),
       invalidatesTags: ["FetchQuizCategories"],
     }),
+
     deleteQuizCategory: builder.mutation<void, number>({
-      query: (id) => ({
-        url: `/admin/quiz-categories/${id}`,
-        method: "DELETE",
-      }),
+      query: (id) => {
+        console.log(id);
+        return {
+          url: `/admin/quiz-categories/${id}`,
+          method: "DELETE",
+        };
+      },
       invalidatesTags: ["FetchQuizCategories"],
     }),
   }),

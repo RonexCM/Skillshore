@@ -5,7 +5,7 @@ import { TQuizType } from "../pages/admin/types";
 import { motion } from "framer-motion";
 import { useDeleteQuizMutation } from "../redux/services/myQuizApiEndpoints";
 import DeleteModal from "./modals/DeleteModal";
-import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 type Props = {
   quiz: TQuizType;
@@ -15,13 +15,15 @@ type Props = {
 
 const ListOfQuiz = ({ quiz, index, startingIndex }: Props) => {
   const navigate = useNavigate();
-  const [deleteQuiz] = useDeleteQuizMutation();
-  const dispatch = useDispatch();
+  const [deleteQuiz, { data }] = useDeleteQuizMutation();
+
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [active, setActive] = useState(false);
+
   const handleEdit = () => {
     navigate(`editQuiz/${quiz.id}`);
   };
+
   const handleDelete = () => {
     setShowDeleteModal(true);
   };
@@ -33,6 +35,13 @@ const ListOfQuiz = ({ quiz, index, startingIndex }: Props) => {
       setActive(false);
     }
   }, [quiz.status, setActive]);
+
+  useEffect(() => {
+    if (data) {
+      toast.error(data.error);
+    }
+  }, [data]);
+
   return (
     <>
       <motion.tr

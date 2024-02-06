@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Tooltip } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
 import { TQuestionCategoryType } from "../pages/admin/types";
 import { motion } from "framer-motion";
 import DeleteModal from "./modals/DeleteModal";
 import { useDeleteQuestionCategoryMutation } from "../redux/services/myQuestionCategoryApiEndpoints";
-import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 type Props = {
   questionCategory: TQuestionCategoryType;
@@ -19,15 +19,24 @@ const ListOfQuestionCategory = ({
   startingIndex,
 }: Props) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+
   const handleEdit = () => {
     navigate(`editQuestionCategory/${questionCategory.id}`);
   };
+
   const handleDelete = () => {
     setShowDeleteModal(true);
   };
-  const [deleteQuestionCategory] = useDeleteQuestionCategoryMutation();
+
+  const [deleteQuestionCategory, { data }] =
+    useDeleteQuestionCategoryMutation();
+
+  useEffect(() => {
+    if (data) {
+      toast.error(data.error);
+    }
+  }, [data]);
 
   return (
     <>

@@ -1,7 +1,6 @@
 import {
   TFetchQuestionCategoryQueryTransformReturnType,
   TFetchQuestionCategoryType,
-  TQuestionCategoryType,
   TAddQuestionCategoryFieldType,
   TQuestionCategoryListFetchAllType,
   TEditQuestionCategoryFieldType,
@@ -22,6 +21,7 @@ const myQuestionCategoryApiEndpoints = myApi.injectEndpoints({
         ];
       },
     }),
+
     getQuestionCategories: builder.query<
       TFetchQuestionCategoryQueryTransformReturnType,
       TSearchParams
@@ -38,6 +38,7 @@ const myQuestionCategoryApiEndpoints = myApi.injectEndpoints({
         return { data: response.data, meta: response.meta };
       },
     }),
+
     getSingleQuestionCategory: builder.query<any, string>({
       query: (id) => `/admin/question-categories/${id}`,
       transformResponse: (response: any) => {
@@ -46,6 +47,7 @@ const myQuestionCategoryApiEndpoints = myApi.injectEndpoints({
         };
       },
     }),
+
     addQuestionCategory: builder.mutation<
       TAddQuestionCategoryFieldType,
       TAddQuestionCategoryFieldType
@@ -57,6 +59,7 @@ const myQuestionCategoryApiEndpoints = myApi.injectEndpoints({
       }),
       invalidatesTags: ["FetchQuestionCategories"],
     }),
+
     editQuestionCategory: builder.mutation<
       TEditQuestionCategoryFieldType,
       TEditQuestionCategoryFieldType
@@ -68,11 +71,16 @@ const myQuestionCategoryApiEndpoints = myApi.injectEndpoints({
       }),
       invalidatesTags: ["FetchQuestionCategories"],
     }),
+
     deleteQuestionCategory: builder.mutation<void, number>({
-      query: (id) => ({
-        url: `/admin/question-categories/${id}`,
-        method: "DELETE",
-      }),
+      query: (id) => {
+        console.log(id);
+
+        return {
+          url: `/admin/question-categories/${id}`,
+          method: "DELETE",
+        };
+      },
       invalidatesTags: ["FetchQuestionCategories"],
     }),
   }),

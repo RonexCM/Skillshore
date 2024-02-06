@@ -16,6 +16,7 @@ import FormikSelectQuestionCategoryField from "../../../components/form/FormikSe
 import { AddQuestionInitialValues } from "../../../configs/constants";
 import FormikSelectAnswerField from "../../../components/form/FormikSelectAnswerField";
 import FormikOptionsFieldArray from "../../../components/form/FormikOptionsFieldArray";
+import { FaHome } from "react-icons/fa";
 
 const AddQuestion = () => {
   const navigate = useNavigate();
@@ -68,7 +69,7 @@ const AddQuestion = () => {
       className="w-full pt-5 pb-10 px-8 "
     >
       <div className="flex flex-col justify-start items-left p-2 mb-2">
-        <Breadcrumb parentLabel="Question" childLabel="New Question" />
+        <Breadcrumb icon={FaHome} title="Question" subTitle="New Question" />
         <h1 className="text-primary font-medium text-2xl">New Question</h1>
       </div>
 

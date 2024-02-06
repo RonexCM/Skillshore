@@ -31,6 +31,7 @@ const questionCategoryListSlice = createSlice({
     ) => {
       state.data = action.payload;
     },
+
     saveQuestionCategoriesMetaData: (
       state,
       action: PayloadAction<TCommonMetaType>

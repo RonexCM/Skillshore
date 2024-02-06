@@ -17,9 +17,9 @@ const ResetPassword: React.FC = () => {
   const email = searchParams.get("email");
   const resetPasswordFields = {
     ...resetPasswordInitialValues,
-    token: token || "", 
-    email: email || ""
-  }
+    token: token || "",
+    email: email || "",
+  };
 
   const handleSubmit = async (values: TResetPassword) => {
     try {

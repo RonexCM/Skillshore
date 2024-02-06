@@ -15,6 +15,7 @@ import FormikSelectQuestionCategoriesField from "../../../components/form/Formik
 import FormikButton from "../../../components/form/FormikButton";
 import Breadcrumb from "../../../components/Breadcrumb";
 import { AddQuizInitialValues } from "../../../configs/constants";
+import { FaHome } from "react-icons/fa";
 
 const AddQuiz = () => {
   const [thumbnail, setThumbnail] = useState<File | string>("");
@@ -28,11 +29,11 @@ const AddQuiz = () => {
       category_id: Number(values.category_id),
     };
     console.log(valuesToSend);
-    // try {
-    //   await addQuiz(valuesToSend);
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      await addQuiz(valuesToSend);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -57,7 +58,7 @@ const AddQuiz = () => {
       className="w-full pt-5 pb-10 px-8 "
     >
       <div className="flex flex-col justify-start items-left p-2 mb-2">
-        <Breadcrumb parentLabel="Quiz" childLabel="New Quiz" />
+        <Breadcrumb icon={FaHome} title="Quiz" subTitle="New Quiz" />
         <h1 className="text-primary font-medium text-2xl">New Quiz</h1>
       </div>
 

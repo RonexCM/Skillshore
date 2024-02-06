@@ -9,7 +9,7 @@ const validationSchemaAddQuestion = Yup.object({
       /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
       "Slug should be words seperated by '-'"
     ),
-  description: Yup.string().max(255).required("Description is required"),
+  description: Yup.string().max(5000).required("Description is required"),
   options: Yup.array().of(Yup.string().required("Option is required")),
   answer: Yup.string().required("Answer is required"),
   weightage: Yup.string().required("Weightage is required"),

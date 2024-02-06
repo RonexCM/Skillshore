@@ -30,3 +30,11 @@ export type TResetPassword = {
   password: string;
   password_confirmation: string;
 };
+
+export type TAccessibleRoutes = {
+  [key: string]: string[];
+};
+
+export type TAllowedRoute = {
+  [key: string]: string;
+};

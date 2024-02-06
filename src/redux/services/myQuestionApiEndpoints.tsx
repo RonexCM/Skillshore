@@ -20,9 +20,7 @@ const myQuestionApiEndpoints = myApi.injectEndpoints({
         }
         return query;
       },
-
       providesTags: ["FetchQuestions"],
-
       transformResponse: (response: TFetchQuestionsType) => {
         return { data: response.data, meta: response.meta };
       },
@@ -34,6 +32,7 @@ const myQuestionApiEndpoints = myApi.injectEndpoints({
         return { ...response.data, category_id: response.data.category.id };
       },
     }),
+
     addQuestion: builder.mutation<TAddQuestionFieldType, TAddQuestionFieldType>(
       {
         query: (body: TAddQuestionFieldType) => ({
@@ -44,6 +43,7 @@ const myQuestionApiEndpoints = myApi.injectEndpoints({
         invalidatesTags: ["FetchQuestions"],
       }
     ),
+
     editQuestion: builder.mutation<
       TEditQuestionFieldType,
       TEditQuestionFieldType
@@ -57,10 +57,13 @@ const myQuestionApiEndpoints = myApi.injectEndpoints({
     }),
 
     deleteQuestion: builder.mutation<void, number>({
-      query: (id) => ({
-        url: `/admin/questions/${id}`,
-        method: "DELETE",
-      }),
+      query: (id) => {
+        console.log(id);
+        return {
+          url: `/admin/questions/${id}`,
+          method: "DELETE",
+        };
+      },
       invalidatesTags: ["FetchQuestions"],
     }),
   }),

@@ -14,6 +14,7 @@ import FormikInputField from "../../../components/form/FormikInputField";
 import FormikButton from "../../../components/form/FormikButton";
 import Breadcrumb from "../../../components/Breadcrumb";
 import { useLoadingState } from "../../../layouts/AdminLayout";
+import { FaHome } from "react-icons/fa";
 
 type ParamsType = {
   id: string;
@@ -69,7 +70,11 @@ const EditQuizCategory = () => {
       className="w-full pt-5 pb-10 px-8 "
     >
       <div className="flex flex-col justify-start items-left p-2 mb-2">
-        <Breadcrumb parentLabel="Quiz Category" childLabel="Edit Category" />
+        <Breadcrumb
+          icon={FaHome}
+          title="Quiz Category"
+          subTitle="Edit Category"
+        />
         <h1 className="text-primary font-medium text-2xl">Edit Category</h1>
       </div>
 

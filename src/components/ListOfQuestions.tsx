@@ -5,7 +5,6 @@ import { TQuestionType } from "../pages/admin/types";
 import { motion } from "framer-motion";
 import { useDeleteQuestionMutation } from "../redux/services/myQuestionApiEndpoints";
 import DeleteModal from "./modals/DeleteModal";
-import { useDispatch } from "react-redux";
 
 type Props = {
   question: TQuestionType;
@@ -24,6 +23,7 @@ const ListOfQuestions = ({ question, index, startingIndex }: Props) => {
   const handleEdit = () => {
     navigate(`editQuestion/${question.id}`);
   };
+
   const handleDelete = () => {
     setShowDeleteModal(true);
   };

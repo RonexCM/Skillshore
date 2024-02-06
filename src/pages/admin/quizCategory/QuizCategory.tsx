@@ -33,9 +33,7 @@ const QuizCategory = () => {
     setStartingIndex(currentPageNumber * 10 - 9);
   }, [quizCategoriesData, isLoading]);
 
-  const { data: quizCategoryList, meta } = useSelector(
-    (state: RootState) => state.quizCategoryList
-  );
+  const { meta } = useSelector((state: RootState) => state.quizCategoryList);
 
   const loadingState = useLoadingState();
   const { setShowLoader } = loadingState;

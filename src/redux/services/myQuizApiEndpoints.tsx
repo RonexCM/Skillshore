@@ -26,6 +26,7 @@ const myQuizApiEndpoints = myApi.injectEndpoints({
         return { data: response.data, meta: response.meta };
       },
     }),
+
     getSingleQuiz: builder.query<any, string>({
       query: (id) => `/admin/quizzes/${id}`,
       transformResponse: (response: any) => {
@@ -42,6 +43,7 @@ const myQuizApiEndpoints = myApi.injectEndpoints({
         };
       },
     }),
+
     addQuiz: builder.mutation<TAddQuizFieldType, TAddQuizFieldType>({
       query: (payload: TAddQuizFieldType) => {
         return {
@@ -52,6 +54,7 @@ const myQuizApiEndpoints = myApi.injectEndpoints({
       },
       invalidatesTags: ["FetchQuizzes"],
     }),
+
     editQuiz: builder.mutation<TEditQuizFieldType, TEditQuizFieldType>({
       query: ({ id, ...rest }) => ({
         url: `/admin/quizzes/${id}`,
@@ -60,11 +63,16 @@ const myQuizApiEndpoints = myApi.injectEndpoints({
       }),
       invalidatesTags: ["FetchQuizzes"],
     }),
+
     deleteQuiz: builder.mutation<void, number>({
-      query: (id) => ({
-        url: `/admin/quizzes/${id}`,
-        method: "DELETE",
-      }),
+      query: (id) => {
+        console.log(id);
+
+        return {
+          url: `/admin/quizzes/${id}`,
+          method: "DELETE",
+        };
+      },
       invalidatesTags: ["FetchQuizzes"],
     }),
   }),

@@ -26,7 +26,6 @@ const QuestionCategory = () => {
       title: searchTerm,
     });
 
-
   useEffect(() => {
     if (questionCategoriesData) {
       dispatch(saveQuestionCategoryList(questionCategoriesData.data));
@@ -36,7 +35,7 @@ const QuestionCategory = () => {
     setStartingIndex(currentPageNumber * 10 - 9);
   }, [questionCategoriesData, isLoading]);
 
-  const { data: questionCategoriesList, meta } = useSelector(
+  const { meta } = useSelector(
     (state: RootState) => state.questionCategoryList
   );
 

@@ -17,8 +17,8 @@ const DeleteModal = ({ setShowModal, id, deleteFunction, modalFor }: Props) => {
     };
   }, []);
 
-  const handleDelete = async () => {
-    await deleteFunction(id);
+  const handleDelete = () => {
+    deleteFunction(id);
     setShowModal(false);
   };
 

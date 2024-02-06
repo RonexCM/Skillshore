@@ -11,42 +11,42 @@ const AdminSidebar = () => {
     <div className="basis-[10px] text-sm shrink-0 border-r-2 border-primary-light flex flex-col gap-1 py-6 px-4 ">
       <NavLink to="." end className={navElementsStyles}>
         <div className="flex  ">
-          <div className="pt-[2px] ">
+          <div className="pt-[2px] mr-1">
             <MdOutlineCategory />
           </div>
-          &nbsp;&nbsp;Quiz Category
+          Quiz Category
         </div>
       </NavLink>
       <NavLink to="quiz" className={navElementsStyles}>
         <div className="flex  ">
-          <div className="pt-[2px] ">
+          <div className="pt-[2px] mr-1">
             <GiBrain />
           </div>
-          &nbsp;&nbsp;Quiz
+          Quiz
         </div>
       </NavLink>
       <NavLink to="questionCategory" className={navElementsStyles}>
         <div className="flex  ">
-          <div className="pt-[2px] ">
+          <div className="pt-[2px] mr-1">
             <MdQuestionAnswer />
           </div>
-          &nbsp;&nbsp;Question Category
+          Question Category
         </div>
       </NavLink>
       <NavLink to="question" className={navElementsStyles}>
         <div className="flex  ">
-          <div className="pt-[2px] ">
+          <div className="pt-[2px] mr-1">
             <SiCodefactor />
           </div>
-          &nbsp;&nbsp;Question
+          Question
         </div>
       </NavLink>
       <NavLink to="report" className={navElementsStyles}>
         <div className="flex  ">
-          <div className="pt-[2px] ">
+          <div className="pt-[2px] mr-1">
             <HiDocumentReport />
           </div>
-          &nbsp;&nbsp;Report
+          Report
         </div>
       </NavLink>
     </div>
