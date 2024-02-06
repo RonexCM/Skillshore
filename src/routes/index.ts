@@ -1,3 +1,3 @@
-import ProtectedRoute from "./ProtectedRoute";
+import AuthWrapper from "./AuthWrapper";
 
-export { ProtectedRoute };
+export { AuthWrapper };
