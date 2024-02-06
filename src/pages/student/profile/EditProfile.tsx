@@ -12,6 +12,7 @@ import { RootState } from "../../../redux/store";
 import { profileValidationSchema } from "../../../validation";
 import BreadCrumb from "../../../components/BreadCrumb";
 import CustomInputField from "../../../components/CustomInputField";
+import ButtonField from "../../../components/ButtonField";
 
 const EditProfile = () => {
   const navigate = useNavigate();
@@ -78,14 +79,7 @@ const EditProfile = () => {
               />
 
               <CustomInputField name="skills" fieldId="skills" title="Skills" />
-              <div>
-                <button
-                  type="submit"
-                  className=" text-white bg-green-700 font-medium mb-[40px] rounded-lg text-sm h-[50px] w-[150px]"
-                >
-                  Save Changes
-                </button>
-              </div>
+              <ButtonField title="Save Changes" />
             </Form>
           </Formik>
         </div>

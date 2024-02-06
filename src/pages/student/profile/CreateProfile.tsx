@@ -3,12 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { useCreateProfileMutation } from "../../../redux/services/myUserProfileEndpoints";
 import { useEffect } from "react";
 import { setProfileData } from "../../../redux/slice/userSlice";
-import { ErrorMessage, Field, Formik, Form } from "formik";
+import { Formik, Form } from "formik";
 import { profileValidationSchema } from "../../../validation";
 import { createProfileValues } from "../../../configs/constants";
 import { TProfileData } from "../types";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import CustomInputField from "../../../components/CustomInputField";
+import ButtonField from "../../../components/ButtonField";
 
 const CreateProfile = () => {
   const navigate = useNavigate();
@@ -56,101 +58,21 @@ const CreateProfile = () => {
           validationSchema={profileValidationSchema}
         >
           <Form className="flex flex-col justify-center mt-[37px]">
-            <div className="flex flex-row gap-[20px]  mb-2">
-              <div className="flex flex-col text-[18px] mb-4 w-full">
-                <label
-                  htmlFor="education"
-                  className="mb-2 text-dark text-base font-normal"
-                >
-                  Education
-                </label>
-                <Field
-                  type="text"
-                  id="education"
-                  name="education"
-                  className="w-full text-[16px] h-12 bg-white rounded-lg border-2 border-indigo-100 px-3"
-                />
-                <ErrorMessage
-                  className="text-[13px] text-error mt-1"
-                  name="education"
-                  component="div"
-                />
-              </div>
-            </div>
+            <CustomInputField
+              name="education"
+              fieldId="education"
+              title="Education"
+            />
 
-            <div className="flex flex-row gap-[20px]  mb-2">
-              <div className="flex flex-col text-[18px] mb-4 w-full">
-                <label
-                  htmlFor="career"
-                  className="mb-2 text-base text-dark font-normal"
-                >
-                  Career
-                </label>
-                <Field
-                  type="text"
-                  id="career"
-                  name="career"
-                  className="w-full text-[16px] h-12 bg-white rounded-lg border-2 border-indigo-100 px-3"
-                />
-                <ErrorMessage
-                  className="text-[13px] text-error mt-1"
-                  name="career"
-                  component="div"
-                />
-              </div>
-            </div>
+            <CustomInputField name="career" fieldId="career" title="Career" />
+            <CustomInputField
+              name="experience"
+              fieldId="experience"
+              title="Experience"
+            />
 
-            <div className="flex flex-row gap-[20px]  mb-2">
-              <div className="flex flex-col text-[18px] mb-4 w-full">
-                <label
-                  htmlFor="experience"
-                  className="mb-2 text-dark text-base font-normal"
-                >
-                  Experience
-                </label>
-                <Field
-                  type="text"
-                  id="experience"
-                  name="experience"
-                  className="w-full text-[16px] h-12 bg-white rounded-lg border-2 border-indigo-100 px-3"
-                />
-                <ErrorMessage
-                  className="text-[13px] text-error mt-1"
-                  name="experience"
-                  component="div"
-                />
-              </div>
-            </div>
-
-            <div className="flex flex-row gap-[20px]  mb-2">
-              <div className="flex flex-col text-[18px] mb-4 w-full">
-                <label
-                  htmlFor="skills"
-                  className="mb-2 text-base text-dark font-normal"
-                >
-                  Skills
-                </label>
-                <Field
-                  type="text"
-                  id="skills"
-                  name="skills"
-                  className="w-full text-[16px] h-12 bg-white rounded-lg border-2 border-indigo-100 px-3"
-                />
-                <ErrorMessage
-                  className="text-[13px] text-error mt-1"
-                  name="skills"
-                  component="div"
-                />
-              </div>
-            </div>
-            <div>
-              <button
-                type="submit"
-                className=" text-white bg-green-700 font-medium mb-[40px] rounded-lg text-sm h-[50px] w-[150px]"
-              >
-                Create profile
-              </button>
-            </div>
+            <CustomInputField name="skills" fieldId="skills" title="Skills" />
+            <ButtonField title="Create Profile" />
           </Form>
         </Formik>
       </div>
