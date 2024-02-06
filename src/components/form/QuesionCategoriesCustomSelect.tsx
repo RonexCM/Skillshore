@@ -6,12 +6,18 @@ type Props = {
     shouldValidate?: boolean | undefined
   ) => void;
   options: { value: number; label: string }[];
-  selected: any;
+  selected?: any;
 };
-const QuesionCategoriesCustomSelect = ({ options, setFieldValue }: Props) => {
+
+const QuesionCategoriesCustomSelect = ({
+  options,
+  setFieldValue,
+  selected,
+}: Props) => {
   return (
     <>
       <ReactSelect
+        defaultValue={selected}
         options={options}
         onChange={(selectedOption) => {
           setFieldValue(

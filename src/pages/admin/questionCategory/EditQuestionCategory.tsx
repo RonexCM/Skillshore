@@ -14,13 +14,18 @@ import FormikInputField from "../../../components/form/FormikInputField";
 import FormikButton from "../../../components/form/FormikButton";
 import Breadcrumb from "../../../components/Breadcrumb";
 import { ParamsType } from "../types/TCommonTypes";
+import { useLoadingState } from "../../../layouts/AdminLayout";
 
 const EditQuestionCategory = () => {
   const navigate = useNavigate();
+
+  const loadingState = useLoadingState();
+  const { setShowLoader } = loadingState;
+
   const params = useParams();
   const { id } = params as ParamsType;
 
-  const { data } = useGetSingleQuestionCategoryQuery(id);
+  const { data, isLoading } = useGetSingleQuestionCategoryQuery(id);
 
   const [editQuestionCategory, { error, isSuccess }] =
     useEditQuestionCategoryMutation();
@@ -33,6 +38,10 @@ const EditQuestionCategory = () => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    setShowLoader(isLoading);
+  }, [isLoading]);
 
   useEffect(() => {
     if (isSuccess) {

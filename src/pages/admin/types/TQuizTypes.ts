@@ -23,7 +23,7 @@ export type TAddQuizFieldType = {
   description: string;
   time: string | number;
   retry_after: string | number;
-  question_categories: number[] | undefined[];
+  question_categories: number[];
   status: number;
   pass_percentage: string | number;
 };
@@ -44,9 +44,9 @@ export type TEditQuizFieldType = {
   title: string;
   slug: string;
   category_id: number;
-  thumbnail: File | null;
+  thumbnail: File | string;
   description: string;
-  time: number;
+  time: string | number;
   retry_after: number;
   question_categories: number[];
   status: number;

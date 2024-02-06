@@ -16,6 +16,7 @@ const FormikSelectQuestionCategoriesField = ({
   selected,
 }: Props) => {
   const { data } = useGetAllQuestionCategoriesQuery();
+  // console.log(selected);
 
   return (
     <div className=" h-[76px]">
@@ -29,7 +30,7 @@ const FormikSelectQuestionCategoriesField = ({
           component={QuesionCategoriesCustomSelect}
           options={data}
           setFieldValue={setFieldValue}
-          selected={selected ? selected : []}
+          selected={selected ? selected : null}
         />
       </div>
       <ErrorMessage

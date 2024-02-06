@@ -18,33 +18,43 @@ import FormikSelectQuestionCategoriesField from "../../../components/form/Formik
 import FormikButton from "../../../components/form/FormikButton";
 import Breadcrumb from "../../../components/Breadcrumb";
 import { ParamsType } from "../types/TCommonTypes";
+import { useLoadingState } from "../../../layouts/AdminLayout";
 
 const EditQuiz = () => {
   const navigate = useNavigate();
+
   const params = useParams();
   const { id } = params as ParamsType;
 
-  const { data: quiz } = useGetSingleQuizQuery(id);
+  const loadingState = useLoadingState();
+  const { setShowLoader } = loadingState;
+
+  const { data: quiz, isLoading } = useGetSingleQuizQuery(id);
+
+  console.log(quiz);
 
   const [editQuiz, { isSuccess, error }] = useEditQuizMutation();
-  console.log(quiz);
 
   const [thumbnail, setThumbnail] = useState<File | string>("");
 
   const onSubmit = async (values: TAddQuizFieldType) => {
     const valuesToSend = {
       ...values,
-      id: id,
+      id: Number(id),
       thumbnail: thumbnail,
       category_id: Number(values.category_id),
     };
-    console.log(valuesToSend);
-    // try {
-    //   await editQuiz(valuesToSend);
-    // } catch (error) {
-    //   console.log(error);
-    // }
+
+    try {
+      await editQuiz(valuesToSend);
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  useEffect(() => {
+    setShowLoader(isLoading);
+  }, [isLoading]);
 
   useEffect(() => {
     if (isSuccess) {

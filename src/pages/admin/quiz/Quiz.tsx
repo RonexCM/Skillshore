@@ -31,13 +31,11 @@ const Quiz = () => {
       dispatch(saveQuizMetaData(quizzesData.meta));
     }
     setShowLoader(isLoading);
-    setStartingIndex(currentPageNumber * 10 - 9);
+    setStartingIndex(currentPageNumber * 8 - 7);
   }, [quizzesData, isLoading]);
 
-  const { data: quizList, meta } = useSelector(
-    (state: RootState) => state.quizList
-  );
-  
+  const { meta } = useSelector((state: RootState) => state.quizList);
+
   const loadingState = useLoadingState();
   const { setShowLoader } = loadingState;
 

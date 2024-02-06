@@ -32,8 +32,12 @@ const myQuizApiEndpoints = myApi.injectEndpoints({
         return {
           ...response.data,
           thumbnail: "",
+          category_id: response.data.category ? response.data.category.id : 0,
           question_categories: response.data.question_categories.map(
-            (obj) => obj.id
+            (category: any) => ({
+              value: category.id,
+              label: category.title,
+            })
           ),
         };
       },
@@ -44,7 +48,6 @@ const myQuizApiEndpoints = myApi.injectEndpoints({
           url: "/admin/quizzes",
           method: "POST",
           body: payload,
-          // headers: { "Content-type": "multipart/form-data" },
         };
       },
       invalidatesTags: ["FetchQuizzes"],

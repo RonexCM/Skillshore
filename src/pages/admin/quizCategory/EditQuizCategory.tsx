@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import FormikInputField from "../../../components/form/FormikInputField";
 import FormikButton from "../../../components/form/FormikButton";
 import Breadcrumb from "../../../components/Breadcrumb";
+import { useLoadingState } from "../../../layouts/AdminLayout";
 
 type ParamsType = {
   id: string;
@@ -20,11 +21,15 @@ type ParamsType = {
 
 const EditQuizCategory = () => {
   const navigate = useNavigate();
+
   const params = useParams();
 
   const { id } = params as ParamsType;
 
-  const { data } = useGetSingleQuizCategoryQuery(id);
+  const { data: quizCategories, isLoading } = useGetSingleQuizCategoryQuery(id);
+
+  const loadingState = useLoadingState();
+  const { setShowLoader } = loadingState;
 
   const [editQuizCategory, { error, isSuccess }] =
     useEditQuizCategoryMutation();
@@ -39,6 +44,10 @@ const EditQuizCategory = () => {
   };
 
   useEffect(() => {
+    setShowLoader(isLoading);
+  }, [isLoading]);
+
+  useEffect(() => {
     if (isSuccess) {
       toast.success("Updated!");
       navigate(-1);
@@ -51,7 +60,7 @@ const EditQuizCategory = () => {
     }
   }, [error]);
 
-  if (!data) return;
+  if (!quizCategories) return;
 
   return (
     <motion.div
@@ -65,7 +74,7 @@ const EditQuizCategory = () => {
       </div>
 
       <Formik
-        initialValues={data}
+        initialValues={quizCategories}
         onSubmit={onSubmit}
         validationSchema={validationSchemaAddQuizCategory}
       >

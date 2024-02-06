@@ -27,12 +27,12 @@ const AddQuiz = () => {
       thumbnail: thumbnail,
       category_id: Number(values.category_id),
     };
-
-    try {
-      await addQuiz(valuesToSend);
-    } catch (error) {
-      console.log(error);
-    }
+    console.log(valuesToSend);
+    // try {
+    //   await addQuiz(valuesToSend);
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   useEffect(() => {

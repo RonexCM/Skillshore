@@ -20,6 +20,7 @@ import FormikSelectAnswerField from "../../../components/form/FormikSelectAnswer
 import FormikButton from "../../../components/form/FormikButton";
 import { ParamsType } from "../types/TCommonTypes";
 import Breadcrumb from "../../../components/Breadcrumb";
+import FormikSelectStatus from "../../../components/form/FormikSelectStatus";
 
 const EditQuestion = () => {
   const navigate = useNavigate();
@@ -128,7 +129,7 @@ const EditQuestion = () => {
 
               <FormikInputField name="slug" label="Slug" type="text" />
 
-              <FormikSelectWeightageField />
+              <FormikSelectStatus />
 
               <FormikTextAreaField name="description" label="Description" />
 
@@ -138,7 +139,10 @@ const EditQuestion = () => {
                 handleOptionsInputChange={handleOptionsInputChange}
                 handleChange={handleChange}
               />
+
               <FormikSelectAnswerField answerOptions={answerOptions} />
+
+              <FormikSelectWeightageField />
             </div>
 
             <FormikButton type="submit" label="Edit" />
