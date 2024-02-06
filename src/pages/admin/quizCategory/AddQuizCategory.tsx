@@ -9,7 +9,7 @@ import { useAddQuizCategoryMutation } from "../../../redux/services/myQuizCatego
 import { useEffect } from "react";
 import FormikInputField from "../../../components/form/FormikInputField";
 import FormikButton from "../../../components/form/FormikButton";
-import Breadcrumb from "../../../components/Breadcrumb";
+import Breadcrumb from "../../../components/BreadCrumb";
 import { categoryInitialValues } from "../../../configs/constants";
 import { FaHome } from "react-icons/fa";
 

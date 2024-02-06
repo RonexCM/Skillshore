@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
 import { TAddQuestionFieldType } from "../types";
 import FormikButton from "../../../components/form/FormikButton";
-import Breadcrumb from "../../../components/Breadcrumb";
+import Breadcrumb from "../../../components/BreadCrumb";
 import FormikInputField from "../../../components/form/FormikInputField";
 import FormikSelectWeightageField from "../../../components/form/FormikSelectWeightageField";
 import FormikTextAreaField from "../../../components/form/FormikTextAreaField";

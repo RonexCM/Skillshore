@@ -1,26 +1,46 @@
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { RootState } from "../redux/store";
+import { useNavigate } from "react-router-dom";
+import { LineWave } from "react-loader-spinner";
 
-/**
- * Takes Component that is passed, isLoggedIn is checked, if false naviigate(/) else goes to /user path
- * @returns Component that is passed
- */
-interface MyComponentProps {
-  children: ReactNode;
-}
-const ProtectedRoute: React.FC<MyComponentProps> = ({ children }) => {
-  const navigate = useNavigate();
+const ProtectedRoute: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const userData = useSelector((state: RootState) => state.user.data);
   const token = useSelector((state: RootState) => state.auth.data.token);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!token) {
       navigate("/");
     }
-  });
 
-  return <div>{token ? children : null}</div>;
+    if (token && userData && userData.role === "admin") {
+      navigate("/admin");
+    }
+
+    if (token && userData && userData.role === "student") {
+      navigate("/home");
+    }
+
+    const timeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 300);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center">
+        <LineWave />
+      </div>
+    );
+  }
+
+  return children;
 };
 
 export default ProtectedRoute;

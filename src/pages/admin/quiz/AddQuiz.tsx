@@ -13,7 +13,7 @@ import FormikFileInputField from "../../../components/form/FormikFileInputField"
 import FormikSelectQuizCategoryField from "../../../components/form/FormikSelectQuizCategoryField";
 import FormikSelectQuestionCategoriesField from "../../../components/form/FormikSelectQuestionCategoriesField";
 import FormikButton from "../../../components/form/FormikButton";
-import Breadcrumb from "../../../components/Breadcrumb";
+import Breadcrumb from "../../../components/BreadCrumb";
 import { AddQuizInitialValues } from "../../../configs/constants";
 import { FaHome } from "react-icons/fa";
 
@@ -28,7 +28,6 @@ const AddQuiz = () => {
       thumbnail: thumbnail,
       category_id: Number(values.category_id),
     };
-
     try {
       await addQuiz(valuesToSend);
     } catch (error) {

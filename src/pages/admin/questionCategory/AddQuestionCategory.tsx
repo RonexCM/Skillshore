@@ -9,9 +9,9 @@ import { useAddQuestionCategoryMutation } from "../../../redux/services/myQuesti
 import { useEffect } from "react";
 import FormikButton from "../../../components/form/FormikButton";
 import FormikInputField from "../../../components/form/FormikInputField";
-import Breadcrumb from "../../../components/Breadcrumb";
 import { categoryInitialValues } from "../../../configs/constants";
-
+import { FaHome } from "react-icons/fa";
+import BreadCrumb from "../../../components/BreadCrumb";
 const AddQuestionCategory = () => {
   const navigate = useNavigate();
 
@@ -46,7 +46,11 @@ const AddQuestionCategory = () => {
       className="w-full pt-5 pb-10 px-8 "
     >
       <div className="flex flex-col justify-start items-left p-2 mb-2">
-        <Breadcrumb parentLabel="Question Category" childLabel="New Category" />
+        <BreadCrumb
+          icon={FaHome}
+          title="Question Category"
+          subTitle="New Category"
+        />
         <h1 className="text-primary font-medium text-2xl">New Category </h1>
       </div>
 

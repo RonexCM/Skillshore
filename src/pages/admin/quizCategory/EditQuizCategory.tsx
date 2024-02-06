@@ -12,7 +12,7 @@ import {
 import { useEffect } from "react";
 import FormikInputField from "../../../components/form/FormikInputField";
 import FormikButton from "../../../components/form/FormikButton";
-import Breadcrumb from "../../../components/Breadcrumb";
+import Breadcrumb from "../../../components/BreadCrumb";
 import { useLoadingState } from "../../../layouts/AdminLayout";
 import { FaHome } from "react-icons/fa";
 

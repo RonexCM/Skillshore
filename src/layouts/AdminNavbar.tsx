@@ -3,10 +3,13 @@ import { MdHome } from "react-icons/md";
 import skillshoreLogo from "../assets/skillshoresvg.svg";
 import { useDispatch } from "react-redux";
 import { logOut } from "../redux/slice/authSlice";
+import { setInitialData } from "../redux/slice/userSlice";
 
 const AdminNavbar = () => {
   const dispatch = useDispatch();
   const LogOut = () => {
+    dispatch(setInitialData());
+
     dispatch(logOut());
   };
   return (
@@ -16,9 +19,13 @@ const AdminNavbar = () => {
         <img src={skillshoreLogo} alt="skillshore-logo" />
       </NavLink>
       <div className="flex gap-4 text-sm">
-        <button className="font-normal hover:underline" onClick={LogOut}>
+        <NavLink
+          to="/"
+          onClick={LogOut}
+          className="font-bold cursor-pointer dark:text-white hover:underline"
+        >
           Logout
-        </button>
+        </NavLink>
       </div>
     </div>
   );

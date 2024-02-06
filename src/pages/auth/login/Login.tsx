@@ -1,4 +1,4 @@
-import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { TLoginField } from "../types";
 import { loginValidationSchema } from "../../../validation";
 import { Link } from "react-router-dom";
@@ -15,7 +15,6 @@ const Login = () => {
 
   const onSubmit = async (
     values: TLoginField,
-    { resetForm }: FormikHelpers<TLoginField>
   ) => {
     const userCredentials = {
       email: values.email.toLowerCase(),
@@ -27,7 +26,6 @@ const Login = () => {
       if (data.token) {
         dispatch(setToken(data.token));
         toast.success("Successfully logged in!");
-        resetForm();
       }
     } catch (error: any) {
       const errorMessage = error.data.message;

@@ -19,7 +19,7 @@ import FormikOptionsFieldArray from "../../../components/form/FormikOptionsField
 import FormikSelectAnswerField from "../../../components/form/FormikSelectAnswerField";
 import FormikButton from "../../../components/form/FormikButton";
 import { ParamsType } from "../types/TCommonTypes";
-import Breadcrumb from "../../../components/Breadcrumb";
+import Breadcrumb from "../../../components/BreadCrumb";
 import FormikSelectStatus from "../../../components/form/FormikSelectStatus";
 import { FaHome } from "react-icons/fa";
 

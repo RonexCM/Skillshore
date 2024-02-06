@@ -12,9 +12,10 @@ import {
 import { useEffect } from "react";
 import FormikInputField from "../../../components/form/FormikInputField";
 import FormikButton from "../../../components/form/FormikButton";
-import Breadcrumb from "../../../components/Breadcrumb";
+import Breadcrumb from "../../../components/BreadCrumb";
 import { ParamsType } from "../types/TCommonTypes";
 import { useLoadingState } from "../../../layouts/AdminLayout";
+import { FaHome } from "react-icons/fa";
 
 const EditQuestionCategory = () => {
   const navigate = useNavigate();
@@ -65,8 +66,9 @@ const EditQuestionCategory = () => {
     >
       <div className="flex flex-col justify-start items-left p-2 mb-2">
         <Breadcrumb
-          parentLabel="Question Category"
-          childLabel="Edit Category"
+          icon={FaHome}
+          title="Question Category"
+          subTitle="Edit Category"
         />
 
         <h1 className="text-primary font-medium text-2xl">Edit Category</h1>

@@ -16,9 +16,11 @@ import FormikFileInputField from "../../../components/form/FormikFileInputField"
 import FormikSelectQuizCategoryField from "../../../components/form/FormikSelectQuizCategoryField";
 import FormikSelectQuestionCategoriesField from "../../../components/form/FormikSelectQuestionCategoriesField";
 import FormikButton from "../../../components/form/FormikButton";
-import Breadcrumb from "../../../components/Breadcrumb";
+import Breadcrumb from "../../../components/BreadCrumb";
 import { ParamsType } from "../types/TCommonTypes";
 import { useLoadingState } from "../../../layouts/AdminLayout";
+
+import { FaHome } from "react-icons/fa";
 
 const EditQuiz = () => {
   const navigate = useNavigate();
@@ -76,7 +78,7 @@ const EditQuiz = () => {
       className="w-full pt-5 pb-10 px-8 "
     >
       <div className="flex flex-col justify-start items-left p-2 mb-2">
-        <Breadcrumb parentLabel="Quiz" childLabel="Edit Quiz" />
+        <Breadcrumb icon={FaHome} title="Quiz" subTitle="Edit Quiz" />
         <h1 className="text-primary font-medium text-2xl">Edit Quiz</h1>
       </div>
 
