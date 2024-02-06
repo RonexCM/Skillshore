@@ -22,7 +22,6 @@ const App = () => {
       <BrowserRouter>
         <AuthWrapper>
           <Routes>
-            <Route path="/admin" element={<Admin />} />
             <Route path="/" element={<CommonLayout layoutFor="auth" />}>
               <Route index element={<Login />} />
               <Route path="/register" element={<Register />} />
@@ -38,6 +37,9 @@ const App = () => {
               <Route path="/create-profile" element={<CreateProfile />} />
             </Route>
             {/* ----------admin pages goes here as protected route----------- */}
+            <Route path="/admin">
+                <Route index element={<Admin />} />
+            </Route>
           </Routes>
         </AuthWrapper>
       </BrowserRouter>
