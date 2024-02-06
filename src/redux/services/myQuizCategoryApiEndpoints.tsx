@@ -71,7 +71,6 @@ const myQuizCategoryApiEndpoints = myApi.injectEndpoints({
 
     deleteQuizCategory: builder.mutation<void, number>({
       query: (id) => {
-        console.log(id);
         return {
           url: `/admin/quiz-categories/${id}`,
           method: "DELETE",

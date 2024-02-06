@@ -28,7 +28,7 @@ const AddQuiz = () => {
       thumbnail: thumbnail,
       category_id: Number(values.category_id),
     };
-    console.log(valuesToSend);
+
     try {
       await addQuiz(valuesToSend);
     } catch (error) {

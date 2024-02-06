@@ -31,8 +31,6 @@ const EditQuiz = () => {
 
   const { data: quiz, isLoading } = useGetSingleQuizQuery(id);
 
-  console.log(quiz);
-
   const [editQuiz, { isSuccess, error }] = useEditQuizMutation();
 
   const [thumbnail, setThumbnail] = useState<File | string>("");

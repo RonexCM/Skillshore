@@ -66,8 +66,6 @@ const myQuizApiEndpoints = myApi.injectEndpoints({
 
     deleteQuiz: builder.mutation<void, number>({
       query: (id) => {
-        console.log(id);
-
         return {
           url: `/admin/quizzes/${id}`,
           method: "DELETE",
