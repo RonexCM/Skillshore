@@ -1,5 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { EnterNewPassword, ForgotPassword } from "./pages/auth/forgotPassword";
+import {
+  EnterNewPassword,
+  ForgotPassword,
+  ResetPassword,
+} from "./pages/auth/forgotPassword";
 import { AuthWrapper } from "./routes";
 import {
   UserProfile,
@@ -23,7 +27,7 @@ const App = () => {
               <Route index element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="forgot-password" element={<ForgotPassword />} />
-              <Route path="forgot-password" element={<ForgotPassword />} />
+              <Route path="reset-password" element={<ResetPassword />} />
               <Route path="enter-new-password" element={<EnterNewPassword />} />
             </Route>
             {/* ----------user pages goes here as protected route---------- */}
