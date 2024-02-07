@@ -37,10 +37,11 @@ const QuizModal = ({ setShowModal, id }: Props) => {
   const { data: QuizData, error, isLoading } = useGetQuizByIdQuery(id);
   const quizTestSlice = useSelector((state: RootState) => state.allModal.data);
 
-  console.log(quizTestSlice);
+  console.log(QuizData);
+  console.log(id);
   const navigate = useNavigate();
   const StartQuiz = () => {
-    navigate("/quizzes");
+    navigate(`/quiz/${id}`);
   };
 
   const closeModal = (

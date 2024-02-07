@@ -1,6 +1,3 @@
-// import { AiOutlineCloseCircle } from "react-icons/ai";
-import { IoCloudDone } from "react-icons/io5";
-
 type Props = {
   style: string;
   text: string;

@@ -9,8 +9,8 @@ export type TLoginResponseSuccess = {
 };
 
 export type TLoginResponseError = {
-  status: number;
-  data: { message: string; errors: { email: string[] } };
+  message: string;
+  errors: { email: string[] };
 };
 
 export type TRegistrationFormType = {
@@ -18,4 +18,23 @@ export type TRegistrationFormType = {
   email: string;
   password: string;
   password_confirmation: string;
+};
+
+export type TForgotPasswordEmailField = {
+  email: string;
+};
+
+export type TResetPassword = {
+  token: string;
+  email: string | null;
+  password: string;
+  password_confirmation: string;
+};
+
+export type TAccessibleRoutes = {
+  [key: string]: string[];
+};
+
+export type TAllowedRoute = {
+  [key: string]: string;
 };

@@ -1,5 +1,3 @@
-// import { HiCheck } from "react-icons/hi";
-import { MdOutlineTimer } from "react-icons/md";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useGetAllQuizCategoriesQuery } from "../../../redux/services/myQuizCategoryApiEndpoints";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,16 +7,13 @@ import { RootState } from "../../../redux/store";
 import { saveAllQuizCategoriesList } from "../../../redux/slice/quizCategorySlice/allQuizCategoriesListSlice";
 import Searchbar from "../../../components/SearchBar";
 import Button from "../../../components/Button";
-import { Badge } from "flowbite-react";
 import QuizModal from "../../../components/modals/QuizModal";
 import { useNavigate } from "react-router-dom";
 import { saveQuizDescription } from "../../../redux/slice/quizTestSlice";
 import { CiLock } from "react-icons/ci";
-import { IoCheckmarkDoneCircle, IoCloudDone } from "react-icons/io5";
-// import { IoMdCloseCircleOutline } from "react-icons/io";
-// import { CiLock } from "react-icons/ci";
-// import { LuShieldClose } from "react-icons/lu";
-// import { IoMdClose, IoMdCloseCircleOutline } from "react-icons/io";
+import { IoCheckmarkDoneCircle } from "react-icons/io5";
+import UserDashboardQuizCategoryRadio from "../../../components/User/UserDashboardQuizCategoryRadio";
+import UserQuizzesFilter from "../../../components/User/UserQuizzesFilter";
 
 const QuizCategory = () => {
   const [showQuizModal, setShowQuizModal] = useState(false);
@@ -39,6 +34,7 @@ const QuizCategory = () => {
     setShowQuizModal(true);
   };
   const { data: quizData } = useGetAllQuizQuery();
+  console.log(quizData);
   const { data: quizCategoriesData } = useGetAllQuizCategoriesQuery();
   useEffect(() => {
     if (quizData) {
@@ -95,7 +91,7 @@ const QuizCategory = () => {
     navigate(`/student-quiz/${quizId}`);
   };
 
-  const getStatus = (result: any) => {
+  const getStatus = (result: any, retry_after: number) => {
     if (result && result.passed) {
       return (
         <>
@@ -112,7 +108,7 @@ const QuizCategory = () => {
         <>
           <CiLock className="inline-block text-red-600" />
           <span className="text-red-600 text-base font-medium mt-6 px-2 py-0.5 rounded ">
-            Retry after {result.retry_after} 2 days
+            Retry after {retry_after} days
           </span>
         </>
       );
@@ -155,106 +151,32 @@ const QuizCategory = () => {
         <div className=" col-span-3 flex flex-col justify-start">
           <div className="flex flex-col gap-4">
             <Searchbar placeholder="search" />
-            <div className="flex justify-between items-center">
-              <p className="text-primary text-sm font-semibold">
-                {quizCategoryArray.filter(
-                  (quizCategory) => quizCategory.isChecked === false
-                ).length < 1
-                  ? "All"
-                  : quizCategoryArray.filter(
-                      (quizCategory) => quizCategory.isChecked === true
-                    ).length}
-                &nbsp; Selected
-              </p>
+            <div className="flex justify-end items-right  ">
               <Button style="gray" text="Clear" onClick={handleClear} />
             </div>
           </div>
           <div className={horizontalLineBaseStyle} />
           <div className="flex flex-col gap-[16px]">
-            <div className="flex gap-4 items-center">
-              <input
-                className="border-2 border-primary-light rounded-sm hover:bg-[#689fff]"
-                type="radio"
-                id="selectAll"
-                name="selectAll"
-                onChange={handleCheckbox}
-                checked={
-                  quizCategoryArray.filter(
-                    (quizCategory) => quizCategory.isChecked === false
-                  ).length < 1
-                }
-              />
-              <label
-                className="text-sm text-dark font-normal"
-                htmlFor="selectAll"
-              >
-                All
-              </label>
-            </div>
             {quizCategoryArray.map((quizCategory, index) => (
-              <div key={index} className="flex gap-4 items-center">
-                <input
-                  className="border-2 border-primary-light rounded-sm hover:bg-[#689fff]"
-                  type="radio"
-                  id={`quizcategory${index + 1}`}
-                  name={quizCategory.title}
-                  onChange={() => handleCategoryRadio(quizCategory.title)}
-                  checked={selectedCategory === quizCategory.title}
-                />
-                <label
-                  className="text-sm text-dark font-normal"
-                  htmlFor={`quizcategory${index + 1}`}
-                >
-                  {quizCategory.title}
-                </label>
-              </div>
+              <UserDashboardQuizCategoryRadio
+                key={index}
+                quizCategory={quizCategory}
+                index={index}
+                selectedCategory={selectedCategory}
+                handleCategoryRadio={handleCategoryRadio}
+              />
             ))}
           </div>
         </div>
         <div className="col-span-9 grid grid-cols-4 gap-4">
           {filteredQuizzes.map((quiz, index) => (
-            <div
+            <UserQuizzesFilter
               key={index}
-              className="p-6 flex h-auto max-h-[370px] flex-col border-2 items-center border-opacity-[0.55] justify-between border-primary-light rounded-md  transition-all ease-in-out delay-50"
-            >
-              <img src={quiz.thumbnail} alt="quiz" />
-              <div className="flex flex-col py-7 gap-2 items-center ">
-                <div className="text- xl  text-dark font-semibold text-center line-clamp-1 hover:line-clamp-none ">
-                  {quiz.title}
-                </div>
-                {quiz.result ? (
-                  <Badge
-                    className="pr-[12px] pl-[10px] text-xl bg-white "
-                    color={quiz.result.passed ? "success" : "error"}
-                    size="xs"
-                  >
-                    {getStatus(quiz.result)}
-                  </Badge>
-                ) : (
-                  <Badge
-                    className="pr-[12px] pl-[10px] opacity-[0.6] bg-transparent text-sm font-medium"
-                    color="gray"
-                    icon={MdOutlineTimer}
-                  >
-                    {quiz.time} min
-                  </Badge>
-                )}
-              </div>
-              {quiz.result ? (
-                <Badge>
-                  <Button
-                    style={quiz.result.passed ? "completed" : "failed"}
-                    text={quiz.result.passed ? "Passed" : "Failed"}
-                  />
-                </Badge>
-              ) : (
-                <Button
-                  style="light"
-                  text="Start Quiz"
-                  onClick={() => handleStart(quiz)}
-                />
-              )}
-            </div>
+              quiz={quiz}
+              index={index}
+              getStatus={getStatus}
+              handleStart={handleStart}
+            />
           ))}
         </div>
       </div>

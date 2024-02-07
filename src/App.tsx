@@ -1,11 +1,11 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { EnterNewPassword, ForgotPassword } from "./pages/auth/forgotPassword";
-import { ProtectedRoute } from "./routes";
-import {
-  UserProfile,
-  EditProfile,
-  CreateProfile,
-} from "./pages/student/profile";
+// import { ProtectedRoute } from "./routes";
+// import {
+//   UserProfile,
+//   EditProfile,
+//   CreateProfile,
+// } from "./pages/student/profile";
 import { Home } from "./pages/student/home";
 import { Login } from "./pages/auth/login";
 import { Register } from "./pages/auth/register";
@@ -29,7 +29,7 @@ const App = () => {
           {/* ----------user pages goes here as protected route---------- */}
           <Route element={<CommonLayout layoutFor="user" />}>
             <Route path="/home" element={<Home />} />
-            <Route
+            {/* <Route
               path="/profile"
               element={<ProtectedRoute>{<UserProfile />}</ProtectedRoute>}
             />
@@ -40,7 +40,7 @@ const App = () => {
             <Route
               path="/createProfile"
               element={<ProtectedRoute>{<CreateProfile />}</ProtectedRoute>}
-            />
+            /> */}
           </Route>
           {/* ----------admin pages goes here as protected route----------- */}
         </Routes>

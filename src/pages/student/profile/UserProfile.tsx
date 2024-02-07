@@ -1,54 +1,29 @@
 import { useNavigate } from "react-router-dom";
-import { useGetUserQuery } from "../../../redux/services/myUserProfileEndpoints";
-import { LineWave } from "react-loader-spinner";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setUserData } from "../../../redux/slice/userSlice";
 import { RootState } from "../../../redux/store";
 import "react-toastify/dist/ReactToastify.css";
 import ProfileDetails from "../../../components/ProfileDetails";
+import { FaHouse } from "react-icons/fa6";
+import { useSelector } from "react-redux";
+import BreadCrumb from "../../../components/BreadCrumb";
 
 const UserProfile = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
-  const { data, isLoading, isSuccess } = useGetUserQuery();
   const userDetails = useSelector((state: RootState) => state.user.data);
 
-  useEffect(() => {
-    if (data && isSuccess) {
-      dispatch(setUserData(data));
-    }
-  }, [isSuccess, data]);
-
-  useEffect(() => {
-    if (data?.data?.profile === null) {
-      navigate("/createProfile");
-    }
-  }, [data]);
-
-  if (isLoading) {
-    return (
-      <div className="flex justify-center h-[800px]">
-        <LineWave color="#1a2b48" height={100} />
-      </div>
-    );
-  }
   return (
-    <div className="h-[full] pl-[70px] pr-[42px] font-poppins ">
+    <div className="h-full px-[70px] pr-[42px] font-poppins ">
       <>
         {userDetails && (
           <>
-            <div className="flex justify-between mt-[37px]">
-              <h1 className="text-primary leading-7 text-[20px] font-medium pb-[60px] ">
-                Profile
-              </h1>
+            <div className="flex justify-between mt-[40px]">
+              <BreadCrumb icon={FaHouse} title="Home" subTitle="Profile" />
 
               {userDetails.name ? (
                 <button
                   type="button"
-                  className="text-white bg-green-700 font-medium rounded-lg text-sm h-[50px] w-[150px]"
-                  onClick={() => navigate("/editProfile")}
+                  className="text-white mb-[20px] bg-green-700 font-medium rounded-lg text-sm h-[50px] w-[150px]"
+                  onClick={() => navigate("/edit-profile")}
                 >
                   Edit Profile
                 </button>
@@ -58,7 +33,7 @@ const UserProfile = () => {
             </div>
             {userDetails.name ? (
               <>
-                <div className="flex flex-col gap-10 studentInfo ">
+                <div className="studentInfo flex flex-col gap-10 mt-[20px] ">
                   <ProfileDetails title={"User Name"} data={userDetails.name} />
                   <ProfileDetails
                     title={"Email Address"}
@@ -66,19 +41,19 @@ const UserProfile = () => {
                   />
                   <ProfileDetails
                     title={"Education"}
-                    data={userDetails?.profile?.education}
+                    data={userDetails.profile?.education}
                   />
                   <ProfileDetails
                     title={"Career "}
-                    data={userDetails?.profile?.career}
+                    data={userDetails.profile?.career}
                   />
                   <ProfileDetails
                     title={"Experience"}
-                    data={userDetails?.profile?.experience}
+                    data={userDetails.profile?.experience}
                   />
                   <ProfileDetails
                     title={"Skills"}
-                    data={userDetails?.profile?.skills?.map((skill, index) => (
+                    data={userDetails.profile?.skills?.map((skill, index) => (
                       <li className="list-none" key={index}>{`${
                         index + 1
                       }. ${skill}`}</li>
