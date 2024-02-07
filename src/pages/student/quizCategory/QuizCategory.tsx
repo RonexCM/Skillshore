@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useGetAllQuizCategoriesQuery } from "../../../redux/services/myQuizCategoryApiEndpoints";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetAllQuizQuery } from "../../../redux/services/myQuizApiEndpoints";
@@ -14,12 +14,26 @@ import { CiLock } from "react-icons/ci";
 import { IoCheckmarkDoneCircle } from "react-icons/io5";
 import UserDashboardQuizCategoryRadio from "../../../components/User/UserDashboardQuizCategoryRadio";
 import UserQuizzesFilter from "../../../components/User/UserQuizzesFilter";
-
 const QuizCategory = () => {
+  // hooks
   const [showQuizModal, setShowQuizModal] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredCategories, setFilteredCategories] = useState([]);
+  const [quizCategoryArray, setQuizCategoryArray] = useState([
+    { id: 0, title: "", isChecked: false },
+  ]);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  // Redux Selectors
+  const { data: listOfQuiz } = useSelector((state: RootState) => state.allQuiz);
+  //  Api Queries
+  const { data: quizData } = useGetAllQuizQuery();
+  const { data: quizCategoriesData } = useGetAllQuizCategoriesQuery();
+  // Function
+  const selectQuiz = (quizId: number) => {
+    navigate(`/student-quiz/${quizId}`);
+  };
   const handleStart = (quizData: any) => {
     const { title, description, time, thumbnail, retry_after } = quizData;
     dispatch(
@@ -33,64 +47,6 @@ const QuizCategory = () => {
     );
     setShowQuizModal(true);
   };
-  const { data: quizData } = useGetAllQuizQuery();
-  console.log(quizData);
-  const { data: quizCategoriesData } = useGetAllQuizCategoriesQuery();
-  useEffect(() => {
-    if (quizData) {
-      dispatch(saveAllQuizList(quizData));
-    }
-    if (quizCategoriesData) {
-      const allQuizCategoryArray = quizCategoriesData.data;
-      dispatch(saveAllQuizCategoriesList(allQuizCategoryArray));
-      const quizCategoriesWithIsCheckedState = allQuizCategoryArray.map(
-        (quizCategory) => {
-          return { ...quizCategory, isChecked: false };
-        }
-      );
-
-      setQuizCategoryArray(quizCategoriesWithIsCheckedState);
-    }
-  }, [quizCategoriesData, quizData]);
-
-  const horizontalLineBaseStyle =
-    "border-b-2 border-primary-light w-full my-[16px] opacity-[0.5]";
-  const passed = false;
-
-  const [quizCategoryArray, setQuizCategoryArray] = useState([
-    { id: 0, title: "", isChecked: false },
-  ]);
-  const handleCheckbox = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, checked } = e.target;
-
-    if (name === "selectAll") {
-      const tempCategoryArray = quizCategoryArray.map((quizCategory) => {
-        return { ...quizCategory, isChecked: checked };
-      });
-      setQuizCategoryArray(tempCategoryArray);
-    } else {
-      const tempCategoryArray = quizCategoryArray.map((quizCategory) =>
-        name === quizCategory.title
-          ? { ...quizCategory, isChecked: checked }
-          : quizCategory
-      );
-      setQuizCategoryArray(tempCategoryArray);
-    }
-  };
-
-  const handleClear = () => {
-    const tempCategoryArray = quizCategoryArray.map((quizCategory) => {
-      return { ...quizCategory, isChecked: false };
-    });
-    setQuizCategoryArray(tempCategoryArray);
-    setSelectedCategory(null);
-  };
-  const { data: listOfQuiz } = useSelector((state: RootState) => state.allQuiz);
-  const navigate = useNavigate();
-  const selectQuiz = (quizId: number) => {
-    navigate(`/student-quiz/${quizId}`);
-  };
-
   const getStatus = (result: any, retry_after: number) => {
     if (result && result.passed) {
       return (
@@ -118,6 +74,56 @@ const QuizCategory = () => {
       );
     }
   };
+  // Effects to handle API responses
+  useEffect(() => {
+    if (quizData) {
+      dispatch(saveAllQuizList(quizData));
+    }
+    if (quizCategoriesData) {
+      const allQuizCategoryArray = quizCategoriesData.data;
+      dispatch(saveAllQuizCategoriesList(allQuizCategoryArray));
+      const quizCategoriesWithIsCheckedState = allQuizCategoryArray.map(
+        (quizCategory) => {
+          return { ...quizCategory, isChecked: false };
+        }
+      );
+
+      setQuizCategoryArray(quizCategoriesWithIsCheckedState);
+    }
+  }, [quizCategoriesData, quizData]);
+
+  const horizontalLineBaseStyle =
+    "border-b-2 border-primary-light w-full my-[16px] opacity-[0.5]";
+  const passed = false;
+
+  useEffect(() => {
+    if (quizCategoriesData) {
+      setFilteredCategories(quizCategoriesData.data);
+    }
+  }, [quizCategoriesData]);
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+    const filtered = quizCategoriesData?.data.filter((category) =>
+      category.title.toLowerCase().includes(e.target.value.toLowerCase())
+    );
+    setFilteredCategories(filtered);
+  };
+  // Event Handlers
+
+  const handleClear = () => {
+    const tempCategoryArray = quizCategoryArray.map((quizCategory) => {
+      return { ...quizCategory, isChecked: false };
+    });
+    setQuizCategoryArray(tempCategoryArray);
+    setSelectedCategory(null);
+  };
+  const handleCategoryRadio = (category: string) => {
+    setSelectedCategory((prevCategory) =>
+      prevCategory === category ? null : category
+    );
+  };
+  //  Filter quizzes based on selected category
   const filteredQuizzes = listOfQuiz.filter((quiz) => {
     if (!selectedCategory) {
       return true;
@@ -129,12 +135,6 @@ const QuizCategory = () => {
       (quiz.category && quiz.category.title === selectedCategory)
     );
   });
-
-  const handleCategoryRadio = (category: string) => {
-    setSelectedCategory((prevCategory) =>
-      prevCategory === category ? null : category
-    );
-  };
 
   return (
     <section className=" px-[132px] py-[40px]">
@@ -149,9 +149,14 @@ const QuizCategory = () => {
       <div className={`${horizontalLineBaseStyle}  my-[32px] `} />
       <div className="grid grid-cols-12 gap-[73px]  min-h-[500px]">
         <div className=" col-span-3 flex flex-col justify-start">
-          <div className="flex flex-col gap-4">
-            <Searchbar placeholder="search" />
-            <div className="flex justify-end items-right  ">
+          <div className="flex flex-col gap-4 ">
+            <Searchbar
+              placeholder="Search"
+              value={searchQuery}
+              onChange={handleSearch}
+            />
+
+            <div className="flex justify-end items-right   ">
               <Button style="gray" text="Clear" onClick={handleClear} />
             </div>
           </div>
