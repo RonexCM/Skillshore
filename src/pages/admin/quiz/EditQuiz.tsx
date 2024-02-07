@@ -19,10 +19,11 @@ import {
   FormikButton,
   FormikFileInputField,
   FormikInputField,
+  FormikSelectCategoryField,
   FormikSelectQuestionCategoriesField,
-  FormikSelectQuizCategoryField,
   FormikTextAreaField,
 } from "../../../components";
+import { useGetAllQuizCategoriesQuery } from "../../../redux/services/myQuizCategoryApiEndpoints";
 
 const EditQuiz = () => {
   const navigate = useNavigate();
@@ -33,7 +34,9 @@ const EditQuiz = () => {
   const loadingState = useLoadingState();
   const { setShowLoader } = loadingState;
 
-  const { data: quiz, isLoading } = useGetSingleQuizQuery(id);
+  const { data: quiz, isLoading: quizIsLoading } = useGetSingleQuizQuery(id);
+
+  const { data: quizCategoryList } = useGetAllQuizCategoriesQuery();
 
   const [editQuiz, { isSuccess, error }] = useEditQuizMutation();
 
@@ -55,8 +58,8 @@ const EditQuiz = () => {
   };
 
   useEffect(() => {
-    setShowLoader(isLoading);
-  }, [isLoading]);
+    setShowLoader(quizIsLoading);
+  }, [quizIsLoading]);
 
   useEffect(() => {
     if (isSuccess) {
@@ -71,7 +74,7 @@ const EditQuiz = () => {
     }
   }, [error]);
 
-  if (!quiz) return;
+  if (!quiz || !quizCategoryList) return;
 
   return (
     <motion.div
@@ -96,7 +99,7 @@ const EditQuiz = () => {
 
               <FormikInputField name="slug" label="Slug" type="text" />
 
-              <FormikSelectQuizCategoryField />
+              <FormikSelectCategoryField data={quizCategoryList} />
 
               <FormikSelectQuestionCategoriesField
                 setFieldValue={setFieldValue}

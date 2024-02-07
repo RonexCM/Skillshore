@@ -12,7 +12,7 @@ import { RootState } from "../../../redux/store";
 import { profileValidationSchema } from "../../../validation";
 import CustomInputField from "../../../components/CustomInputField";
 import ButtonField from "../../../components/ButtonField";
-import BreadCrumb from "../../../components/Breadcrumb";
+import BreadCrumb from "../../../components/BreadCrumb";
 
 const EditProfile = () => {
   const navigate = useNavigate();

@@ -22,19 +22,23 @@ const Question = () => {
   const loadingState = useLoadingState();
   const { setShowLoader } = loadingState;
 
-  const { data: questionsData, isLoading } = useGetQuestionsQuery({
+  const {
+    data: questionsData,
+    isLoading,
+    isSuccess,
+  } = useGetQuestionsQuery({
     page: currentPageNumber,
     title: searchTerm,
   });
 
   useEffect(() => {
-    if (questionsData) {
+    if (isSuccess) {
       dispatch(saveQuestionList(questionsData.data));
       dispatch(saveQuestionsMetaData(questionsData.meta));
     }
     setShowLoader(isLoading);
     setStartingIndex(currentPageNumber * 10 - 9);
-  }, [questionsData, isLoading]);
+  }, [questionsData, isLoading, isSuccess]);
 
   const { meta } = useSelector((state: RootState) => state.questionList);
 

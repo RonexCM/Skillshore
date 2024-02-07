@@ -1,9 +1,22 @@
 import { ErrorMessage, Field } from "formik";
-import { useGetAllQuestionCategoriesQuery } from "../../redux/services/myQuestionCategoryApiEndpoints";
+import { useEffect, useState } from "react";
 
-const FormikSelectQuestionCategoryField = () => {
-  const { data: questions } = useGetAllQuestionCategoriesQuery();
+type Props = {
+  data: any;
+};
 
+const FormikSelectCategoryField = ({ data }: Props) => {
+  const [categoryList, setCategoryList] = useState([]);
+  useEffect(() => {
+    setCategoryList(
+      data.map((obj: any) => {
+        if ("value" in obj) {
+          return { id: obj.value, title: obj.label };
+        }
+        return obj;
+      })
+    );
+  }, [data]);
   return (
     <div className="h-[76px]">
       <div className="flex flex-col gap-2">
@@ -21,10 +34,10 @@ const FormikSelectQuestionCategoryField = () => {
           <option value="" className="text-gray-300">
             select category...
           </option>
-          {questions?.map((category) => {
+          {categoryList?.map((category: any) => {
             return (
-              <option key={category.value} value={category.value}>
-                {category.label}
+              <option key={category.id} value={category.id}>
+                {category.title}
               </option>
             );
           })}
@@ -39,4 +52,4 @@ const FormikSelectQuestionCategoryField = () => {
   );
 };
 
-export default FormikSelectQuestionCategoryField;
+export default FormikSelectCategoryField;

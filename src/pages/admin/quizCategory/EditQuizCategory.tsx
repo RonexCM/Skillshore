@@ -17,10 +17,7 @@ import {
   FormikButton,
   FormikInputField,
 } from "../../../components";
-
-type ParamsType = {
-  id: string;
-};
+import { ParamsType } from "../types/TCommonTypes";
 
 const EditQuizCategory = () => {
   const navigate = useNavigate();

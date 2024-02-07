@@ -29,7 +29,6 @@ const FormikFileInputField = ({
           onChange={(event: FormEvent<HTMLInputElement>) => {
             if (event.currentTarget.files === null) return;
             const file = event.currentTarget.files[0];
-            console.log({ file });
             setThumbnail(file);
             handleChange(event);
           }}

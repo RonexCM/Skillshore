@@ -5,6 +5,7 @@ import { useGetReportQuery } from "../../../redux/services/myReportsApiEndpoints
 import { useLoadingState } from "../../../layouts/AdminLayout";
 import { motion } from "framer-motion";
 import { TReportDataType } from "../types/TReportTypes";
+import FormSearchbar from "../../../components/FormSearchbar";
 
 const Question = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -15,7 +16,7 @@ const Question = () => {
   useEffect(() => {
     setShowLoader(isLoading);
   }, [isLoading]);
-  if (true) return <>Report</>;
+  if (true) return <p>Report</p>;
   return (
     <motion.div
       initial={{ opacity: 0.2 }}
@@ -24,20 +25,7 @@ const Question = () => {
     >
       <h1 className="text-primary font-medium text-2xl leading-4">Report</h1>
       <div className="flex justify-between">
-        <div className="relative">
-          <IoSearch className="absolute text-2xl text-[#8a8a8a] top-[8px] left-3 border-r-2 pr-2" />
-          <input
-            type="text"
-            id="table-search"
-            value={searchTerm}
-            onChange={(e) => {
-              setSearchTerm(e.target.value);
-              setCurrentPageNumber(1);
-            }}
-            className="block p-2 ps-10  text-sm text-gray-900 border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary rounded-md w-80 bg-gray-50  "
-            placeholder="Search Reports"
-          ></input>
-        </div>
+        <FormSearchbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       </div>
 
       <div className=" main-container flex flex-col h-full  outline outline-2  outline-primary-light w-full rounded-md text-center ">
@@ -79,15 +67,12 @@ const Question = () => {
               {reportData ? (
                 reportData.data?.map(
                   (report: TReportDataType, index: number) => (
-                    // <ListOfReport
-                    //   key={index}
-                    //   report={report}
-                    //   index={index}
-                    //   startingIndex={startingIndex}
-                    // />
-                    <tr className="text-wrap w-96">
-                      <td>{JSON.stringify(report)}</td>
-                    </tr>
+                    <ListOfReport
+                      key={index}
+                      report={report}
+                      index={index}
+                      startingIndex={startingIndex}
+                    />
                   )
                 )
               ) : (

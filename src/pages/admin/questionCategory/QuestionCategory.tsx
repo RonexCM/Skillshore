@@ -20,20 +20,23 @@ const QuestionCategory = () => {
   const [startingIndex, setStartingIndex] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const { data: questionCategoriesData, isLoading } =
-    useGetQuestionCategoriesQuery({
-      page: currentPageNumber,
-      title: searchTerm,
-    });
+  const {
+    data: questionCategoriesData,
+    isLoading,
+    isSuccess,
+  } = useGetQuestionCategoriesQuery({
+    page: currentPageNumber,
+    title: searchTerm,
+  });
 
   useEffect(() => {
-    if (questionCategoriesData) {
+    if (isSuccess) {
       dispatch(saveQuestionCategoryList(questionCategoriesData.data));
       dispatch(saveQuestionCategoriesMetaData(questionCategoriesData.meta));
     }
     setShowLoader(isLoading);
     setStartingIndex(currentPageNumber * 10 - 9);
-  }, [questionCategoriesData, isLoading]);
+  }, [questionCategoriesData, isLoading, isSuccess]);
 
   const { meta } = useSelector(
     (state: RootState) => state.questionCategoryList

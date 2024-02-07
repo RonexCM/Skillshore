@@ -12,7 +12,9 @@ const validationSchemaAddQuestion = Yup.object({
   description: Yup.string().max(5000).required("Description is required"),
   options: Yup.array().of(Yup.string().required("Option is required")),
   answer: Yup.string().required("Answer is required"),
-  weightage: Yup.string().required("Weightage is required"),
+  weightage: Yup.string()
+    .notOneOf(["0"], "Weightage is required")
+    .required("Weightage is required"),
   category_id: Yup.number()
     .required("Category is required")
     .positive("Category is required"),

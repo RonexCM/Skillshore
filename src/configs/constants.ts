@@ -38,7 +38,7 @@ const AddQuizInitialValues = {
   time: "",
   retry_after: "",
   thumbnail: "",
-  question_categories: [0],
+  question_categories: [],
   status: 1,
   pass_percentage: "",
 };

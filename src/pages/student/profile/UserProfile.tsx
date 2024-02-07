@@ -4,7 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import ProfileDetails from "../../../components/ProfileDetails";
 import { FaHouse } from "react-icons/fa6";
 import { useSelector } from "react-redux";
-import BreadCrumb from "../../../components/Breadcrumb";
+import BreadCrumb from "../../../components/BreadCrumb";
 
 const UserProfile = () => {
   const navigate = useNavigate();

@@ -9,14 +9,17 @@ type Props = {
     shouldValidate?: boolean | undefined
   ) => void;
   selected?: any;
+
+  handleBlur: any;
 };
 
 const FormikSelectQuestionCategoriesField = ({
   setFieldValue,
   selected,
+
+  handleBlur,
 }: Props) => {
   const { data } = useGetAllQuestionCategoriesQuery();
-  // console.log(selected);
 
   return (
     <div className=" h-[76px]">
@@ -31,6 +34,7 @@ const FormikSelectQuestionCategoriesField = ({
           options={data}
           setFieldValue={setFieldValue}
           selected={selected ? selected : null}
+          handleBlur={handleBlur}
         />
       </div>
       <ErrorMessage

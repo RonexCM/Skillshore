@@ -20,19 +20,23 @@ const Quiz = () => {
   const [startingIndex, setStartingIndex] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const { data: quizzesData, isLoading } = useGetQuizzesQuery({
+  const {
+    data: quizzesData,
+    isLoading,
+    isSuccess,
+  } = useGetQuizzesQuery({
     page: currentPageNumber,
     title: searchTerm,
   });
 
   useEffect(() => {
-    if (quizzesData) {
+    if (isSuccess) {
       dispatch(saveQuizList(quizzesData.data));
       dispatch(saveQuizMetaData(quizzesData.meta));
     }
     setShowLoader(isLoading);
     setStartingIndex(currentPageNumber * 8 - 7);
-  }, [quizzesData, isLoading]);
+  }, [quizzesData, isLoading, isSuccess]);
 
   const { meta } = useSelector((state: RootState) => state.quizList);
 

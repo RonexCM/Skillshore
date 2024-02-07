@@ -19,30 +19,34 @@ import {
   FormikInputField,
   FormikOptionsFieldArray,
   FormikSelectAnswerField,
-  FormikSelectQuestionCategoryField,
+  FormikSelectCategoryField,
   FormikSelectStatus,
   FormikSelectWeightageField,
   FormikTextAreaField,
 } from "../../../components";
+import { useGetAllQuestionCategoriesQuery } from "../../../redux/services/myQuestionCategoryApiEndpoints";
 
 const EditQuestion = () => {
   const navigate = useNavigate();
   const params = useParams();
   const { id } = params as ParamsType;
-  const { data: questionData, isLoading } = useGetSingleQuestionQuery(id);
+
+  const { data: questionData, isLoading: questionIsLoading } =
+    useGetSingleQuestionQuery(id);
+  const { data: questionCategoryList } = useGetAllQuestionCategoriesQuery();
+  const [editQuestion, { error, isSuccess }] = useEditQuestionMutation();
 
   const loadingState = useLoadingState();
   const { setShowLoader } = loadingState;
 
-  const [editQuestion, { error, isSuccess }] = useEditQuestionMutation();
   const [optionsArray, setOptionsArray] = useState([""]);
 
   useEffect(() => {
     if (questionData) {
       setOptionsArray(questionData.options);
     }
-    setShowLoader(isLoading);
-  }, [questionData, isLoading]);
+    setShowLoader(questionIsLoading);
+  }, [questionData, questionIsLoading]);
 
   const onSubmit = async (values: TEditQuestionFieldType) => {
     const editedValues = {
@@ -82,7 +86,7 @@ const EditQuestion = () => {
     </option>
   ));
 
-  if (!questionData) return;
+  if (!questionData || !questionCategoryList) return;
 
   const {
     id: editId,
@@ -128,7 +132,7 @@ const EditQuestion = () => {
             <div className="border-2  p-7 rounded-md grid gap-2 gap-x-6 grid-cols-2 border-primary-light ">
               <FormikInputField name="title" label="Title" type="text" />
 
-              <FormikSelectQuestionCategoryField />
+              <FormikSelectCategoryField data={questionCategoryList} />
 
               <FormikInputField name="slug" label="Slug" type="text" />
 

@@ -15,15 +15,20 @@ import {
   FormikInputField,
   FormikOptionsFieldArray,
   FormikSelectAnswerField,
-  FormikSelectQuestionCategoryField,
+  FormikSelectCategoryField,
   FormikSelectWeightageField,
   FormikTextAreaField,
 } from "../../../components";
+import { useGetAllQuestionCategoriesQuery } from "../../../redux/services/myQuestionCategoryApiEndpoints";
+import { useLoadingState } from "../../../layouts/AdminLayout";
 
 const AddQuestion = () => {
   const navigate = useNavigate();
+  const { setShowLoader } = useLoadingState();
 
   const [addQuestion, { error, isSuccess }] = useAddQuestionMutation();
+  const { data: questionCategoryList, isLoading } =
+    useGetAllQuestionCategoriesQuery();
 
   const onSubmit = async (values: TAddQuestionFieldType) => {
     try {
@@ -64,6 +69,12 @@ const AddQuestion = () => {
     }
   }, [error]);
 
+  useEffect(() => {
+    setShowLoader(isLoading);
+  }, [isLoading]);
+
+  if (!questionCategoryList) return;
+
   return (
     <motion.div
       initial={{ opacity: 0.2 }}
@@ -85,7 +96,7 @@ const AddQuestion = () => {
             <div className="border-2  p-7 rounded-md grid gap-2 gap-x-6 grid-cols-2 border-primary-light ">
               <FormikInputField name="title" label="Title" type="text" />
 
-              <FormikSelectQuestionCategoryField />
+              <FormikSelectCategoryField data={questionCategoryList} />
 
               <FormikInputField name="slug" label="Slug" type="text" />
 

@@ -9,9 +9,10 @@ import FormikFileInputField from "./form/FormikFileInputField";
 import FormikInputField from "./form/FormikInputField";
 import FormikOptionsFieldArray from "./form/FormikOptionsFieldArray";
 import FormikSelectAnswerField from "./form/FormikSelectAnswerField";
+import FormikSelectCategoryField from "./form/FormikSelectCategoryField";
 import FormikSelectQuestionCategoriesField from "./form/FormikSelectQuestionCategoriesField";
-import FormikSelectQuestionCategoryField from "./form/FormikSelectQuestionCategoryField";
-import FormikSelectQuizCategoryField from "./form/FormikSelectQuizCategoryField";
+// import FormikSelectQuestionCategoryField from "./form/FormikSelectQuestionCategoryField";
+// import FormikSelectQuizCategoryField from "./form/FormikSelectQuizCategoryField";
 import FormikSelectStatus from "./form/FormikSelectStatus";
 import FormikSelectWeightageField from "./form/FormikSelectWeightageField";
 import FormikTextAreaField from "./form/FormikTextAreaField";
@@ -19,13 +20,14 @@ import QuestionCategoriesCustomSelect from "./form/QuestionCategoriesCustomSelec
 
 export {
   BreadCrumb,
+  FormikSelectCategoryField,
   QuestionCategoriesCustomSelect,
   FormikTextAreaField,
   FormikSelectWeightageField,
   FormikSelectStatus,
   FormikFileInputField,
-  FormikSelectQuizCategoryField,
-  FormikSelectQuestionCategoryField,
+  // FormikSelectQuizCategoryField,
+  // FormikSelectQuestionCategoryField,
   FormikSelectQuestionCategoriesField,
   FormikSelectAnswerField,
   FormikOptionsFieldArray,

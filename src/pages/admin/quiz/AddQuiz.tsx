@@ -14,15 +14,21 @@ import {
   FormikButton,
   FormikFileInputField,
   FormikInputField,
+  FormikSelectCategoryField,
   FormikSelectQuestionCategoriesField,
-  FormikSelectQuizCategoryField,
   FormikTextAreaField,
 } from "../../../components";
+import { useGetAllQuizCategoriesQuery } from "../../../redux/services/myQuizCategoryApiEndpoints";
+import { useLoadingState } from "../../../layouts/AdminLayout";
 
 const AddQuiz = () => {
+  const navigate = useNavigate();
+  const { setShowLoader } = useLoadingState();
+
   const [thumbnail, setThumbnail] = useState<File | string>("");
 
   const [addQuiz, { error, isSuccess }] = useAddQuizMutation();
+  const { data: quizCategoryList, isLoading } = useGetAllQuizCategoriesQuery();
 
   const onSubmit = async (values: TAddQuizFieldType) => {
     const valuesToSend = {
@@ -30,6 +36,7 @@ const AddQuiz = () => {
       thumbnail: thumbnail,
       category_id: Number(values.category_id),
     };
+
     try {
       await addQuiz(valuesToSend);
     } catch (error) {
@@ -50,7 +57,11 @@ const AddQuiz = () => {
     }
   }, [error]);
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    setShowLoader(isLoading);
+  }, [isLoading]);
+
+  if (!quizCategoryList) return;
 
   return (
     <motion.div
@@ -66,19 +77,21 @@ const AddQuiz = () => {
       <Formik
         initialValues={AddQuizInitialValues}
         onSubmit={onSubmit}
+        validateOnBlur={true}
         validationSchema={validationSchemaAddQuiz}
       >
-        {({ handleChange, setFieldValue }) => (
+        {({ handleChange, handleBlur, setFieldValue }) => (
           <Form>
             <div className="border-2  p-7 rounded-md grid gap-2 gap-x-6 grid-cols-2 border-primary-light ">
               <FormikInputField name="title" label="Title" type="text" />
 
               <FormikInputField name="slug" label="Slug" type="text" />
 
-              <FormikSelectQuizCategoryField />
+              <FormikSelectCategoryField data={quizCategoryList} />
 
               <FormikSelectQuestionCategoriesField
                 setFieldValue={setFieldValue}
+                handleBlur={handleBlur}
               />
 
               <FormikTextAreaField name="description" label="Description" />

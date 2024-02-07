@@ -29,7 +29,7 @@ const AdminLayout = () => {
         initial={{ opacity: 0 }}
         className="fixed inset-0 bg-dark bg-opacity-[30%] z-50 flex items-center justify-center"
       >
-        <div className="">
+        <div>
           <Spinner aria-label="Extra large spinner example" size="xl" />
         </div>
       </motion.div>

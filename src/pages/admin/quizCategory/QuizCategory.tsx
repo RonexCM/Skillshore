@@ -19,19 +19,23 @@ const QuizCategory = () => {
   const [startingIndex, setStartingIndex] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const { data: quizCategoriesData, isLoading } = useGetQuizCategoriesQuery({
+  const {
+    data: quizCategoriesData,
+    isLoading,
+    isSuccess,
+  } = useGetQuizCategoriesQuery({
     page: currentPageNumber,
     title: searchTerm,
   });
 
   useEffect(() => {
-    if (quizCategoriesData) {
+    if (isSuccess) {
       dispatch(saveQuizCategoryList(quizCategoriesData.data));
       dispatch(saveQuizCategoriesMetaData(quizCategoriesData.meta));
     }
     setShowLoader(isLoading);
     setStartingIndex(currentPageNumber * 10 - 9);
-  }, [quizCategoriesData, isLoading]);
+  }, [quizCategoriesData, isLoading, isSuccess]);
 
   const { meta } = useSelector((state: RootState) => state.quizCategoryList);
 
