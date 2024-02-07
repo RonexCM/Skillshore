@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ListOfQuestions, Pagination } from "../../../components";
-import { IoSearch } from "react-icons/io5";
 import { useGetQuestionsQuery } from "../../../redux/services/myQuestionApiEndpoints";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,12 +11,17 @@ import {
 import { RootState } from "../../../redux/store";
 import { useLoadingState } from "../../../layouts/AdminLayout";
 import { TQuestionType } from "../types";
+import FormSearchbar from "../../../components/FormSearchbar";
 
 const Question = () => {
   const dispatch = useDispatch();
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [startingIndex, setStartingIndex] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
+
+  const loadingState = useLoadingState();
+  const { setShowLoader } = loadingState;
+
   const { data: questionsData, isLoading } = useGetQuestionsQuery({
     page: currentPageNumber,
     title: searchTerm,
@@ -32,12 +36,7 @@ const Question = () => {
     setStartingIndex(currentPageNumber * 10 - 9);
   }, [questionsData, isLoading]);
 
-  const { data: questionsList, meta } = useSelector(
-    (state: RootState) => state.questionList
-  );
-
-  const loadingState = useLoadingState();
-  const { setShowLoader } = loadingState;
+  const { meta } = useSelector((state: RootState) => state.questionList);
 
   return (
     <motion.div
@@ -48,19 +47,7 @@ const Question = () => {
       <h1 className="text-primary font-medium text-2xl leading-4">Question</h1>
 
       <div className="flex justify-between">
-        <div className="relative">
-          <IoSearch className="absolute text-2xl text-[#8a8a8a] top-[8px] left-3 border-r-2 pr-2" />
-          <input
-            type="text"
-            id="table-search"
-            value={searchTerm}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              setSearchTerm(e.target.value);
-            }}
-            className="block p-2 ps-10  text-sm text-gray-900 border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary rounded-md w-80 bg-gray-50  "
-            placeholder="Search Question"
-          />
-        </div>
+        <FormSearchbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         <Link
           to="addQuestion"
           className="bg-dark transition-colors flex items-center text-primary-light rounded-lg text-xs font-medium py-button-padding-y px-button-padding-x outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"

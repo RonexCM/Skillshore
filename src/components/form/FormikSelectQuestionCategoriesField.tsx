@@ -1,6 +1,6 @@
 import { ErrorMessage, Field } from "formik";
 import { useGetAllQuestionCategoriesQuery } from "../../redux/services/myQuestionCategoryApiEndpoints";
-import QuesionCategoriesCustomSelect from "./QuesionCategoriesCustomSelect";
+import QuestionCategoriesCustomSelect from "./QuestionCategoriesCustomSelect";
 
 type Props = {
   setFieldValue: (
@@ -27,7 +27,7 @@ const FormikSelectQuestionCategoriesField = ({
 
         <Field
           name="question_categories"
-          component={QuesionCategoriesCustomSelect}
+          component={QuestionCategoriesCustomSelect}
           options={data}
           setFieldValue={setFieldValue}
           selected={selected ? selected : null}

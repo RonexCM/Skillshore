@@ -11,17 +11,19 @@ import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
 import { TEditQuestionFieldType } from "../types";
 import { useLoadingState } from "../../../layouts/AdminLayout";
-import FormikInputField from "../../../components/form/FormikInputField";
-import FormikSelectQuestionCategoryField from "../../../components/form/FormikSelectQuestionCategoryField";
-import FormikSelectWeightageField from "../../../components/form/FormikSelectWeightageField";
-import FormikTextAreaField from "../../../components/form/FormikTextAreaField";
-import FormikOptionsFieldArray from "../../../components/form/FormikOptionsFieldArray";
-import FormikSelectAnswerField from "../../../components/form/FormikSelectAnswerField";
-import FormikButton from "../../../components/form/FormikButton";
 import { ParamsType } from "../types/TCommonTypes";
-import Breadcrumb from "../../../components/BreadCrumb";
-import FormikSelectStatus from "../../../components/form/FormikSelectStatus";
 import { FaHome } from "react-icons/fa";
+import {
+  BreadCrumb,
+  FormikButton,
+  FormikInputField,
+  FormikOptionsFieldArray,
+  FormikSelectAnswerField,
+  FormikSelectQuestionCategoryField,
+  FormikSelectStatus,
+  FormikSelectWeightageField,
+  FormikTextAreaField,
+} from "../../../components";
 
 const EditQuestion = () => {
   const navigate = useNavigate();
@@ -112,7 +114,7 @@ const EditQuestion = () => {
       className="w-full pt-5 pb-10 px-8 "
     >
       <div className="flex flex-col justify-start items-left p-2 mb-2">
-        <Breadcrumb icon={FaHome} title="Question" subTitle="Edit Question" />
+        <BreadCrumb icon={FaHome} title="Question" subTitle="Edit Question" />
         <h1 className="text-primary font-medium text-2xl">Edit Question</h1>
       </div>
 

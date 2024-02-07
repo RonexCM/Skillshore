@@ -78,7 +78,6 @@ const FormikOptionsFieldArray = ({
                     >
                       <ImCross
                         onClick={() => {
-                          console.log(optionsArray);
                           if (optionsArray.length > 2) {
                             remove(index);
 

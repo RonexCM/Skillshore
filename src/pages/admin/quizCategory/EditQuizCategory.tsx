@@ -10,11 +10,13 @@ import {
   useGetSingleQuizCategoryQuery,
 } from "../../../redux/services/myQuizCategoryApiEndpoints";
 import { useEffect } from "react";
-import FormikInputField from "../../../components/form/FormikInputField";
-import FormikButton from "../../../components/form/FormikButton";
-import Breadcrumb from "../../../components/BreadCrumb";
 import { useLoadingState } from "../../../layouts/AdminLayout";
 import { FaHome } from "react-icons/fa";
+import {
+  BreadCrumb,
+  FormikButton,
+  FormikInputField,
+} from "../../../components";
 
 type ParamsType = {
   id: string;
@@ -70,7 +72,7 @@ const EditQuizCategory = () => {
       className="w-full pt-5 pb-10 px-8 "
     >
       <div className="flex flex-col justify-start items-left p-2 mb-2">
-        <Breadcrumb
+        <BreadCrumb
           icon={FaHome}
           title="Quiz Category"
           subTitle="Edit Category"

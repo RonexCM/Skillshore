@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ListOfQuiz, Pagination } from "../../../components";
-import { IoSearch } from "react-icons/io5";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
@@ -12,6 +11,7 @@ import {
   saveQuizList,
   saveQuizMetaData,
 } from "../../../redux/slice/quizSlice/quizListSlice";
+import FormSearchbar from "../../../components/FormSearchbar";
 
 const Quiz = () => {
   const dispatch = useDispatch();
@@ -47,19 +47,7 @@ const Quiz = () => {
     >
       <h1 className="text-primary font-medium text-2xl leading-4">Quiz</h1>
       <div className="flex justify-between">
-        <div className="relative">
-          <IoSearch className="absolute text-2xl text-[#8a8a8a] top-[8px] left-3 border-r-2 pr-2" />
-          <input
-            type="text"
-            id="table-search"
-            value={searchTerm}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              setSearchTerm(e.target.value);
-            }}
-            className="block p-2 ps-10  text-sm text-gray-900 border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary rounded-md w-80 bg-gray-50  "
-            placeholder="Search Quiz"
-          ></input>
-        </div>
+        <FormSearchbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         <Link
           to="addQuiz"
           className="bg-dark transition-colors flex items-center text-primary-light rounded-lg text-xs font-medium py-button-padding-y px-button-padding-x outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"

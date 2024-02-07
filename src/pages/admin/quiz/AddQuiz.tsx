@@ -7,15 +7,17 @@ import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
 import { TAddQuizFieldType } from "../types";
 import { useAddQuizMutation } from "../../../redux/services/myQuizApiEndpoints";
-import FormikInputField from "../../../components/form/FormikInputField";
-import FormikTextAreaField from "../../../components/form/FormikTextAreaField";
-import FormikFileInputField from "../../../components/form/FormikFileInputField";
-import FormikSelectQuizCategoryField from "../../../components/form/FormikSelectQuizCategoryField";
-import FormikSelectQuestionCategoriesField from "../../../components/form/FormikSelectQuestionCategoriesField";
-import FormikButton from "../../../components/form/FormikButton";
-import Breadcrumb from "../../../components/BreadCrumb";
 import { AddQuizInitialValues } from "../../../configs/constants";
 import { FaHome } from "react-icons/fa";
+import {
+  BreadCrumb,
+  FormikButton,
+  FormikFileInputField,
+  FormikInputField,
+  FormikSelectQuestionCategoriesField,
+  FormikSelectQuizCategoryField,
+  FormikTextAreaField,
+} from "../../../components";
 
 const AddQuiz = () => {
   const [thumbnail, setThumbnail] = useState<File | string>("");
@@ -57,7 +59,7 @@ const AddQuiz = () => {
       className="w-full pt-5 pb-10 px-8 "
     >
       <div className="flex flex-col justify-start items-left p-2 mb-2">
-        <Breadcrumb icon={FaHome} title="Quiz" subTitle="New Quiz" />
+        <BreadCrumb icon={FaHome} title="Quiz" subTitle="New Quiz" />
         <h1 className="text-primary font-medium text-2xl">New Quiz</h1>
       </div>
 

@@ -7,11 +7,13 @@ import { motion } from "framer-motion";
 import { TAddQuestionCategoryFieldType } from "../types";
 import { useAddQuestionCategoryMutation } from "../../../redux/services/myQuestionCategoryApiEndpoints";
 import { useEffect } from "react";
-import FormikButton from "../../../components/form/FormikButton";
-import FormikInputField from "../../../components/form/FormikInputField";
 import { categoryInitialValues } from "../../../configs/constants";
 import { FaHome } from "react-icons/fa";
-import BreadCrumb from "../../../components/BreadCrumb";
+import {
+  BreadCrumb,
+  FormikButton,
+  FormikInputField,
+} from "../../../components";
 const AddQuestionCategory = () => {
   const navigate = useNavigate();
 

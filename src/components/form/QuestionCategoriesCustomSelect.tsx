@@ -9,7 +9,7 @@ type Props = {
   selected?: any;
 };
 
-const QuesionCategoriesCustomSelect = ({
+const QuestionCategoriesCustomSelect = ({
   options,
   setFieldValue,
   selected,
@@ -31,4 +31,4 @@ const QuesionCategoriesCustomSelect = ({
   );
 };
 
-export default QuesionCategoriesCustomSelect;
+export default QuestionCategoriesCustomSelect;
