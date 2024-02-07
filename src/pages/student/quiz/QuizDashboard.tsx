@@ -3,8 +3,6 @@ import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { setQuizData } from "../../../redux/slice/quizSlice";
-import OptionField from "../../../components/OptionField";
-import Timer from "../../../components/Timer";
 import { LineWave } from "react-loader-spinner";
 import { toast } from "react-toastify";
 import {
@@ -13,16 +11,20 @@ import {
 } from "../../../redux/services/myQuizOptionsEndpoints";
 import { setAnswerData } from "../../../redux/slice/userQuizSlice";
 import { useParams } from "react-router-dom";
-import BreadCrumb from "../../../components/BreadCrumb";
+import BreadCrumb from "../../../components/profile/BreadCrumb";
 import { FaHouse } from "react-icons/fa6";
-import QuizQuestionField from "../../../components/QuizQuestionField";
-import QuizButton from "../../../components/QuizButton";
+import {
+  OptionField,
+  QuizButton,
+  QuizQuestionField,
+  Timer,
+} from "../../../components/option";
 
 const QuizDashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // const { id: quizId } = useParams();
-  const quizId = 12;
+  const quizId = 3;
   const [postQuizData] = usePostQuizDataMutation();
   const { data, isLoading } = useGetQuizOptionsQuery(quizId);
   const quizDetails = useSelector((state: RootState) => state.quiz.data);

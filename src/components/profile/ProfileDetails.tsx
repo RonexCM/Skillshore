@@ -1,4 +1,4 @@
-import { TProfileDetails } from "../pages/student/types";
+import { TProfileDetails } from "../../pages/student/types";
 
 const ProfileDetails = ({ title, data }: TProfileDetails) => {
   return (

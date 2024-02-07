@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { TTimerProps } from "../pages/student/types";
+import { TTimerProps } from "../../pages/student/types";
 
 const Timer = ({ initialTime, onTimeout, updateTimeLeft }: TTimerProps) => {
   const [timeLeft, setTimeLeft] = useState(initialTime);

@@ -9,8 +9,7 @@ import { createProfileValues } from "../../../configs/constants";
 import { TProfileData } from "../types";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import CustomInputField from "../../../components/CustomInputField";
-import ButtonField from "../../../components/ButtonField";
+import { ButtonField, CustomInputField } from "../../../components/profile";
 
 const CreateProfile = () => {
   const navigate = useNavigate();

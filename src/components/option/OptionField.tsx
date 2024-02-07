@@ -1,6 +1,6 @@
 import React from "react";
 import { FaCheck } from "react-icons/fa";
-import { TOptionFieldProps } from "../pages/student/types";
+import { TOptionFieldProps } from "../../pages/student/types";
 
 const OptionField = ({
   index,
