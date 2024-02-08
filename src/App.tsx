@@ -4,7 +4,7 @@ import {
   ForgotPassword,
   ResetPassword,
 } from "./pages/auth/forgotPassword";
-import { AuthWrapper, ProtectedRoute } from "./routes";
+import { AuthWrapper } from "./routes";
 import {
   UserProfile,
   EditProfile,
@@ -15,6 +15,7 @@ import { Login } from "./pages/auth/login";
 import { Register } from "./pages/auth/register";
 import CommonLayout from "./layouts/CommonLayout";
 import Admin from "./pages/admin/Admin";
+import QuizDashboard from "./pages/student/quiz/QuizDashboard";
 
 const App = () => {
   return (
@@ -22,7 +23,14 @@ const App = () => {
       <BrowserRouter>
         <AuthWrapper>
           <Routes>
-            <Route path="/" element={<ProtectedRoute><CommonLayout layoutFor="auth" /></ProtectedRoute> }>
+            <Route
+              path="/"
+              element={
+                <AuthWrapper>
+                  <CommonLayout layoutFor="auth" />
+                </AuthWrapper>
+              }
+            >
               <Route index element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="forgot-password" element={<ForgotPassword />} />
@@ -31,14 +39,57 @@ const App = () => {
             </Route>
             {/* ----------user pages goes here as protected route---------- */}
             <Route element={<CommonLayout layoutFor="user" />}>
-              <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
-              <Route path="/profile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
-              <Route path="/edit-profile" element={<ProtectedRoute><EditProfile /></ProtectedRoute>} />
-              <Route path="/create-profile" element={<ProtectedRoute><CreateProfile /></ProtectedRoute>} />
+              <Route
+                path="/home"
+                element={
+                  <AuthWrapper>
+                    <Home />
+                  </AuthWrapper>
+                }
+              />
+              <Route
+                path="/profile"
+                element={
+                  <AuthWrapper>
+                    <UserProfile />
+                  </AuthWrapper>
+                }
+              />
+              <Route
+                path="/edit-profile"
+                element={
+                  <AuthWrapper>
+                    <EditProfile />
+                  </AuthWrapper>
+                }
+              />
+              <Route
+                path="/create-profile"
+                element={
+                  <AuthWrapper>
+                    <CreateProfile />
+                  </AuthWrapper>
+                }
+              />
+              <Route
+                path="/quiz/:id"
+                element={
+                  <AuthWrapper>
+                    <QuizDashboard />
+                  </AuthWrapper>
+                }
+              />
             </Route>
             {/* ----------admin pages goes here as protected route----------- */}
             <Route path="/admin">
-                <Route index element={<ProtectedRoute><Admin /></ProtectedRoute>} />
+              <Route
+                index
+                element={
+                  <AuthWrapper>
+                    <Admin />
+                  </AuthWrapper>
+                }
+              />
             </Route>
           </Routes>
         </AuthWrapper>

@@ -10,9 +10,11 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { RootState } from "../../../redux/store";
 import { profileValidationSchema } from "../../../validation";
-import BreadCrumb from "../../../components/BreadCrumb";
-import CustomInputField from "../../../components/CustomInputField";
-import ButtonField from "../../../components/ButtonField";
+import {
+  BreadCrumb,
+  ButtonField,
+  CustomInputField,
+} from "../../../components/profile";
 
 const EditProfile = () => {
   const navigate = useNavigate();

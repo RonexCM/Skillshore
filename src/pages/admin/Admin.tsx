@@ -14,12 +14,12 @@ const Admin = () => {
     <div className="block justify-center h-[600px] w-[800px] text-lg text-primary">
       <h1>Admin page coming soon</h1>
       <NavLink
-          to="/"
-          onClick={LogOut}
-          className="font-bold cursor-pointer dark:text-white hover:underline"
-          >
-          Logout
-        </NavLink>
+        to="/"
+        onClick={LogOut}
+        className="font-bold cursor-pointer dark:text-white hover:underline"
+      >
+        Logout
+      </NavLink>
     </div>
   );
 };

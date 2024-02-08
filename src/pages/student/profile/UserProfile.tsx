@@ -1,10 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../../redux/store";
 import "react-toastify/dist/ReactToastify.css";
-import ProfileDetails from "../../../components/ProfileDetails";
 import { FaHouse } from "react-icons/fa6";
 import { useSelector } from "react-redux";
-import BreadCrumb from "../../../components/BreadCrumb";
+import {
+  BreadCrumb,
+  ButtonField,
+  ProfileDetails,
+} from "../../../components/profile";
 
 const UserProfile = () => {
   const navigate = useNavigate();
@@ -20,13 +23,9 @@ const UserProfile = () => {
               <BreadCrumb icon={FaHouse} title="Home" subTitle="Profile" />
 
               {userDetails.name ? (
-                <button
-                  type="button"
-                  className="text-white mb-[20px] bg-green-700 font-medium rounded-lg text-sm h-[50px] w-[150px]"
-                  onClick={() => navigate("/edit-profile")}
-                >
-                  Edit Profile
-                </button>
+                <div onClick={() => navigate("/edit-profile")}>
+                  <ButtonField title="Edit Profile" />
+                </div>
               ) : (
                 <div></div>
               )}
