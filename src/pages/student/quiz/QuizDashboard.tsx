@@ -23,8 +23,7 @@ import {
 const QuizDashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const { id: quizId } = useParams();
-  const quizId = 3;
+  const { id: quizId } = useParams();
   const [postQuizData] = usePostQuizDataMutation();
   const { data, isLoading } = useGetQuizOptionsQuery(quizId);
   const quizDetails = useSelector((state: RootState) => state.quiz.data);
@@ -159,7 +158,7 @@ const QuizDashboard = () => {
               <QuizButton onClick={nextButton} title="Next Question" />
             )}
           </div>
-          <div className=" grid grid-cols-1 row-span-5 ">
+          <div className=" grid grid-cols-1 row-span-5  ">
             {questions[index]?.options.map((option: string, index: number) => (
               <OptionField
                 key={index}

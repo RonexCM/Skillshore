@@ -23,10 +23,6 @@ const ProtectedRoute: React.FC<{ children: ReactNode }> = ({ children }) => {
       navigate("/home");
     }
 
-    if (token && userData && userData.role === "student") {
-      navigate("/quiz");
-    }
-
     const timeout = setTimeout(() => {
       setIsLoading(false);
     }, 300);
