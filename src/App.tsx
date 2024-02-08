@@ -92,6 +92,7 @@ const App = () => {
                   </AuthWrapper>
                 }
               />
+              <Route path="*" element={<PageNotFound />} />
             </Route>
 
             <Route path="/admin">
