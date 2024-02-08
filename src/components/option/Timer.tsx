@@ -26,7 +26,7 @@ const Timer = ({ initialTime, onTimeout, updateTimeLeft }: TTimerProps) => {
     )}`;
   };
 
-  return <div>{formatTime(timeLeft)}</div>;
+  return <>{formatTime(timeLeft)}</>;
 };
 
 export default Timer;

@@ -72,7 +72,7 @@ const App = () => {
                 }
               />
               <Route
-                path="/quiz"
+                path="/quiz/:id"
                 element={
                   <AuthWrapper>
                     <QuizDashboard />

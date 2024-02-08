@@ -22,6 +22,7 @@ const QuizDashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id: quizId } = useParams();
+  // const quizId = 8;
   const [postQuizData] = usePostQuizDataMutation();
   const { data, isLoading } = useGetQuizOptionsQuery(quizId);
   const quizDetails = useSelector((state: RootState) => state.quiz.data);
@@ -102,16 +103,17 @@ const QuizDashboard = () => {
       };
       dispatch(setAnswerData(data));
       postQuizData(data);
-
       navigate("/quizzes");
     }
   };
 
   const handleTimeout = () => {
     const data = { ...quizAnswer, total_time: timer };
+    console.log("object");
     postQuizData(data);
     navigate("/quizzes");
   };
+
   return (
     <div className="h-max w-full px-[50px] font-poppins">
       <div className=" grid grid-cols-2  items-center  ">
