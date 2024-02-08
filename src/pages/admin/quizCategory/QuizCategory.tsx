@@ -18,19 +18,15 @@ const QuizCategory = () => {
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [startingIndex, setStartingIndex] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
-  const [debounce, setDebounce] = useState(false);
 
   const {
     data: quizCategoriesData,
     isLoading,
     isSuccess,
-  } = useGetQuizCategoriesQuery(
-    {
-      page: currentPageNumber,
-      title: searchTerm,
-    },
-    { skip: debounce }
-  );
+  } = useGetQuizCategoriesQuery({
+    page: currentPageNumber,
+    title: searchTerm,
+  });
 
   useEffect(() => {
     if (isSuccess) {
@@ -57,11 +53,7 @@ const QuizCategory = () => {
       </h1>
 
       <div className="flex justify-between">
-        <FormSearchbar
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-          setDebounce={setDebounce}
-        />
+        <FormSearchbar setSearchTerm={setSearchTerm} />
         <Link
           to="addQuizCategory"
           className="bg-dark transition-colors flex items-center text-primary-light rounded-lg text-xs font-medium py-button-padding-y px-button-padding-x outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"

@@ -9,3 +9,7 @@ export const convertPayloadToFormData = (payload: any) => {
   }
   return formData;
 };
+
+export const generateSlug = (value: any) => {
+  return value.toLowerCase().split(" ").join("-").toString();
+};
