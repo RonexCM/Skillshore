@@ -23,9 +23,10 @@ import {
 const QuizDashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { id: quizId } = useParams();
+  // const { id: quizId } = useParams();
+  const quizId = 3;
   const [postQuizData] = usePostQuizDataMutation();
-  const { data, isLoading } = useGetQuizOptionsQuery(3);
+  const { data, isLoading } = useGetQuizOptionsQuery(quizId);
   const quizDetails = useSelector((state: RootState) => state.quiz.data);
   const quizAnswer = useSelector((state: RootState) => state.answer.data);
 
