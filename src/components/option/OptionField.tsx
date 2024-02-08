@@ -18,7 +18,7 @@ const OptionField = ({
   return (
     <div
       onClick={handleSelect}
-      className=" flex  h-[120px] mb-7 cursor-pointer rounded-none border-[1px]"
+      className=" flex  h-[120px] mb-7  cursor-pointer rounded-none border-[1px]"
     >
       <div
         className={`font-bold cursor-pointer  ${

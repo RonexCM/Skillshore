@@ -11,8 +11,6 @@ import {
 } from "../../../redux/services/myQuizOptionsEndpoints";
 import { setAnswerData } from "../../../redux/slice/userQuizSlice";
 import { useParams } from "react-router-dom";
-import BreadCrumb from "../../../components/profile/BreadCrumb";
-import { FaHouse } from "react-icons/fa6";
 import {
   OptionField,
   QuizButton,
@@ -24,16 +22,16 @@ const QuizDashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // const { id: quizId } = useParams();
-  const quizId = 3;
+  const quizId = 8;
   const [postQuizData] = usePostQuizDataMutation();
   const { data, isLoading } = useGetQuizOptionsQuery(quizId);
   const quizDetails = useSelector((state: RootState) => state.quiz.data);
   const quizAnswer = useSelector((state: RootState) => state.answer.data);
-
   const [index, setIndex] = useState(0);
   const [selectedOptionIndex, setSelectedOptionIndex] = useState<number | null>(
     null
   );
+
   const [timer, setTimer] = useState(0);
   const { questions } = quizDetails?.questions?.data || { questions: [] };
   const { time } = quizDetails;
@@ -111,20 +109,12 @@ const QuizDashboard = () => {
   };
 
   const handleTimeout = () => {
-    postQuizData(quizAnswer);
+    const data = { ...quizAnswer, total_time: timer };
+    postQuizData(data);
     navigate("/quizzes");
   };
   return (
     <div className="h-max w-full px-[50px] font-poppins">
-      <div className="flex flex-col justify-start items-left ">
-        <div className="text-primary ml-5 text-lg flex items-center gap-1 self-start mt-[37px]">
-          <BreadCrumb
-            icon={FaHouse}
-            title="Home"
-            subTitle={quizDetails.title}
-          />
-        </div>
-      </div>
       <div className=" grid grid-cols-2  items-center  ">
         <img src={quizDetails.thumbnail} className=" h-[150px] w-[200px]" />
         <div className="flex justify-end">
@@ -141,14 +131,14 @@ const QuizDashboard = () => {
       </div>
       <div className="border-t border-primary-light "></div>
       <div className=" grid grid-cols-2  h-max w-full  ">
-        <div className="border-r border-primary-light">
+        <div className="border-r border-primary-light ">
           <QuizQuestionField
             title={questions[index]?.title}
             description={quizDetails.description}
           />
         </div>
         <div className=" pl-10 grid grid-cols-1  ">
-          <div className=" flex justify-between items-center my-5">
+          <div className=" flex justify-between items-center my-8">
             <p className=" text-dark text-sm font-semibold">
               Select one answer
             </p>
