@@ -17,15 +17,19 @@ import {
   QuizQuestionField,
   Timer,
 } from "../../../components/option";
+import { QuizDetails } from "../types";
 
 const QuizDashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id: quizId } = useParams();
-  // const quizId = 8;
   const [postQuizData] = usePostQuizDataMutation();
-  const { data, isLoading } = useGetQuizOptionsQuery(quizId);
-  const quizDetails = useSelector((state: RootState) => state.quiz.data);
+  const { data, isLoading } = useGetQuizOptionsQuery(
+    quizId as unknown as number
+  );
+  const quizDetails = useSelector(
+    (state: RootState) => state.quiz.data as QuizDetails
+  );
   const quizAnswer = useSelector((state: RootState) => state.answer.data);
   const [index, setIndex] = useState(0);
   const [selectedOptionIndex, setSelectedOptionIndex] = useState<number | null>(
@@ -109,7 +113,6 @@ const QuizDashboard = () => {
 
   const handleTimeout = () => {
     const data = { ...quizAnswer, total_time: timer };
-    console.log("object");
     postQuizData(data);
     navigate("/quizzes");
   };
@@ -130,16 +133,16 @@ const QuizDashboard = () => {
           </p>
         </div>
       </div>
-      <div className="border-t border-primary-light "></div>
-      <div className=" grid grid-cols-2  h-max w-full  ">
+      <div className="border-t border-primary-light ml-[23px]"></div>
+      <div className=" grid grid-cols-2 ml-[23px]  h-max w-full  ">
         <div className="border-r border-primary-light ">
           <QuizQuestionField
             title={questions[index]?.title}
             description={quizDetails.description}
           />
         </div>
-        <div className=" pl-10 grid grid-cols-1  ">
-          <div className=" flex justify-between items-center my-8">
+        <div className=" pl-10 grid grid-cols-1 mt-5 ">
+          <div className=" flex justify-between items-center mb-7">
             <p className=" text-dark text-sm font-semibold">
               Select one answer
             </p>
