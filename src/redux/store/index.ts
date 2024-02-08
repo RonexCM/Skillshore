@@ -15,6 +15,8 @@ import { combineReducers } from "redux";
 import storage from "redux-persist/lib/storage";
 import { encryptTransform } from "redux-persist-transform-encrypt";
 import authSlice from "../slice/authSlice";
+import quizSlice from "../slice/quizSlice";
+import userQuizSlice from "../slice/userQuizSlice";
 
 const persistConfig = {
   key: "root",
@@ -27,10 +29,11 @@ const persistConfig = {
     }),
   ],
 };
-
 const rootReducer = combineReducers({
   user: userSlice,
   auth: authSlice,
+  quiz: quizSlice,
+  answer: userQuizSlice,
   [myApi.reducerPath]: myApi.reducer,
 });
 
