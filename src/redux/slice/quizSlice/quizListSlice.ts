@@ -1,24 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TQuizType } from "../../../pages/admin/types";
 import { TCommonMetaType } from "../../../pages/admin/types/TCommonTypes";
 
 const initialState = {
-  data: [
-    {
-      id: 0,
-      title: "",
-      slug: "",
-      thumbnail: null,
-      description: "",
-      time: 0,
-      retry_after: 0,
-      status: 0,
-      category: {
-        id: 0,
-        title: "",
-      },
-    },
-  ],
+  data: [],
   meta: {
     current_page: 1,
     from: 1,
@@ -34,7 +18,7 @@ const quizListSlice = createSlice({
   name: "quizListSlice",
   initialState,
   reducers: {
-    saveQuizList: (state, action: PayloadAction<TQuizType[]>) => {
+    saveQuizList: (state, action: PayloadAction<any>) => {
       state.data = action.payload;
     },
     saveQuizMetaData: (state, action: PayloadAction<TCommonMetaType>) => {

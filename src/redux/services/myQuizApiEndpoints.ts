@@ -1,5 +1,4 @@
 import {
-  TQuizType,
   TFetchQuizzesQueryTransformReturnType,
   TFetchQuizzesType,
   TAddQuizFieldType,

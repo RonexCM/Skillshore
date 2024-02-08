@@ -18,6 +18,7 @@ const Question = () => {
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [startingIndex, setStartingIndex] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
+  const [debounce, setDebounce] = useState(false);
 
   const loadingState = useLoadingState();
   const { setShowLoader } = loadingState;
@@ -26,10 +27,15 @@ const Question = () => {
     data: questionsData,
     isLoading,
     isSuccess,
-  } = useGetQuestionsQuery({
-    page: currentPageNumber,
-    title: searchTerm,
-  });
+  } = useGetQuestionsQuery(
+    {
+      page: currentPageNumber,
+      title: searchTerm,
+    },
+    { skip: debounce }
+  );
+
+  const { meta } = useSelector((state: RootState) => state.questionList);
 
   useEffect(() => {
     if (isSuccess) {
@@ -40,8 +46,6 @@ const Question = () => {
     setStartingIndex(currentPageNumber * 10 - 9);
   }, [questionsData, isLoading, isSuccess]);
 
-  const { meta } = useSelector((state: RootState) => state.questionList);
-
   return (
     <motion.div
       initial={{ opacity: 0.2 }}
@@ -51,7 +55,11 @@ const Question = () => {
       <h1 className="text-primary font-medium text-2xl leading-4">Question</h1>
 
       <div className="flex justify-between">
-        <FormSearchbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        <FormSearchbar
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          setDebounce={setDebounce}
+        />
         <Link
           to="addQuestion"
           className="bg-dark transition-colors flex items-center text-primary-light rounded-lg text-xs font-medium py-button-padding-y px-button-padding-x outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"

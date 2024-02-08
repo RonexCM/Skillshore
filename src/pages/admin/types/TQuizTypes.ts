@@ -4,7 +4,7 @@ export type TQuizType = {
   id: number;
   title: string;
   slug: string;
-  thumbnail: File | null;
+  thumbnail: File | string;
   description: string;
   time: number;
   retry_after: number;
@@ -47,10 +47,10 @@ export type TEditQuizFieldType = {
   thumbnail: File | string;
   description: string;
   time: string | number;
-  retry_after: number;
+  retry_after: string | number;
   question_categories: number[];
   status: number;
-  pass_percentage: number;
+  pass_percentage: string | number;
 };
 
 export type TAddQuizFieldInitialStateType = {

@@ -19,16 +19,21 @@ const Quiz = () => {
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [startingIndex, setStartingIndex] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
+  const [debounce, setDebounce] = useState(false);
 
   const {
     data: quizzesData,
     isLoading,
     isSuccess,
-  } = useGetQuizzesQuery({
-    page: currentPageNumber,
-    title: searchTerm,
-  });
+  } = useGetQuizzesQuery(
+    {
+      page: currentPageNumber,
+      title: searchTerm,
+    },
+    { skip: debounce }
+  );
 
+  console.log(quizzesData);
   useEffect(() => {
     if (isSuccess) {
       dispatch(saveQuizList(quizzesData.data));
@@ -51,7 +56,11 @@ const Quiz = () => {
     >
       <h1 className="text-primary font-medium text-2xl leading-4">Quiz</h1>
       <div className="flex justify-between">
-        <FormSearchbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        <FormSearchbar
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          setDebounce={setDebounce}
+        />
         <Link
           to="addQuiz"
           className="bg-dark transition-colors flex items-center text-primary-light rounded-lg text-xs font-medium py-button-padding-y px-button-padding-x outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"

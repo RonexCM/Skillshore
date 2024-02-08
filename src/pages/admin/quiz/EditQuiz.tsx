@@ -92,7 +92,7 @@ const EditQuiz = () => {
         onSubmit={onSubmit}
         validationSchema={validationSchemaAddQuiz}
       >
-        {({ handleChange, setFieldValue }) => (
+        {({ handleChange, setFieldValue, handleBlur }) => (
           <Form>
             <div className="border-2  p-7 rounded-md grid gap-2 gap-x-6 grid-cols-2 border-primary-light ">
               <FormikInputField name="title" label="Title" type="text" />
@@ -104,6 +104,7 @@ const EditQuiz = () => {
               <FormikSelectQuestionCategoriesField
                 setFieldValue={setFieldValue}
                 selected={quiz.question_categories}
+                handleBlur={handleBlur}
               />
 
               <FormikTextAreaField name="description" label="Description" />

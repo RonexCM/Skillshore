@@ -4,10 +4,17 @@ import { IoSearch } from "react-icons/io5";
 type Props = {
   searchTerm: string;
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+  setDebounce: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const FormSearchbar = ({ searchTerm, setSearchTerm }: Props) => {
+const FormSearchbar = ({ searchTerm, setSearchTerm, setDebounce }: Props) => {
+  let timer: string | number | NodeJS.Timeout | undefined;
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    clearTimeout(timer);
+    setDebounce(true);
+    timer = setTimeout(() => {
+      setDebounce(false);
+    }, 600);
     setSearchTerm(e.target.value);
   };
 
