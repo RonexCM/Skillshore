@@ -1,4 +1,4 @@
-import { TProfileDetails } from "../pages/student/types";
+import { TProfileDetails } from "../../pages/student/types";
 
 const ProfileDetails = ({ title, data }: TProfileDetails) => {
   return (
@@ -6,7 +6,7 @@ const ProfileDetails = ({ title, data }: TProfileDetails) => {
       <div className="Profile grid grid-cols-2">
         <p className=" text-dark font-medium">{title}</p>
         <div className="flex justify-between">
-          <p className=" text-dark font-medium">{data}</p>
+          <p className=" text-dark font-medium ">{data}</p>
         </div>
       </div>
       <hr />

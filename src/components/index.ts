@@ -1,4 +1,4 @@
-import BreadCrumb from "./BreadCrumb";
+import BreadCrumb from "./profile/BreadCrumb";
 import ListOfQuestionCategory from "./ListOfQuestionCategory";
 import ListOfQuestions from "./ListOfQuestions";
 import ListOfQuiz from "./ListOfQuiz";
@@ -11,8 +11,6 @@ import FormikOptionsFieldArray from "./form/FormikOptionsFieldArray";
 import FormikSelectAnswerField from "./form/FormikSelectAnswerField";
 import FormikSelectCategoryField from "./form/FormikSelectCategoryField";
 import FormikSelectQuestionCategoriesField from "./form/FormikSelectQuestionCategoriesField";
-// import FormikSelectQuestionCategoryField from "./form/FormikSelectQuestionCategoryField";
-// import FormikSelectQuizCategoryField from "./form/FormikSelectQuizCategoryField";
 import FormikSelectStatus from "./form/FormikSelectStatus";
 import FormikSelectWeightageField from "./form/FormikSelectWeightageField";
 import FormikTextAreaField from "./form/FormikTextAreaField";
@@ -26,8 +24,6 @@ export {
   FormikSelectWeightageField,
   FormikSelectStatus,
   FormikFileInputField,
-  // FormikSelectQuizCategoryField,
-  // FormikSelectQuestionCategoryField,
   FormikSelectQuestionCategoriesField,
   FormikSelectAnswerField,
   FormikOptionsFieldArray,

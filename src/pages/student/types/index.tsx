@@ -65,3 +65,77 @@ export type TProfileDetails = {
   title: string;
   data: string | ReactElement[];
 };
+
+export type TQuizOptions = {
+  data: {
+    id: number;
+    title: string;
+    slug: string;
+    thumbnail: string;
+    description: string;
+    time: number;
+    retry_after: number;
+    status: number;
+    pass_percentage: number;
+    category: {
+      id: number;
+      title: string;
+      slug: string;
+    };
+  };
+  questions: {
+    data: {
+      questions: Array<{
+        id: number;
+        title: string;
+        description: string;
+        options: Array<string>;
+        weightage: number;
+        status: number;
+      }>;
+    };
+  };
+};
+
+export type TOptionFieldProps = {
+  index: number;
+  option: string;
+  onSelect: (index: number) => void;
+  isSelected: boolean;
+};
+
+export type TTimerProps = {
+  initialTime: number;
+  onTimeout: () => void;
+  updateTimeLeft: (timeLeft: number) => void;
+};
+
+export type QuizQuestion = {
+  id: number;
+  title: string;
+  description: string;
+  options: string[];
+  weightage: number;
+  status: number;
+};
+
+type QuizData = {
+  questions: QuizQuestion[];
+};
+
+type QuizQuestionsResponse = {
+  data?: QuizData;
+};
+
+export type QuizDetails = {
+  title: string, 
+  thumbnail: string, 
+  slug: string,
+  description: string, 
+  retry_after: number,
+  status: number,
+  time: number,
+  questions?: QuizQuestionsResponse;
+};
+
+

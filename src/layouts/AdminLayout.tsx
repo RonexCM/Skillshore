@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import AdminNavbar from "./AdminNavbar";
 import Footer from "./Footer";
 import { Outlet, useOutletContext } from "react-router-dom";
-import { Spinner } from "flowbite-react";
 import { motion } from "framer-motion";
+import { LineWave } from "react-loader-spinner";
 
 type ContextType = {
   showLoader: boolean;
@@ -30,7 +30,7 @@ const AdminLayout = () => {
         className="fixed inset-0 bg-dark bg-opacity-[30%] z-50 flex items-center justify-center"
       >
         <div>
-          <Spinner aria-label="Extra large spinner example" size="xl" />
+          <LineWave />
         </div>
       </motion.div>
 
