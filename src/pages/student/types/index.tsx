@@ -109,3 +109,33 @@ export type TTimerProps = {
   onTimeout: () => void;
   updateTimeLeft: (timeLeft: number) => void;
 };
+
+export type QuizQuestion = {
+  id: number;
+  title: string;
+  description: string;
+  options: string[];
+  weightage: number;
+  status: number;
+};
+
+type QuizData = {
+  questions: QuizQuestion[];
+};
+
+type QuizQuestionsResponse = {
+  data?: QuizData;
+};
+
+export type QuizDetails = {
+  title: string, 
+  thumbnail: string, 
+  slug: string,
+  description: string, 
+  retry_after: number,
+  status: number,
+  time: number,
+  questions?: QuizQuestionsResponse;
+};
+
+

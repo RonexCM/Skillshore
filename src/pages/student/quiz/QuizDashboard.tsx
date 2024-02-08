@@ -17,15 +17,15 @@ import {
   QuizQuestionField,
   Timer,
 } from "../../../components/option";
+import { QuizDetails } from "../types";
 
 const QuizDashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id: quizId } = useParams();
-  // const quizId = 8;
   const [postQuizData] = usePostQuizDataMutation();
-  const { data, isLoading } = useGetQuizOptionsQuery(quizId);
-  const quizDetails = useSelector((state: RootState) => state.quiz.data);
+  const { data, isLoading } = useGetQuizOptionsQuery(quizId as unknown as number);
+  const quizDetails = useSelector((state: RootState) => state.quiz.data as QuizDetails);
   const quizAnswer = useSelector((state: RootState) => state.answer.data);
   const [index, setIndex] = useState(0);
   const [selectedOptionIndex, setSelectedOptionIndex] = useState<number | null>(
@@ -33,8 +33,9 @@ const QuizDashboard = () => {
   );
 
   const [timer, setTimer] = useState(0);
-  const { questions } = quizDetails?.questions?.data || { questions: [] };
+  const { questions } = quizDetails?.questions?.data || { questions: [] }
   const { time } = quizDetails;
+  
   useEffect(() => {
     if (data) {
       dispatch(setQuizData(data));
@@ -49,13 +50,6 @@ const QuizDashboard = () => {
   const updateTimeLeft = (newTime: number) => {
     setTimer(newTime);
   };
-  if (isLoading) {
-    return (
-      <div className="flex justify-center h-[800px]">
-        <LineWave color="#1a2b48" height={100} />
-      </div>
-    );
-  }
 
   const handleOption = (index: number) => {
     setSelectedOptionIndex(index);
@@ -109,10 +103,17 @@ const QuizDashboard = () => {
 
   const handleTimeout = () => {
     const data = { ...quizAnswer, total_time: timer };
-    console.log("object");
     postQuizData(data);
     navigate("/quizzes");
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center h-[800px]">
+        <LineWave color="#1a2b48" height={100} />
+      </div>
+    );
+  }
 
   return (
     <div className="h-max w-full px-[50px] font-poppins">
