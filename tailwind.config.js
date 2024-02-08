@@ -1,5 +1,9 @@
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "node_modules/flowbite-react/lib/esm/**/*.js",
+  ],
   theme: {
     extend: {
       colors: {
@@ -19,12 +23,12 @@ export default {
       fontFamily: {
         sans: ["Poppins", "sans-serif"],
         poppins: "Poppins",
-        nav1: "#CFDAFE",
-        nav2: "#FFB72A",
-        foot1: "#E1E7FF",
-        foot2: "#2F5CFE",
       },
     },
   },
-  plugins: [],
+  plugins: [require("flowbite/plugin")],
+  nav1: "#CFDAFE",
+  nav2: "#FFB72A",
+  foot1: "#E1E7FF",
+  foot2: "#2F5CFE",
 };

@@ -22,7 +22,10 @@ const baseQuery = fetchBaseQuery({
     if (token) {
       headers.set("Authorization", `Bearer ${token}`);
     }
-    headers.set("Content-type", "application/json");
+    if (!headers.has("X-Content-Type")) {
+      headers.set("Content-type", "application/json");
+    }
+
     headers.set("Accept", "application/json");
     return headers;
   },
@@ -36,6 +39,14 @@ export const myApi = createApi({
     unknown,
     CustomErrorMessage
   >,
-  tagTypes: ["users"],
+  keepUnusedDataFor: 1,
+  tagTypes: [
+    "users",
+    "FetchQuestions",
+    "FetchQuestionCategories",
+    "FetchQuizzes",
+    "FetchQuizCategories",
+    "FetchSingleQuestion",
+  ],
   endpoints: () => ({}),
 });
