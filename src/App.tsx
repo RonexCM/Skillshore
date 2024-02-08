@@ -4,7 +4,7 @@ import {
   ForgotPassword,
   ResetPassword,
 } from "./pages/auth/forgotPassword";
-import { AuthWrapper, ProtectedRoute } from "./routes";
+import { AuthWrapper } from "./routes";
 import {
   UserProfile,
   EditProfile,
@@ -26,9 +26,9 @@ const App = () => {
             <Route
               path="/"
               element={
-                <ProtectedRoute>
+                <AuthWrapper>
                   <CommonLayout layoutFor="auth" />
-                </ProtectedRoute>
+                </AuthWrapper>
               }
             >
               <Route index element={<Login />} />
@@ -42,41 +42,41 @@ const App = () => {
               <Route
                 path="/home"
                 element={
-                  <ProtectedRoute>
+                  <AuthWrapper>
                     <Home />
-                  </ProtectedRoute>
+                  </AuthWrapper>
                 }
               />
               <Route
                 path="/profile"
                 element={
-                  <ProtectedRoute>
+                  <AuthWrapper>
                     <UserProfile />
-                  </ProtectedRoute>
+                  </AuthWrapper>
                 }
               />
               <Route
                 path="/edit-profile"
                 element={
-                  <ProtectedRoute>
+                  <AuthWrapper>
                     <EditProfile />
-                  </ProtectedRoute>
+                  </AuthWrapper>
                 }
               />
               <Route
                 path="/create-profile"
                 element={
-                  <ProtectedRoute>
+                  <AuthWrapper>
                     <CreateProfile />
-                  </ProtectedRoute>
+                  </AuthWrapper>
                 }
               />
               <Route
                 path="/quiz"
                 element={
-                  <ProtectedRoute>
+                  <AuthWrapper>
                     <QuizDashboard />
-                  </ProtectedRoute>
+                  </AuthWrapper>
                 }
               />
             </Route>
@@ -85,9 +85,9 @@ const App = () => {
               <Route
                 index
                 element={
-                  <ProtectedRoute>
+                  <AuthWrapper>
                     <Admin />
-                  </ProtectedRoute>
+                  </AuthWrapper>
                 }
               />
             </Route>

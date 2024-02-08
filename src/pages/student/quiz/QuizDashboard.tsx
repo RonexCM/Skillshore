@@ -25,7 +25,7 @@ const QuizDashboard = () => {
   const dispatch = useDispatch();
   const { id: quizId } = useParams();
   const [postQuizData] = usePostQuizDataMutation();
-  const { data, isLoading } = useGetQuizOptionsQuery(quizId);
+  const { data, isLoading } = useGetQuizOptionsQuery(3);
   const quizDetails = useSelector((state: RootState) => state.quiz.data);
   const quizAnswer = useSelector((state: RootState) => state.answer.data);
 
