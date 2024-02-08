@@ -1,3 +1,4 @@
+import { convertPayloadToFormData } from "../../helpers";
 import {
   TFetchQuizzesQueryTransformReturnType,
   TFetchQuizzesType,
@@ -45,10 +46,14 @@ const myQuizApiEndpoints = myApi.injectEndpoints({
 
     addQuiz: builder.mutation<TAddQuizFieldType, TAddQuizFieldType>({
       query: (payload: TAddQuizFieldType) => {
+        const formData = convertPayloadToFormData(payload);
         return {
           url: "/admin/quizzes",
           method: "POST",
-          body: payload,
+          body: formData,
+          headers: {
+            "X-Content-Type": "multipart/form-data",
+          },
         };
       },
       invalidatesTags: ["FetchQuizzes"],
