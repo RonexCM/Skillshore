@@ -7,8 +7,17 @@ import { myApi } from "./myApi";
 
 const myQuizApiEndpoints = myApi.injectEndpoints({
   endpoints: (builder) => ({
-    getAllQuiz: builder.query<TFetchQuizQueryTransformResponseType, void>({
-      query: () => "/student/quizzes/all",
+    getAllQuiz: builder.query<TFetchQuizQueryTransformResponseType, any>({
+      query: ({ page, title, selectedCategory }) => {
+        let query = `/student/quizzes/all?page=${page}`;
+        if (title) {
+          query += `&title=${title}`;
+        }
+        if (selectedCategory) {
+          query += `&category_id=${selectedCategory}`;
+        }
+        return query;
+      },
       providesTags: ["FetchQuizzes"],
       transformResponse: (response: TFetchQuizQueryResponseType) => {
         return { data: response.data, meta: response.meta };

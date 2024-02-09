@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useGetAllQuizCategoriesQuery } from "../../../redux/services/myQuizCategoryApiEndpoints";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetAllQuizQuery } from "../../../redux/services/myQuizApiEndpoints";
@@ -14,38 +14,96 @@ import { CiLock } from "react-icons/ci";
 import { IoCheckmarkDoneCircle } from "react-icons/io5";
 import UserDashboardQuizCategoryRadio from "../../../components/User/UserDashboardQuizCategoryRadio";
 import UserQuizzesFilter from "../../../components/User/UserQuizzesFilter";
+import { QuizModalTypes } from "../../admin/types";
+import Pagination from "../../../components/Pagination";
+
 const QuizCategory = () => {
   // hooks
+  const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [showQuizModal, setShowQuizModal] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredCategories, setFilteredCategories] = useState([]);
   const [quizCategoryArray, setQuizCategoryArray] = useState([
-    { id: 0, title: "", isChecked: false },
+    { id: 0, isChecked: false },
   ]);
+  const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   // Redux Selectors
   const { data: listOfQuiz } = useSelector((state: RootState) => state.allQuiz);
+
   //  Api Queries
-  const { data: quizData } = useGetAllQuizQuery();
+  const { data: quizData } = useGetAllQuizQuery({
+    title: searchTerm,
+    page: currentPageNumber,
+  });
   const { data: quizCategoriesData } = useGetAllQuizCategoriesQuery();
+
+  // Effects to handle API responses
+
+  useEffect(() => {
+    if (quizData) {
+      dispatch(saveAllQuizList(quizData));
+    }
+    if (quizCategoriesData) {
+      const allQuizCategoryArray = quizCategoriesData.data;
+      dispatch(saveAllQuizCategoriesList(allQuizCategoryArray));
+      const quizCategoriesWithIsCheckedState = allQuizCategoryArray.map(
+        (quizCategory) => {
+          return { ...quizCategory, isChecked: false };
+        }
+      );
+
+      setQuizCategoryArray(quizCategoriesWithIsCheckedState);
+    }
+  }, [quizCategoriesData, quizData]);
+
+  useEffect(() => {
+    if (quizCategoriesData) {
+      setFilteredCategories(quizCategoriesData.data);
+    }
+  }, [quizCategoriesData]);
+
+  // Event Handlers
+
+  const handleClear = () => {
+    const tempCategoryArray = quizCategoryArray.map((quizCategory) => {
+      return { ...quizCategory, isChecked: false };
+    });
+    setQuizCategoryArray(tempCategoryArray);
+    setSelectedCategory(null);
+  };
+  const handleCategoryRadio = (category: string) => {
+    setSelectedCategory((prevCategory) => [...prevCategory, category]);
+  };
+
+  const handleCheckbox = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = e.target;
+
+    if (name === "selectAll") {
+      const tempCategoryArray = quizCategoryArray.map((quizCategory) => {
+        return { ...quizCategory, isChecked: checked };
+      });
+      setQuizCategoryArray(tempCategoryArray);
+    } else {
+      const tempCategoryArray = quizCategoryArray.map((quizCategory) =>
+        name === quizCategory.title
+          ? { ...quizCategory, isChecked: checked }
+          : quizCategory
+      );
+      setQuizCategoryArray(tempCategoryArray);
+    }
+  };
+  const handleStart = (quizData: QuizModalTypes) => {
+    dispatch(saveQuizDescription(quizData));
+    setShowQuizModal(true);
+  };
+
   // Function
   const selectQuiz = (quizId: number) => {
     navigate(`/student-quiz/${quizId}`);
-  };
-  const handleStart = (quizData: any) => {
-    const { title, description, time, thumbnail, retry_after } = quizData;
-    dispatch(
-      saveQuizDescription({
-        title,
-        description,
-        time,
-        thumbnail,
-        retry_after,
-      })
-    );
-    setShowQuizModal(true);
   };
   const getStatus = (result: any, retry_after: number) => {
     if (result && result.passed) {
@@ -74,55 +132,11 @@ const QuizCategory = () => {
       );
     }
   };
-  // Effects to handle API responses
-  useEffect(() => {
-    if (quizData) {
-      dispatch(saveAllQuizList(quizData));
-    }
-    if (quizCategoriesData) {
-      const allQuizCategoryArray = quizCategoriesData.data;
-      dispatch(saveAllQuizCategoriesList(allQuizCategoryArray));
-      const quizCategoriesWithIsCheckedState = allQuizCategoryArray.map(
-        (quizCategory) => {
-          return { ...quizCategory, isChecked: false };
-        }
-      );
-
-      setQuizCategoryArray(quizCategoriesWithIsCheckedState);
-    }
-  }, [quizCategoriesData, quizData]);
 
   const horizontalLineBaseStyle =
     "border-b-2 border-primary-light w-full my-[16px] opacity-[0.5]";
   const passed = false;
 
-  useEffect(() => {
-    if (quizCategoriesData) {
-      setFilteredCategories(quizCategoriesData.data);
-    }
-  }, [quizCategoriesData]);
-
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-    const filtered = quizCategoriesData?.data.filter((category) =>
-      category.title.toLowerCase().includes(e.target.value.toLowerCase())
-    );
-    setFilteredCategories(filtered);
-  };
-  // Event Handlers
-
-  const handleClear = () => {
-    const tempCategoryArray = quizCategoryArray.map((quizCategory) => {
-      return { ...quizCategory, isChecked: false };
-    });
-    setQuizCategoryArray(tempCategoryArray);
-    setSelectedCategory(null);
-  };
-  const handleCategoryRadio = (category: string) => {
-    setSelectedCategory((prevCategory) =>
-      prevCategory === category ? null : category
-    );
-  };
   //  Filter quizzes based on selected category
   const filteredQuizzes = listOfQuiz.filter((quiz) => {
     if (!selectedCategory) {
@@ -135,6 +149,7 @@ const QuizCategory = () => {
       (quiz.category && quiz.category.title === selectedCategory)
     );
   });
+  if (!quizData) return;
 
   return (
     <section className=" px-[132px] py-[40px]">
@@ -152,16 +167,46 @@ const QuizCategory = () => {
           <div className="flex flex-col gap-4 ">
             <Searchbar
               placeholder="Search"
-              value={searchQuery}
-              onChange={handleSearch}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
 
-            <div className="flex justify-end items-right   ">
+            <div className="flex justify-between    ">
+              <p className="text-primary text-sm font-semibold text-left">
+                {quizCategoryArray.filter(
+                  (quizCategory) => quizCategory.isChecked === false
+                ).length < 1
+                  ? "All"
+                  : quizCategoryArray.filter(
+                      (quizCategory) => quizCategory.isChecked === true
+                    ).length}
+                Selected
+              </p>
               <Button style="gray" text="Clear" onClick={handleClear} />
             </div>
           </div>
           <div className={horizontalLineBaseStyle} />
           <div className="flex flex-col gap-[16px]">
+            <div className="flex gap-4 items-center">
+              <input
+                className="border-2 border-primary-light rounded-sm hover:bg-[#689fff]"
+                type="checkBox"
+                id="selectAll"
+                name="selectAll"
+                onChange={handleCheckbox}
+                checked={
+                  quizCategoryArray.filter(
+                    (quizCategory) => quizCategory.isChecked === false
+                  ).length < 1
+                }
+              />
+              <label
+                className="text-sm text-dark font-normal"
+                htmlFor="selectAll"
+              >
+                All
+              </label>
+            </div>
             {quizCategoryArray.map((quizCategory, index) => (
               <UserDashboardQuizCategoryRadio
                 key={index}
@@ -174,7 +219,7 @@ const QuizCategory = () => {
           </div>
         </div>
         <div className="col-span-9 grid grid-cols-4 gap-4">
-          {filteredQuizzes.map((quiz, index) => (
+          {listOfQuiz.map((quiz, index) => (
             <UserQuizzesFilter
               key={index}
               quiz={quiz}
@@ -201,6 +246,16 @@ const QuizCategory = () => {
           }}
         ></div>
       )}
+      <nav
+        className="flex items-center bg-[#fcfcfc] flex-column  border-t-2 flex-wrap md:flex-row justify-between pt-4 p-3 mt-[50px]"
+        aria-label="Table navigation"
+      >
+        <Pagination
+          setCurrentPageNumber={setCurrentPageNumber}
+          currentPageNumber={quizData.meta.current_page}
+          totalNumberOfPages={quizData.meta.last_page}
+        />
+      </nav>
     </section>
   );
 };
