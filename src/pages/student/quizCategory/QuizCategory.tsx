@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { saveQuizDescription } from "../../../redux/slice/quizTestSlice";
 import { CiLock } from "react-icons/ci";
 import { IoCheckmarkDoneCircle } from "react-icons/io5";
-import UserDashboardQuizCategoryRadio from "../../../components/User/UserDashboardQuizCategoryRadio";
+import UserDashboardQuizCategoryRadio from "../../../components/User/UserDashboardQuizCategory";
 import UserQuizzesFilter from "../../../components/User/UserQuizzesFilter";
 import { QuizModalTypes } from "../../admin/types";
 import Pagination from "../../../components/Pagination";
@@ -75,9 +75,9 @@ const QuizCategory = () => {
     setQuizCategoryArray(tempCategoryArray);
     setSelectedCategory(null);
   };
-  const handleCategoryRadio = (category: string) => {
-    setSelectedCategory((prevCategory) => [...prevCategory, category]);
-  };
+  // const handleCheckbox = (category: string) => {
+  //   setSelectedCategory((prevCategory) => [...prevCategory, category]);
+  // };
 
   const handleCheckbox = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
@@ -87,6 +87,13 @@ const QuizCategory = () => {
         return { ...quizCategory, isChecked: checked };
       });
       setQuizCategoryArray(tempCategoryArray);
+      if (checked) {
+        setSelectedCategory(
+          quizCategoriesData?.data.map((category) => category.id) || []
+        );
+      } else {
+        setSelectedCategory([]);
+      }
     } else {
       const tempCategoryArray = quizCategoryArray.map((quizCategory) =>
         name === quizCategory.title
@@ -94,6 +101,10 @@ const QuizCategory = () => {
           : quizCategory
       );
       setQuizCategoryArray(tempCategoryArray);
+      const selectedCategoryIds = tempCategoryArray
+        .filter((category) => category.isChecked)
+        .map((category) => category.id);
+      setSelectedCategory(selectedCategoryIds);
     }
   };
   const handleStart = (quizData: QuizModalTypes) => {
@@ -139,15 +150,10 @@ const QuizCategory = () => {
 
   //  Filter quizzes based on selected category
   const filteredQuizzes = listOfQuiz.filter((quiz) => {
-    if (!selectedCategory) {
+    if (selectedCategory.length === 0) {
       return true;
     }
-    return (
-      (quiz.categories &&
-        Array.isArray(quiz.categories) &&
-        quiz.categories.includes(selectedCategory)) ||
-      (quiz.category && quiz.category.title === selectedCategory)
-    );
+    return quiz.category && selectedCategory.includes(quiz.category.id);
   });
   if (!quizData) return;
 
@@ -213,13 +219,13 @@ const QuizCategory = () => {
                 quizCategory={quizCategory}
                 index={index}
                 selectedCategory={selectedCategory}
-                handleCategoryRadio={handleCategoryRadio}
+                handleCheckbox={handleCheckbox}
               />
             ))}
           </div>
         </div>
         <div className="col-span-9 grid grid-cols-4 gap-4">
-          {listOfQuiz.map((quiz, index) => (
+          {filteredQuizzes.map((quiz, index) => (
             <UserQuizzesFilter
               key={index}
               quiz={quiz}
