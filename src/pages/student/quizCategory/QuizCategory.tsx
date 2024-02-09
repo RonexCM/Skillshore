@@ -21,11 +21,11 @@ const QuizCategory = () => {
   // hooks
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [showQuizModal, setShowQuizModal] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [filteredCategories, setFilteredCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState<string[] | number[]>(
+    []
+  );
   const [quizCategoryArray, setQuizCategoryArray] = useState([
-    { id: 0, isChecked: false },
+    { id: 0, title: "", isChecked: false },
   ]);
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
@@ -38,6 +38,7 @@ const QuizCategory = () => {
   const { data: quizData } = useGetAllQuizQuery({
     title: searchTerm,
     page: currentPageNumber,
+    selectedCategory,
   });
   const { data: quizCategoriesData } = useGetAllQuizCategoriesQuery();
 
@@ -60,12 +61,6 @@ const QuizCategory = () => {
     }
   }, [quizCategoriesData, quizData]);
 
-  useEffect(() => {
-    if (quizCategoriesData) {
-      setFilteredCategories(quizCategoriesData.data);
-    }
-  }, [quizCategoriesData]);
-
   // Event Handlers
 
   const handleClear = () => {
@@ -73,28 +68,30 @@ const QuizCategory = () => {
       return { ...quizCategory, isChecked: false };
     });
     setQuizCategoryArray(tempCategoryArray);
-    setSelectedCategory(null);
+    setSelectedCategory([]);
   };
-  const handleCategoryRadio = (category: string) => {
-    setSelectedCategory((prevCategory) => [...prevCategory, category]);
+  const handleCategoryRadio = (category: number) => {
+    setSelectedCategory((prevCategory: any) => {
+      if (!prevCategory?.includes(category)) {
+        return [...prevCategory, category];
+      } else {
+        const removeElement = prevCategory.filter(
+          (item: number) => item !== category
+        );
+        return removeElement;
+      }
+    });
   };
 
   const handleCheckbox = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
 
-    if (name === "selectAll") {
-      const tempCategoryArray = quizCategoryArray.map((quizCategory) => {
-        return { ...quizCategory, isChecked: checked };
-      });
-      setQuizCategoryArray(tempCategoryArray);
-    } else {
-      const tempCategoryArray = quizCategoryArray.map((quizCategory) =>
-        name === quizCategory.title
-          ? { ...quizCategory, isChecked: checked }
-          : quizCategory
-      );
-      setQuizCategoryArray(tempCategoryArray);
-    }
+    const tempCategoryArray = quizCategoryArray.map((quizCategory) =>
+      name === quizCategory.title
+        ? { ...quizCategory, isChecked: checked }
+        : quizCategory
+    );
+    setQuizCategoryArray(tempCategoryArray);
   };
   const handleStart = (quizData: QuizModalTypes) => {
     dispatch(saveQuizDescription(quizData));
@@ -135,20 +132,7 @@ const QuizCategory = () => {
 
   const horizontalLineBaseStyle =
     "border-b-2 border-primary-light w-full my-[16px] opacity-[0.5]";
-  const passed = false;
 
-  //  Filter quizzes based on selected category
-  const filteredQuizzes = listOfQuiz.filter((quiz) => {
-    if (!selectedCategory) {
-      return true;
-    }
-    return (
-      (quiz.categories &&
-        Array.isArray(quiz.categories) &&
-        quiz.categories.includes(selectedCategory)) ||
-      (quiz.category && quiz.category.title === selectedCategory)
-    );
-  });
   if (!quizData) return;
 
   return (
@@ -171,42 +155,15 @@ const QuizCategory = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
 
-            <div className="flex justify-between    ">
+            <div className="flex justify-between items-center">
               <p className="text-primary text-sm font-semibold text-left">
-                {quizCategoryArray.filter(
-                  (quizCategory) => quizCategory.isChecked === false
-                ).length < 1
-                  ? "All"
-                  : quizCategoryArray.filter(
-                      (quizCategory) => quizCategory.isChecked === true
-                    ).length}
-                Selected
+                {selectedCategory.length} Selected
               </p>
               <Button style="gray" text="Clear" onClick={handleClear} />
             </div>
           </div>
           <div className={horizontalLineBaseStyle} />
           <div className="flex flex-col gap-[16px]">
-            <div className="flex gap-4 items-center">
-              <input
-                className="border-2 border-primary-light rounded-sm hover:bg-[#689fff]"
-                type="checkBox"
-                id="selectAll"
-                name="selectAll"
-                onChange={handleCheckbox}
-                checked={
-                  quizCategoryArray.filter(
-                    (quizCategory) => quizCategory.isChecked === false
-                  ).length < 1
-                }
-              />
-              <label
-                className="text-sm text-dark font-normal"
-                htmlFor="selectAll"
-              >
-                All
-              </label>
-            </div>
             {quizCategoryArray.map((quizCategory, index) => (
               <UserDashboardQuizCategoryRadio
                 key={index}

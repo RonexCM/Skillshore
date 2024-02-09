@@ -18,7 +18,10 @@ const UserDashboardQuizCategoryRadio = ({
         id={`quizcategory${index + 1}`}
         name={quizCategory.title}
         onChange={() => handleCategoryRadio(quizCategory.id)}
-        checked={selectedCategory === quizCategory.id}
+        checked={
+          selectedCategory.length > 0 &&
+          selectedCategory.includes(quizCategory.id)
+        }
       />
       <label
         className="text-sm text-dark font-normal"

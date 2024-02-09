@@ -1,4 +1,4 @@
-import { CommonMetaType } from "./TCommonTypes";
+import { TCommonMetaType } from "./TCommonTypes";
 
 export type QuestionCategoryType = {
   id: string;
@@ -25,11 +25,11 @@ export type FetchQuestionCategoryType = {
     prev: string;
     next: string;
   };
-  meta: CommonMetaType;
+  meta: TCommonMetaType;
 };
 export type FetchQuestionCategoryQueryTransformReturnType = {
   data: QuestionCategoryType[];
-  meta: CommonMetaType;
+  meta: TCommonMetaType;
 };
 export type TQuestionCategoryFetchAllType = {
   id: number;

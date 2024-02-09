@@ -14,7 +14,10 @@ const myQuizApiEndpoints = myApi.injectEndpoints({
           query += `&title=${title}`;
         }
         if (selectedCategory) {
-          query += `&category_id=${selectedCategory}`;
+          if (selectedCategory.length > 0) {
+            const number = selectedCategory.map(Number).join(",");
+            query += `&category_id=${number}`;
+          }
         }
         return query;
       },
