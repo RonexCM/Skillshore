@@ -23,6 +23,32 @@ const QuizDashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id: quizId } = useParams();
+
+  useEffect(() => {
+    const handleBeforeUnload = (e) => {
+      const confirmationMessage =
+        "Your current progress will be saved. Are you sure you want to leave?";
+      e.preventDefault();
+      e.returnValue = confirmationMessage;
+
+      //   const submitQuizData = async () => {
+      //     try {
+      //       const data = { ...quizAnswer, total_time: timer };
+      //       await postQuizData(data);
+      //       console.log("Quiz data submitted successfully.");
+      //     } catch (error) {
+      //       console.error("Error submitting quiz data:", error);
+      //     }
+      //   };
+      //   submitQuizData();
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [navigate]);
   const [postQuizData] = usePostQuizDataMutation();
   const { data, isLoading } = useGetQuizOptionsQuery(
     quizId as unknown as number
@@ -120,7 +146,10 @@ const QuizDashboard = () => {
   return (
     <div className="h-max w-full px-[50px] font-poppins">
       <div className=" grid grid-cols-2  items-center  ">
-        <img src={quizDetails.thumbnail} className=" h-[150px] w-[200px]" />
+        <img
+          src={quizDetails.thumbnail}
+          className=" h-[150px] w-[200px] my-5"
+        />
         <div className="flex justify-end">
           <p className="text-4xl font-medium text-primary">
             {time && (
