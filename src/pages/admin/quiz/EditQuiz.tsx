@@ -1,5 +1,5 @@
 import { Formik, Form } from "formik";
-import { validationSchemaAddQuiz } from "../../../validation";
+
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -24,6 +24,21 @@ import {
   FormikTextAreaField,
 } from "../../../components";
 import { useGetAllQuizCategoriesQuery } from "../../../redux/services/myQuizCategoryApiEndpoints";
+import { validationSchemaEditQuiz } from "../../../validation";
+
+type TValuesToMap = {
+  id: number;
+  thumbnail?: string | File;
+  category_id: number;
+  title: string;
+  slug: string;
+  description: string;
+  time: string | number;
+  retry_after: string | number;
+  question_categories: number[];
+  status: number;
+  pass_percentage: string | number;
+};
 
 const EditQuiz = () => {
   const navigate = useNavigate();
@@ -43,12 +58,23 @@ const EditQuiz = () => {
   const [thumbnail, setThumbnail] = useState<File | string>("");
 
   const onSubmit = async (values: TAddQuizFieldType) => {
-    const valuesToSend = {
+    const valuesToMap: TValuesToMap = {
       ...values,
       id: Number(id),
       thumbnail: thumbnail,
       category_id: Number(values.category_id),
     };
+
+    if ("thumbnail" in valuesToMap && valuesToMap.thumbnail === "") {
+      delete valuesToMap["thumbnail"];
+    }
+
+    const {
+      category,
+      thumbnail_url,
+      question_categories_obj,
+      ...valuesToSend
+    } = valuesToMap as any;
 
     try {
       await editQuiz(valuesToSend);
@@ -83,14 +109,19 @@ const EditQuiz = () => {
       className="w-full pt-5 pb-10 px-8 "
     >
       <div className="flex flex-col justify-start items-left p-2 mb-2">
-        <BreadCrumb icon={FaHome} title="Quiz" subTitle="Edit Quiz" />
+        <BreadCrumb
+          icon={FaHome}
+          title="Quiz"
+          subTitle="Edit Quiz"
+          backToPage="/admin/quiz"
+        />
         <h1 className="text-primary font-medium text-2xl">Edit Quiz</h1>
       </div>
 
       <Formik
         initialValues={quiz}
         onSubmit={onSubmit}
-        validationSchema={validationSchemaAddQuiz}
+        validationSchema={validationSchemaEditQuiz}
       >
         {({ handleChange, setFieldValue, handleBlur }) => (
           <Form>
@@ -103,7 +134,7 @@ const EditQuiz = () => {
 
               <FormikSelectQuestionCategoriesField
                 setFieldValue={setFieldValue}
-                selected={quiz.question_categories}
+                selected={quiz.question_categories_obj}
                 handleBlur={handleBlur}
               />
 
@@ -125,13 +156,21 @@ const EditQuiz = () => {
 
               <FormikFileInputField
                 name="thumbnail"
-                label="Thumbnail"
+                label="Change Thumbnail"
                 setThumbnail={setThumbnail}
                 handleChange={handleChange}
+                resetBtn={true}
               />
+              {typeof thumbnail !== "string" ? null : (
+                <img
+                  className="w-[100px] col-start-2 justify-self-start border-2 border-primary-light rounded-md mt-2"
+                  src={quiz.thumbnail_url}
+                  alt="thumbnail"
+                />
+              )}
             </div>
 
-            <FormikButton type="submit" label="Edit" />
+            <FormikButton type="submit" label="Save" />
           </Form>
         )}
       </Formik>

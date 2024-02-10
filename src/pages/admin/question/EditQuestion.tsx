@@ -118,7 +118,12 @@ const EditQuestion = () => {
       className="w-full pt-5 pb-10 px-8 "
     >
       <div className="flex flex-col justify-start items-left p-2 mb-2">
-        <BreadCrumb icon={FaHome} title="Question" subTitle="Edit Question" />
+        <BreadCrumb
+          icon={FaHome}
+          title="Question"
+          subTitle="Edit Question"
+          backToPage="/admin/question"
+        />
         <h1 className="text-primary font-medium text-2xl">Edit Question</h1>
       </div>
 
@@ -152,7 +157,7 @@ const EditQuestion = () => {
               <FormikSelectWeightageField />
             </div>
 
-            <FormikButton type="submit" label="Edit" />
+            <FormikButton type="submit" label="Save" />
           </Form>
         )}
       </Formik>

@@ -33,8 +33,14 @@ const myQuizApiEndpoints = myApi.injectEndpoints({
         return {
           ...response.data,
           thumbnail: "",
+          thumbnail_url: response.data.thumbnail,
           category_id: response.data.category ? response.data.category.id : 0,
           question_categories: response.data.question_categories.map(
+            (category: any) => {
+              return category.id;
+            }
+          ),
+          question_categories_obj: response.data.question_categories.map(
             (category: any) => ({
               value: category.id,
               label: category.title,
@@ -60,11 +66,18 @@ const myQuizApiEndpoints = myApi.injectEndpoints({
     }),
 
     editQuiz: builder.mutation<TEditQuizFieldType, TEditQuizFieldType>({
-      query: ({ id, ...rest }) => ({
-        url: `/admin/quizzes/${id}`,
-        method: "PUT",
-        body: { ...rest },
-      }),
+      query: ({ id, ...rest }) => {
+        // const formData = convertPayloadToFormData(rest);
+        console.log(rest);
+        return {
+          url: `/admin/quizzes/${id}`,
+          method: "PUT",
+          body: rest,
+          // headers: {
+          //   "X-Content-Type": "multipart/form-data",
+          // },
+        };
+      },
       invalidatesTags: ["FetchQuizzes"],
     }),
 

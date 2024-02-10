@@ -70,7 +70,12 @@ const AddQuiz = () => {
       className="w-full pt-5 pb-10 px-8 "
     >
       <div className="flex flex-col justify-start items-left p-2 mb-2">
-        <BreadCrumb icon={FaHome} title="Quiz" subTitle="New Quiz" />
+        <BreadCrumb
+          icon={FaHome}
+          title="Quiz"
+          subTitle="New Quiz"
+          backToPage="/admin/quiz"
+        />
         <h1 className="text-primary font-medium text-2xl">New Quiz</h1>
       </div>
 

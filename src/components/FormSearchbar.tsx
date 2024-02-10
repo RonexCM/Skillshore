@@ -4,11 +4,13 @@ import { debounce } from "lodash";
 type Props = {
   searchTerm?: string;
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+  setCurrentPageNumber: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const FormSearchbar = ({ setSearchTerm }: Props) => {
+const FormSearchbar = ({ setSearchTerm, setCurrentPageNumber }: Props) => {
   const handleChange = debounce((e: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
+    setCurrentPageNumber(1);
   }, 700);
 
   return (
