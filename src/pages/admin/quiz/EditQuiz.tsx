@@ -159,7 +159,7 @@ const EditQuiz = () => {
                 label="Change Thumbnail"
                 setThumbnail={setThumbnail}
                 handleChange={handleChange}
-                resetBtn={true}
+                // resetBtn={true}
               />
               {typeof thumbnail !== "string" ? null : (
                 <img
