@@ -26,6 +26,7 @@ const AddQuiz = () => {
   const { setShowLoader } = useLoadingState();
 
   const [thumbnail, setThumbnail] = useState<File | string>("");
+  const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
 
   const [addQuiz, { error, isSuccess }] = useAddQuizMutation();
   const { data: quizCategoryList, isLoading } = useGetAllQuizCategoriesQuery();
@@ -120,7 +121,15 @@ const AddQuiz = () => {
                 label="Thumbnail"
                 setThumbnail={setThumbnail}
                 handleChange={handleChange}
+                setPreview={setPreview}
               />
+              {preview && (
+                <img
+                  className="w-[100px] col-start-2 justify-self-start border-2 border-primary-light rounded-md mt-2"
+                  src={preview.toString()}
+                  alt="preview"
+                />
+              )}
             </div>
 
             <FormikButton type="submit" label="Add" />

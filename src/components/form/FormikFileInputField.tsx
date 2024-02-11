@@ -7,6 +7,7 @@ type Props = {
   handleChange: (event: FormEvent) => void;
   setThumbnail: React.Dispatch<React.SetStateAction<string | File>>;
   resetBtn?: boolean;
+  setPreview: React.Dispatch<React.SetStateAction<string | ArrayBuffer | null>>;
 };
 
 const FormikFileInputField = ({
@@ -14,6 +15,7 @@ const FormikFileInputField = ({
   label,
   handleChange,
   setThumbnail,
+  setPreview,
   resetBtn,
 }: Props) => {
   return (
@@ -32,6 +34,11 @@ const FormikFileInputField = ({
             if (event.currentTarget.files === null) return;
             const file = event.currentTarget.files[0];
             setThumbnail(file);
+            const fileReader = new FileReader();
+            fileReader.onload = function () {
+              setPreview(fileReader.result);
+            };
+            fileReader.readAsDataURL(file);
             handleChange(event);
           }}
           className=" text-sm rounded-md border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full"
