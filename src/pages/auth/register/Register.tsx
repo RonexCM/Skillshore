@@ -146,7 +146,7 @@ const Register: React.FC = () => {
           </Formik>
         </div>
         <div className=" w-1/2 flex justify-center items-center">
-          <img src={penguinImage} className="" />
+          <img src={penguinImage}/>
         </div>
       </div>
     </>

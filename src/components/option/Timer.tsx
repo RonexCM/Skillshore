@@ -3,6 +3,7 @@ import { TTimerProps } from "../../pages/student/types";
 
 const Timer = ({ initialTime, onTimeout, updateTimeLeft }: TTimerProps) => {
   const [timeLeft, setTimeLeft] = useState(initialTime);
+  
   useEffect(() => {
     const interval = setInterval(() => {
       setTimeLeft((prevTime) => (prevTime > 0 ? prevTime - 1 : prevTime));

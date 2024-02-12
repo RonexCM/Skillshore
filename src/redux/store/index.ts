@@ -1,6 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { myApi } from "../services/myApi";
 import userSlice from "../slice/userSlice";
+import questionListSlice from "../slice/questionSlice/questionListSlice";
+import allQuestionCategoriesListSlice from "../slice/questionCategorySlice/allQuestionCategoriesListSlice";
+import quizCategoryListSlice from "../slice/quizCategorySlice/quizCategoryListSlice";
+import quizListSlice from "../slice/quizSlice/quizListSlice";
+import questionCategoryListSlice from "../slice/questionCategorySlice/questionCategoryListSlice";
+import allQuizCategoriesListSlice from "../slice/quizCategorySlice/allQuizCategoriesListSlice";
 import {
   persistReducer,
   persistStore,
@@ -32,6 +38,12 @@ const persistConfig = {
 const rootReducer = combineReducers({
   user: userSlice,
   auth: authSlice,
+  questionList: questionListSlice,
+  allQuestionCategories: allQuestionCategoriesListSlice,
+  quizCategoryList: quizCategoryListSlice,
+  allQuizCategories: allQuizCategoriesListSlice,
+  quizList: quizListSlice,
+  questionCategoryList: questionCategoryListSlice,
   quiz: quizSlice,
   answer: userQuizSlice,
   [myApi.reducerPath]: myApi.reducer,
