@@ -11,7 +11,7 @@ const FormSearchbar = ({ setSearchTerm, setCurrentPageNumber }: Props) => {
   const handleChange = debounce((e: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
     setCurrentPageNumber(1);
-  }, 700);
+  }, 500);
 
   return (
     <div className="relative">

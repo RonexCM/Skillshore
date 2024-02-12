@@ -16,6 +16,7 @@ import {
   FormikOptionsFieldArray,
   FormikSelectAnswerField,
   FormikSelectCategoryField,
+  FormikSelectStatus,
   FormikSelectWeightageField,
   FormikTextAreaField,
 } from "../../../components";
@@ -105,7 +106,7 @@ const AddQuestion = () => {
 
               <FormikInputField name="slug" label="Slug" type="text" />
 
-              <FormikSelectWeightageField />
+              <FormikSelectStatus />
 
               <FormikTextAreaField name="description" label="Description" />
 
@@ -116,6 +117,7 @@ const AddQuestion = () => {
                 handleChange={handleChange}
               />
               <FormikSelectAnswerField answerOptions={answerOptions} />
+              <FormikSelectWeightageField />
             </div>
 
             <FormikButton type="submit" label="Add" />

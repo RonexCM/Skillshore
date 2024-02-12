@@ -16,7 +16,9 @@ import {
   FormikInputField,
   FormikSelectCategoryField,
   FormikSelectQuestionCategoriesField,
+  FormikSelectStatus,
   FormikTextAreaField,
+  ThumbnailPreview,
 } from "../../../components";
 import { useGetAllQuizCategoriesQuery } from "../../../redux/services/myQuizCategoryApiEndpoints";
 import { useLoadingState } from "../../../layouts/AdminLayout";
@@ -95,10 +97,7 @@ const AddQuiz = () => {
 
               <FormikSelectCategoryField data={quizCategoryList} />
 
-              <FormikSelectQuestionCategoriesField
-                setFieldValue={setFieldValue}
-                handleBlur={handleBlur}
-              />
+              <FormikSelectStatus />
 
               <FormikTextAreaField name="description" label="Description" />
 
@@ -123,13 +122,13 @@ const AddQuiz = () => {
                 handleChange={handleChange}
                 setPreview={setPreview}
               />
-              {preview && (
-                <img
-                  className="w-[100px] col-start-2 justify-self-start border-2 border-primary-light rounded-md mt-2"
-                  src={preview.toString()}
-                  alt="preview"
-                />
-              )}
+
+              <FormikSelectQuestionCategoriesField
+                setFieldValue={setFieldValue}
+                handleBlur={handleBlur}
+              />
+
+              {preview && <ThumbnailPreview image={preview.toString()} />}
             </div>
 
             <FormikButton type="submit" label="Add" />

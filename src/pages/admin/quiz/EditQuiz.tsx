@@ -131,9 +131,9 @@ const EditQuiz = () => {
             <div className="border-2  p-7 rounded-md grid gap-2 gap-x-6 grid-cols-2 border-primary-light ">
               <FormikInputField name="title" label="Title" type="text" />
 
-              <FormikSelectCategoryField data={quizCategoryList} />
-
               <FormikInputField name="slug" label="Slug" type="text" />
+
+              <FormikSelectCategoryField data={quizCategoryList} />
 
               <FormikSelectStatus />
 

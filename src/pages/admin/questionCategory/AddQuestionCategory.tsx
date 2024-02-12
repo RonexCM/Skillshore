@@ -54,9 +54,7 @@ const AddQuestionCategory = () => {
           subTitle="New Category"
           backToPage="/admin/questioncategory"
         />
-        <h1 className="text-primary font-medium text-2xl">
-          New Question Category
-        </h1>
+        <h1 className="text-primary font-medium text-2xl">New Category</h1>
       </div>
 
       <Formik
