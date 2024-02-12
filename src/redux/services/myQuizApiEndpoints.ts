@@ -67,15 +67,10 @@ const myQuizApiEndpoints = myApi.injectEndpoints({
 
     editQuiz: builder.mutation<TEditQuizFieldType, TEditQuizFieldType>({
       query: ({ id, ...rest }) => {
-        // const formData = convertPayloadToFormData(rest);
-        console.log(rest);
         return {
           url: `/admin/quizzes/${id}`,
           method: "PUT",
           body: rest,
-          // headers: {
-          //   "X-Content-Type": "multipart/form-data",
-          // },
         };
       },
       invalidatesTags: ["FetchQuizzes"],
