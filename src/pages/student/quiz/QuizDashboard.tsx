@@ -29,18 +29,19 @@ const QuizDashboard = () => {
       const confirmationMessage =
         "Your current progress will be saved. Are you sure you want to leave?";
       e.preventDefault();
+      console.log(confirmationMessage);
       e.returnValue = confirmationMessage;
 
-      //   const submitQuizData = async () => {
-      //     try {
-      //       const data = { ...quizAnswer, total_time: timer };
-      //       await postQuizData(data);
-      //       console.log("Quiz data submitted successfully.");
-      //     } catch (error) {
-      //       console.error("Error submitting quiz data:", error);
-      //     }
-      //   };
-      //   submitQuizData();
+      const submitQuizData = async () => {
+        try {
+          const data = { ...quizAnswer, total_time: timer };
+          await postQuizData(data);
+          console.log("Quiz data submitted successfully.");
+        } catch (error) {
+          console.error("Error submitting quiz data:", error);
+        }
+      };
+      submitQuizData();
     };
 
     window.addEventListener("beforeunload", handleBeforeUnload);
