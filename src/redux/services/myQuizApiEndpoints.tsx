@@ -7,14 +7,17 @@ import { myApi } from "./myApi";
 
 const myQuizApiEndpoints = myApi.injectEndpoints({
   endpoints: (builder) => ({
-    getAllQuiz: builder.query<TFetchQuizQueryTransformResponseType, any>({
+    getAllQuiz: builder.query<TFetchQuizQueryTransformResponseType, unknown>({
       query: ({ page, title, selectedCategory }) => {
         let query = `/student/quizzes/all?page=${page}`;
         if (title) {
           query += `&title=${title}`;
         }
         if (selectedCategory) {
-          query += `&category_id=${selectedCategory}`;
+          if (selectedCategory.length > 0) {
+            const number = selectedCategory.map(Number).join(",");
+            query += `&category_id=${number}`;
+          }
         }
         return query;
       },
