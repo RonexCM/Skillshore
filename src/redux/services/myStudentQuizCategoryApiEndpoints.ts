@@ -6,14 +6,19 @@ import { myApi } from "./myApi";
 
 const myQuizCategoryApiEndpoints = myApi.injectEndpoints({
   endpoints: (builder) => ({
-    getAllQuizCategories: builder.query<TStudentAllQuizCategoryType, void>({
-      query: () => "student/quiz-categories/all",
+    getAllQuizCategoriesStudent: builder.query<
+      TStudentAllQuizCategoryType,
+      void
+    >({
+      query: () => "/student/quiz-categories/all",
     }),
-    getQuizCategories: builder.query<StudentQuizCategoryType[], void>({
-      query: () => "student/quiz-categories/all",
+    getQuizCategoriesStudent: builder.query<StudentQuizCategoryType[], void>({
+      query: () => "/student/quiz-categories/all",
     }),
   }),
 });
 
-export const { useGetQuizCategoriesQuery, useGetAllQuizCategoriesQuery } =
-  myQuizCategoryApiEndpoints;
+export const {
+  useGetQuizCategoriesStudentQuery,
+  useGetAllQuizCategoriesStudentQuery,
+} = myQuizCategoryApiEndpoints;

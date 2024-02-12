@@ -5,6 +5,20 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --dark: #03103f;
+  --primary-light: #e1e7ff;
+}
+
+a.active {
+  background-color: var(--dark);
+  color: var(--primary-light);
+}
+a.active:hover {
+  background-color: var(--dark);
+  color: var(--primary-light);
+}
+
 a.active.login-nav {
   pointer-events: none;
   color: #616161;

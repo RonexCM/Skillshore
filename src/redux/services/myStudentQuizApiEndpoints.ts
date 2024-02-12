@@ -6,7 +6,10 @@ import { myApi } from "./myApi";
 
 const myStudentQuizApiEndpoints = myApi.injectEndpoints({
   endpoints: (builder) => ({
-    getAllQuiz: builder.query<TFetchQuizQueryTransformResponseType, unknown>({
+    getAllQuizStudent: builder.query<
+      TFetchQuizQueryTransformResponseType,
+      unknown
+    >({
       query: ({ page, title, selectedCategory }) => {
         let query = `/student/quizzes/all?page=${page}`;
         if (title) {
@@ -33,5 +36,5 @@ const myStudentQuizApiEndpoints = myApi.injectEndpoints({
   }),
 });
 
-export const { useGetAllQuizQuery, useGetQuizByIdQuery } =
+export const { useGetAllQuizStudentQuery, useGetQuizByIdQuery } =
   myStudentQuizApiEndpoints;

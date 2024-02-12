@@ -12,9 +12,12 @@ export const accessibleRoutes: TAccessibleRoutes = {
   userWithNoProfileRoute: ["/create-profile", "/reset-password"],
   userWithProfileRoute: [
     "/home",
+    "/category",
     "/profile",
     "/edit-profile",
     "/reset-password",
+    "/quiz",
+    "/quizzes",
   ],
 };
 

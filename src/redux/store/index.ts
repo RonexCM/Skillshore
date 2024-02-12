@@ -1,6 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { myApi } from "../services/myApi";
 import userSlice from "../slice/userSlice";
+import questionListSlice from "../slice/questionSlice/questionListSlice";
+import allQuestionCategoriesListSlice from "../slice/questionCategorySlice/allQuestionCategoriesListSlice";
+import quizCategoryListSlice from "../slice/quizCategorySlice/quizCategoryListSlice";
+import quizListSlice from "../slice/quizSlice/quizListSlice";
+import questionCategoryListSlice from "../slice/questionCategorySlice/questionCategoryListSlice";
 import {
   persistReducer,
   persistStore,
@@ -18,6 +23,8 @@ import authSlice from "../slice/authSlice";
 import allQuizCategoriesListSlice from "../slice/quizCategorySlice/allQuizCategoriesListSlice";
 import allQuizListSlice from "../slice/quizSlice/allQuizListSlice";
 import quizTestSlice from "../slice/quizTestSlice";
+import quizSlice from "../slice/quizSlice";
+import userQuizSlice from "../slice/userQuizSlice";
 
 const persistConfig = {
   key: "root",
@@ -30,13 +37,20 @@ const persistConfig = {
     }),
   ],
 };
-
 const rootReducer = combineReducers({
   user: userSlice,
   auth: authSlice,
   allQuizCategories: allQuizCategoriesListSlice,
   allQuiz: allQuizListSlice,
   allModal: quizTestSlice,
+  questionList: questionListSlice,
+  allQuestionCategories: allQuestionCategoriesListSlice,
+  quizCategoryList: quizCategoryListSlice,
+  // allQuizCategories: allQuizCategoriesListSlice,
+  quizList: quizListSlice,
+  questionCategoryList: questionCategoryListSlice,
+  quiz: quizSlice,
+  answer: userQuizSlice,
   [myApi.reducerPath]: myApi.reducer,
 });
 

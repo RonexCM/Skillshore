@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { useGetAllQuizCategoriesQuery } from "../../../redux/services/myStudentQuizCategoryApiEndpoints";
+import { useGetAllQuizCategoriesStudentQuery } from "../../../redux/services/myStudentQuizCategoryApiEndpoints";
 import { useDispatch, useSelector } from "react-redux";
-import { useGetAllQuizQuery } from "../../../redux/services/myStudentQuizApiEndpoints";
+import { useGetAllQuizStudentQuery } from "../../../redux/services/myStudentQuizApiEndpoints";
 import { saveAllQuizList } from "../../../redux/slice/quizSlice/allQuizListSlice";
 import { RootState } from "../../../redux/store";
 import { saveAllQuizCategoriesList } from "../../../redux/slice/quizCategorySlice/allQuizCategoriesListSlice";
@@ -35,12 +35,12 @@ const StudentQuizCategory = () => {
   const { data: listOfQuiz } = useSelector((state: RootState) => state.allQuiz);
 
   //  Api Queries
-  const { data: quizData } = useGetAllQuizQuery({
+  const { data: quizData } = useGetAllQuizStudentQuery({
     title: searchTerm,
     page: currentPageNumber,
     selectedCategory,
   });
-  const { data: quizCategoriesData } = useGetAllQuizCategoriesQuery();
+  const { data: quizCategoriesData } = useGetAllQuizCategoriesStudentQuery();
 
   // Effects to handle API responses
 
@@ -133,7 +133,7 @@ const StudentQuizCategory = () => {
 
   const horizontalLineBaseStyle =
     "border-b-2 border-primary-light w-full my-[16px] opacity-[0.5]";
-
+  console.log(quizCategoryArray);
   if (!quizData) return;
 
   return (
