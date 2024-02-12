@@ -4,6 +4,9 @@ import {
   TFetchQuizzesType,
   TAddQuizFieldType,
   TEditQuizFieldType,
+  TSingleQuizType,
+  TSingleQuizTransformResponseType,
+  TQuestionCategoryObjType,
 } from "../../pages/admin/types";
 import { TSearchParams } from "../../pages/admin/types/TCommonTypes";
 import { myApi } from "./myApi";
@@ -27,21 +30,21 @@ const myQuizApiEndpoints = myApi.injectEndpoints({
       },
     }),
 
-    getSingleQuiz: builder.query<any, string>({
+    getSingleQuiz: builder.query<TSingleQuizTransformResponseType, string>({
       query: (id) => `/admin/quizzes/${id}`,
-      transformResponse: (response: any) => {
+      transformResponse: (response: TSingleQuizType) => {
         return {
           ...response.data,
           thumbnail: "",
           thumbnail_url: response.data.thumbnail,
           category_id: response.data.category ? response.data.category.id : 0,
           question_categories: response.data.question_categories.map(
-            (category: any) => {
+            (category: TQuestionCategoryObjType) => {
               return category.id;
             }
           ),
           question_categories_obj: response.data.question_categories.map(
-            (category: any) => ({
+            (category: TQuestionCategoryObjType) => ({
               value: category.id,
               label: category.title,
             })
@@ -67,7 +70,6 @@ const myQuizApiEndpoints = myApi.injectEndpoints({
 
     editQuiz: builder.mutation<TEditQuizFieldType, TEditQuizFieldType>({
       query: ({ id, ...rest }) => {
-        console.log(rest);
         return {
           url: `/admin/quizzes/${id}`,
           method: "PUT",

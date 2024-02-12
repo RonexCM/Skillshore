@@ -166,11 +166,12 @@ const EditQuiz = () => {
                 selected={quiz.question_categories_obj}
                 handleBlur={handleBlur}
               />
-
-              {typeof thumbnail !== "string" ? null : (
-                <ThumbnailPreview image={quiz.thumbnail_url} />
-              )}
-              {preview && <ThumbnailPreview image={preview.toString()} />}
+              <div className="flex w-full justify-center">
+                {typeof thumbnail !== "string" ? null : (
+                  <ThumbnailPreview image={quiz.thumbnail_url} />
+                )}
+                {preview && <ThumbnailPreview image={preview.toString()} />}
+              </div>
             </div>
 
             <FormikButton type="submit" label="Save" />

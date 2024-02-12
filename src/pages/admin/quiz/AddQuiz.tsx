@@ -127,8 +127,9 @@ const AddQuiz = () => {
                 setFieldValue={setFieldValue}
                 handleBlur={handleBlur}
               />
-
-              {preview && <ThumbnailPreview image={preview.toString()} />}
+              <div className="flex w-full justify-center">
+                {preview && <ThumbnailPreview image={preview.toString()} />}
+              </div>
             </div>
 
             <FormikButton type="submit" label="Add" />

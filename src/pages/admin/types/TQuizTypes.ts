@@ -15,6 +15,54 @@ export type TQuizType = {
   };
 };
 
+export type TQuestionCategoryObjType = {
+  id: number;
+  title: string;
+};
+export type TSingleQuizType = {
+  data: {
+    id: number;
+    title: string;
+    slug: string;
+    thumbnail: string;
+    description: String;
+    time: number;
+    retry_after: number;
+    status: number;
+    pass_percentage: number;
+    category: {
+      id: number;
+      title: string;
+    };
+    question_categories: TQuestionCategoryObjType[];
+  };
+};
+
+export type TReactSelectType = {
+  value: number;
+  label: string;
+};
+
+export type TSingleQuizTransformResponseType = {
+  id: number;
+  title: string;
+  slug: string;
+  thumbnail: string;
+  thumbnail_url: string;
+  description: string;
+  time: number;
+  retry_after: number;
+  status: number;
+  pass_percentage: number;
+  category: {
+    id: number;
+    title: string;
+  };
+  category_id: number;
+  question_categories: number[];
+  question_categories_obj: TReactSelectType[];
+};
+
 export type TAddQuizFieldType = {
   title: string;
   slug: string;

@@ -3,7 +3,7 @@ import { FormEvent } from "react";
 import { ImCross } from "react-icons/im";
 type Props = {
   name: string;
-  label: string;
+  label?: string;
   handleChange: (event: FormEvent) => void;
   setThumbnail: React.Dispatch<React.SetStateAction<string | File>>;
   resetBtn?: boolean;
@@ -12,7 +12,7 @@ type Props = {
 
 const FormikFileInputField = ({
   name,
-  label,
+
   handleChange,
   setThumbnail,
   setPreview,
@@ -21,10 +21,14 @@ const FormikFileInputField = ({
   return (
     <div className="h-[76px]">
       <div className="relative flex flex-col gap-2  ">
-        <label htmlFor={name} className="text-base text-dark">
-          {label}
+        <label
+          htmlFor={name}
+          className=" text-base text-[#626262] bg-[#e8e8e85c] text-center cursor-pointer h-[62px] leading-[62px] rounded-md transition-all hover:bg-primary hover:text-white"
+        >
+          Click to choose thumbnail...
         </label>
         <Field
+          hidden
           type="file"
           accept="image/png, image/jpg, image/jpeg"
           id={name}
