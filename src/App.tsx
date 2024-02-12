@@ -1,16 +1,10 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { EnterNewPassword, ForgotPassword } from "./pages/auth/forgotPassword";
-// import { ProtectedRoute } from "./routes";
-// import {
-//   UserProfile,
-//   EditProfile,
-//   CreateProfile,
-// } from "./pages/student/profile";
 import { Home } from "./pages/student/home";
 import { Login } from "./pages/auth/login";
 import { Register } from "./pages/auth/register";
 import CommonLayout from "./layouts/CommonLayout";
-import QuizCategory from "./pages/student/quizCategory/QuizCategory";
+import StudentQuizCategory from "./pages/student/quizCategory/StudentQuizCategory";
 const App = () => {
   return (
     <div>
@@ -22,9 +16,9 @@ const App = () => {
             <Route path="forgotPassword" element={<ForgotPassword />} />
             <Route path="forgotPassword" element={<ForgotPassword />} />
             <Route path="enterNewPassword" element={<EnterNewPassword />} />
-            <Route path="/category" element={<QuizCategory />} />
-            <Route path="/student-quiz/:id" element={<QuizCategory />} />
-            <Route path="/quiz" element={<QuizCategory />} />
+            <Route path="/category" element={<StudentQuizCategory />} />
+            <Route path="/student-quiz/:id" element={<StudentQuizCategory />} />
+            <Route path="/quiz" element={<StudentQuizCategory />} />
           </Route>
           {/* ----------user pages goes here as protected route---------- */}
           <Route element={<CommonLayout layoutFor="user" />}>

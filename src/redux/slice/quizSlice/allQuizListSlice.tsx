@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TFetchQuizQueryTransformResponseType } from "../../../pages/admin/types/TQuizTypes";
+import { TFetchQuizQueryTransformResponseType } from "../../../pages/admin/types";
 
 const initialState = {
   data: [

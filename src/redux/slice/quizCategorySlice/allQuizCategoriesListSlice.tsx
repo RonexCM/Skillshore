@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TAllQuizCategoryType } from "../../../pages/admin/types";
+import { TStudentAllQuizCategoryType } from "../../../pages/admin/types";
 
 const initialState = {
   data: [
@@ -15,7 +15,7 @@ const allQuizCategoriesListSlice = createSlice({
   reducers: {
     saveAllQuizCategoriesList: (
       state,
-      action: PayloadAction<TAllQuizCategoryType[]>
+      action: PayloadAction<TStudentAllQuizCategoryType[]>
     ) => {
       state.data = action.payload;
     },

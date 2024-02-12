@@ -4,18 +4,18 @@ export type AddQuizCategoryFieldType = {
   slug: string;
 };
 
-export type QuizCategoryType = {
+export type StudentQuizCategoryType = {
   id: string;
   title: string;
   slug: string;
 };
 
-export type TAllQuizCategoryType = {
+export type TStudentAllQuizCategoryType = {
   id: number;
   title: string;
   categories: string;
 };
 
-export type TAllQuizCategoriesType = {
-  data: TAllQuizCategoryType[];
+export type TAllStudentQuizCategoriesType = {
+  data: TStudentAllQuizCategoryType[];
 };

@@ -1,4 +1,4 @@
-export type QuizModalTypes = {
+export type StudentQuizModalTypes = {
   description: string;
   title: string;
   time: number;

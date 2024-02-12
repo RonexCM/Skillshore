@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { useGetAllQuizCategoriesQuery } from "../../../redux/services/myQuizCategoryApiEndpoints";
+import { useGetAllQuizCategoriesQuery } from "../../../redux/services/myStudentQuizCategoryApiEndpoints";
 import { useDispatch, useSelector } from "react-redux";
-import { useGetAllQuizQuery } from "../../../redux/services/myQuizApiEndpoints";
+import { useGetAllQuizQuery } from "../../../redux/services/myStudentQuizApiEndpoints";
 import { saveAllQuizList } from "../../../redux/slice/quizSlice/allQuizListSlice";
 import { RootState } from "../../../redux/store";
 import { saveAllQuizCategoriesList } from "../../../redux/slice/quizCategorySlice/allQuizCategoriesListSlice";
@@ -13,11 +13,11 @@ import { saveQuizDescription } from "../../../redux/slice/quizTestSlice";
 import { CiLock } from "react-icons/ci";
 import { IoCheckmarkDoneCircle } from "react-icons/io5";
 import UserQuizzesFilter from "../../../components/User/UserQuizzesFilter";
-import { QuizModalTypes } from "../../admin/types";
+import { StudentQuizModalTypes } from "../../admin/types";
 import Pagination from "../../../components/Pagination";
 import UserDashboardQuizCategory from "../../../components/User/UserDashboardQuizCategory";
 
-const QuizCategory = () => {
+const StudentQuizCategory = () => {
   // hooks
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [showQuizModal, setShowQuizModal] = useState(false);
@@ -52,7 +52,7 @@ const QuizCategory = () => {
       const allQuizCategoryArray = quizCategoriesData.data;
       dispatch(saveAllQuizCategoriesList(allQuizCategoryArray));
       const quizCategoriesWithIsCheckedState = allQuizCategoryArray.map(
-        (quizCategory) => {
+        (quizCategory: any) => {
           return { ...quizCategory, isChecked: false };
         }
       );
@@ -94,7 +94,7 @@ const QuizCategory = () => {
     setQuizCategoryArray(tempCategoryArray);
   };
 
-  const handleStart = (quizData: QuizModalTypes) => {
+  const handleStart = (quizData: StudentQuizModalTypes) => {
     dispatch(saveQuizDescription(quizData));
     setShowQuizModal(true);
   };
@@ -218,4 +218,4 @@ const QuizCategory = () => {
   );
 };
 
-export default QuizCategory;
+export default StudentQuizCategory;

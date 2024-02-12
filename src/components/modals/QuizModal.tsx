@@ -1,6 +1,6 @@
 import { IoMdClose, IoMdStopwatch } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-import { useGetQuizByIdQuery } from "../../redux/services/myQuizApiEndpoints";
+import { useGetQuizByIdQuery } from "../../redux/services/myStudentQuizApiEndpoints";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { useEffect } from "react";

@@ -1,11 +1,10 @@
 import {
-  TAllQuizType,
   TFetchQuizQueryResponseType,
   TFetchQuizQueryTransformResponseType,
 } from "../../pages/admin/types";
 import { myApi } from "./myApi";
 
-const myQuizApiEndpoints = myApi.injectEndpoints({
+const myStudentQuizApiEndpoints = myApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllQuiz: builder.query<TFetchQuizQueryTransformResponseType, unknown>({
       query: ({ page, title, selectedCategory }) => {
@@ -21,7 +20,6 @@ const myQuizApiEndpoints = myApi.injectEndpoints({
         }
         return query;
       },
-      providesTags: ["FetchQuizzes"],
       transformResponse: (response: TFetchQuizQueryResponseType) => {
         return { data: response.data, meta: response.meta };
       },
@@ -30,30 +28,10 @@ const myQuizApiEndpoints = myApi.injectEndpoints({
       query: () => ({
         url: `/student/quizzes/all`,
         method: "GET",
-        providesTags: ["FetchQuizzes"],
       }),
-    }),
-    addQuiz: builder.mutation<TAllQuizType, TAllQuizType>({
-      query: (body: TAllQuizType) => ({
-        url: "/student/quizzes/all",
-        method: "POST",
-        body,
-      }),
-      invalidatesTags: ["FetchQuizzes"],
-    }),
-    deleteQuiz: builder.mutation<void, string>({
-      query: (id) => ({
-        url: `/student/quizzes/all/${id}`,
-        method: "DELETE",
-      }),
-      invalidatesTags: ["FetchQuizzes"],
     }),
   }),
 });
 
-export const {
-  useGetAllQuizQuery,
-  useGetQuizByIdQuery,
-  useAddQuizMutation,
-  useDeleteQuizMutation,
-} = myQuizApiEndpoints;
+export const { useGetAllQuizQuery, useGetQuizByIdQuery } =
+  myStudentQuizApiEndpoints;

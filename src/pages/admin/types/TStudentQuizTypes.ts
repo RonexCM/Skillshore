@@ -1,6 +1,6 @@
 import { TCommonLinksType, TCommonMetaType } from "./TCommonTypes";
 
-export type TAllQuizType = {
+export type TStudentAllQuizType = {
   id: number;
   title: string;
   slug: string;
@@ -14,7 +14,7 @@ export type TAllQuizType = {
   category: string;
 };
 
-export type TAddQuizFieldType = {
+export type TAddStudentQuizFieldType = {
   title: string;
   slug: string;
   description: string;
@@ -25,12 +25,12 @@ export type TAddQuizFieldType = {
 };
 
 export type TFetchQuizQueryTransformResponseType = {
-  data: TAllQuizType[];
+  data: TStudentAllQuizType[];
   meta: TCommonMetaType;
 };
 
 export type TFetchQuizQueryResponseType = {
-  data: TAllQuizType[];
+  data: TStudentAllQuizType[];
   meta: TCommonMetaType;
   links: TCommonLinksType;
 };
