@@ -76,7 +76,7 @@ const QuizCategory = () => {
         return [...prevCategory, category];
       } else {
         const removeElement = prevCategory.filter(
-          (item: number) => item! == category
+          (item: number) => item !== category
         );
         return removeElement;
       }
@@ -158,7 +158,7 @@ const QuizCategory = () => {
 
             <div className="flex justify-between items-center">
               <p className="text-primary text-sm font-semibold text-left">
-                {selectedCategory.length}Selected
+                {selectedCategory.length} Selected
               </p>
               <Button style="gray" text="Clear" onClick={handleClear} />
             </div>
