@@ -67,6 +67,7 @@ const myQuizApiEndpoints = myApi.injectEndpoints({
 
     editQuiz: builder.mutation<TEditQuizFieldType, TEditQuizFieldType>({
       query: ({ id, ...rest }) => {
+        console.log(rest);
         return {
           url: `/admin/quizzes/${id}`,
           method: "PUT",
