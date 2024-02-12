@@ -71,6 +71,7 @@ const EditQuestionCategory = () => {
           icon={FaHome}
           title="Question Category"
           subTitle="Edit Category"
+          backToPage="/admin/questioncategory"
         />
 
         <h1 className="text-primary font-medium text-2xl">Edit Category</h1>
@@ -87,7 +88,7 @@ const EditQuestionCategory = () => {
             <FormikInputField name="slug" label="Slug" type="text" />
           </div>
 
-          <FormikButton type="submit" label="Edit" />
+          <FormikButton type="submit" label="Save" />
         </Form>
       </Formik>
     </motion.div>

@@ -16,7 +16,9 @@ import {
   FormikInputField,
   FormikSelectCategoryField,
   FormikSelectQuestionCategoriesField,
+  FormikSelectStatus,
   FormikTextAreaField,
+  ThumbnailPreview,
 } from "../../../components";
 import { useGetAllQuizCategoriesQuery } from "../../../redux/services/myQuizCategoryApiEndpoints";
 import { useLoadingState } from "../../../layouts/AdminLayout";
@@ -26,6 +28,7 @@ const AddQuiz = () => {
   const { setShowLoader } = useLoadingState();
 
   const [thumbnail, setThumbnail] = useState<File | string>("");
+  const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
 
   const [addQuiz, { error, isSuccess }] = useAddQuizMutation();
   const { data: quizCategoryList, isLoading } = useGetAllQuizCategoriesQuery();
@@ -70,7 +73,12 @@ const AddQuiz = () => {
       className="w-full pt-5 pb-10 px-8 "
     >
       <div className="flex flex-col justify-start items-left p-2 mb-2">
-        <BreadCrumb icon={FaHome} title="Quiz" subTitle="New Quiz" />
+        <BreadCrumb
+          icon={FaHome}
+          title="Quiz"
+          subTitle="New Quiz"
+          backToPage="/admin/quiz"
+        />
         <h1 className="text-primary font-medium text-2xl">New Quiz</h1>
       </div>
 
@@ -89,10 +97,7 @@ const AddQuiz = () => {
 
               <FormikSelectCategoryField data={quizCategoryList} />
 
-              <FormikSelectQuestionCategoriesField
-                setFieldValue={setFieldValue}
-                handleBlur={handleBlur}
-              />
+              <FormikSelectStatus />
 
               <FormikTextAreaField name="description" label="Description" />
 
@@ -115,7 +120,16 @@ const AddQuiz = () => {
                 label="Thumbnail"
                 setThumbnail={setThumbnail}
                 handleChange={handleChange}
+                setPreview={setPreview}
               />
+
+              <FormikSelectQuestionCategoriesField
+                setFieldValue={setFieldValue}
+                handleBlur={handleBlur}
+              />
+              <div className="flex w-full justify-center">
+                {preview && <ThumbnailPreview image={preview.toString()} />}
+              </div>
             </div>
 
             <FormikButton type="submit" label="Add" />

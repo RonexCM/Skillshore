@@ -53,7 +53,10 @@ const QuizCategory = () => {
       </h1>
 
       <div className="flex justify-between">
-        <FormSearchbar setSearchTerm={setSearchTerm} />
+        <FormSearchbar
+          setSearchTerm={setSearchTerm}
+          setCurrentPageNumber={setCurrentPageNumber}
+        />
         <Link
           to="addQuizCategory"
           className="bg-dark transition-colors flex items-center text-primary-light rounded-lg text-xs font-medium py-button-padding-y px-button-padding-x outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"
@@ -85,7 +88,7 @@ const QuizCategory = () => {
             </thead>
 
             <tbody>
-              {quizCategoriesData ? (
+              {quizCategoriesData && quizCategoriesData.data.length > 0 ? (
                 quizCategoriesData.data?.map(
                   (quizCategory: TQuizCategoryType, index: number) => (
                     <ListOfQuizCategorys
