@@ -14,7 +14,11 @@ const UserQuizzesFilter = ({ index, quiz, getStatus, handleStart }: Props) => {
       key={index}
       className="p-6 flex h-auto max-h-[370px] flex-col border-2 items-center border-opacity-[0.55] justify-between border-primary-light rounded-md  transition-all ease-in-out delay-50"
     >
-      <img src={quiz.thumbnail} alt="quiz" className="h-[90px] w-[90px]" />
+      <img
+        src={quiz.thumbnail}
+        alt="quiz"
+        className="h-[90px] w-[90px] object-contain position-center"
+      />
       <div className="flex flex-col py-7 gap-2 items-center ">
         <div className="text- xl  text-dark font-semibold text-center line-clamp-1 hover:line-clamp-none ">
           {quiz.title}

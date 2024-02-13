@@ -17,6 +17,12 @@ import { StudentQuizModalTypes } from "../../admin/types";
 import Pagination from "../../../components/Pagination";
 import UserDashboardQuizCategory from "../../../components/User/UserDashboardQuizCategory";
 
+interface Quiz {
+  result: {
+    passed: boolean;
+  };
+}
+
 const StudentQuizCategory = () => {
   // hooks
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
@@ -43,6 +49,28 @@ const StudentQuizCategory = () => {
   const { data: quizCategoriesData } = useGetAllQuizCategoriesStudentQuery();
 
   // Effects to handle API responses
+
+  const sortByPassedResult = (quizA: Quiz, quizB: Quiz): number => {
+    const quizAPassed = quizA.result && quizA.result.passed;
+    const quizBPassed = quizB.result && quizB.result.passed;
+
+    const quizAFailed = quizA.result && !quizA.result.passed;
+    const quizBFailed = quizB.result && !quizB.result.passed;
+
+    if (quizAFailed && !quizBFailed) {
+      return -1;
+    } else if (!quizAFailed && quizBFailed) {
+      return 1;
+    }
+
+    if (quizAPassed && !quizBPassed) {
+      return -1;
+    } else if (!quizAPassed && quizBPassed) {
+      return 1;
+    }
+
+    return 0;
+  };
 
   useEffect(() => {
     if (quizData) {
@@ -130,7 +158,7 @@ const StudentQuizCategory = () => {
       );
     }
   };
-
+  const sortedQuizzes = [...listOfQuiz].sort(sortByPassedResult);
   const horizontalLineBaseStyle =
     "border-b-2 border-primary-light w-full my-[16px] opacity-[0.5]";
   console.log(quizCategoryArray);
@@ -177,7 +205,7 @@ const StudentQuizCategory = () => {
           </div>
         </div>
         <div className="col-span-9 grid grid-cols-4 gap-4">
-          {listOfQuiz.map((quiz, index) => (
+          {sortedQuizzes.map((quiz, index) => (
             <UserQuizzesFilter
               key={index}
               quiz={quiz}
