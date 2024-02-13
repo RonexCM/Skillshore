@@ -50,7 +50,7 @@ const AddQuiz = () => {
   useEffect(() => {
     if (isSuccess) {
       toast.success("Quiz added!");
-      navigate(-1);
+      navigate("/admin/quiz");
     }
   }, [isSuccess]);
 
@@ -91,30 +91,6 @@ const AddQuiz = () => {
         {({ handleChange, handleBlur, setFieldValue }) => (
           <Form>
             <div className="border-2  p-7 rounded-md grid gap-2 gap-x-6 grid-cols-2 border-primary-light ">
-              <FormikInputField name="title" label="Title" type="text" />
-
-              <FormikInputField name="slug" label="Slug" type="text" />
-
-              <FormikSelectCategoryField data={quizCategoryList} />
-
-              <FormikSelectStatus />
-
-              <FormikTextAreaField name="description" label="Description" />
-
-              <FormikInputField name="time" label="Time" type="number" />
-
-              <FormikInputField
-                name="pass_percentage"
-                label="Pass Percentage"
-                type="number"
-              />
-
-              <FormikInputField
-                name="retry_after"
-                label="Retry After"
-                type="number"
-              />
-
               <FormikFileInputField
                 name="thumbnail"
                 label="Thumbnail"
@@ -123,13 +99,38 @@ const AddQuiz = () => {
                 setPreview={setPreview}
               />
 
+              <div className="flex w-full justify-center">
+                {preview && <ThumbnailPreview image={preview.toString()} />}
+              </div>
+
+              <FormikInputField name="title" label="Title" type="text" />
+
+              <FormikInputField name="slug" label="Slug" type="text" />
+
+              <FormikSelectCategoryField data={quizCategoryList} />
+
               <FormikSelectQuestionCategoriesField
                 setFieldValue={setFieldValue}
                 handleBlur={handleBlur}
               />
-              <div className="flex w-full justify-center">
-                {preview && <ThumbnailPreview image={preview.toString()} />}
-              </div>
+
+              <FormikTextAreaField name="description" label="Description" />
+
+              <FormikInputField name="time" label="Time" type="number" />
+
+              <FormikSelectStatus />
+
+              <FormikInputField
+                name="retry_after"
+                label="Retry After"
+                type="number"
+              />
+
+              <FormikInputField
+                name="pass_percentage"
+                label="Pass Percentage"
+                type="number"
+              />
             </div>
 
             <FormikButton type="submit" label="Add" />

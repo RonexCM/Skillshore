@@ -93,7 +93,7 @@ const EditQuiz = () => {
   useEffect(() => {
     if (isSuccess) {
       toast.success("Updated!");
-      navigate(-1);
+      navigate("/admin/quiz");
     }
   }, [isSuccess]);
 
@@ -129,30 +129,6 @@ const EditQuiz = () => {
         {({ handleChange, setFieldValue, handleBlur }) => (
           <Form>
             <div className="border-2  p-7 rounded-md grid gap-2 gap-x-6 grid-cols-2 border-primary-light ">
-              <FormikInputField name="title" label="Title" type="text" />
-
-              <FormikInputField name="slug" label="Slug" type="text" />
-
-              <FormikSelectCategoryField data={quizCategoryList} />
-
-              <FormikSelectStatus />
-
-              <FormikTextAreaField name="description" label="Description" />
-
-              <FormikInputField name="time" label="Time" type="number" />
-
-              <FormikInputField
-                name="pass_percentage"
-                label="Pass Percentage"
-                type="number"
-              />
-
-              <FormikInputField
-                name="retry_after"
-                label="Retry After"
-                type="number"
-              />
-
               <FormikFileInputField
                 name="thumbnail"
                 label="Change Thumbnail"
@@ -161,17 +137,42 @@ const EditQuiz = () => {
                 setPreview={setPreview}
               />
 
-              <FormikSelectQuestionCategoriesField
-                setFieldValue={setFieldValue}
-                selected={quiz.question_categories_obj}
-                handleBlur={handleBlur}
-              />
               <div className="flex w-full justify-center">
                 {typeof thumbnail !== "string" ? null : (
                   <ThumbnailPreview image={quiz.thumbnail_url} />
                 )}
                 {preview && <ThumbnailPreview image={preview.toString()} />}
               </div>
+
+              <FormikInputField name="title" label="Title" type="text" />
+
+              <FormikInputField name="slug" label="Slug" type="text" />
+
+              <FormikSelectCategoryField data={quizCategoryList} />
+
+              <FormikSelectQuestionCategoriesField
+                setFieldValue={setFieldValue}
+                selected={quiz.question_categories_obj}
+                handleBlur={handleBlur}
+              />
+
+              <FormikTextAreaField name="description" label="Description" />
+
+              <FormikInputField name="time" label="Time" type="number" />
+
+              <FormikSelectStatus />
+
+              <FormikInputField
+                name="retry_after"
+                label="Retry After"
+                type="number"
+              />
+
+              <FormikInputField
+                name="pass_percentage"
+                label="Pass Percentage"
+                type="number"
+              />
             </div>
 
             <FormikButton type="submit" label="Save" />

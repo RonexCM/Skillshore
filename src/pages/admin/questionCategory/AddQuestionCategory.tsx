@@ -31,7 +31,7 @@ const AddQuestionCategory = () => {
   useEffect(() => {
     if (isSuccess) {
       toast.success("Category added!");
-      navigate(-1);
+      navigate("/admin/questioncategory");
     }
   }, [isSuccess]);
 

@@ -50,7 +50,7 @@ const EditQuizCategory = () => {
   useEffect(() => {
     if (isSuccess) {
       toast.success("Updated!");
-      navigate(-1);
+      navigate("/admin");
     }
   }, [isSuccess]);
 

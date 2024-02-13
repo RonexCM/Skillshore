@@ -64,7 +64,7 @@ const EditQuestion = () => {
   useEffect(() => {
     if (isSuccess) {
       toast.success("Updated!");
-      navigate(-1);
+      navigate("/admin/question");
     }
   }, [isSuccess]);
 

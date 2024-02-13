@@ -60,7 +60,7 @@ const AddQuestion = () => {
   useEffect(() => {
     if (isSuccess) {
       toast.success("Question added!");
-      navigate(-1);
+      navigate("/admin/question");
     }
   }, [isSuccess]);
 
