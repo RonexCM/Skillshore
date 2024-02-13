@@ -25,7 +25,7 @@ export type TSingleQuizType = {
     title: string;
     slug: string;
     thumbnail: string;
-    description: String;
+    description: string;
     time: number;
     retry_after: number;
     status: number;
