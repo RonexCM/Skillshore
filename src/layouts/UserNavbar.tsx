@@ -34,7 +34,7 @@ const UserNavbar = () => {
       </div>
 
       <div className="flex gap-[46px] text-sm">
-        {!isQuiz || isCreateProfile ? (
+        {(!isQuiz && !isCreateProfile) ? (
           <NavLink
             to="/profile"
             className="font-bold cursor-pointer dark:text-white hover:underline"
