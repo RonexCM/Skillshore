@@ -6,7 +6,6 @@ import allQuestionCategoriesListSlice from "../slice/questionCategorySlice/allQu
 import quizCategoryListSlice from "../slice/quizCategorySlice/quizCategoryListSlice";
 import quizListSlice from "../slice/quizSlice/quizListSlice";
 import questionCategoryListSlice from "../slice/questionCategorySlice/questionCategoryListSlice";
-import allQuizCategoriesListSlice from "../slice/quizCategorySlice/allQuizCategoriesListSlice";
 import {
   persistReducer,
   persistStore,
@@ -21,6 +20,9 @@ import { combineReducers } from "redux";
 import storage from "redux-persist/lib/storage";
 import { encryptTransform } from "redux-persist-transform-encrypt";
 import authSlice from "../slice/authSlice";
+import allQuizCategoriesListSlice from "../slice/quizCategorySlice/allQuizCategoriesListSlice";
+import allQuizListSlice from "../slice/quizSlice/allQuizListSlice";
+import quizTestSlice from "../slice/quizSlice/quizTestSlice";
 import quizSlice from "../slice/quizSlice";
 import userQuizSlice from "../slice/userQuizSlice";
 
@@ -38,10 +40,12 @@ const persistConfig = {
 const rootReducer = combineReducers({
   user: userSlice,
   auth: authSlice,
+  allQuizCategories: allQuizCategoriesListSlice,
+  allQuiz: allQuizListSlice,
+  allModal: quizTestSlice,
   questionList: questionListSlice,
   allQuestionCategories: allQuestionCategoriesListSlice,
   quizCategoryList: quizCategoryListSlice,
-  allQuizCategories: allQuizCategoriesListSlice,
   quizList: quizListSlice,
   questionCategoryList: questionCategoryListSlice,
   quiz: quizSlice,

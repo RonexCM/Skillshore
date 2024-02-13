@@ -10,7 +10,7 @@ const Pagination = ({
   totalNumberOfPages,
 }: Props) => {
   return (
-    <div className="ml-auto">
+    <div className="ml-auto ">
       <ul className="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
         <li>
           <button

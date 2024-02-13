@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { useLoadingState } from "../../../layouts/AdminLayout";
-import { TQuestionCategoryType } from "../types";
+import { TStudentQuestionCategoryType } from "../types";
 import { useGetQuestionCategoriesQuery } from "../../../redux/services/myQuestionCategoryApiEndpoints";
 import {
   saveQuestionCategoriesMetaData,
@@ -94,7 +94,10 @@ const QuestionCategory = () => {
               {questionCategoriesData &&
               questionCategoriesData.data.length > 0 ? (
                 questionCategoriesData.data?.map(
-                  (questionCategory: TQuestionCategoryType, index: number) => (
+                  (
+                    questionCategory: TStudentQuestionCategoryType,
+                    index: number
+                  ) => (
                     <ListOfQuestionCategory
                       key={index}
                       questionCategory={questionCategory}

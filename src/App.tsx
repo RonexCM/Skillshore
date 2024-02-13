@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { EnterNewPassword, ForgotPassword } from "./pages/auth/forgotPassword";
 import { AdminLayout } from "./layouts";
 import {
   QuestionCategory,
@@ -13,23 +14,18 @@ import EditQuizCategory from "./pages/admin/quizCategory/EditQuizCategory";
 import EditQuestionCategory from "./pages/admin/questionCategory/EditQuestionCategory";
 import EditQuiz from "./pages/admin/quiz/EditQuiz";
 import PageNotFound from "./pages/PageNotFound";
-import {
-  EnterNewPassword,
-  ForgotPassword,
-  ResetPassword,
-} from "./pages/auth/forgotPassword";
+import { ResetPassword } from "./pages/auth/forgotPassword";
 import { AuthWrapper } from "./routes";
 import {
   UserProfile,
   EditProfile,
   CreateProfile,
 } from "./pages/student/profile";
-import { Home } from "./pages/student/home";
 import { Login } from "./pages/auth/login";
 import { Register } from "./pages/auth/register";
 import CommonLayout from "./layouts/CommonLayout";
 import QuizDashboard from "./pages/student/quiz/QuizDashboard";
-
+import Home from "./pages/student/quizCategory/Home";
 const App = () => {
   return (
     <div>

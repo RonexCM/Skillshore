@@ -39,14 +39,6 @@ export const myApi = createApi({
     unknown,
     CustomErrorMessage
   >,
-  keepUnusedDataFor: 1,
-  tagTypes: [
-    "users",
-    "FetchQuestions",
-    "FetchQuestionCategories",
-    "FetchQuizzes",
-    "FetchQuizCategories",
-    "FetchSingleQuestion",
-  ],
+  tagTypes: ["users", "FetchQuizCategories", "FetchQuizzes"],
   endpoints: () => ({}),
 });
