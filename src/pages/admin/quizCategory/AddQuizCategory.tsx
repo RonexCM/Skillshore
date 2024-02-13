@@ -52,8 +52,9 @@ const AddQuizCategory = () => {
           icon={FaHome}
           title="Quiz Category"
           subTitle="New Category"
+          backToPage="/admin"
         />
-        <h1 className="text-primary font-medium text-2xl">New Category </h1>
+        <h1 className="text-primary font-medium text-2xl">New Category</h1>
       </div>
 
       <Formik

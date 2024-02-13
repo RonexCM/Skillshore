@@ -15,8 +15,11 @@ import FormikSelectStatus from "./form/FormikSelectStatus";
 import FormikSelectWeightageField from "./form/FormikSelectWeightageField";
 import FormikTextAreaField from "./form/FormikTextAreaField";
 import QuestionCategoriesCustomSelect from "./form/QuestionCategoriesCustomSelect";
+import ThumbnailPreview from "./form/ThumbnailPreview";
+ThumbnailPreview;
 
 export {
+  ThumbnailPreview,
   BreadCrumb,
   FormikSelectCategoryField,
   QuestionCategoriesCustomSelect,

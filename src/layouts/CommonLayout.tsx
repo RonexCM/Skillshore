@@ -1,5 +1,4 @@
 import { Outlet } from "react-router-dom";
-import Footer from "../components/Footer";
 import AuthNavbar from "./AuthNavbar";
 import UserNavbar from "./UserNavbar";
 import { ToastContainer } from "react-toastify";
@@ -8,6 +7,7 @@ import { RootState } from "../redux/store";
 import { useEffect } from "react";
 import { useGetUserMutation } from "../redux/services/myUserProfileEndpoints";
 import { setUserData } from "../redux/slice/userSlice";
+import Footer from "./Footer";
 
 type Props = {
   layoutFor: string;

@@ -86,7 +86,7 @@ const FormikOptionsFieldArray = ({
                             );
                           }
                         }}
-                        className="absolute cursor-pointer text-[#fb6e6e] text-xs top-[8px] right-[8px]"
+                        className="absolute cursor-pointer text-[#fb6e6e] text-xl top-[6px] right-[6px] p-[4px] rounded-sm bg-primary-light bg-opacity-[70%] hover:bg-red-200"
                       />
                       <div className="flex gap-2 items-center">
                         <label
