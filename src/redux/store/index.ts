@@ -22,7 +22,7 @@ import { encryptTransform } from "redux-persist-transform-encrypt";
 import authSlice from "../slice/authSlice";
 import allQuizCategoriesListSlice from "../slice/quizCategorySlice/allQuizCategoriesListSlice";
 import allQuizListSlice from "../slice/quizSlice/allQuizListSlice";
-import quizTestSlice from "../slice/quizTestSlice";
+import quizTestSlice from "../slice/quizSlice/quizTestSlice";
 import quizSlice from "../slice/quizSlice";
 import userQuizSlice from "../slice/userQuizSlice";
 
@@ -46,7 +46,6 @@ const rootReducer = combineReducers({
   questionList: questionListSlice,
   allQuestionCategories: allQuestionCategoriesListSlice,
   quizCategoryList: quizCategoryListSlice,
-  // allQuizCategories: allQuizCategoriesListSlice,
   quizList: quizListSlice,
   questionCategoryList: questionCategoryListSlice,
   quiz: quizSlice,

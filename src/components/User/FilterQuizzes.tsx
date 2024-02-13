@@ -2,13 +2,13 @@ type Props = {
   index: number;
   quizCategory: any;
   selectedCategory: any;
-  handleCategoryRadio: (a: any) => void;
+  handleCheckbox: (a: any) => void;
 };
-const UserDashboardQuizCategory = ({
+const FilterQuizzes = ({
   index,
   quizCategory,
   selectedCategory,
-  handleCategoryRadio,
+  handleCheckbox,
 }: Props) => {
   return (
     <div key={index} className="flex gap-4 items-center">
@@ -17,7 +17,7 @@ const UserDashboardQuizCategory = ({
         type="checkBox"
         id={`quizcategory${index + 1}`}
         name={quizCategory.title}
-        onChange={() => handleCategoryRadio(quizCategory.id)}
+        onChange={() => handleCheckbox(quizCategory.id)}
         checked={
           selectedCategory.length > 0 &&
           selectedCategory.includes(quizCategory.id)
@@ -33,4 +33,4 @@ const UserDashboardQuizCategory = ({
   );
 };
 
-export default UserDashboardQuizCategory;
+export default FilterQuizzes;

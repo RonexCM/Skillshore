@@ -10,6 +10,7 @@ import { useGetUserMutation } from "../redux/services/myUserProfileEndpoints";
 import { setUserData } from "../redux/slice/userSlice";
 import { Spinner } from "flowbite-react";
 import { motion } from "framer-motion";
+import { LineWave } from "react-loader-spinner";
 type Props = {
   layoutFor: string;
 };
@@ -54,7 +55,7 @@ export const CommonLayout = ({ layoutFor }: Props) => {
         className="fixed inset-0 bg-dark bg-opacity-[30%] z-50 flex items-center justify-center"
       >
         <div>
-          <Spinner aria-label="Extra large spinner example" size="xl" />
+          <LineWave height={100} />
         </div>
       </motion.div>
       {layoutFor === "auth" ? <AuthNavbar /> : <UserNavbar />}

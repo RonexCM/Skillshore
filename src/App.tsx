@@ -24,7 +24,7 @@ import {
 import { Login } from "./pages/auth/login";
 import { Register } from "./pages/auth/register";
 import CommonLayout from "./layouts/CommonLayout";
-import StudentQuizCategory from "./pages/student/quizCategory/StudentQuizCategory";
+import StudentQuizCategory from "./pages/student/quizCategory/Home";
 import QuizDashboard from "./pages/student/quiz/QuizDashboard";
 const App = () => {
   return (

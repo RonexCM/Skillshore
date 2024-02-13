@@ -8,7 +8,7 @@ type Props = {
   getStatus: any;
   handleStart: any;
 };
-const UserQuizzesFilter = ({ index, quiz, getStatus, handleStart }: Props) => {
+const QuizDetails = ({ index, quiz, getStatus, handleStart }: Props) => {
   return (
     <div
       key={index}
@@ -59,4 +59,4 @@ const UserQuizzesFilter = ({ index, quiz, getStatus, handleStart }: Props) => {
   );
 };
 
-export default UserQuizzesFilter;
+export default QuizDetails;

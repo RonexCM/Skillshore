@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useGetAllQuizCategoriesStudentQuery } from "../../../redux/services/myStudentQuizCategoryApiEndpoints";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetAllQuizStudentQuery } from "../../../redux/services/myStudentQuizApiEndpoints";
@@ -9,13 +9,13 @@ import Searchbar from "../../../components/SearchBar";
 import Button from "../../../components/Button";
 import QuizModal from "../../../components/modals/QuizModal";
 import { useNavigate } from "react-router-dom";
-import { saveQuizDescription } from "../../../redux/slice/quizTestSlice";
+import { saveQuizDescription } from "../../../redux/slice/quizSlice/quizTestSlice";
 import { CiLock } from "react-icons/ci";
 import { IoCheckmarkDoneCircle } from "react-icons/io5";
-import UserQuizzesFilter from "../../../components/User/UserQuizzesFilter";
+import QuizDetails from "../../../components/User/QuizDetails";
 import { StudentQuizModalTypes } from "../../admin/types";
 import Pagination from "../../../components/Pagination";
-import UserDashboardQuizCategory from "../../../components/User/UserDashboardQuizCategory";
+import FilterQuizzes from "../../../components/User/FilterQuizzes";
 
 interface Quiz {
   result: {
@@ -23,7 +23,7 @@ interface Quiz {
   };
 }
 
-const StudentQuizCategory = () => {
+const Home = () => {
   // hooks
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [showQuizModal, setShowQuizModal] = useState(false);
@@ -98,7 +98,7 @@ const StudentQuizCategory = () => {
     setQuizCategoryArray(tempCategoryArray);
     setSelectedCategory([]);
   };
-  const handleCategoryRadio = (category: number) => {
+  const handleCheckbox = (category: number) => {
     setSelectedCategory((prevCategory: any) => {
       if (!prevCategory?.includes(category)) {
         return [...prevCategory, category];
@@ -109,17 +109,6 @@ const StudentQuizCategory = () => {
         return removeElement;
       }
     });
-  };
-
-  const handleCheckbox = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, checked } = e.target;
-
-    const tempCategoryArray = quizCategoryArray.map((quizCategory) =>
-      name === quizCategory.title
-        ? { ...quizCategory, isChecked: checked }
-        : quizCategory
-    );
-    setQuizCategoryArray(tempCategoryArray);
   };
 
   const handleStart = (quizData: StudentQuizModalTypes) => {
@@ -161,7 +150,6 @@ const StudentQuizCategory = () => {
   const sortedQuizzes = [...listOfQuiz].sort(sortByPassedResult);
   const horizontalLineBaseStyle =
     "border-b-2 border-primary-light w-full my-[16px] opacity-[0.5]";
-  console.log(quizCategoryArray);
   if (!quizData) return;
 
   return (
@@ -194,19 +182,19 @@ const StudentQuizCategory = () => {
           <div className={horizontalLineBaseStyle} />
           <div className="flex flex-col gap-[16px]">
             {quizCategoryArray.map((quizCategory, index) => (
-              <UserDashboardQuizCategory
+              <FilterQuizzes
                 key={index}
                 quizCategory={quizCategory}
                 index={index}
                 selectedCategory={selectedCategory}
-                handleCategoryRadio={handleCategoryRadio}
+                handleCheckbox={handleCheckbox}
               />
             ))}
           </div>
         </div>
         <div className="col-span-9 grid grid-cols-4 gap-4">
           {sortedQuizzes.map((quiz, index) => (
-            <UserQuizzesFilter
+            <QuizDetails
               key={index}
               quiz={quiz}
               index={index}
@@ -246,4 +234,4 @@ const StudentQuizCategory = () => {
   );
 };
 
-export default StudentQuizCategory;
+export default Home;
