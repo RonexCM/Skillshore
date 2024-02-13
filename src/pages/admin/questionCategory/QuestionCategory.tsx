@@ -29,18 +29,18 @@ const QuestionCategory = () => {
     title: searchTerm,
   });
 
+  const { meta } = useSelector(
+    (state: RootState) => state.questionCategoryList
+  );
+
   useEffect(() => {
     if (isSuccess) {
       dispatch(saveQuestionCategoryList(questionCategoriesData.data));
       dispatch(saveQuestionCategoriesMetaData(questionCategoriesData.meta));
     }
     setShowLoader(isLoading);
-    setStartingIndex(currentPageNumber * 10 - 9);
-  }, [questionCategoriesData, isLoading, isSuccess]);
-
-  const { meta } = useSelector(
-    (state: RootState) => state.questionCategoryList
-  );
+    setStartingIndex(currentPageNumber * meta.per_page - (meta.per_page - 1));
+  }, [questionCategoriesData, isLoading, isSuccess, meta]);
 
   const loadingState = useLoadingState();
   const { setShowLoader } = loadingState;

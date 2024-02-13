@@ -13,13 +13,19 @@ const UserNavbar = () => {
     dispatch(logOut());
   };
   const location = useLocation();
+
+  const url = location.pathname;
+  const parts = url.split("/");
+  const quizPath = "/" + parts[1];
+
   const isCreateProfile = location.pathname === "/create-profile";
+  const isQuiz = quizPath === "/quiz";
 
   return (
     <nav className="h-[56px] shrink-0 w-full bg-[#03103F] text-white flex justify-between items-center px-12">
       <div className="flex items-center gap-3 cursor-pointer">
         <NavLink
-          to={isCreateProfile ? "#" : "/home"}
+          to={isCreateProfile || isQuiz ? "#" : "/home"}
           className="flex gap-2 login-nav"
         >
           <FaHouse className="w-6 h-6 ml-5 text-gray-200" />
@@ -28,13 +34,15 @@ const UserNavbar = () => {
       </div>
 
       <div className="flex gap-[46px] text-sm">
-        {!isCreateProfile && (
+        {(!isQuiz && !isCreateProfile) ? (
           <NavLink
             to="/profile"
             className="font-bold cursor-pointer dark:text-white hover:underline"
           >
             Profile
           </NavLink>
+        ) : (
+          <></>
         )}
         <NavLink
           to="/"

@@ -29,16 +29,16 @@ const Quiz = () => {
     title: searchTerm,
   });
 
+  const { meta } = useSelector((state: RootState) => state.quizList);
+
   useEffect(() => {
     if (isSuccess) {
       dispatch(saveQuizList(quizzesData.data));
       dispatch(saveQuizMetaData(quizzesData.meta));
     }
     setShowLoader(isLoading);
-    setStartingIndex(currentPageNumber * 8 - 7);
-  }, [quizzesData, isLoading, isSuccess]);
-
-  const { meta } = useSelector((state: RootState) => state.quizList);
+    setStartingIndex(currentPageNumber * meta.per_page - (meta.per_page - 1));
+  }, [quizzesData, isLoading, isSuccess, meta]);
 
   const loadingState = useLoadingState();
   const { setShowLoader } = loadingState;
