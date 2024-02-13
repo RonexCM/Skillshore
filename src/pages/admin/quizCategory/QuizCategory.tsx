@@ -28,16 +28,16 @@ const QuizCategory = () => {
     title: searchTerm,
   });
 
+  const { meta } = useSelector((state: RootState) => state.quizCategoryList);
+
   useEffect(() => {
     if (isSuccess) {
       dispatch(saveQuizCategoryList(quizCategoriesData.data));
       dispatch(saveQuizCategoriesMetaData(quizCategoriesData.meta));
     }
     setShowLoader(isLoading);
-    setStartingIndex(currentPageNumber * 10 - 9);
-  }, [quizCategoriesData, isLoading, isSuccess]);
-
-  const { meta } = useSelector((state: RootState) => state.quizCategoryList);
+    setStartingIndex(currentPageNumber * meta.per_page - (meta.per_page - 1));
+  }, [quizCategoriesData, isLoading, isSuccess, meta]);
 
   const loadingState = useLoadingState();
   const { setShowLoader } = loadingState;

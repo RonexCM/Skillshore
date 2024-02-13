@@ -39,8 +39,9 @@ const Question = () => {
       dispatch(saveQuestionsMetaData(questionsData.meta));
     }
     setShowLoader(isLoading);
-    setStartingIndex(currentPageNumber * 10 - 9);
-  }, [questionsData, isLoading, isSuccess]);
+
+    setStartingIndex(currentPageNumber * meta.per_page - (meta.per_page - 1));
+  }, [questionsData, isLoading, isSuccess, meta]);
 
   return (
     <motion.div
