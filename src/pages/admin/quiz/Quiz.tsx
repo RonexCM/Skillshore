@@ -29,16 +29,16 @@ const Quiz = () => {
     title: searchTerm,
   });
 
+  const { meta } = useSelector((state: RootState) => state.quizList);
+
   useEffect(() => {
     if (isSuccess) {
       dispatch(saveQuizList(quizzesData.data));
       dispatch(saveQuizMetaData(quizzesData.meta));
     }
     setShowLoader(isLoading);
-    setStartingIndex(currentPageNumber * 8 - 7);
-  }, [quizzesData, isLoading, isSuccess]);
-
-  const { meta } = useSelector((state: RootState) => state.quizList);
+    setStartingIndex(currentPageNumber * meta.per_page - (meta.per_page - 1));
+  }, [quizzesData, isLoading, isSuccess, meta]);
 
   const loadingState = useLoadingState();
   const { setShowLoader } = loadingState;
@@ -51,7 +51,10 @@ const Quiz = () => {
     >
       <h1 className="text-primary font-medium text-2xl leading-4">Quiz</h1>
       <div className="flex justify-between">
-        <FormSearchbar setSearchTerm={setSearchTerm} />
+        <FormSearchbar
+          setSearchTerm={setSearchTerm}
+          setCurrentPageNumber={setCurrentPageNumber}
+        />
         <Link
           to="addQuiz"
           className="bg-dark transition-colors flex items-center text-primary-light rounded-lg text-xs font-medium py-button-padding-y px-button-padding-x outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"
@@ -97,7 +100,7 @@ const Quiz = () => {
             </thead>
 
             <tbody>
-              {quizzesData ? (
+              {quizzesData && quizzesData.data.length > 0 ? (
                 quizzesData.data?.map((quiz: TQuizType, index: number) => (
                   <ListOfQuiz
                     key={index}

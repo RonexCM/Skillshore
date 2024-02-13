@@ -31,7 +31,7 @@ const AddQuestionCategory = () => {
   useEffect(() => {
     if (isSuccess) {
       toast.success("Category added!");
-      navigate(-1);
+      navigate("/admin/questioncategory");
     }
   }, [isSuccess]);
 
@@ -52,8 +52,9 @@ const AddQuestionCategory = () => {
           icon={FaHome}
           title="Question Category"
           subTitle="New Category"
+          backToPage="/admin/questioncategory"
         />
-        <h1 className="text-primary font-medium text-2xl">New Category </h1>
+        <h1 className="text-primary font-medium text-2xl">New Category</h1>
       </div>
 
       <Formik

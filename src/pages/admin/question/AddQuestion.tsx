@@ -16,6 +16,7 @@ import {
   FormikOptionsFieldArray,
   FormikSelectAnswerField,
   FormikSelectCategoryField,
+  FormikSelectStatus,
   FormikSelectWeightageField,
   FormikTextAreaField,
 } from "../../../components";
@@ -59,7 +60,7 @@ const AddQuestion = () => {
   useEffect(() => {
     if (isSuccess) {
       toast.success("Question added!");
-      navigate(-1);
+      navigate("/admin/question");
     }
   }, [isSuccess]);
 
@@ -82,7 +83,12 @@ const AddQuestion = () => {
       className="w-full pt-5 pb-10 px-8 "
     >
       <div className="flex flex-col justify-start items-left p-2 mb-2">
-        <BreadCrumb icon={FaHome} title="Question" subTitle="New Question" />
+        <BreadCrumb
+          icon={FaHome}
+          title="Question"
+          subTitle="New Question"
+          backToPage="/admin/question"
+        />
         <h1 className="text-primary font-medium text-2xl">New Question</h1>
       </div>
 
@@ -96,11 +102,11 @@ const AddQuestion = () => {
             <div className="border-2  p-7 rounded-md grid gap-2 gap-x-6 grid-cols-2 border-primary-light ">
               <FormikInputField name="title" label="Title" type="text" />
 
-              <FormikSelectCategoryField data={questionCategoryList} />
-
               <FormikInputField name="slug" label="Slug" type="text" />
 
-              <FormikSelectWeightageField />
+              <FormikSelectCategoryField data={questionCategoryList} />
+
+              <FormikSelectStatus />
 
               <FormikTextAreaField name="description" label="Description" />
 
@@ -111,6 +117,7 @@ const AddQuestion = () => {
                 handleChange={handleChange}
               />
               <FormikSelectAnswerField answerOptions={answerOptions} />
+              <FormikSelectWeightageField />
             </div>
 
             <FormikButton type="submit" label="Add" />

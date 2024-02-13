@@ -28,16 +28,16 @@ const QuizCategory = () => {
     title: searchTerm,
   });
 
+  const { meta } = useSelector((state: RootState) => state.quizCategoryList);
+
   useEffect(() => {
     if (isSuccess) {
       dispatch(saveQuizCategoryList(quizCategoriesData.data));
       dispatch(saveQuizCategoriesMetaData(quizCategoriesData.meta));
     }
     setShowLoader(isLoading);
-    setStartingIndex(currentPageNumber * 10 - 9);
-  }, [quizCategoriesData, isLoading, isSuccess]);
-
-  const { meta } = useSelector((state: RootState) => state.quizCategoryList);
+    setStartingIndex(currentPageNumber * meta.per_page - (meta.per_page - 1));
+  }, [quizCategoriesData, isLoading, isSuccess, meta]);
 
   const loadingState = useLoadingState();
   const { setShowLoader } = loadingState;
@@ -53,7 +53,10 @@ const QuizCategory = () => {
       </h1>
 
       <div className="flex justify-between">
-        <FormSearchbar setSearchTerm={setSearchTerm} />
+        <FormSearchbar
+          setSearchTerm={setSearchTerm}
+          setCurrentPageNumber={setCurrentPageNumber}
+        />
         <Link
           to="addQuizCategory"
           className="bg-dark transition-colors flex items-center text-primary-light rounded-lg text-xs font-medium py-button-padding-y px-button-padding-x outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"
@@ -85,7 +88,7 @@ const QuizCategory = () => {
             </thead>
 
             <tbody>
-              {quizCategoriesData ? (
+              {quizCategoriesData && quizCategoriesData.data.length > 0 ? (
                 quizCategoriesData.data?.map(
                   (quizCategory: TQuizCategoryType, index: number) => (
                     <ListOfQuizCategorys

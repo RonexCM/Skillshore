@@ -24,8 +24,8 @@ import {
 import { Login } from "./pages/auth/login";
 import { Register } from "./pages/auth/register";
 import CommonLayout from "./layouts/CommonLayout";
-import StudentQuizCategory from "./pages/student/quizCategory/Home";
 import QuizDashboard from "./pages/student/quiz/QuizDashboard";
+import Home from "./pages/student/quizCategory/Home";
 const App = () => {
   return (
     <div>
@@ -52,7 +52,7 @@ const App = () => {
                 path="/home"
                 element={
                   <AuthWrapper>
-                    <StudentQuizCategory />
+                    <Home />
                   </AuthWrapper>
                 }
               />

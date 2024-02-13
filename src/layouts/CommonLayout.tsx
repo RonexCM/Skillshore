@@ -1,5 +1,4 @@
 import { Outlet, useOutletContext } from "react-router-dom";
-import Footer from "../components/Footer";
 import AuthNavbar from "./AuthNavbar";
 import UserNavbar from "./UserNavbar";
 import { ToastContainer } from "react-toastify";
@@ -8,9 +7,10 @@ import { RootState } from "../redux/store";
 import { useEffect, useState } from "react";
 import { useGetUserMutation } from "../redux/services/myUserProfileEndpoints";
 import { setUserData } from "../redux/slice/userSlice";
-import { Spinner } from "flowbite-react";
 import { motion } from "framer-motion";
 import { LineWave } from "react-loader-spinner";
+import Footer from "./Footer";
+
 type Props = {
   layoutFor: string;
 };

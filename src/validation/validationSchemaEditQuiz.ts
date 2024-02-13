@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-const validationSchemaAddQuiz = Yup.object({
+const validationSchemaEditQuiz = Yup.object({
   title: Yup.string()
     .matches(/^\s*\S+/, "Title is required")
     .required("Title is required")
@@ -15,10 +15,10 @@ const validationSchemaAddQuiz = Yup.object({
   category_id: Yup.number()
     .required("Category is required")
     .positive("Category is required"),
-  thumbnail: Yup.mixed().required("Please upload a file"),
+  thumbnail: Yup.mixed(),
   description: Yup.string()
-    .matches(/^\s*\S+/, "Description is required")
     .max(5000)
+    .matches(/^\s*\S+/, "Description is required")
     .required("Description is required"),
   time: Yup.number()
     .required("Time is required")
@@ -36,4 +36,4 @@ const validationSchemaAddQuiz = Yup.object({
     .required("Pass percentage is required")
     .max(99, "Must be less that 100"),
 });
-export default validationSchemaAddQuiz;
+export default validationSchemaEditQuiz;

@@ -16,7 +16,9 @@ import {
   FormikInputField,
   FormikSelectCategoryField,
   FormikSelectQuestionCategoriesField,
+  FormikSelectStatus,
   FormikTextAreaField,
+  ThumbnailPreview,
 } from "../../../components";
 import { useGetAllQuizCategoriesQuery } from "../../../redux/services/myQuizCategoryApiEndpoints";
 import { useLoadingState } from "../../../layouts/AdminLayout";
@@ -26,6 +28,7 @@ const AddQuiz = () => {
   const { setShowLoader } = useLoadingState();
 
   const [thumbnail, setThumbnail] = useState<File | string>("");
+  const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
 
   const [addQuiz, { error, isSuccess }] = useAddQuizMutation();
   const { data: quizCategoryList, isLoading } = useGetAllQuizCategoriesQuery();
@@ -47,7 +50,7 @@ const AddQuiz = () => {
   useEffect(() => {
     if (isSuccess) {
       toast.success("Quiz added!");
-      navigate(-1);
+      navigate("/admin/quiz");
     }
   }, [isSuccess]);
 
@@ -70,7 +73,12 @@ const AddQuiz = () => {
       className="w-full pt-5 pb-10 px-8 "
     >
       <div className="flex flex-col justify-start items-left p-2 mb-2">
-        <BreadCrumb icon={FaHome} title="Quiz" subTitle="New Quiz" />
+        <BreadCrumb
+          icon={FaHome}
+          title="Quiz"
+          subTitle="New Quiz"
+          backToPage="/admin/quiz"
+        />
         <h1 className="text-primary font-medium text-2xl">New Quiz</h1>
       </div>
 
@@ -83,6 +91,18 @@ const AddQuiz = () => {
         {({ handleChange, handleBlur, setFieldValue }) => (
           <Form>
             <div className="border-2  p-7 rounded-md grid gap-2 gap-x-6 grid-cols-2 border-primary-light ">
+              <FormikFileInputField
+                name="thumbnail"
+                label="Thumbnail"
+                setThumbnail={setThumbnail}
+                handleChange={handleChange}
+                setPreview={setPreview}
+              />
+
+              <div className="flex w-full justify-center">
+                {preview && <ThumbnailPreview image={preview.toString()} />}
+              </div>
+
               <FormikInputField name="title" label="Title" type="text" />
 
               <FormikInputField name="slug" label="Slug" type="text" />
@@ -98,11 +118,7 @@ const AddQuiz = () => {
 
               <FormikInputField name="time" label="Time" type="number" />
 
-              <FormikInputField
-                name="pass_percentage"
-                label="Pass Percentage"
-                type="number"
-              />
+              <FormikSelectStatus />
 
               <FormikInputField
                 name="retry_after"
@@ -110,11 +126,10 @@ const AddQuiz = () => {
                 type="number"
               />
 
-              <FormikFileInputField
-                name="thumbnail"
-                label="Thumbnail"
-                setThumbnail={setThumbnail}
-                handleChange={handleChange}
+              <FormikInputField
+                name="pass_percentage"
+                label="Pass Percentage"
+                type="number"
               />
             </div>
 

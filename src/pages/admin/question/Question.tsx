@@ -39,8 +39,9 @@ const Question = () => {
       dispatch(saveQuestionsMetaData(questionsData.meta));
     }
     setShowLoader(isLoading);
-    setStartingIndex(currentPageNumber * 10 - 9);
-  }, [questionsData, isLoading, isSuccess]);
+
+    setStartingIndex(currentPageNumber * meta.per_page - (meta.per_page - 1));
+  }, [questionsData, isLoading, isSuccess, meta]);
 
   return (
     <motion.div
@@ -51,7 +52,11 @@ const Question = () => {
       <h1 className="text-primary font-medium text-2xl leading-4">Question</h1>
 
       <div className="flex justify-between">
-        <FormSearchbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        <FormSearchbar
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          setCurrentPageNumber={setCurrentPageNumber}
+        />
         <Link
           to="addQuestion"
           className="bg-dark transition-colors flex items-center text-primary-light rounded-lg text-xs font-medium py-button-padding-y px-button-padding-x outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"
@@ -94,7 +99,7 @@ const Question = () => {
             </thead>
 
             <tbody>
-              {questionsData ? (
+              {questionsData && questionsData.data.length > 0 ? (
                 questionsData.data?.map(
                   (question: TQuestionType, index: number) => (
                     <ListOfQuestions

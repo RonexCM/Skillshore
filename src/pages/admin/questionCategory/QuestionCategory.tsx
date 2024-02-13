@@ -29,18 +29,18 @@ const QuestionCategory = () => {
     title: searchTerm,
   });
 
+  const { meta } = useSelector(
+    (state: RootState) => state.questionCategoryList
+  );
+
   useEffect(() => {
     if (isSuccess) {
       dispatch(saveQuestionCategoryList(questionCategoriesData.data));
       dispatch(saveQuestionCategoriesMetaData(questionCategoriesData.meta));
     }
     setShowLoader(isLoading);
-    setStartingIndex(currentPageNumber * 10 - 9);
-  }, [questionCategoriesData, isLoading, isSuccess]);
-
-  const { meta } = useSelector(
-    (state: RootState) => state.questionCategoryList
-  );
+    setStartingIndex(currentPageNumber * meta.per_page - (meta.per_page - 1));
+  }, [questionCategoriesData, isLoading, isSuccess, meta]);
 
   const loadingState = useLoadingState();
   const { setShowLoader } = loadingState;
@@ -56,7 +56,10 @@ const QuestionCategory = () => {
       </h1>
 
       <div className="flex justify-between">
-        <FormSearchbar setSearchTerm={setSearchTerm} />
+        <FormSearchbar
+          setSearchTerm={setSearchTerm}
+          setCurrentPageNumber={setCurrentPageNumber}
+        />
         <Link
           to="addQuestionCategory"
           className="bg-dark transition-colors flex items-center text-primary-light rounded-lg text-xs font-medium py-button-padding-y px-button-padding-x outline-offset-[-2px] hover:bg-white hover:outline hover:outline-2 hover:outline-primary hover:text-dark"
@@ -88,7 +91,8 @@ const QuestionCategory = () => {
             </thead>
 
             <tbody>
-              {questionCategoriesData ? (
+              {questionCategoriesData &&
+              questionCategoriesData.data.length > 0 ? (
                 questionCategoriesData.data?.map(
                   (
                     questionCategory: TStudentQuestionCategoryType,
