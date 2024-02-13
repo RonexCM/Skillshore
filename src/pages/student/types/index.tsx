@@ -128,14 +128,12 @@ type QuizQuestionsResponse = {
 };
 
 export type QuizDetails = {
-  title: string, 
-  thumbnail: string, 
-  slug: string,
-  description: string, 
-  retry_after: number,
-  status: number,
-  time: number,
+  title: string;
+  thumbnail: string;
+  slug: string;
+  description: string;
+  retry_after: number;
+  status: number;
+  time: number;
   questions?: QuizQuestionsResponse;
 };
-
-

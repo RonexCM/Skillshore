@@ -11,6 +11,7 @@ export const apiSlice = myApi.injectEndpoints({
         return { data: response.data, profile: response.data.profile };
       },
     }),
+
     updateUserProfile: builder.mutation({
       query: ({ id, ...updatedUserData }) => ({
         url: `/student/profile/${id}`,
@@ -18,6 +19,7 @@ export const apiSlice = myApi.injectEndpoints({
         body: updatedUserData,
       }),
     }),
+
     createProfile: builder.mutation({
       query: (newProfileData) => ({
         url: `/student/profile`,

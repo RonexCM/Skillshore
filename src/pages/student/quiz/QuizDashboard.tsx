@@ -23,9 +23,14 @@ const QuizDashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id: quizId } = useParams();
+
   const [postQuizData] = usePostQuizDataMutation();
-  const { data, isLoading } = useGetQuizOptionsQuery(quizId as unknown as number);
-  const quizDetails = useSelector((state: RootState) => state.quiz.data as QuizDetails);
+  const { data, isLoading } = useGetQuizOptionsQuery(
+    quizId as unknown as number
+  );
+  const quizDetails = useSelector(
+    (state: RootState) => state.quiz.data as QuizDetails
+  );
   const quizAnswer = useSelector((state: RootState) => state.answer.data);
   const [index, setIndex] = useState(0);
   const [selectedOptionIndex, setSelectedOptionIndex] = useState<number | null>(
@@ -33,9 +38,9 @@ const QuizDashboard = () => {
   );
 
   const [timer, setTimer] = useState(0);
-  const { questions } = quizDetails?.questions?.data || { questions: [] }
+  const { questions } = quizDetails?.questions?.data || { questions: [] };
   const { time } = quizDetails;
-  
+
   useEffect(() => {
     if (data) {
       dispatch(setQuizData(data));
@@ -107,6 +112,25 @@ const QuizDashboard = () => {
     navigate("/quizzes");
   };
 
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+      const data = {
+        ...quizAnswer,
+        total_time: timer,
+        total_question: index + 1,
+        quiz_id: quizId,
+      };
+      postQuizData(data);
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [postQuizData, quizAnswer, quizId, timer, index]);
+
   if (isLoading) {
     return (
       <div className="flex justify-center h-[800px]">
@@ -118,7 +142,10 @@ const QuizDashboard = () => {
   return (
     <div className="h-max w-full px-[50px] font-poppins">
       <div className=" grid grid-cols-2  items-center  ">
-        <img src={quizDetails.thumbnail} className=" h-[150px] w-[200px]" />
+        <img
+          src={quizDetails.thumbnail}
+          className=" h-[150px] w-[200px] my-5"
+        />
         <div className="flex justify-end">
           <p className="text-4xl font-medium text-primary">
             {time && (
@@ -131,16 +158,16 @@ const QuizDashboard = () => {
           </p>
         </div>
       </div>
-      <div className="border-t border-primary-light "></div>
-      <div className=" grid grid-cols-2  h-max w-full  ">
+      <div className="border-t border-primary-light ml-[23px]"></div>
+      <div className=" grid grid-cols-2 ml-[23px]  h-max w-full  ">
         <div className="border-r border-primary-light ">
           <QuizQuestionField
             title={questions[index]?.title}
             description={quizDetails.description}
           />
         </div>
-        <div className=" pl-10 grid grid-cols-1  ">
-          <div className=" flex justify-between items-center my-8">
+        <div className=" pl-10 grid grid-cols-1 mt-5 ">
+          <div className=" flex justify-between items-center mb-7">
             <p className=" text-dark text-sm font-semibold">
               Select one answer
             </p>
