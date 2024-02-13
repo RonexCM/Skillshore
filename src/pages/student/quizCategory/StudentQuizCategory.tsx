@@ -192,7 +192,7 @@ const StudentQuizCategory = () => {
         <QuizModal
           selectQuiz={selectQuiz}
           setShowModal={setShowQuizModal}
-          id={0}
+          id={3}
           modalFor={"quizModal"}
         />
       )}

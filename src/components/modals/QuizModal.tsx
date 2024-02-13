@@ -20,6 +20,7 @@ const QuizModal = ({ setShowModal, id }: Props) => {
   const navigate = useNavigate();
   const StartQuiz = () => {
     navigate(`/quiz/${id}`);
+    console.log(id);
   };
 
   const closeModal = (
@@ -98,6 +99,7 @@ const QuizModal = ({ setShowModal, id }: Props) => {
                 </p>
                 <button
                   onClick={StartQuiz}
+                  // id={0}
                   className="text-sm py-2 px-6 rounded-lg border-2  bg-[#2F5CFE] text-white "
                 >
                   Start Quiz
