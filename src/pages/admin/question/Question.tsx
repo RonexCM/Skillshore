@@ -16,7 +16,6 @@ import FormSearchbar from "../../../components/FormSearchbar";
 const Question = () => {
   const dispatch = useDispatch();
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
-  const [startingIndex, setStartingIndex] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
 
   const loadingState = useLoadingState();
@@ -39,9 +38,7 @@ const Question = () => {
       dispatch(saveQuestionsMetaData(questionsData.meta));
     }
     setShowLoader(isLoading);
-
-    setStartingIndex(currentPageNumber * meta.per_page - (meta.per_page - 1));
-  }, [questionsData, isLoading, isSuccess, meta]);
+  }, [questionsData, isLoading, isSuccess]);
 
   return (
     <motion.div
@@ -106,7 +103,7 @@ const Question = () => {
                       key={index}
                       question={question}
                       index={index}
-                      startingIndex={startingIndex}
+                      from={questionsData.meta.from}
                     />
                   )
                 )

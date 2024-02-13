@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { useLoadingState } from "../../../layouts/AdminLayout";
-import { TStudentQuestionCategoryType } from "../types";
+import { TQuestionCategoryType } from "../types";
 import { useGetQuestionCategoriesQuery } from "../../../redux/services/myQuestionCategoryApiEndpoints";
 import {
   saveQuestionCategoriesMetaData,
@@ -17,7 +17,6 @@ const QuestionCategory = () => {
   const dispatch = useDispatch();
 
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
-  const [startingIndex, setStartingIndex] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
 
   const {
@@ -39,8 +38,7 @@ const QuestionCategory = () => {
       dispatch(saveQuestionCategoriesMetaData(questionCategoriesData.meta));
     }
     setShowLoader(isLoading);
-    setStartingIndex(currentPageNumber * meta.per_page - (meta.per_page - 1));
-  }, [questionCategoriesData, isLoading, isSuccess, meta]);
+  }, [questionCategoriesData, isLoading, isSuccess]);
 
   const loadingState = useLoadingState();
   const { setShowLoader } = loadingState;
@@ -94,15 +92,12 @@ const QuestionCategory = () => {
               {questionCategoriesData &&
               questionCategoriesData.data.length > 0 ? (
                 questionCategoriesData.data?.map(
-                  (
-                    questionCategory: TStudentQuestionCategoryType,
-                    index: number
-                  ) => (
+                  (questionCategory: TQuestionCategoryType, index: number) => (
                     <ListOfQuestionCategory
                       key={index}
                       questionCategory={questionCategory}
                       index={index}
-                      startingIndex={startingIndex}
+                      from={questionCategoriesData.meta.from}
                     />
                   )
                 )

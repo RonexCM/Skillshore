@@ -10,6 +10,10 @@ export const convertPayloadToFormData = (payload: any) => {
   return formData;
 };
 
-export const generateSlug = (value: any) => {
-  return value.toLowerCase().split(" ").join("-").toString();
+export const generateSlug = (text: string) => {
+  return text
+    .replace(/\s+/g, " ")
+    .replace(/[^a-zA-Z0-9-\s]/g, "")
+    .replace(/\s/g, "-")
+    .toLowerCase();
 };

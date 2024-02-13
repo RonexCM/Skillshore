@@ -135,9 +135,19 @@ const EditQuestion = () => {
         {({ handleChange }) => (
           <Form>
             <div className="border-2  p-7 rounded-md grid gap-2 gap-x-6 grid-cols-2 border-primary-light ">
-              <FormikInputField name="title" label="Title" type="text" />
+              <FormikInputField
+                name="title"
+                label="Title"
+                type="text"
+                handleChange={handleChange}
+              />
 
-              <FormikInputField name="slug" label="Slug" type="text" />
+              <FormikInputField
+                name="slug"
+                label="Slug"
+                type="text"
+                handleChange={handleChange}
+              />
 
               <FormikSelectCategoryField data={questionCategoryList} />
 

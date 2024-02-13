@@ -144,9 +144,19 @@ const EditQuiz = () => {
                 {preview && <ThumbnailPreview image={preview.toString()} />}
               </div>
 
-              <FormikInputField name="title" label="Title" type="text" />
+              <FormikInputField
+                name="title"
+                label="Title"
+                type="text"
+                handleChange={handleChange}
+              />
 
-              <FormikInputField name="slug" label="Slug" type="text" />
+              <FormikInputField
+                name="slug"
+                label="Slug"
+                type="text"
+                handleChange={handleChange}
+              />
 
               <FormikSelectCategoryField data={quizCategoryList} />
 
@@ -158,7 +168,12 @@ const EditQuiz = () => {
 
               <FormikTextAreaField name="description" label="Description" />
 
-              <FormikInputField name="time" label="Time" type="number" />
+              <FormikInputField
+                name="time"
+                label="Time"
+                type="number"
+                handleChange={handleChange}
+              />
 
               <FormikSelectStatus />
 
@@ -166,12 +181,14 @@ const EditQuiz = () => {
                 name="retry_after"
                 label="Retry After"
                 type="number"
+                handleChange={handleChange}
               />
 
               <FormikInputField
                 name="pass_percentage"
                 label="Pass Percentage"
                 type="number"
+                handleChange={handleChange}
               />
             </div>
 
