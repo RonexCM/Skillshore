@@ -88,7 +88,7 @@ const AddQuiz = () => {
         validateOnBlur={true}
         validationSchema={validationSchemaAddQuiz}
       >
-        {({ handleChange, handleBlur, setFieldValue }) => (
+        {({ handleChange, handleBlur, setFieldValue, values }) => (
           <Form>
             <div className="border-2  p-7 rounded-md grid gap-2 gap-x-6 grid-cols-2 border-primary-light ">
               <FormikFileInputField
@@ -97,10 +97,15 @@ const AddQuiz = () => {
                 setThumbnail={setThumbnail}
                 handleChange={handleChange}
                 setPreview={setPreview}
+                thumbnail={thumbnail}
+                setFieldValue={setFieldValue}
+                values={values}
               />
 
-              <div className="flex w-full justify-center">
-                {preview && <ThumbnailPreview image={preview.toString()} />}
+              <div className="flex w-full justify-end">
+                {values.thumbnail && preview ? (
+                  <ThumbnailPreview image={preview.toString()} />
+                ) : null}
               </div>
 
               <FormikInputField

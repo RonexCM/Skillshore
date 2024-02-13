@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { useEffect } from "react";
 import { useLoadingState } from "../../layouts/CommonLayout";
-import { LineWave } from "react-loader-spinner";
 
 type Props = {
   selectQuiz: (id: number) => void;

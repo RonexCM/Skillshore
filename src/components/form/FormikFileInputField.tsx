@@ -1,56 +1,81 @@
 import { ErrorMessage, Field } from "formik";
-import { FormEvent } from "react";
+import { FormEvent, useEffect } from "react";
 import { ImCross } from "react-icons/im";
 type Props = {
+  thumbnail?: any;
   name: string;
-  label?: string;
-  handleChange: (event: FormEvent) => void;
+  label: string;
+  handleChange: {
+    (e: React.ChangeEvent<any>): void;
+    <T = string | React.ChangeEvent<any>>(
+      field: T
+    ): T extends React.ChangeEvent<any>
+      ? void
+      : (e: string | React.ChangeEvent<any>) => void;
+  };
   setThumbnail: React.Dispatch<React.SetStateAction<string | File>>;
   resetBtn?: boolean;
   setPreview: React.Dispatch<React.SetStateAction<string | ArrayBuffer | null>>;
+  setFieldValue?: any;
+  values?: any;
 };
 
 const FormikFileInputField = ({
   name,
-
   handleChange,
   setThumbnail,
   setPreview,
-  resetBtn,
+  thumbnail,
+  setFieldValue,
+  values,
+  label,
 }: Props) => {
+  useEffect(() => {
+    if (values.thumbnail === "") {
+      setFieldValue("thumbnail", "");
+    }
+  }, [values]);
+
   return (
-    <div className="h-[76px]">
+    <div className="h-[88px]">
       <div className="relative flex flex-col gap-2  ">
-        <label
-          htmlFor={name}
-          className=" text-base text-[#626262] bg-[#e8e8e85c] text-center cursor-pointer h-[62px] leading-[62px] rounded-md transition-all hover:bg-primary hover:text-white"
-        >
-          Click to choose thumbnail...
+        <label htmlFor={name} className=" text-base text-dark ">
+          {label}
         </label>
         <Field
-          hidden
           type="file"
           accept="image/png, image/jpg, image/jpeg"
           id={name}
           autoComplete={`current-${name}`}
           name={name}
+          onClick={(e: FormEvent<HTMLInputElement>) => {
+            if (thumbnail) {
+              e.preventDefault();
+            }
+          }}
           onChange={(event: FormEvent<HTMLInputElement>) => {
+            handleChange(event);
             if (event.currentTarget.files === null) return;
             const file = event.currentTarget.files[0];
-            setThumbnail(file);
-            const fileReader = new FileReader();
-            fileReader.onload = function () {
-              setPreview(fileReader.result);
-            };
-            fileReader.readAsDataURL(file);
-            handleChange(event);
+
+            if (file) {
+              setThumbnail(file);
+              const fileReader = new FileReader();
+              fileReader.onload = function () {
+                setPreview(fileReader.result);
+              };
+              fileReader.readAsDataURL(file);
+            }
           }}
           className=" text-sm rounded-md border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary w-full"
         />
-        {resetBtn && (
+        {values.thumbnail !== "" && (
           <ImCross
-            className="absolute top-[48px] right-[10px] text-[#ec6161] text-xs cursor-pointer"
-            onClick={() => setThumbnail("")}
+            className="absolute top-[42px] right-[10px] bg-[#eeeeeec8] rounded-md p-[6px] text-[#ec6161] text-2xl cursor-pointer hover:bg-[#ec616137]"
+            onClick={() => {
+              setThumbnail("");
+              setFieldValue("thumbnail", "");
+            }}
           />
         )}
       </div>

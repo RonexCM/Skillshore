@@ -44,6 +44,7 @@ export const myApi = createApi({
     "FetchQuizCategories",
     "FetchQuizzes",
     "FetchQuestionCategories",
+    "FetchQuestions",
   ],
   keepUnusedDataFor: 0,
   endpoints: () => ({}),

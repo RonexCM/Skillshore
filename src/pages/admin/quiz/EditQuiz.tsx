@@ -126,7 +126,7 @@ const EditQuiz = () => {
         onSubmit={onSubmit}
         validationSchema={validationSchemaEditQuiz}
       >
-        {({ handleChange, setFieldValue, handleBlur }) => (
+        {({ handleChange, setFieldValue, handleBlur, values }) => (
           <Form>
             <div className="border-2  p-7 rounded-md grid gap-2 gap-x-6 grid-cols-2 border-primary-light ">
               <FormikFileInputField
@@ -135,13 +135,17 @@ const EditQuiz = () => {
                 setThumbnail={setThumbnail}
                 handleChange={handleChange}
                 setPreview={setPreview}
+                thumbnail={thumbnail}
+                setFieldValue={setFieldValue}
+                values={values}
               />
 
-              <div className="flex w-full justify-center">
-                {typeof thumbnail !== "string" ? null : (
+              <div className="flex w-full justify-end">
+                {values.thumbnail && preview ? (
+                  <ThumbnailPreview image={preview.toString()} />
+                ) : (
                   <ThumbnailPreview image={quiz.thumbnail_url} />
                 )}
-                {preview && <ThumbnailPreview image={preview.toString()} />}
               </div>
 
               <FormikInputField
