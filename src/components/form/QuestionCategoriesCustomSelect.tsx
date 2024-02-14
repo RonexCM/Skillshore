@@ -41,8 +41,6 @@ const QuestionCategoriesCustomSelect = ({
             outlineColor: state.isFocused ? "#2F5CFE" : "#E1E7FF",
             "&:hover": {
               outline: "2px solid #2F5CFE",
-              overflow: "auto",
-              height: "70px",
             },
           }),
           dropdownIndicator: () => ({
