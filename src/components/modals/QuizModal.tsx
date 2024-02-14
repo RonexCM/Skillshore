@@ -5,23 +5,20 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { useEffect } from "react";
 import { useLoadingState } from "../../layouts/CommonLayout";
-import { LineWave } from "react-loader-spinner";
 
 type Props = {
   selectQuiz: (id: number) => void;
   modalFor: string;
   setShowModal: (a: boolean) => void;
-  id: number;
 };
 
-const QuizModal = ({ setShowModal, id }: Props) => {
-  const { data: QuizData, error, isLoading } = useGetQuizByIdQuery(id);
+const QuizModal = ({ selectQuiz, setShowModal }: Props) => {
+  const { data: QuizData, error, isLoading } = useGetQuizByIdQuery(selectQuiz);
   const quizTestSlice = useSelector((state: RootState) => state.allModal.data);
 
   const navigate = useNavigate();
   const StartQuiz = () => {
-    navigate(`/quiz/${id}`);
-    console.log(id);
+    navigate(`/quiz/${selectQuiz}`);
   };
 
   const closeModal = (

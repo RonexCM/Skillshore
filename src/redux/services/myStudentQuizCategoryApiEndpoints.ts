@@ -1,13 +1,13 @@
 import {
   StudentQuizCategoryType,
-  TStudentAllQuizCategoryType,
+  TAllStudentQuizCategoriesType,
 } from "../../pages/admin/types";
 import { myApi } from "./myApi";
 
 const myQuizCategoryApiEndpoints = myApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllQuizCategoriesStudent: builder.query<
-      TStudentAllQuizCategoryType,
+      TAllStudentQuizCategoriesType,
       void
     >({
       query: () => "/student/quiz-categories/all",

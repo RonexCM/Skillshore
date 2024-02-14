@@ -20,7 +20,7 @@ const myQuestionApiEndpoints = myApi.injectEndpoints({
         }
         return query;
       },
-      providesTags: ["FetchQuestions"],
+      providesTags: ["FetchQuizzes"],
       transformResponse: (response: TFetchQuestionsType) => {
         return { data: response.data, meta: response.meta };
       },
@@ -43,7 +43,7 @@ const myQuestionApiEndpoints = myApi.injectEndpoints({
           method: "POST",
           body,
         }),
-        invalidatesTags: ["FetchQuestions"],
+        invalidatesTags: ["FetchQuizzes"],
       }
     ),
 
@@ -56,7 +56,7 @@ const myQuestionApiEndpoints = myApi.injectEndpoints({
         method: "PUT",
         body: { ...rest },
       }),
-      invalidatesTags: ["FetchQuestions"],
+      invalidatesTags: ["FetchQuizzes"],
     }),
 
     deleteQuestion: builder.mutation<any, number>({
@@ -66,7 +66,7 @@ const myQuestionApiEndpoints = myApi.injectEndpoints({
           method: "DELETE",
         };
       },
-      invalidatesTags: ["FetchQuestions"],
+      invalidatesTags: ["FetchQuizzes"],
     }),
   }),
 });

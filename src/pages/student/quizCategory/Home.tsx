@@ -17,12 +17,6 @@ import { StudentQuizModalTypes } from "../../admin/types";
 import Pagination from "../../../components/Pagination";
 import FilterQuizzes from "../../../components/User/FilterQuizzes";
 
-interface Quiz {
-  result: {
-    passed: boolean;
-  };
-}
-
 const Home = () => {
   // hooks
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
@@ -49,28 +43,6 @@ const Home = () => {
   const { data: quizCategoriesData } = useGetAllQuizCategoriesStudentQuery();
 
   // Effects to handle API responses
-
-  const sortByPassedResult = (quizA: Quiz, quizB: Quiz): number => {
-    const quizAPassed = quizA.result && quizA.result.passed;
-    const quizBPassed = quizB.result && quizB.result.passed;
-
-    const quizAFailed = quizA.result && !quizA.result.passed;
-    const quizBFailed = quizB.result && !quizB.result.passed;
-
-    if (quizAFailed && !quizBFailed) {
-      return -1;
-    } else if (!quizAFailed && quizBFailed) {
-      return 1;
-    }
-
-    if (quizAPassed && !quizBPassed) {
-      return -1;
-    } else if (!quizAPassed && quizBPassed) {
-      return 1;
-    }
-
-    return 0;
-  };
 
   useEffect(() => {
     if (quizData) {
@@ -136,7 +108,7 @@ const Home = () => {
       return (
         <>
           <CiLock className="inline-block text-red-600" />
-          <span className="text-red-600 text-base font-medium mt-6 px-2 py-0.5 rounded ">
+          <span className="text-red-600 text-base font-medium mt-6 px-1 py-0.5 rounded ">
             Retry after {retry_after} days
           </span>
         </>
@@ -147,7 +119,7 @@ const Home = () => {
       );
     }
   };
-  const sortedQuizzes = [...listOfQuiz].sort(sortByPassedResult);
+
   const horizontalLineBaseStyle =
     "border-b-2 border-primary-light w-full my-[16px] opacity-[0.5]";
   if (!quizData) return;
@@ -193,7 +165,7 @@ const Home = () => {
           </div>
         </div>
         <div className="col-span-9 grid grid-cols-4 gap-4">
-          {sortedQuizzes.map((quiz, index) => (
+          {listOfQuiz.map((quiz, index) => (
             <QuizDetails
               key={index}
               quiz={quiz}
@@ -208,7 +180,6 @@ const Home = () => {
         <QuizModal
           selectQuiz={selectQuiz}
           setShowModal={setShowQuizModal}
-          id={3}
           modalFor={"quizModal"}
         />
       )}

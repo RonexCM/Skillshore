@@ -14,7 +14,7 @@ const Button = ({ style, text, onClick }: Props) => {
   const completed =
     " text-primary text-base text-primary opacity-[0.2] font-semibold rounded-sm px-5 py-3 cursor-none";
   const failed =
-    "text-dark text-lg font-medium flex items-center px-2.5 py-0.5 rounded-lg  text-opacity-[0.5]  dark:text-gray-100 relative";
+    "text-dark text-base font-medium flex items-center px-2.5 py-0.5 rounded-lg  text-opacity-[0.5]  dark:text-gray-100 relative";
 
   return (
     <button

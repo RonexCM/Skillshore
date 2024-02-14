@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
-import { AddQuestionCategoryFieldType } from "../types";
+import { TAddQuestionCategoryFieldType } from "../types";
 import { useAddQuestionCategoryMutation } from "../../../redux/services/myQuestionCategoryApiEndpoints";
 import { useEffect } from "react";
 import { categoryInitialValues } from "../../../configs/constants";
@@ -20,7 +20,7 @@ const AddQuestionCategory = () => {
   const [addQuestionCategory, { error, isSuccess }] =
     useAddQuestionCategoryMutation();
 
-  const onSubmit = async (values: AddQuestionCategoryFieldType) => {
+  const onSubmit = async (values: TAddQuestionCategoryFieldType) => {
     try {
       await addQuestionCategory(values);
     } catch (error) {
