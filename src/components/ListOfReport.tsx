@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { TReportDataType } from "../pages/admin/types/TReportTypes";
 import { Badge } from "flowbite-react";
-import { useEffect, useState } from "react";
 
 type Props = {
   report: TReportDataType;
@@ -10,14 +9,6 @@ type Props = {
 };
 
 const ListOfReport = ({ report, index, from }: Props) => {
-  const [passed, setPassed] = useState(false);
-  useEffect(() => {
-    if (report.passed === 1) {
-      setPassed(true);
-    } else {
-      setPassed(false);
-    }
-  }, [report, setPassed]);
   return (
     <>
       <motion.tr
@@ -39,7 +30,7 @@ const ListOfReport = ({ report, index, from }: Props) => {
         </td>
         <td className="px-6 font-normal text-gray-900 ">
           <div className="w-max">
-            {passed ? (
+            {report.passed === 1 ? (
               <Badge color="success" size="sm">
                 Passed
               </Badge>

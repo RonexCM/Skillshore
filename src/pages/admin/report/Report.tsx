@@ -23,7 +23,6 @@ const Report = () => {
     isSuccess,
   } = useGetReportQuery({ page: currentPageNumber, searchTerm: searchTerm });
 
-  console.log(reportData);
   useEffect(() => {
     if (isSuccess) {
       dispatch(saveReportList(reportData.data));

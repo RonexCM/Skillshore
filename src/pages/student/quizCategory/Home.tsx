@@ -147,7 +147,7 @@ const Home = () => {
       );
     }
   };
-  const sortedQuizzes = [...listOfQuiz].sort(sortByPassedResult);
+  const sortedQuizzes = [...listOfQuiz].sort(sortByPassedResult as any);
   const horizontalLineBaseStyle =
     "border-b-2 border-primary-light w-full my-[16px] opacity-[0.5]";
   if (!quizData) return;
