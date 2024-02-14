@@ -17,7 +17,6 @@ const Quiz = () => {
   const dispatch = useDispatch();
 
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
-  const [startingIndex, setStartingIndex] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
 
   const {
@@ -37,8 +36,7 @@ const Quiz = () => {
       dispatch(saveQuizMetaData(quizzesData.meta));
     }
     setShowLoader(isLoading);
-    setStartingIndex(currentPageNumber * meta.per_page - (meta.per_page - 1));
-  }, [quizzesData, isLoading, isSuccess, meta]);
+  }, [quizzesData, isLoading, isSuccess]);
 
   const loadingState = useLoadingState();
   const { setShowLoader } = loadingState;
@@ -62,7 +60,7 @@ const Quiz = () => {
           <span>+Add Quiz</span>
         </Link>
       </div>
-      <div className=" main-container relative flex flex-col min-h-[558px] outline outline-2  outline-primary-light w-full rounded-md text-center ">
+      <div className=" main-container relative flex flex-col min-h-[666px] outline outline-2  outline-primary-light w-full rounded-md text-center ">
         <div className="title-and-table-div basis-full relative overflow-y-hidden">
           <table className="w-full text-sm text-left  text-dark">
             <thead className="border-b-2 border-primary-light bg-[#fcfcfc] shadow-inner h-14">
@@ -106,7 +104,7 @@ const Quiz = () => {
                     key={index}
                     quiz={quiz}
                     index={index}
-                    startingIndex={startingIndex}
+                    from={quizzesData.meta.from}
                   />
                 ))
               ) : (

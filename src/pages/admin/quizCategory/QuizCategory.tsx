@@ -16,7 +16,6 @@ import FormSearchbar from "../../../components/FormSearchbar";
 const QuizCategory = () => {
   const dispatch = useDispatch();
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
-  const [startingIndex, setStartingIndex] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
 
   const {
@@ -36,8 +35,7 @@ const QuizCategory = () => {
       dispatch(saveQuizCategoriesMetaData(quizCategoriesData.meta));
     }
     setShowLoader(isLoading);
-    setStartingIndex(currentPageNumber * meta.per_page - (meta.per_page - 1));
-  }, [quizCategoriesData, isLoading, isSuccess, meta]);
+  }, [quizCategoriesData, isLoading, isSuccess]);
 
   const loadingState = useLoadingState();
   const { setShowLoader } = loadingState;
@@ -95,7 +93,7 @@ const QuizCategory = () => {
                       key={index}
                       quizCategory={quizCategory}
                       index={index}
-                      startingIndex={startingIndex}
+                      from={quizCategoriesData.meta.from}
                     />
                   )
                 )
