@@ -113,7 +113,6 @@ const AddQuiz = () => {
                 label="Title"
                 type="text"
                 handleChange={handleChange}
-                autoGenerateSlug={true}
               />
 
               <FormikInputField

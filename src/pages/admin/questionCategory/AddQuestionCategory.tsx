@@ -70,7 +70,6 @@ const AddQuestionCategory = () => {
                 label="Title"
                 type="text"
                 handleChange={handleChange}
-                autoGenerateSlug={true}
               />
               <FormikInputField
                 name="slug"

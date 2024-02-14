@@ -14,7 +14,6 @@ type Props = {
       ? void
       : (e: string | React.ChangeEvent<any>) => void;
   };
-  autoGenerateSlug?: boolean;
 };
 
 const FormikInputField = ({ label, type, name, handleChange }: Props) => {

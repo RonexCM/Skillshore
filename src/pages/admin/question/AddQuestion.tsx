@@ -105,7 +105,6 @@ const AddQuestion = () => {
                 label="Title"
                 type="text"
                 handleChange={handleChange}
-                autoGenerateSlug={true}
               />
 
               <FormikInputField
