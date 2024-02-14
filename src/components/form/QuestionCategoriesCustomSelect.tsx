@@ -21,28 +21,35 @@ const QuestionCategoriesCustomSelect = ({
     <>
       <ReactSelect
         styles={{
-          container: (provided) => ({
-            ...provided,
+          multiValue: (baseStyles) => ({
+            ...baseStyles,
+            margin: "3px",
+          }),
+          container: (baseStyles) => ({
+            ...baseStyles,
             display: "flex",
             flex: 1,
+            border: "none",
           }),
-          control: (baseStyles) => ({
+          control: (baseStyles, state) => ({
             ...baseStyles,
             width: "100%",
-            height: "30px",
-            overflowY: "hidden",
-            border: "2px solid #E1E7FF",
-            ":hover": {
+            height: "25px",
+            overflowY: "scroll",
+            outline: "3px solid #E1E7FF",
+            border: "none",
+            outlineColor: state.isFocused ? "#2F5CFE" : "#E1E7FF",
+            "&:hover": {
+              outline: "2px solid #2F5CFE",
               overflow: "auto",
-              height: "auto",
-              border: "2px solid #2F5CFE",
+              height: "70px",
             },
           }),
           dropdownIndicator: () => ({
             display: "none",
           }),
-          clearIndicator: (provided) => ({
-            ...provided,
+          clearIndicator: (baseStyles) => ({
+            ...baseStyles,
             cursor: "pointer",
             alignSelf: "flex-start",
             transform: "none",
