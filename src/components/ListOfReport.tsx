@@ -30,7 +30,7 @@ const ListOfReport = ({ report, index, from }: Props) => {
         </td>
         <td className="px-6 font-normal text-gray-900 ">
           <div className="w-max">
-            {report.passed === 1 ? (
+            {report.passed ? (
               <Badge color="success" size="sm">
                 Passed
               </Badge>
