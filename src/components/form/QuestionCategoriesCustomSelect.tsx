@@ -20,6 +20,43 @@ const QuestionCategoriesCustomSelect = ({
   return (
     <>
       <ReactSelect
+        styles={{
+          container: (provided) => ({
+            ...provided,
+            display: "flex",
+            flex: 1,
+          }),
+          control: (baseStyles) => ({
+            ...baseStyles,
+            width: "100%",
+            height: "30px",
+            overflowY: "hidden",
+            border: "2px solid #E1E7FF",
+            ":hover": {
+              overflow: "auto",
+              height: "auto",
+              border: "2px solid #2F5CFE",
+            },
+          }),
+          dropdownIndicator: () => ({
+            display: "none",
+          }),
+          clearIndicator: (provided) => ({
+            ...provided,
+            cursor: "pointer",
+            alignSelf: "flex-start",
+            transform: "none",
+
+            ":hover": {
+              color: "red",
+              backgroundColor: "#efb1b157",
+              borderRadius: "4px",
+            },
+          }),
+          indicatorSeparator: () => ({
+            display: "none",
+          }),
+        }}
         onBlur={(e) => handleBlur(e)}
         defaultValue={selected}
         options={options}

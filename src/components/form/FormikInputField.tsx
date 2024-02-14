@@ -14,6 +14,7 @@ type Props = {
       ? void
       : (e: string | React.ChangeEvent<any>) => void;
   };
+  autoGenerateSlug?: boolean;
 };
 
 const FormikInputField = ({ label, type, name, handleChange }: Props) => {
@@ -31,6 +32,7 @@ const FormikInputField = ({ label, type, name, handleChange }: Props) => {
           className="p-1 px-2 text-sm rounded-md w-full  border-2 border-primary-light hover:outline hover:outline-2 hover:outline-offset-[-2px] hover:outline-primary"
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
             handleChange(e);
+
             if (name === "title") {
               const generatedSlug = generateSlug(e.target.value);
               handleChange({ target: { name: "slug", value: generatedSlug } });
