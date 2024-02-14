@@ -7,40 +7,30 @@ const initialState = {
       id: 0,
       title: "",
       slug: "",
-      description: "",
       thumbnail: "",
+      description: "",
       time: 0,
       retry_after: 0,
-      status: "",
-      result: "",
+      status: true,
+      result: {},
       categories: "",
-      category: "",
+      category: {},
     },
   ],
-  meta: {
-    current_page: 0,
-    from: 0,
-    last_page: 0,
-    links: [{ url: "", label: "", active: true }],
-    path: "",
-    per_page: 8,
-    to: 8,
-    total: 8,
-  },
 };
 const passedQuizSlice = createSlice({
   name: "passedQuizSlice",
   initialState,
   reducers: {
-    saveAllQuizList: (
+    savePassedQuiz: (
       state,
       action: PayloadAction<TFetchQuizQueryTransformResponseType>
     ) => {
-      state.data = action.payload.data;
-      state.meta = action.payload.meta;
+      const filterPassedResults = action.payload.data.slice(0, 4);
+      state.data = filterPassedResults;
     },
   },
 });
 
 export default passedQuizSlice.reducer;
-export const { saveAllQuizList } = passedQuizSlice.actions;
+export const { savePassedQuiz } = passedQuizSlice.actions;

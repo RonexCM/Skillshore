@@ -7,18 +7,18 @@ import { useEffect } from "react";
 import { useLoadingState } from "../../layouts/CommonLayout";
 
 type Props = {
-  selectQuiz: (id: number) => void;
+  selectQuiz: () => void;
   modalFor: string;
-  setShowModal: (a: boolean) => void;
+  setShowModal: (action: boolean) => void;
+  quizId: number;
 };
 
-const QuizModal = ({ selectQuiz, setShowModal }: Props) => {
-  const { data: QuizData, error, isLoading } = useGetQuizByIdQuery(selectQuiz);
+const QuizModal = ({ selectQuiz, setShowModal,quizId }: Props) => {
+  const { data: QuizData, error, isLoading } = useGetQuizByIdQuery(quizId);
   const quizTestSlice = useSelector((state: RootState) => state.allModal.data);
 
-  const navigate = useNavigate();
   const StartQuiz = () => {
-    navigate(`/quiz/${selectQuiz}`);
+    selectQuiz();
   };
 
   const closeModal = (

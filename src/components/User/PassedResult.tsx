@@ -6,7 +6,7 @@ type Props = {
   quiz: any;
   getStatus: any;
 };
-const QuizDetails = ({ index, quiz, getStatus }: Props) => {
+const PassedResults = ({ index, quiz, getStatus }: Props) => {
   return (
     <div
       key={index}
@@ -23,7 +23,7 @@ const QuizDetails = ({ index, quiz, getStatus }: Props) => {
         </div>
         <Badge
           className="pr-[12px] pl-[10px] text-xl bg-white "
-          color={quiz.result.passed ? "success" : "error"}
+          color={quiz.result?.passed ? "success" : "error"}
           size="xs"
         >
           {getStatus(quiz.result, quiz.retry_after)}
@@ -31,12 +31,12 @@ const QuizDetails = ({ index, quiz, getStatus }: Props) => {
       </div>
       <Badge>
         <Button
-          style={quiz.result.passed ? "completed" : "failed"}
-          text={quiz.result.passed ? "Passed" : "Failed"}
+          style={quiz.result?.passed ? "completed" : "failed"}
+          text={quiz.result?.passed ? "Passed" : "Failed"}
         />
       </Badge>
     </div>
   );
 };
 
-export default QuizDetails;
+export default PassedResults;

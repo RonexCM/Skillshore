@@ -25,6 +25,7 @@ import allQuizListSlice from "../slice/quizSlice/allQuizListSlice";
 import quizTestSlice from "../slice/quizSlice/quizTestSlice";
 import quizSlice from "../slice/quizSlice";
 import userQuizSlice from "../slice/userQuizSlice";
+import passedQuizSlice from "../slice/quizSlice/passedQuizSlice";
 
 const persistConfig = {
   key: "root",
@@ -50,6 +51,7 @@ const rootReducer = combineReducers({
   questionCategoryList: questionCategoryListSlice,
   quiz: quizSlice,
   answer: userQuizSlice,
+  passed:passedQuizSlice,
   [myApi.reducerPath]: myApi.reducer,
 });
 
