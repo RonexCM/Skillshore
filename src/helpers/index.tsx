@@ -10,10 +10,13 @@ export const convertPayloadToFormData = (payload: any) => {
   return formData;
 };
 
-export const generateSlug = (text: string) => {
-  return text
-    .replace(/\s+/g, " ")
-    .replace(/[^a-zA-Z0-9-\s]/g, "")
-    .replace(/\s/g, "-")
-    .toLowerCase();
+export const generateSlug = (inputString: string) => {
+  return inputString
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, "-")
+    .replace(/[^a-zA-Z0-9-]+/g, "")
+    .replace(/-+/g, "-")
+    .replace(/^-/, "")
+    .replace(/-$/, "");
 };
