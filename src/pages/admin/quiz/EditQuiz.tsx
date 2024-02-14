@@ -126,7 +126,7 @@ const EditQuiz = () => {
         onSubmit={onSubmit}
         validationSchema={validationSchemaEditQuiz}
       >
-        {({ handleChange, setFieldValue, handleBlur }) => (
+        {({ handleChange, setFieldValue, handleBlur, values }) => (
           <Form>
             <div className="border-2  p-7 rounded-md grid gap-2 gap-x-6 grid-cols-2 border-primary-light ">
               <FormikFileInputField
@@ -135,18 +135,32 @@ const EditQuiz = () => {
                 setThumbnail={setThumbnail}
                 handleChange={handleChange}
                 setPreview={setPreview}
+                thumbnail={thumbnail}
+                setFieldValue={setFieldValue}
+                values={values}
               />
 
-              <div className="flex w-full justify-center">
-                {typeof thumbnail !== "string" ? null : (
+              <div className="flex w-full justify-end">
+                {values.thumbnail && preview ? (
+                  <ThumbnailPreview image={preview.toString()} />
+                ) : (
                   <ThumbnailPreview image={quiz.thumbnail_url} />
                 )}
-                {preview && <ThumbnailPreview image={preview.toString()} />}
               </div>
 
-              <FormikInputField name="title" label="Title" type="text" />
+              <FormikInputField
+                name="title"
+                label="Title"
+                type="text"
+                handleChange={handleChange}
+              />
 
-              <FormikInputField name="slug" label="Slug" type="text" />
+              <FormikInputField
+                name="slug"
+                label="Slug"
+                type="text"
+                handleChange={handleChange}
+              />
 
               <FormikSelectCategoryField data={quizCategoryList} />
 
@@ -158,7 +172,12 @@ const EditQuiz = () => {
 
               <FormikTextAreaField name="description" label="Description" />
 
-              <FormikInputField name="time" label="Time" type="number" />
+              <FormikInputField
+                name="time"
+                label="Time"
+                type="number"
+                handleChange={handleChange}
+              />
 
               <FormikSelectStatus />
 
@@ -166,12 +185,14 @@ const EditQuiz = () => {
                 name="retry_after"
                 label="Retry After"
                 type="number"
+                handleChange={handleChange}
               />
 
               <FormikInputField
                 name="pass_percentage"
                 label="Pass Percentage"
                 type="number"
+                handleChange={handleChange}
               />
             </div>
 

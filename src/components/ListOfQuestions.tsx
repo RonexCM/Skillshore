@@ -10,10 +10,10 @@ import { toast } from "react-toastify";
 type Props = {
   question: TQuestionType;
   index: number;
-  startingIndex: number;
+  from: number;
 };
 
-const ListOfQuestions = ({ question, index, startingIndex }: Props) => {
+const ListOfQuestions = ({ question, index, from }: Props) => {
   const navigate = useNavigate();
 
   const [deleteQuestion, { isSuccess, data }] = useDeleteQuestionMutation();
@@ -55,7 +55,7 @@ const ListOfQuestions = ({ question, index, startingIndex }: Props) => {
       >
         <td className="pl-6 ">
           <div className="flex my-4 items-center whitespace-nowrap">
-            {startingIndex + index}
+            {from + index}
           </div>
         </td>
         <td className="px-6 font-normal text-gray-900 ">

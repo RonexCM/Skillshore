@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
-import { AddQuestionCategoryFieldType } from "../types";
+import { TAddQuestionCategoryFieldType } from "../types";
 import { useAddQuestionCategoryMutation } from "../../../redux/services/myQuestionCategoryApiEndpoints";
 import { useEffect } from "react";
 import { categoryInitialValues } from "../../../configs/constants";
@@ -20,7 +20,7 @@ const AddQuestionCategory = () => {
   const [addQuestionCategory, { error, isSuccess }] =
     useAddQuestionCategoryMutation();
 
-  const onSubmit = async (values: AddQuestionCategoryFieldType) => {
+  const onSubmit = async (values: TAddQuestionCategoryFieldType) => {
     try {
       await addQuestionCategory(values);
     } catch (error) {
@@ -62,14 +62,26 @@ const AddQuestionCategory = () => {
         onSubmit={onSubmit}
         validationSchema={validationSchemaAddQuestionCategory}
       >
-        <Form>
-          <div className="border-2  p-7 rounded-md grid gap-2 gap-x-6 grid-cols-2 border-primary-light ">
-            <FormikInputField name="title" label="Title" type="text" />
-            <FormikInputField name="slug" label="Slug" type="text" />
-          </div>
+        {({ handleChange }) => (
+          <Form>
+            <div className="border-2  p-7 rounded-md grid gap-2 gap-x-6 grid-cols-2 border-primary-light ">
+              <FormikInputField
+                name="title"
+                label="Title"
+                type="text"
+                handleChange={handleChange}
+              />
+              <FormikInputField
+                name="slug"
+                label="Slug"
+                type="text"
+                handleChange={handleChange}
+              />
+            </div>
 
-          <FormikButton type="submit" label="Add" />
-        </Form>
+            <FormikButton type="submit" label="Add" />
+          </Form>
+        )}
       </Formik>
     </motion.div>
   );

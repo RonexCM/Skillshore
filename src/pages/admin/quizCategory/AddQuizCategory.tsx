@@ -62,14 +62,26 @@ const AddQuizCategory = () => {
         onSubmit={onSubmit}
         validationSchema={validationSchemaAddQuizCategory}
       >
-        <Form>
-          <div className="border-2  p-7 rounded-md grid gap-2 gap-x-6 grid-cols-2 border-primary-light ">
-            <FormikInputField name="title" label="Title" type="text" />
-            <FormikInputField name="slug" label="Slug" type="text" />
-          </div>
+        {({ handleChange }) => (
+          <Form>
+            <div className="border-2  p-7 rounded-md grid gap-2 gap-x-6 grid-cols-2 border-primary-light ">
+              <FormikInputField
+                name="title"
+                label="Title"
+                type="text"
+                handleChange={handleChange}
+              />
+              <FormikInputField
+                name="slug"
+                label="Slug"
+                type="text"
+                handleChange={handleChange}
+              />
+            </div>
 
-          <FormikButton type="submit" label="Add" />
-        </Form>
+            <FormikButton type="submit" label="Add" />
+          </Form>
+        )}
       </Formik>
     </motion.div>
   );

@@ -10,13 +10,14 @@ import { toast } from "react-toastify";
 type Props = {
   questionCategory: TQuestionCategoryType;
   index: number;
-  startingIndex: number;
+  from: number;
 };
 
 const ListOfQuestionCategory = ({
   questionCategory,
   index,
-  startingIndex,
+
+  from,
 }: Props) => {
   const navigate = useNavigate();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -50,7 +51,7 @@ const ListOfQuestionCategory = ({
       >
         <td className="pl-6 ">
           <div className="flex my-4 items-center whitespace-nowrap">
-            {startingIndex + index}
+            {from + index}
           </div>
         </td>
         <td className="px-6 font-normal text-gray-900 ">
