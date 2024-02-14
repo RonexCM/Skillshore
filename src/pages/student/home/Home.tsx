@@ -164,6 +164,7 @@ const Home = () => {
             ))}
           </div>
         </div>
+        <div className="col-span-9 grid grid-cols-4 gap-4"></div>
         <div className="col-span-9 grid grid-cols-4 gap-4">
           {listOfQuiz.map((quiz, index) => (
             <QuizDetails
