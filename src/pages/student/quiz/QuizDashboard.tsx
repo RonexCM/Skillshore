@@ -24,8 +24,12 @@ const QuizDashboard = () => {
   const dispatch = useDispatch();
   const { id: quizId } = useParams();
   const [postQuizData] = usePostQuizDataMutation();
-  const { data, isLoading } = useGetQuizOptionsQuery(quizId as unknown as number);
-  const quizDetails = useSelector((state: RootState) => state.quiz.data as QuizDetails);
+  const { data, isLoading } = useGetQuizOptionsQuery(
+    quizId as unknown as number
+  );
+  const quizDetails = useSelector(
+    (state: RootState) => state.quiz.data as QuizDetails
+  );
   const quizAnswer = useSelector((state: RootState) => state.answer.data);
   const [index, setIndex] = useState(0);
   const [selectedOptionIndex, setSelectedOptionIndex] = useState<number | null>(
@@ -33,9 +37,9 @@ const QuizDashboard = () => {
   );
 
   const [timer, setTimer] = useState(0);
-  const { questions } = quizDetails?.questions?.data || { questions: [] }
+  const { questions } = quizDetails?.questions?.data || { questions: [] };
   const { time } = quizDetails;
-  
+
   useEffect(() => {
     if (data) {
       dispatch(setQuizData(data));
@@ -97,14 +101,14 @@ const QuizDashboard = () => {
       };
       dispatch(setAnswerData(data));
       postQuizData(data);
-      navigate("/quizzes");
+      navigate("/home");
     }
   };
 
   const handleTimeout = () => {
     const data = { ...quizAnswer, total_time: timer };
     postQuizData(data);
-    navigate("/quizzes");
+    navigate("/home");
   };
 
   if (isLoading) {

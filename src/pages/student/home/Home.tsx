@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { useGetAllQuizCategoriesStudentQuery } from "../../../redux/services/myStudentQuizCategoryApiEndpoints";
 import { useDispatch, useSelector } from "react-redux";
-import { useGetAllQuizStudentQuery } from "../../../redux/services/myStudentQuizApiEndpoints";
+import {
+  useGetAllQuizStudentQuery,
+  useGetPassedQuizzesQuery,
+} from "../../../redux/services/myStudentQuizApiEndpoints";
 import { saveAllQuizList } from "../../../redux/slice/quizSlice/allQuizListSlice";
 import { RootState } from "../../../redux/store";
 import { saveAllQuizCategoriesList } from "../../../redux/slice/quizCategorySlice/allQuizCategoriesListSlice";
@@ -16,10 +19,14 @@ import QuizDetails from "../../../components/User/QuizDetails";
 import { StudentQuizModalTypes } from "../../admin/types";
 import Pagination from "../../../components/Pagination";
 import FilterQuizzes from "../../../components/User/FilterQuizzes";
+import PassedResults from "../../../components/PassedResults";
 
+import { savePassedQuiz } from "../../../redux/slice/quizSlice/passedQuizSlice";
 const Home = () => {
   // hooks
+
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
+  const [startQuiz, setStartQuiz] = useState(0);
   const [showQuizModal, setShowQuizModal] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string[] | number[]>(
     []
@@ -33,13 +40,15 @@ const Home = () => {
 
   // Redux Selectors
   const { data: listOfQuiz } = useSelector((state: RootState) => state.allQuiz);
-
+  const passedData = useSelector((state: RootState) => state.passed.data);
   //  Api Queries
   const { data: quizData } = useGetAllQuizStudentQuery({
     title: searchTerm,
     page: currentPageNumber,
     selectedCategory,
   });
+  const { data: passedQuiz, isSuccess: passedQuizSuccess } =
+    useGetPassedQuizzesQuery({});
   const { data: quizCategoriesData } = useGetAllQuizCategoriesStudentQuery();
 
   // Effects to handle API responses
@@ -60,6 +69,12 @@ const Home = () => {
       setQuizCategoryArray(quizCategoriesWithIsCheckedState);
     }
   }, [quizCategoriesData, quizData]);
+
+  useEffect(() => {
+    if (passedQuizSuccess) {
+      dispatch(savePassedQuiz(passedQuiz));
+    }
+  }, [passedQuizSuccess]);
 
   // Event Handlers
 
@@ -84,13 +99,14 @@ const Home = () => {
   };
 
   const handleStart = (quizData: StudentQuizModalTypes) => {
+    setStartQuiz(quizData.id);
     dispatch(saveQuizDescription(quizData));
     setShowQuizModal(true);
   };
 
   // Function
-  const selectQuiz = (quizId: number) => {
-    navigate(`/student-quiz/${quizId}`);
+  const selectQuiz = () => {
+    navigate(`/quiz/${startQuiz}`);
   };
   const getStatus = (result: any, retry_after: number) => {
     if (result && result.passed) {
@@ -164,23 +180,42 @@ const Home = () => {
             ))}
           </div>
         </div>
-        <div className="col-span-9 grid grid-cols-4 gap-4"></div>
         <div className="col-span-9 grid grid-cols-4 gap-4">
-          {listOfQuiz.map((quiz, index) => (
-            <QuizDetails
-              key={index}
-              quiz={quiz}
-              index={index}
-              getStatus={getStatus}
-              handleStart={handleStart}
-            />
-          ))}
+          {passedData.length > 0 ? (
+            <h1 className="col-span-12 text-primary text-2xl font-medium">
+              Latest Test Results
+            </h1>
+          ) : null}
+          <div className="col-span-9 grid grid-cols-4 gap-4">
+            <div className="col-span-9 grid grid-cols-4 gap-4">
+              {passedData.map((quiz, index) => (
+                <PassedResults
+                  key={index}
+                  quiz={quiz}
+                  index={index}
+                  getStatus={getStatus}
+                />
+              ))}
+            </div>
+            <div className="col-span-12 grid grid-cols-4 gap-4">
+              {listOfQuiz.map((quiz, index) => (
+                <QuizDetails
+                  key={index}
+                  quiz={quiz}
+                  index={index}
+                  getStatus={getStatus}
+                  handleStart={handleStart}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
       {showQuizModal && (
         <QuizModal
           selectQuiz={selectQuiz}
           setShowModal={setShowQuizModal}
+          quizId={startQuiz}
           modalFor={"quizModal"}
         />
       )}
