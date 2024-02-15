@@ -5,10 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import AdminHomepageCard from "../../../components/admin/AdminHomepageCard";
 import { saveStatistics } from "../../../redux/slice/statisticsSlice";
-import { FaRegUser } from "react-icons/fa";
-import { SiCodefactor } from "react-icons/si";
-import { GiBrain } from "react-icons/gi";
 import { useLoadingState } from "../../../layouts/AdminLayout";
+import { toast } from "react-toastify";
+import { getAdminCardsData } from "../../../configs/constants";
 
 const AdminHomepage = () => {
   const dispatch = useDispatch();
@@ -16,47 +15,13 @@ const AdminHomepage = () => {
   const loadingState = useLoadingState();
   const { setShowLoader } = loadingState;
 
-  const { data: statistics, isLoading } = useGetStatisticsQuery();
+  const { data: statistics, isLoading, isError } = useGetStatisticsQuery();
+
   const savedStatistics = useSelector(
     (state: RootState) => state.statistics.data
   );
 
-  const cards = [
-    {
-      title: "User",
-      listItemOne: "users",
-      listItemTwo: "Verified users",
-      listItemThree: "Unverified users",
-      icon: FaRegUser,
-      total: savedStatistics.total_students,
-      primaryVariable: savedStatistics.total_verified_students,
-      secondaryVariable:
-        savedStatistics.total_students -
-        savedStatistics.total_verified_students,
-    },
-    {
-      title: "Quiz",
-      listItemOne: "quizzes",
-      listItemTwo: "Active quizzes",
-      listItemThree: "Inactive quizzes",
-      icon: GiBrain,
-      total: savedStatistics.total_quizzes,
-      primaryVariable: savedStatistics.active_quizzes,
-      secondaryVariable:
-        savedStatistics.total_quizzes - savedStatistics.active_quizzes,
-    },
-    {
-      title: "Question",
-      listItemOne: "questions",
-      listItemTwo: "Active questions",
-      listItemThree: "Inactive questions",
-      icon: SiCodefactor,
-      total: savedStatistics.total_questions,
-      primaryVariable: savedStatistics.active_questions,
-      secondaryVariable:
-        savedStatistics.total_questions - savedStatistics.active_questions,
-    },
-  ];
+  const cards = getAdminCardsData(savedStatistics);
 
   useEffect(() => {
     setShowLoader(isLoading);
@@ -66,7 +31,10 @@ const AdminHomepage = () => {
     if (statistics) {
       dispatch(saveStatistics(statistics));
     }
-  }, [statistics]);
+    if (isError) {
+      toast.error("Error fetching data!");
+    }
+  }, [statistics, isError]);
 
   return (
     <motion.div
@@ -76,7 +44,7 @@ const AdminHomepage = () => {
     >
       <h1 className="text-primary font-medium text-2xl leading-4">Dashboard</h1>
       <div className="flex gap-8">
-        {cards.map((prop) => (
+        {cards?.map((prop) => (
           <AdminHomepageCard
             key={prop.title}
             total={prop.total}

@@ -12,7 +12,7 @@ const initialState = {
   },
 };
 const statisticsSlice = createSlice({
-  name: "quizCategorySlice",
+  name: "statisticsSlice",
   initialState,
   reducers: {
     saveStatistics: (state, action: PayloadAction<any>) => {
