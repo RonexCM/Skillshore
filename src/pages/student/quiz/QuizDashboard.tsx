@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
-import { setQuizData } from "../../../redux/slice/quizSlice";
+import { setQuizData, setQuizDataToInitial } from "../../../redux/slice/quizSlice";
 import { LineWave } from "react-loader-spinner";
 import { toast } from "react-toastify";
 import {
@@ -36,6 +36,9 @@ const QuizDashboard = () => {
   const [selectedOptionIndex, setSelectedOptionIndex] = useState<number | null>(
     null
   );
+  const [selectedOption, setSelectedOption] = useState<string | null>(
+    null
+  );
 
   const [timer, setTimer] = useState(0);
   const { questions } = quizDetails?.questions?.data || { questions: [] };
@@ -62,20 +65,20 @@ const QuizDashboard = () => {
     setTimer(newTime);
   };
 
-  const handleOption = (index: number) => {
+  const handleOption = (index: number, value: string) => {
     setSelectedOptionIndex(index);
+    setSelectedOption(value);
   };
 
   const nextButton = () => {
     if (selectedOptionIndex !== null && selectedOptionIndex >= 0) {
-      const alphaIndex = String.fromCharCode(65 + selectedOptionIndex);
       const data = {
         ...quizAnswer,
         answers: [
           ...quizAnswer.answers,
           {
             question_id: questions[index].id,
-            answer: alphaIndex,
+            answer: selectedOption,
           },
         ],
         total_question: index + 1,
@@ -93,14 +96,13 @@ const QuizDashboard = () => {
     if (selectedOptionIndex === null) {
       toast.error("Please select an answer before moving to the next question");
     } else {
-      const alphaIndex = String.fromCharCode(65 + selectedOptionIndex);
       const data = {
         ...quizAnswer,
         answers: [
           ...quizAnswer.answers,
           {
             question_id: questions[index].id,
-            answer: alphaIndex,
+            answer: selectedOption,
           },
         ],
         total_time: timer,
@@ -109,7 +111,9 @@ const QuizDashboard = () => {
       dispatch(setAnswerData(data));
       postQuizData(data);
       navigate("/home");
+      dispatch(setQuizDataToInitial());
     }
+
   };
 
   const handleTimeout = () => {
@@ -128,6 +132,7 @@ const QuizDashboard = () => {
         quiz_id: quizId,
       };
       postQuizData(data);
+      dispatch(setQuizDataToInitial());
     };
 
     window.addEventListener("beforeunload", handleBeforeUnload);

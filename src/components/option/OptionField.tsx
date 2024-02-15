@@ -10,7 +10,7 @@ const OptionField = ({
 }: TOptionFieldProps) => {
   const handleSelect: React.MouseEventHandler<HTMLDivElement> = (e) => {
     e.preventDefault();
-    onSelect(index);
+    onSelect(index, option);
   };
 
   const alphaIndex = String.fromCharCode(65 + index);
