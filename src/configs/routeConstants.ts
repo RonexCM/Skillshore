@@ -15,7 +15,7 @@ export const accessibleRoutes: TAccessibleRoutes = {
     "/category",
     "/profile",
     "/edit-profile",
-    "/reset-password",
+    "/password-reset",
     "/quiz",
     "/quizzes",
   ],

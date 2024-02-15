@@ -154,8 +154,11 @@ const Home = () => {
           <div className="flex flex-col gap-4 ">
             <Searchbar
               placeholder="Search"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              searchTerm={searchTerm}
+              onChange={(e) => {
+                setSearchTerm(e.target.value);
+                setCurrentPageNumber(1);
+              }}
             />
 
             <div className="flex justify-between items-center">
