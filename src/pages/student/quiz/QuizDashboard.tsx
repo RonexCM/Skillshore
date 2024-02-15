@@ -25,7 +25,7 @@ const QuizDashboard = () => {
   const { id: quizId } = useParams();
 
   const [postQuizData] = usePostQuizDataMutation();
-  const { data, isLoading } = useGetQuizOptionsQuery(
+  const { data, isLoading, isError } = useGetQuizOptionsQuery(
     quizId as unknown as number
   );
   const quizDetails = useSelector(
@@ -46,6 +46,12 @@ const QuizDashboard = () => {
       dispatch(setQuizData(data));
     }
   }, [data]);
+
+  useEffect(() => {
+    if (isError) {
+      navigate("/home");
+    }
+  }, [isError]);
 
   useEffect(() => {
     const data = { ...quizAnswer, quiz_id: quizId };
@@ -102,14 +108,14 @@ const QuizDashboard = () => {
       };
       dispatch(setAnswerData(data));
       postQuizData(data);
-      navigate("/quizzes");
+      navigate("/home");
     }
   };
 
   const handleTimeout = () => {
     const data = { ...quizAnswer, total_time: timer };
     postQuizData(data);
-    navigate("/quizzes");
+    navigate("/home");
   };
 
   useEffect(() => {

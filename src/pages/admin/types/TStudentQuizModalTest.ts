@@ -1,4 +1,5 @@
 export type StudentQuizModalTypes = {
+  id: number;
   description: string;
   title: string;
   time: number;

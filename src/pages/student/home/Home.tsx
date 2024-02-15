@@ -1,31 +1,32 @@
 import { useEffect, useState } from "react";
 import { useGetAllQuizCategoriesStudentQuery } from "../../../redux/services/myStudentQuizCategoryApiEndpoints";
-import { useDispatch } from "react-redux";
-import { useGetAllQuizStudentQuery } from "../../../redux/services/myStudentQuizApiEndpoints";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  useGetAllQuizStudentQuery,
+  useGetPassedQuizzesQuery,
+} from "../../../redux/services/myStudentQuizApiEndpoints";
 import { saveAllQuizList } from "../../../redux/slice/quizSlice/allQuizListSlice";
-// import { RootState } from "../../../redux/store";
+import { RootState } from "../../../redux/store";
 import { saveAllQuizCategoriesList } from "../../../redux/slice/quizCategorySlice/allQuizCategoriesListSlice";
 import Searchbar from "../../../components/SearchBar";
 import Button from "../../../components/Button";
 import QuizModal from "../../../components/modals/QuizModal";
 import { useNavigate } from "react-router-dom";
-// import { saveQuizDescription } from "../../../redux/slice/quizSlice/quizTestSlice";
-// import { CiLock } from "react-icons/ci";
-// import { IoCheckmarkDoneCircle } from "react-icons/io5";
-// import QuizDetails from "../../../components/User/QuizDetails";
-// import { StudentQuizModalTypes } from "../../admin/types";
+import { saveQuizDescription } from "../../../redux/slice/quizSlice/quizTestSlice";
+import { CiLock } from "react-icons/ci";
+import { IoCheckmarkDoneCircle } from "react-icons/io5";
+import QuizDetails from "../../../components/User/QuizDetails";
+import { StudentQuizModalTypes } from "../../admin/types";
 import Pagination from "../../../components/Pagination";
 import FilterQuizzes from "../../../components/User/FilterQuizzes";
+import PassedResults from "../../../components/PassedResults";
 
-// interface Quiz {
-//   result: {
-//     passed: boolean;
-//   };
-// }
-
+import { savePassedQuiz } from "../../../redux/slice/quizSlice/passedQuizSlice";
 const Home = () => {
   // hooks
+
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
+  const [startQuiz, setStartQuiz] = useState(0);
   const [showQuizModal, setShowQuizModal] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string[] | number[]>(
     []
@@ -38,39 +39,19 @@ const Home = () => {
   const dispatch = useDispatch();
 
   // Redux Selectors
-  // const { data: listOfQuiz } = useSelector((state: RootState) => state.allQuiz);
-
+  const { data: listOfQuiz } = useSelector((state: RootState) => state.allQuiz);
+  const passedData = useSelector((state: RootState) => state.passed.data);
   //  Api Queries
   const { data: quizData } = useGetAllQuizStudentQuery({
     title: searchTerm,
     page: currentPageNumber,
     selectedCategory,
   });
+  const { data: passedQuiz, isSuccess: passedQuizSuccess } =
+    useGetPassedQuizzesQuery({});
   const { data: quizCategoriesData } = useGetAllQuizCategoriesStudentQuery();
 
   // Effects to handle API responses
-
-  // const sortByPassedResult = (quizA: Quiz, quizB: Quiz): number => {
-  //   const quizAPassed = quizA.result && quizA.result.passed;
-  //   const quizBPassed = quizB.result && quizB.result.passed;
-
-  //   const quizAFailed = quizA.result && !quizA.result.passed;
-  //   const quizBFailed = quizB.result && !quizB.result.passed;
-
-  //   if (quizAFailed && !quizBFailed) {
-  //     return -1;
-  //   } else if (!quizAFailed && quizBFailed) {
-  //     return 1;
-  //   }
-
-  //   if (quizAPassed && !quizBPassed) {
-  //     return -1;
-  //   } else if (!quizAPassed && quizBPassed) {
-  //     return 1;
-  //   }
-
-  //   return 0;
-  // };
 
   useEffect(() => {
     if (quizData) {
@@ -89,6 +70,12 @@ const Home = () => {
     }
   }, [quizCategoriesData, quizData]);
 
+  useEffect(() => {
+    if (passedQuizSuccess) {
+      dispatch(savePassedQuiz(passedQuiz));
+    }
+  }, [passedQuizSuccess]);
+
   // Event Handlers
 
   const handleClear = () => {
@@ -98,6 +85,7 @@ const Home = () => {
     setQuizCategoryArray(tempCategoryArray);
     setSelectedCategory([]);
   };
+
   const handleCheckbox = (category: number) => {
     setSelectedCategory((prevCategory: any) => {
       if (!prevCategory?.includes(category)) {
@@ -111,43 +99,41 @@ const Home = () => {
     });
   };
 
-  // const handleStart = (quizData: StudentQuizModalTypes) => {
-  //   dispatch(saveQuizDescription(quizData));
-  //   setShowQuizModal(true);
-  // };
+  const handleStart = (quizData: StudentQuizModalTypes) => {
+    setStartQuiz(quizData.id);
+    dispatch(saveQuizDescription(quizData));
+    setShowQuizModal(true);
+  };
 
   // Function
-  const selectQuiz = (quizId: number) => {
-    navigate(`/student-quiz/${quizId}`);
+  const selectQuiz = () => {
+    navigate(`/quiz/${startQuiz}`);
   };
-  // const getStatus = (result: any, retry_after: number) => {
-  //   if (result && result.passed) {
-  //     return (
-  //       <>
-  //         <span>
-  //           <IoCheckmarkDoneCircle className="inline-block text-green-600" />
-  //         </span>
-  //         <span className="bg-white text-green-600 text-base ms-1 font-medium me-2 ps-2 px-2.5 py-0.5 round ">
-  //           Passed
-  //         </span>
-  //       </>
-  //     );
-  //   } else if (result && result.total_answered) {
-  //     return (
-  //       <>
-  //         <CiLock className="inline-block text-red-600" />
-  //         <span className="text-red-600 text-base font-medium mt-6 px-2 py-0.5 rounded ">
-  //           Retry after {retry_after} days
-  //         </span>
-  //       </>
-  //     );
-  //   } else {
-  //     return (
-  //       <span className="text-xs font-medium opacity-0.7">Not Attempted</span>
-  //     );
-  //   }
-  // };
-  // const sortedQuizzes = [...listOfQuiz].sort(sortByPassedResult);
+
+  const getStatus = (result: any, retry_after: number) => {
+    if (result && result.passed) {
+      return (
+        <>
+          <span>
+            <IoCheckmarkDoneCircle className="inline-block text-green-600" />
+          </span>
+          <span className="bg-white text-green-600 text-base ms-1 font-medium me-2 ps-2 px-2.5 py-0.5 round ">
+            Passed
+          </span>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <CiLock className="inline-block text-red-600" />
+          <span className="text-red-600 text-base font-medium mt-6 px-1 py-0.5 rounded ">
+            Retry after {retry_after} days
+          </span>
+        </>
+      );
+    }
+  };
+
   const horizontalLineBaseStyle =
     "border-b-2 border-primary-light w-full my-[16px] opacity-[0.5]";
   if (!quizData) return;
@@ -192,23 +178,49 @@ const Home = () => {
             ))}
           </div>
         </div>
-        {/* <div className="col-span-9 grid grid-cols-4 gap-4">
-          {sortedQuizzes.map((quiz, index) => (
-            <QuizDetails
-              key={index}
-              quiz={quiz}
-              index={index}
-              getStatus={getStatus}
-              handleStart={handleStart}
-            />
-          ))}
-        </div> */}
+        <div className="col-span-9 grid grid-cols-4 gap-4">
+          {passedData.length > 0 ? (
+            <h1 className="col-span-12 text-primary text-2xl font-medium">
+              Passed Quizzes
+            </h1>
+          ) : null}
+          <div className="col-span-9 grid grid-cols-4 gap-4">
+            <div className="col-span-12 grid grid-cols-4 gap-4">
+              {passedData.map((quiz, index) => (
+                <PassedResults
+                  key={quiz.id}
+                  quiz={quiz}
+                  index={index}
+                  getStatus={getStatus}
+                />
+              ))}
+            </div>
+            {passedData.length > 0 && (
+              <div
+                className={`${horizontalLineBaseStyle} col-span-12  my-[20px] `}
+              />
+            )}
+            <h1 className="col-span-12 text-primary text-2xl font-medium">
+              All Quizzes
+            </h1>
+            <div className="col-span-12 grid grid-cols-4 gap-4">
+              {listOfQuiz.map((quiz, index) => (
+                <QuizDetails
+                  key={quiz.id}
+                  quiz={quiz}
+                  index={index}
+                  getStatus={getStatus}
+                  handleStart={handleStart}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
       {showQuizModal && (
         <QuizModal
           selectQuiz={selectQuiz}
           setShowModal={setShowQuizModal}
-          id={3}
           modalFor={"quizModal"}
         />
       )}
