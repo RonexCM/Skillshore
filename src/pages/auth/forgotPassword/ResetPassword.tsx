@@ -11,13 +11,17 @@ const ResetPassword: React.FC = () => {
   const [resetPassword, { isSuccess, error }] = useResetPasswordMutation();
 
   const navigate = useNavigate();
-  const { token } = useParams();
+  const { id } = useParams();
+
   const { search } = useLocation();
+
   const searchParams = new URLSearchParams(search);
+
   const email = searchParams.get("email");
+
   const resetPasswordFields = {
     ...resetPasswordInitialValues,
-    token: token || "",
+    token: id || "",
     email: email || "",
   };
 
