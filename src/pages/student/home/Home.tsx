@@ -22,6 +22,7 @@ import FilterQuizzes from "../../../components/User/FilterQuizzes";
 import PassedResults from "../../../components/PassedResults";
 
 import { savePassedQuiz } from "../../../redux/slice/quizSlice/passedQuizSlice";
+import { useLoadingState } from "../../../layouts/AdminLayout";
 const Home = () => {
   // hooks
 
@@ -47,9 +48,11 @@ const Home = () => {
     page: currentPageNumber,
     selectedCategory,
   });
-  const { data: passedQuiz, isSuccess: passedQuizSuccess } =
+  const { data: passedQuiz, isSuccess: passedQuizSuccess, isLoading: isFetchingPassedQuizzes } =
     useGetPassedQuizzesQuery({});
   const { data: quizCategoriesData } = useGetAllQuizCategoriesStudentQuery();
+  const loadingState = useLoadingState();
+  const { setShowLoader } = loadingState;
 
   // Effects to handle API responses
 
@@ -75,6 +78,10 @@ const Home = () => {
       dispatch(savePassedQuiz(passedQuiz));
     }
   }, [passedQuizSuccess]);
+
+  useEffect(() => {
+    setShowLoader(isFetchingPassedQuizzes);
+}, [isFetchingPassedQuizzes]);
 
   // Event Handlers
 
@@ -127,7 +134,7 @@ const Home = () => {
         <>
           <CiLock className="inline-block text-red-600" />
           <span className="text-red-600 text-base font-medium mt-6 px-1 py-0.5 rounded ">
-            Retry after {retry_after} days
+            Retry after <div className="text-center">{retry_after} days</div>
           </span>
         </>
       );
