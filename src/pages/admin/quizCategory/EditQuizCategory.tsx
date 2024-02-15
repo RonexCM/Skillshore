@@ -50,7 +50,7 @@ const EditQuizCategory = () => {
   useEffect(() => {
     if (isSuccess) {
       toast.success("Updated!");
-      navigate("/admin");
+      navigate("/admin/quizCategory");
     }
   }, [isSuccess]);
 
@@ -73,7 +73,7 @@ const EditQuizCategory = () => {
           icon={FaHome}
           title="Quiz Category"
           subTitle="Edit Category"
-          backToPage="/admin"
+          backToPage="/admin/quizCategory"
         />
         <h1 className="text-primary font-medium text-2xl">Edit Category</h1>
       </div>

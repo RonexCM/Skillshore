@@ -26,6 +26,7 @@ import quizTestSlice from "../slice/quizSlice/quizTestSlice";
 import quizSlice from "../slice/quizSlice";
 import userQuizSlice from "../slice/userQuizSlice";
 import reportSlice from "../slice/reportSlice/reportSlice";
+import statisticsSlice from "../slice/statisticsSlice";
 
 const persistConfig = {
   key: "root",
@@ -52,6 +53,7 @@ const rootReducer = combineReducers({
   quiz: quizSlice,
   answer: userQuizSlice,
   report: reportSlice,
+  statistics: statisticsSlice,
   [myApi.reducerPath]: myApi.reducer,
 });
 
