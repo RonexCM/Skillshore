@@ -122,7 +122,7 @@ const Home = () => {
           </span>
         </>
       );
-    } else if (result && result.total_answered) {
+    } else {
       return (
         <>
           <CiLock className="inline-block text-red-600" />
@@ -130,10 +130,6 @@ const Home = () => {
             Retry after {retry_after} days
           </span>
         </>
-      );
-    } else {
-      return (
-        <span className="text-xs font-medium opacity-0.7">Not Attempted</span>
       );
     }
   };
@@ -185,24 +181,28 @@ const Home = () => {
         <div className="col-span-9 grid grid-cols-4 gap-4">
           {passedData.length > 0 ? (
             <h1 className="col-span-12 text-primary text-2xl font-medium">
-              Latest Test Results
+              Passed Quizzes
             </h1>
           ) : null}
           <div className="col-span-9 grid grid-cols-4 gap-4">
-            <div className="col-span-9 grid grid-cols-4 gap-4">
+            <div className="col-span-12 grid grid-cols-4 gap-4">
               {passedData.map((quiz, index) => (
                 <PassedResults
-                  key={index}
+                  key={quiz.id}
                   quiz={quiz}
                   index={index}
                   getStatus={getStatus}
                 />
               ))}
             </div>
+            <div className={`${horizontalLineBaseStyle} col-span-12  my-[20px] `} />
+            <h1 className="col-span-12 text-primary text-2xl font-medium">
+              All Quizzes
+            </h1>
             <div className="col-span-12 grid grid-cols-4 gap-4">
               {listOfQuiz.map((quiz, index) => (
                 <QuizDetails
-                  key={index}
+                  key={quiz.id}
                   quiz={quiz}
                   index={index}
                   getStatus={getStatus}

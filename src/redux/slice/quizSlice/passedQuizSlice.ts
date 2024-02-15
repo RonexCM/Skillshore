@@ -11,7 +11,7 @@ const initialState = {
       description: "",
       time: 0,
       retry_after: 0,
-      status: true,
+      status: 1,
       result: {},
       categories: "",
       category: {},
