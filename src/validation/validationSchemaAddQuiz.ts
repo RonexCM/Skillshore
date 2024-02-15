@@ -21,19 +21,25 @@ const validationSchemaAddQuiz = Yup.object({
     .max(5000)
     .required("Description is required"),
   time: Yup.number()
-    .required("Time is required")
-    .notOneOf([0], "Input should not be zero"),
-  retry_after: Yup.number()
+    .integer("Must be a whole number")
+    .required("Time is required and must be a number")
     .notOneOf([0], "Input should not be zero")
-    .required("Retry after is required"),
+    .positive("Must be positive"),
+  retry_after: Yup.number()
+    .integer("Must be a whole number")
+    .notOneOf([0], "Input should not be zero")
+    .positive("Must be positive")
+    .required("Retry after is required and must be a number"),
   question_categories: Yup.array()
     .of(Yup.number().required("Question Categories are required"))
     .min(1, "Question Categories are required")
     .required("Question Categories are required"),
   status: Yup.boolean().required("Status is required"),
   pass_percentage: Yup.number()
+    .integer("Must be a whole number")
     .notOneOf([0], "Input should not be zero")
-    .required("Pass percentage is required")
+    .required("Pass percentage is required and must be a number")
+    .positive("Must be positive")
     .max(99, "Must be less that 100"),
 });
 export default validationSchemaAddQuiz;

@@ -82,7 +82,7 @@ const AuthWrapper: React.FC<{ children: ReactNode }> = ({ children }) => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center">
+      <div className="flex w-screen h-screen justify-center items-center">
         <LineWave />
       </div>
     );

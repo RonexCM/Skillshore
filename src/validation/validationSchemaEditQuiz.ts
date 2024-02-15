@@ -21,19 +21,25 @@ const validationSchemaEditQuiz = Yup.object({
     .matches(/^\s*\S+/, "Description is required")
     .required("Description is required"),
   time: Yup.number()
-    .required("Time is required")
-    .notOneOf([0], "Input should not be zero"),
-  retry_after: Yup.number()
+    .integer("Must be a whole number")
+    .required("Time is required and must be a number")
     .notOneOf([0], "Input should not be zero")
-    .required("Retry after is required"),
+    .positive("Must be positive"),
+  retry_after: Yup.number()
+    .integer("Must be a whole number")
+    .notOneOf([0], "Input should not be zero")
+    .required("Retry after is required and must be a number")
+    .positive("Must be positive"),
   question_categories: Yup.array()
     .of(Yup.number().required("Question Categories are required"))
     .min(1, "Question Categories are required")
     .required("Question Categories are required"),
   status: Yup.boolean().required("Status is required"),
   pass_percentage: Yup.number()
+    .integer("Must be a whole number")
     .notOneOf([0], "Input should not be zero")
-    .required("Pass percentage is required")
-    .max(99, "Must be less that 100"),
+    .required("Pass percentage is required and must be a number")
+    .max(99, "Must be less that 100")
+    .positive("Must be positive"),
 });
 export default validationSchemaEditQuiz;

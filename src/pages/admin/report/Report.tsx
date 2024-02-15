@@ -31,8 +31,6 @@ const Report = () => {
     setShowLoader(isLoading);
   }, [isLoading, reportData, isSuccess]);
 
-  if (!reportData) return;
-
   return (
     <motion.div
       initial={{ opacity: 0.2 }}
@@ -100,8 +98,8 @@ const Report = () => {
         >
           <Pagination
             setCurrentPageNumber={setCurrentPageNumber}
-            currentPageNumber={reportData.meta.current_page}
-            totalNumberOfPages={reportData.meta.last_page}
+            currentPageNumber={reportData ? reportData.meta.current_page : 1}
+            totalNumberOfPages={reportData ? reportData.meta.last_page : 1}
           />
         </nav>
       </div>

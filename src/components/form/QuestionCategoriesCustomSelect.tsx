@@ -23,20 +23,21 @@ const QuestionCategoriesCustomSelect = ({
         styles={{
           multiValue: (baseStyles) => ({
             ...baseStyles,
-            margin: "3px",
           }),
           container: (baseStyles) => ({
             ...baseStyles,
             display: "flex",
+            alignItems: "flex-start",
             flex: 1,
             border: "none",
           }),
           control: (baseStyles, state) => ({
             ...baseStyles,
             width: "100%",
-            height: "25px",
+            minHeight: "20px",
+            maxHeight: "66px",
             overflowY: "scroll",
-            outline: "3px solid #E1E7FF",
+            outline: "2px solid #E1E7FF",
             border: "none",
             outlineColor: state.isFocused ? "#2F5CFE" : "#E1E7FF",
             "&:hover": {

@@ -60,7 +60,7 @@ export const CommonLayout = ({ layoutFor }: Props) => {
       </motion.div>
       {layoutFor === "auth" ? <AuthNavbar /> : <UserNavbar />}
       <ToastContainer
-        className="top-16 absolute"
+        className="top-16"
         autoClose={2000}
         hideProgressBar
         newestOnTop
