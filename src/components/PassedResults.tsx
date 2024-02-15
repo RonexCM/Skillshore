@@ -1,5 +1,4 @@
 import { Badge } from "flowbite-react";
-import Button from "./Button";
 
 type Props = {
   index: number;
@@ -29,12 +28,7 @@ const PassedResults = ({ index, quiz, getStatus }: Props) => {
           {getStatus(quiz.result, quiz.retry_after)}
         </Badge>
       </div>
-      <Badge>
-        <Button
-          style={quiz.result?.passed ? "completed" : "failed"}
-          text={quiz.result?.passed ? "Passed" : "Failed"}
-        />
-      </Badge>
+         
     </div>
   );
 };
