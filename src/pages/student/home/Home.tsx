@@ -195,7 +195,11 @@ const Home = () => {
                 />
               ))}
             </div>
-            <div className={`${horizontalLineBaseStyle} col-span-12  my-[20px] `} />
+            {passedData.length > 0 && (
+              <div
+                className={`${horizontalLineBaseStyle} col-span-12  my-[20px] `}
+              />
+            )}
             <h1 className="col-span-12 text-primary text-2xl font-medium">
               All Quizzes
             </h1>
