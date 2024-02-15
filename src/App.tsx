@@ -25,7 +25,7 @@ import { Login } from "./pages/auth/login";
 import { Register } from "./pages/auth/register";
 import CommonLayout from "./layouts/CommonLayout";
 import QuizDashboard from "./pages/student/quiz/QuizDashboard";
-import Home from "./pages/student/quizCategory/Home";
+import Home from "./pages/student/home/Home";
 const App = () => {
   return (
     <div>
