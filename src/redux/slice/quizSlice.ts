@@ -21,8 +21,11 @@ const quizSlice = createSlice({
     setQuizData: (state, action) => {
       state.data = action.payload.data;
     },
+    setQuizDataToInitial: (state) => {
+      state.data = initialState.data;
+    },
   },
 });
 
 export default quizSlice.reducer;
-export const { setQuizData } = quizSlice.actions;
+export const { setQuizData, setQuizDataToInitial } = quizSlice.actions;
