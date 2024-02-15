@@ -33,7 +33,7 @@ const QuizDetails = ({ index, quiz, getStatus, handleStart }: Props) => {
           </Badge>
         ) : (
           <Badge
-            className="pr-[12px] pl-[10px] opacity-[0.6] bg-transparent text-sm font-medium"
+            className="pr-[12px]  opacity-[0.6] bg-transparent text-[14px] font-medium"
             color="gray"
             icon={MdOutlineTimer}
           >

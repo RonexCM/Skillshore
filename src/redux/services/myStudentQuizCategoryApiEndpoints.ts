@@ -1,7 +1,4 @@
-import {
-  StudentQuizCategoryType,
-  TAllStudentQuizCategoriesType,
-} from "../../pages/admin/types";
+import { TAllStudentQuizCategoriesType } from "../../pages/admin/types";
 import { myApi } from "./myApi";
 
 const myQuizCategoryApiEndpoints = myApi.injectEndpoints({
@@ -12,13 +9,8 @@ const myQuizCategoryApiEndpoints = myApi.injectEndpoints({
     >({
       query: () => "/student/quiz-categories/all",
     }),
-    getQuizCategoriesStudent: builder.query<StudentQuizCategoryType[], void>({
-      query: () => "/student/quiz-categories/all",
-    }),
   }),
 });
 
-export const {
-  useGetQuizCategoriesStudentQuery,
-  useGetAllQuizCategoriesStudentQuery,
-} = myQuizCategoryApiEndpoints;
+export const { useGetAllQuizCategoriesStudentQuery } =
+  myQuizCategoryApiEndpoints;

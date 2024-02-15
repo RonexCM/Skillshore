@@ -102,14 +102,14 @@ const QuizDashboard = () => {
       };
       dispatch(setAnswerData(data));
       postQuizData(data);
-      navigate("/quizzes");
+      navigate("/home");
     }
   };
 
   const handleTimeout = () => {
     const data = { ...quizAnswer, total_time: timer };
     postQuizData(data);
-    navigate("/quizzes");
+    navigate("/home");
   };
 
   useEffect(() => {
