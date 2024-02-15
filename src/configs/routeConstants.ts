@@ -6,10 +6,10 @@ export const accessibleRoutes: TAccessibleRoutes = {
     "/register",
     "/forgot-password",
     "/enter-new-password",
-    "/reset-password",
+    "/password-reset",
   ],
-  adminRoute: ["/admin", "/reset-password"],
-  userWithNoProfileRoute: ["/create-profile", "/reset-password"],
+  adminRoute: ["/admin", "/password-reset"],
+  userWithNoProfileRoute: ["/create-profile", "/password-reset"],
   userWithProfileRoute: [
     "/home",
     "/category",

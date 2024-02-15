@@ -26,7 +26,13 @@ const AuthWrapper: React.FC<{ children: ReactNode }> = ({ children }) => {
 
     if (!token) {
       handleUnauthenticatedUser(publicRoute);
-      return;
+      const timeout = setTimeout(() => {
+        setIsLoading(false);
+      }, 300);
+
+      return () => {
+        clearTimeout(timeout);
+      };
     }
 
     let allowedRoutes: string[] = [];
@@ -57,16 +63,13 @@ const AuthWrapper: React.FC<{ children: ReactNode }> = ({ children }) => {
   };
 
   const handleUnauthenticatedUser = (publicRoute: string[]) => {
+    const isAllowed = publicRoute.some((route) =>
+      pathname.startsWith(`${route}/`)
+    );
+    if (publicRoute.includes(pathname) || isAllowed) return;
     if (!publicRoute.includes(pathname)) {
       navigate("/");
     }
-    const timeout = setTimeout(() => {
-      setIsLoading(false);
-    }, 300);
-
-    return () => {
-      clearTimeout(timeout);
-    };
   };
 
   const handleUnauthorizedRoutes = (allowedRoutes: string[], user: string) => {
