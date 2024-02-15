@@ -10,10 +10,10 @@ import { toast } from "react-toastify";
 type Props = {
   quizCategory: TQuizCategoryType;
   index: number;
-  startingIndex: number;
+  from: number;
 };
 
-const ListOfQuizCategory = ({ quizCategory, index, startingIndex }: Props) => {
+const ListOfQuizCategory = ({ quizCategory, index, from }: Props) => {
   const navigate = useNavigate();
   const [deleteQuizCategory, { data, isSuccess }] =
     useDeleteQuizCategoryMutation();
@@ -45,7 +45,7 @@ const ListOfQuizCategory = ({ quizCategory, index, startingIndex }: Props) => {
       >
         <td className="pl-6 ">
           <div className="flex my-4 items-center whitespace-nowrap">
-            {startingIndex + index}
+            {from + index}
           </div>
         </td>
         <td className="px-6 font-normal text-gray-900 ">

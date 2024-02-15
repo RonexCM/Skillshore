@@ -2,6 +2,7 @@ import { GiBrain } from "react-icons/gi";
 import { MdOutlineCategory, MdQuestionAnswer } from "react-icons/md";
 import { SiCodefactor } from "react-icons/si";
 import { NavLink } from "react-router-dom";
+import { HiDocumentReport } from "react-icons/hi";
 
 const AdminSidebar = () => {
   const navElementsStyles =
@@ -38,6 +39,14 @@ const AdminSidebar = () => {
             <SiCodefactor />
           </div>
           Question
+        </div>
+      </NavLink>
+      <NavLink to="report" className={navElementsStyles}>
+        <div className="flex  ">
+          <div className="pt-[2px] mr-1">
+            <HiDocumentReport />
+          </div>
+          Report
         </div>
       </NavLink>
     </div>

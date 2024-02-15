@@ -1,6 +1,6 @@
 import { ErrorMessage, Field } from "formik";
-import { useGetAllQuestionCategoriesQuery } from "../../redux/services/myQuestionCategoryApiEndpoints";
 import QuestionCategoriesCustomSelect from "./QuestionCategoriesCustomSelect";
+import { useGetAllQuestionCategoriesQuery } from "../../redux/services/myQuestionCategoryApiEndpoints";
 
 type Props = {
   setFieldValue: (
