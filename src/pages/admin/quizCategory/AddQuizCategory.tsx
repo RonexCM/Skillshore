@@ -31,7 +31,7 @@ const AddQuizCategory = () => {
   useEffect(() => {
     if (isSuccess) {
       toast.success("Category added!");
-      navigate("/admin");
+      navigate("/admin/quizCategory");
     }
   }, [isSuccess]);
 
@@ -52,7 +52,7 @@ const AddQuizCategory = () => {
           icon={FaHome}
           title="Quiz Category"
           subTitle="New Category"
-          backToPage="/admin"
+          backToPage="/admin/quizCategory"
         />
         <h1 className="text-primary font-medium text-2xl">New Category</h1>
       </div>

@@ -25,6 +25,7 @@ import { Login } from "./pages/auth/login";
 import { Register } from "./pages/auth/register";
 import CommonLayout from "./layouts/CommonLayout";
 import QuizDashboard from "./pages/student/quiz/QuizDashboard";
+import AdminHomepage from "./pages/admin/home/AdminHomepage";
 import Home from "./pages/student/home/Home";
 const App = () => {
   return (
@@ -100,12 +101,18 @@ const App = () => {
                 }
               >
                 <Route element={<AdminDashboardLayout />}>
-                  <Route index element={<QuizCategory />} />
-                  <Route path="addQuizCategory" element={<AddQuizCategory />} />
-                  <Route
-                    path="editQuizCategory/:id"
-                    element={<EditQuizCategory />}
-                  />
+                  <Route index element={<AdminHomepage />} />
+                  <Route path="quizCategory">
+                    <Route index element={<QuizCategory />} />
+                    <Route
+                      path="addQuizCategory"
+                      element={<AddQuizCategory />}
+                    />
+                    <Route
+                      path="editQuizCategory/:id"
+                      element={<EditQuizCategory />}
+                    />
+                  </Route>
                   <Route path="quiz">
                     <Route index element={<Quiz />} />
                     <Route path="addQuiz" element={<AddQuiz />} />

@@ -3,6 +3,7 @@ import { MdOutlineCategory, MdQuestionAnswer } from "react-icons/md";
 import { SiCodefactor } from "react-icons/si";
 import { NavLink } from "react-router-dom";
 import { HiDocumentReport } from "react-icons/hi";
+import { ImStatsBars } from "react-icons/im";
 
 const AdminSidebar = () => {
   const navElementsStyles =
@@ -10,6 +11,14 @@ const AdminSidebar = () => {
   return (
     <div className="basis-[10px] text-sm shrink-0 border-r-2 border-primary-light flex flex-col gap-1 py-6 px-4 ">
       <NavLink to="." end className={navElementsStyles}>
+        <div className="flex  ">
+          <div className="pt-[2px] mr-1">
+            <ImStatsBars />
+          </div>
+          Dashboard
+        </div>
+      </NavLink>
+      <NavLink to="quizCategory" className={navElementsStyles}>
         <div className="flex  ">
           <div className="pt-[2px] mr-1">
             <MdOutlineCategory />
