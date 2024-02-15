@@ -85,6 +85,7 @@ const Home = () => {
     setQuizCategoryArray(tempCategoryArray);
     setSelectedCategory([]);
   };
+
   const handleCheckbox = (category: number) => {
     setSelectedCategory((prevCategory: any) => {
       if (!prevCategory?.includes(category)) {
@@ -108,6 +109,7 @@ const Home = () => {
   const selectQuiz = () => {
     navigate(`/quiz/${startQuiz}`);
   };
+
   const getStatus = (result: any, retry_after: number) => {
     if (result && result.passed) {
       return (
@@ -215,7 +217,6 @@ const Home = () => {
         <QuizModal
           selectQuiz={selectQuiz}
           setShowModal={setShowQuizModal}
-          quizId={startQuiz}
           modalFor={"quizModal"}
         />
       )}

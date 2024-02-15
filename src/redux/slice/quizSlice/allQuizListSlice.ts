@@ -11,7 +11,7 @@ const initialState = {
       thumbnail: "",
       time: 0,
       retry_after: 0,
-      status: "",
+      status: 1,
       result: "",
       categories: "",
       category: "",

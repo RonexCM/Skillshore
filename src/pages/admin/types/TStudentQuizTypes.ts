@@ -8,7 +8,7 @@ export type TStudentAllQuizType = {
   thumbnail: string;
   time: number;
   retry_after: number;
-  status: boolean;
+  status: number;
   result: string;
   categories: string;
   category: string;

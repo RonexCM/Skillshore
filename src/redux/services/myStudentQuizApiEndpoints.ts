@@ -27,12 +27,6 @@ const myStudentQuizApiEndpoints = myApi.injectEndpoints({
         return { data: response.data, meta: response.meta };
       },
     }),
-    getQuizById: builder.query({
-      query: () => ({
-        url: `/student/quizzes/all`,
-        method: "GET",
-      }),
-    }),
     getPassedQuizzes: builder.query<
       TFetchQuizQueryTransformResponseType,
       unknown
@@ -48,5 +42,4 @@ const myStudentQuizApiEndpoints = myApi.injectEndpoints({
 export const {
   useGetAllQuizStudentQuery,
   useGetPassedQuizzesQuery,
-  useGetQuizByIdQuery,
 } = myStudentQuizApiEndpoints;
