@@ -34,7 +34,7 @@ const ResetPassword: React.FC = () => {
   };
   useEffect(() => {
     if (isSuccess) {
-      toast.success("Please check your email to see verification link");
+      toast.success("Password Changed!");
       navigate("/");
     }
   }, [isSuccess]);
