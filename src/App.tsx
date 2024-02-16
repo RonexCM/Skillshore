@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { EnterNewPassword, ForgotPassword } from "./pages/auth/forgotPassword";
+import { ForgotPassword, ResetPassword } from "./pages/auth/forgotPassword";
 import { AdminLayout } from "./layouts";
 import {
   QuestionCategory,
@@ -14,7 +14,6 @@ import EditQuizCategory from "./pages/admin/quizCategory/EditQuizCategory";
 import EditQuestionCategory from "./pages/admin/questionCategory/EditQuestionCategory";
 import EditQuiz from "./pages/admin/quiz/EditQuiz";
 import PageNotFound from "./pages/PageNotFound";
-import { ResetPassword } from "./pages/auth/forgotPassword";
 import { AuthWrapper } from "./routes";
 import {
   UserProfile,
@@ -44,8 +43,7 @@ const App = () => {
               <Route index element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="forgot-password" element={<ForgotPassword />} />
-              <Route path="reset-password" element={<ResetPassword />} />
-              <Route path="enter-new-password" element={<EnterNewPassword />} />
+              <Route path="password-reset/:id" element={<ResetPassword />} />
             </Route>
 
             <Route element={<CommonLayout layoutFor="user" />}>
@@ -89,8 +87,8 @@ const App = () => {
                   </AuthWrapper>
                 }
               />
-              <Route path="*" element={<PageNotFound />} />
             </Route>
+            <Route path="*" element={<PageNotFound />} />
 
             <Route path="/admin">
               <Route
@@ -146,4 +144,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default App
