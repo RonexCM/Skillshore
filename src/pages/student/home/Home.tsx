@@ -176,7 +176,7 @@ const Home = () => {
             </div>
           </div>
           <div className={horizontalLineBaseStyle} />
-          <div className="flex flex-col gap-[16px]">
+          <div className="flex flex-col pl-1 gap-[16px] max-h-[600px] overflow-y-auto">
             {quizCategoryArray.map((quizCategory, index) => (
               <FilterQuizzes
                 key={index}
@@ -184,11 +184,12 @@ const Home = () => {
                 index={index}
                 selectedCategory={selectedCategory}
                 handleCheckbox={handleCheckbox}
+                setCurrentPageNumber={setCurrentPageNumber}
               />
             ))}
           </div>
         </div>
-        <div className="col-span-9 grid grid-cols-4 gap-4">
+        <div className="col-span-9 flex gap-5 flex-col ">
           {passedData.length > 0 ? (
             <h1 className="col-span-12 text-primary text-2xl font-medium">
               Passed Quizzes
