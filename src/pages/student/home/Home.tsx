@@ -127,7 +127,7 @@ const Home = () => {
         <>
           <CiLock className="inline-block text-red-600" />
           <span className="text-red-600 text-base font-medium mt-6 px-1 py-0.5 rounded ">
-            Retry after {retry_after} days
+            Retry after <div className="text-center">{retry_after} days</div>
           </span>
         </>
       );
