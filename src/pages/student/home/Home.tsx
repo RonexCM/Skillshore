@@ -169,7 +169,7 @@ const Home = () => {
             </div>
           </div>
           <div className={horizontalLineBaseStyle} />
-          <div className="flex flex-col pl-1 gap-[16px] max-h-[600px] overflow-y-scroll">
+          <div className="flex flex-col pl-1 gap-[16px] max-h-[600px] overflow-y-auto">
             {quizCategoryArray.map((quizCategory, index) => (
               <FilterQuizzes
                 key={index}
