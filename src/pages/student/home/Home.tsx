@@ -177,11 +177,12 @@ const Home = () => {
                 index={index}
                 selectedCategory={selectedCategory}
                 handleCheckbox={handleCheckbox}
+                setCurrentPageNumber={setCurrentPageNumber}
               />
             ))}
           </div>
         </div>
-        <div className="col-span-9 grid grid-cols-4 gap-4">
+        <div className="col-span-9 flex gap-5 flex-col ">
           {passedData.length > 0 ? (
             <h1 className="col-span-12 text-primary text-2xl font-medium">
               Passed Quizzes
