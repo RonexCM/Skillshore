@@ -162,7 +162,10 @@ const EditQuiz = () => {
                 handleChange={handleChange}
               />
 
-              <FormikSelectCategoryField data={quizCategoryList} />
+              <FormikSelectCategoryField
+                label="Quiz Category"
+                data={quizCategoryList}
+              />
 
               <FormikSelectQuestionCategoriesField
                 setFieldValue={setFieldValue}
@@ -175,6 +178,7 @@ const EditQuiz = () => {
               <FormikInputField
                 name="time"
                 label="Time"
+                subLabel="minute"
                 type="number"
                 handleChange={handleChange}
               />
@@ -184,6 +188,7 @@ const EditQuiz = () => {
               <FormikInputField
                 name="retry_after"
                 label="Retry After"
+                subLabel="day"
                 type="number"
                 handleChange={handleChange}
               />

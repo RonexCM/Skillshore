@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
-import { setQuizData, setQuizDataToInitial } from "../../../redux/slice/quizSlice";
+import {
+  setQuizData,
+  setQuizDataToInitial,
+} from "../../../redux/slice/quizSlice";
 import { LineWave } from "react-loader-spinner";
 import { toast } from "react-toastify";
 import {
@@ -25,6 +28,7 @@ const QuizDashboard = () => {
   const { id: quizId } = useParams();
 
   const [postQuizData] = usePostQuizDataMutation();
+
   const { data, isLoading, isError } = useGetQuizOptionsQuery(
     quizId as unknown as number
   );
@@ -36,9 +40,7 @@ const QuizDashboard = () => {
   const [selectedOptionIndex, setSelectedOptionIndex] = useState<number | null>(
     null
   );
-  const [selectedOption, setSelectedOption] = useState<string | null>(
-    null
-  );
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
   const [timer, setTimer] = useState(0);
   const { questions } = quizDetails?.questions?.data || { questions: [] };
@@ -110,10 +112,10 @@ const QuizDashboard = () => {
       };
       dispatch(setAnswerData(data));
       postQuizData(data);
+      toast.info("Quiz Submitted!");
       navigate("/home");
       dispatch(setQuizDataToInitial());
     }
-
   };
 
   const handleTimeout = () => {

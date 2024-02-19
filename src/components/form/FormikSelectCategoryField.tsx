@@ -3,9 +3,10 @@ import { useEffect, useState } from "react";
 
 type Props = {
   data: any;
+  label: string;
 };
 
-const FormikSelectCategoryField = ({ data }: Props) => {
+const FormikSelectCategoryField = ({ data, label }: Props) => {
   const [categoryList, setCategoryList] = useState([]);
   useEffect(() => {
     setCategoryList(
@@ -21,7 +22,7 @@ const FormikSelectCategoryField = ({ data }: Props) => {
     <div className="h-[76px]">
       <div className="flex flex-col gap-2">
         <label htmlFor="category_id" className="text-base text-dark">
-          Category
+          {label}
         </label>
         <Field
           as="select"

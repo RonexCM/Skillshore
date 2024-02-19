@@ -48,8 +48,11 @@ const Home = () => {
     page: currentPageNumber,
     selectedCategory,
   });
-  const { data: passedQuiz, isSuccess: passedQuizSuccess, isLoading: isFetchingPassedQuizzes } =
-    useGetPassedQuizzesQuery({});
+  const {
+    data: passedQuiz,
+    isSuccess: passedQuizSuccess,
+    isLoading: isFetchingPassedQuizzes,
+  } = useGetPassedQuizzesQuery({});
   const { data: quizCategoriesData } = useGetAllQuizCategoriesStudentQuery();
   const loadingState = useLoadingState();
   const { setShowLoader } = loadingState;
@@ -81,7 +84,7 @@ const Home = () => {
 
   useEffect(() => {
     setShowLoader(isFetchingPassedQuizzes);
-}, [isFetchingPassedQuizzes]);
+  }, [isFetchingPassedQuizzes]);
 
   // Event Handlers
 
@@ -176,7 +179,7 @@ const Home = () => {
             </div>
           </div>
           <div className={horizontalLineBaseStyle} />
-          <div className="flex flex-col pl-1 gap-[16px] max-h-[600px] overflow-y-auto">
+          <div className="flex flex-col pl-1 pt-1 gap-[16px] max-h-[600px] overflow-y-auto">
             {quizCategoryArray.map((quizCategory, index) => (
               <FilterQuizzes
                 key={index}
