@@ -29,7 +29,7 @@ const QuizDashboard = () => {
 
   const [postQuizData] = usePostQuizDataMutation();
 
-  const { data, isLoading, isError } = useGetQuizOptionsQuery(
+  const { data, isLoading, isError, error } = useGetQuizOptionsQuery(
     quizId as unknown as number
   );
   const quizDetails = useSelector(
@@ -54,9 +54,12 @@ const QuizDashboard = () => {
 
   useEffect(() => {
     if (isError) {
+      if ("data" in error) {
+        toast.error(error.data.message);
+      }
       navigate("/home");
     }
-  }, [isError]);
+  }, [isError, error]);
 
   useEffect(() => {
     const data = { ...quizAnswer, quiz_id: quizId };
@@ -176,7 +179,7 @@ const QuizDashboard = () => {
         <div className="border-r border-primary-light ">
           <QuizQuestionField
             title={questions[index]?.title}
-            description={quizDetails.description}
+            description={questions[index]?.description}
           />
         </div>
         <div className=" pl-10 grid grid-cols-1 mt-5 ">
