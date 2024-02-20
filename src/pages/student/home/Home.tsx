@@ -48,8 +48,11 @@ const Home = () => {
     page: currentPageNumber,
     selectedCategory,
   });
-  const { data: passedQuiz, isSuccess: passedQuizSuccess, isLoading: isFetchingPassedQuizzes } =
-    useGetPassedQuizzesQuery({});
+  const {
+    data: passedQuiz,
+    isSuccess: passedQuizSuccess,
+    isLoading: isFetchingPassedQuizzes,
+  } = useGetPassedQuizzesQuery({});
   const { data: quizCategoriesData } = useGetAllQuizCategoriesStudentQuery();
   const loadingState = useLoadingState();
   const { setShowLoader } = loadingState;
@@ -81,7 +84,7 @@ const Home = () => {
 
   useEffect(() => {
     setShowLoader(isFetchingPassedQuizzes);
-}, [isFetchingPassedQuizzes]);
+  }, [isFetchingPassedQuizzes]);
 
   // Event Handlers
 
@@ -117,7 +120,7 @@ const Home = () => {
     navigate(`/quiz/${startQuiz}`);
   };
 
-  const getStatus = (result: any, retry_after: number) => {
+  const getStatus = (result: any) => {
     if (result && result.passed) {
       return (
         <>
@@ -129,12 +132,14 @@ const Home = () => {
           </span>
         </>
       );
-    } else {
+    }
+    if (result && result.next_retry) {
       return (
         <>
           <CiLock className="inline-block text-red-600" />
           <span className="text-red-600 text-base font-medium mt-6 px-1 py-0.5 rounded ">
-            Retry after <div className="text-center">{retry_after} days</div>
+            You can retry this quiz after
+            <div className="text-center">{result.next_retry}</div>
           </span>
         </>
       );

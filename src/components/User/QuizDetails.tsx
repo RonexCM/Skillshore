@@ -42,7 +42,7 @@ const QuizDetails = ({ index, quiz, getStatus, handleStart }: Props) => {
             </Badge>
           )}
         </div>
-        {quiz.result ? (
+        {quiz.result && quiz.result.next_retry ? (
           <Badge>
             <Button
               style={quiz.result.passed ? "completed" : "failed"}
