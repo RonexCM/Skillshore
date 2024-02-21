@@ -137,12 +137,10 @@ const Home = () => {
       return (
         <>
           <CiLock className="inline-block text-red-600" />
-          <span className="text-red-600 text-sm font-medium mt-6 px-1 py-0.5 rounded">
-            Retry after:
+          <span className="text-red-600 text-base font-medium mt-6 px-1 py-0.5 rounded ">
+            Retry this quiz 
+            <div className="text-center">after {result.next_retry.split("from")[0]}</div>
           </span>
-          <div className="text-center text-red-600 text-sm font-medium">
-            {result.next_retry}
-          </div>
         </>
       );
     }
