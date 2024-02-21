@@ -183,7 +183,7 @@ const Home = () => {
             </div>
           </div>
           <div className={horizontalLineBaseStyle} />
-          <div className="flex flex-col pl-1 pt-1 gap-[16px] max-h-[600px] overflow-y-auto">
+          <div className="flex flex-col p-[6px] gap-[16px] max-h-[600px] overflow-y-auto">
             {quizCategoryArray.map((quizCategory, index) => (
               <FilterQuizzes
                 key={index}
