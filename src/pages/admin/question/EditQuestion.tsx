@@ -149,7 +149,10 @@ const EditQuestion = () => {
                 handleChange={handleChange}
               />
 
-              <FormikSelectCategoryField data={questionCategoryList} />
+              <FormikSelectCategoryField
+                label="Question Category"
+                data={questionCategoryList}
+              />
 
               <FormikSelectStatus />
 

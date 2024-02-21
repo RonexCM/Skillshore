@@ -4,6 +4,7 @@ import { generateSlug } from "../../helpers";
 
 type Props = {
   label: string;
+  subLabel?: string;
   type: string;
   name: string;
   handleChange: {
@@ -16,12 +17,21 @@ type Props = {
   };
 };
 
-const FormikInputField = ({ label, type, name, handleChange }: Props) => {
+const FormikInputField = ({
+  label,
+  subLabel,
+  type,
+  name,
+  handleChange,
+}: Props) => {
   return (
     <div className="h-[76px]">
       <div className="flex flex-col gap-2">
         <label htmlFor={name} className="text-base text-dark">
           {label}
+          {subLabel && (
+            <span className="text-[11px] ml-1 opacity-60">{`(${subLabel})`}</span>
+          )}
         </label>
         <Field
           type={type}

@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
-import { setQuizData, setQuizDataToInitial } from "../../../redux/slice/quizSlice";
+import {
+  setQuizData,
+  setQuizDataToInitial,
+} from "../../../redux/slice/quizSlice";
 import { LineWave } from "react-loader-spinner";
 import { toast } from "react-toastify";
 import {
@@ -25,7 +28,8 @@ const QuizDashboard = () => {
   const { id: quizId } = useParams();
 
   const [postQuizData] = usePostQuizDataMutation();
-  const { data, isLoading, isError } = useGetQuizOptionsQuery(
+
+  const { data, isLoading, isError, error } = useGetQuizOptionsQuery(
     quizId as unknown as number
   );
   const quizDetails = useSelector(
@@ -36,9 +40,7 @@ const QuizDashboard = () => {
   const [selectedOptionIndex, setSelectedOptionIndex] = useState<number | null>(
     null
   );
-  const [selectedOption, setSelectedOption] = useState<string | null>(
-    null
-  );
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
   const [timer, setTimer] = useState(0);
   const { questions } = quizDetails?.questions?.data || { questions: [] };
@@ -52,9 +54,12 @@ const QuizDashboard = () => {
 
   useEffect(() => {
     if (isError) {
+      if ("data" in error) {
+        toast.error(error.data.message);
+      }
       navigate("/home");
     }
-  }, [isError]);
+  }, [isError, error]);
 
   useEffect(() => {
     const data = { ...quizAnswer, quiz_id: quizId };
@@ -110,10 +115,10 @@ const QuizDashboard = () => {
       };
       dispatch(setAnswerData(data));
       postQuizData(data);
+      toast.info("Quiz Submitted!");
       navigate("/home");
       dispatch(setQuizDataToInitial());
     }
-
   };
 
   const handleTimeout = () => {
@@ -174,7 +179,7 @@ const QuizDashboard = () => {
         <div className="border-r border-primary-light ">
           <QuizQuestionField
             title={questions[index]?.title}
-            description={quizDetails.description}
+            description={questions[index]?.description}
           />
         </div>
         <div className=" pl-10 grid grid-cols-1 mt-5 ">

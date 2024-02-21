@@ -36,7 +36,7 @@ const QuestionCategoriesCustomSelect = ({
             width: "100%",
             minHeight: "20px",
             maxHeight: "66px",
-            overflowY: "scroll",
+            overflowY: "auto",
             outline: "2px solid #E1E7FF",
             border: "none",
             outlineColor: state.isFocused ? "#2F5CFE" : "#E1E7FF",

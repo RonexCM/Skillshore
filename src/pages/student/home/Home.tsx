@@ -137,10 +137,12 @@ const Home = () => {
       return (
         <>
           <CiLock className="inline-block text-red-600" />
-          <span className="text-red-600 text-base font-medium mt-6 px-1 py-0.5 rounded ">
-            You can retry this quiz after
-            <div className="text-center">{result.next_retry}</div>
+          <span className="text-red-600 text-sm font-medium mt-6 px-1 py-0.5 rounded">
+            Retry after:
           </span>
+          <div className="text-center text-red-600 text-sm font-medium">
+            {result.next_retry}
+          </div>
         </>
       );
     }
@@ -181,7 +183,7 @@ const Home = () => {
             </div>
           </div>
           <div className={horizontalLineBaseStyle} />
-          <div className="flex flex-col pl-1 gap-[16px] max-h-[600px] overflow-y-auto">
+          <div className="flex flex-col p-[6px] gap-[16px] max-h-[600px] overflow-y-auto">
             {quizCategoryArray.map((quizCategory, index) => (
               <FilterQuizzes
                 key={index}
