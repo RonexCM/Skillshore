@@ -24,7 +24,7 @@ const QuizDetails = ({ index, quiz, getStatus, handleStart }: Props) => {
           <div className="text- xl  text-dark font-semibold text-center line-clamp-1 hover:line-clamp-none ">
             {quiz.title}
           </div>
-          {quiz.result ? (
+          {quiz.result && quiz.result.next_retry ? (
             <Badge
               className="pr-[12px] pl-[10px] text-xl bg-white "
               color={quiz.result.passed ? "success" : "error"}
