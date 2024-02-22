@@ -47,11 +47,12 @@ const Home = () => {
   const { data: listOfQuiz } = useSelector((state: RootState) => state.allQuiz);
 
   //  Api Queries
-  const { data: quizData } = useGetAllQuizStudentQuery({
-    title: searchTerm,
-    page: currentPageNumber,
-    selectedCategory,
-  });
+  const { data: quizData, isLoading: isFetchingQuizzes } =
+    useGetAllQuizStudentQuery({
+      title: searchTerm,
+      page: currentPageNumber,
+      selectedCategory,
+    });
   const {
     data: passedQuiz,
     isSuccess: passedQuizSuccess,
@@ -87,8 +88,8 @@ const Home = () => {
   }, [passedQuizSuccess]);
 
   useEffect(() => {
-    setShowLoader(isFetchingPassedQuizzes);
-  }, [isFetchingPassedQuizzes]);
+    setShowLoader(isFetchingPassedQuizzes || isFetchingQuizzes);
+  }, [isFetchingPassedQuizzes, isFetchingQuizzes]);
 
   // Event Handlers
 
