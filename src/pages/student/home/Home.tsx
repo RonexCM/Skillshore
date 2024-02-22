@@ -20,9 +20,13 @@ import { StudentQuizModalTypes } from "../../admin/types";
 import Pagination from "../../../components/Pagination";
 import FilterQuizzes from "../../../components/User/FilterQuizzes";
 import PassedResults from "../../../components/PassedResults";
-
 import { savePassedQuiz } from "../../../redux/slice/quizSlice/passedQuizSlice";
 import { useLoadingState } from "../../../layouts/AdminLayout";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
+import { NextArrow, PrevArrow } from "../../../components/User/carouselArrows";
+
 const Home = () => {
   // hooks
 
@@ -138,12 +142,25 @@ const Home = () => {
         <>
           <CiLock className="inline-block text-red-600" />
           <span className="text-red-600 text-base font-medium mt-6 px-1 py-0.5 rounded ">
-            Retry this quiz 
-            <div className="text-center">after {result.next_retry.split("from")[0]}</div>
+            Retry this quiz
+            <div className="text-center">
+              after {result.next_retry.split("from")[0]}
+            </div>
           </span>
         </>
       );
     }
+  };
+
+  const carouselSettings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    arrows: true,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
   };
 
   const horizontalLineBaseStyle =
@@ -201,16 +218,31 @@ const Home = () => {
             </h1>
           ) : null}
           <div className="col-span-9 grid grid-cols-4 gap-4">
-            <div className="col-span-12 grid grid-cols-4 gap-4">
-              {passedData.map((quiz, index) => (
-                <PassedResults
-                  key={quiz.id}
-                  quiz={quiz}
-                  index={index}
-                  getStatus={getStatus}
-                />
-              ))}
-            </div>
+            {passedData.length > 3 ? (
+              <div className="col-span-12 ">
+                <Slider {...carouselSettings}>
+                  {passedData.map((quiz, index) => (
+                    <PassedResults
+                      key={quiz.id}
+                      quiz={quiz}
+                      index={index}
+                      getStatus={getStatus}
+                    />
+                  ))}
+                </Slider>
+              </div>
+            ) : (
+              <div className="col-span-12 grid grid-cols-4 gap-4">
+                {passedData.map((quiz, index) => (
+                  <PassedResults
+                    key={quiz.id}
+                    quiz={quiz}
+                    index={index}
+                    getStatus={getStatus}
+                  />
+                ))}
+              </div>
+            )}
             {passedData.length > 0 && (
               <div
                 className={`${horizontalLineBaseStyle} col-span-12  my-[20px] `}

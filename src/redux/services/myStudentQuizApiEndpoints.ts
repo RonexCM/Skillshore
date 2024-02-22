@@ -26,6 +26,7 @@ const myStudentQuizApiEndpoints = myApi.injectEndpoints({
       transformResponse: (response: TFetchQuizQueryResponseType) => {
         return { data: response.data, meta: response.meta };
       },
+      providesTags: ["RefetchQuizzes"],
     }),
     getPassedQuizzes: builder.query<
       TFetchQuizQueryTransformResponseType,
@@ -35,11 +36,10 @@ const myStudentQuizApiEndpoints = myApi.injectEndpoints({
         url: `student/quizzes/passed`,
         method: "GET",
       }),
+      providesTags: ["RefetchQuizzes"],
     }),
   }),
 });
 
-export const {
-  useGetAllQuizStudentQuery,
-  useGetPassedQuizzesQuery,
-} = myStudentQuizApiEndpoints;
+export const { useGetAllQuizStudentQuery, useGetPassedQuizzesQuery } =
+  myStudentQuizApiEndpoints;
