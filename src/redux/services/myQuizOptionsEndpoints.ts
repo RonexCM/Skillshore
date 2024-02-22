@@ -17,6 +17,7 @@ const myQuizOptionEndpoints = myApi.injectEndpoints({
         method: "POST",
         body: quizData,
       }),
+      invalidatesTags: ["RefetchQuizzes"],
     }),
   }),
 });

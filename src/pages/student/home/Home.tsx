@@ -20,9 +20,13 @@ import { StudentQuizModalTypes } from "../../admin/types";
 import Pagination from "../../../components/Pagination";
 import FilterQuizzes from "../../../components/User/FilterQuizzes";
 import PassedResults from "../../../components/PassedResults";
-
 import { savePassedQuiz } from "../../../redux/slice/quizSlice/passedQuizSlice";
 import { useLoadingState } from "../../../layouts/AdminLayout";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
+import { NextArrow, PrevArrow } from "../../../components/User/carouselArrows";
+
 const Home = () => {
   // hooks
 
@@ -41,13 +45,14 @@ const Home = () => {
 
   // Redux Selectors
   const { data: listOfQuiz } = useSelector((state: RootState) => state.allQuiz);
-  const passedData = useSelector((state: RootState) => state.passed.data);
+
   //  Api Queries
-  const { data: quizData } = useGetAllQuizStudentQuery({
-    title: searchTerm,
-    page: currentPageNumber,
-    selectedCategory,
-  });
+  const { data: quizData, isLoading: isFetchingQuizzes } =
+    useGetAllQuizStudentQuery({
+      title: searchTerm,
+      page: currentPageNumber,
+      selectedCategory,
+    });
   const {
     data: passedQuiz,
     isSuccess: passedQuizSuccess,
@@ -83,8 +88,8 @@ const Home = () => {
   }, [passedQuizSuccess]);
 
   useEffect(() => {
-    setShowLoader(isFetchingPassedQuizzes);
-  }, [isFetchingPassedQuizzes]);
+    setShowLoader(isFetchingPassedQuizzes || isFetchingQuizzes);
+  }, [isFetchingPassedQuizzes, isFetchingQuizzes]);
 
   // Event Handlers
 
@@ -138,17 +143,30 @@ const Home = () => {
         <>
           <CiLock className="inline-block text-red-600" />
           <span className="text-red-600 text-base font-medium mt-6 px-1 py-0.5 rounded ">
-            Retry this quiz 
-            <div className="text-center">after {result.next_retry.split("from")[0]}</div>
+            Retry this quiz
+            <div className="text-center">
+              after {result.next_retry.split("from")[0]}
+            </div>
           </span>
         </>
       );
     }
   };
 
+  const carouselSettings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    arrows: true,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
+  };
+
   const horizontalLineBaseStyle =
     "border-b-2 border-primary-light w-full my-[16px] opacity-[0.5]";
-  if (!quizData) return;
+  if (!quizData || !passedQuiz) return;
 
   return (
     <section className=" px-[132px] py-[40px]">
@@ -195,23 +213,38 @@ const Home = () => {
           </div>
         </div>
         <div className="col-span-9 flex gap-5 flex-col ">
-          {passedData.length > 0 ? (
+          {passedQuiz.data.length > 0 ? (
             <h1 className="col-span-12 text-primary text-2xl font-medium">
               Passed Quizzes
             </h1>
           ) : null}
           <div className="col-span-9 grid grid-cols-4 gap-4">
-            <div className="col-span-12 grid grid-cols-4 gap-4">
-              {passedData.map((quiz, index) => (
-                <PassedResults
-                  key={quiz.id}
-                  quiz={quiz}
-                  index={index}
-                  getStatus={getStatus}
-                />
-              ))}
-            </div>
-            {passedData.length > 0 && (
+            {passedQuiz.data.length > 4 ? (
+              <div className="col-span-12 ">
+                <Slider {...carouselSettings}>
+                  {passedQuiz.data.map((quiz, index) => (
+                    <PassedResults
+                      key={quiz.id}
+                      quiz={quiz}
+                      index={index}
+                      getStatus={getStatus}
+                    />
+                  ))}
+                </Slider>
+              </div>
+            ) : (
+              <div className="col-span-12 grid grid-cols-4 gap-4">
+                {passedQuiz.data.map((quiz, index) => (
+                  <PassedResults
+                    key={quiz.id}
+                    quiz={quiz}
+                    index={index}
+                    getStatus={getStatus}
+                  />
+                ))}
+              </div>
+            )}
+            {passedQuiz.data.length > 0 && (
               <div
                 className={`${horizontalLineBaseStyle} col-span-12  my-[20px] `}
               />

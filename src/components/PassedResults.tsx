@@ -7,10 +7,10 @@ type Props = {
 };
 const PassedResults = ({ index, quiz, getStatus }: Props) => {
   return (
-    <Card>
+    <Card className="mx-2">
       <div
         key={index}
-        className=" flex h-auto max-h-[370px] flex-col  items-center  justify-between border-primary-light rounded-md  transition-all ease-in-out delay-50"
+        className=" flex h-auto max-h-[370px]  flex-col  items-center  justify-between border-primary-light rounded-md  transition-all ease-in-out delay-50"
       >
         <img
           src={quiz.thumbnail}
