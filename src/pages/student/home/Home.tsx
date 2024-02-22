@@ -218,7 +218,7 @@ const Home = () => {
             </h1>
           ) : null}
           <div className="col-span-9 grid grid-cols-4 gap-4">
-            {passedQuiz.data.length > 3 ? (
+            {passedQuiz.data.length > 4 ? (
               <div className="col-span-12 ">
                 <Slider {...carouselSettings}>
                   {passedQuiz.data.map((quiz, index) => (
