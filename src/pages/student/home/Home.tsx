@@ -45,7 +45,7 @@ const Home = () => {
 
   // Redux Selectors
   const { data: listOfQuiz } = useSelector((state: RootState) => state.allQuiz);
-  const passedData = useSelector((state: RootState) => state.passed.data);
+
   //  Api Queries
   const { data: quizData } = useGetAllQuizStudentQuery({
     title: searchTerm,
@@ -165,7 +165,7 @@ const Home = () => {
 
   const horizontalLineBaseStyle =
     "border-b-2 border-primary-light w-full my-[16px] opacity-[0.5]";
-  if (!quizData) return;
+  if (!quizData || !passedQuiz) return;
 
   return (
     <section className=" px-[132px] py-[40px]">
@@ -212,16 +212,16 @@ const Home = () => {
           </div>
         </div>
         <div className="col-span-9 flex gap-5 flex-col ">
-          {passedData.length > 0 ? (
+          {passedQuiz.data.length > 0 ? (
             <h1 className="col-span-12 text-primary text-2xl font-medium">
               Passed Quizzes
             </h1>
           ) : null}
           <div className="col-span-9 grid grid-cols-4 gap-4">
-            {passedData.length > 3 ? (
+            {passedQuiz.data.length > 3 ? (
               <div className="col-span-12 ">
                 <Slider {...carouselSettings}>
-                  {passedData.map((quiz, index) => (
+                  {passedQuiz.data.map((quiz, index) => (
                     <PassedResults
                       key={quiz.id}
                       quiz={quiz}
@@ -233,7 +233,7 @@ const Home = () => {
               </div>
             ) : (
               <div className="col-span-12 grid grid-cols-4 gap-4">
-                {passedData.map((quiz, index) => (
+                {passedQuiz.data.map((quiz, index) => (
                   <PassedResults
                     key={quiz.id}
                     quiz={quiz}
@@ -243,7 +243,7 @@ const Home = () => {
                 ))}
               </div>
             )}
-            {passedData.length > 0 && (
+            {passedQuiz.data.length > 0 && (
               <div
                 className={`${horizontalLineBaseStyle} col-span-12  my-[20px] `}
               />
